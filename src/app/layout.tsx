@@ -8,13 +8,13 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
 const urbanist = Urbanist({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-urbanist",
   display: "swap",
 });
 

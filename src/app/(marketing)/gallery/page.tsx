@@ -11,16 +11,18 @@ import { cn } from "@/lib/utils";
 const categories = ["All", "Commercial", "Medical", "Industrial", "Concrete", "Specialized"];
 
 const galleryImages = [
-  { src: "/images/services/4a7ffe20-cb17-4d46-9434-76a526c68257_1767643062610-sMYPZHkq.jpg", category: "Commercial", alt: "Commercial cleaning" },
-  { src: "/images/services/15bb683b-a628-463a-842b-4e61212a5dc2_1767643055559-DLNZ6rtn.jpg", category: "Commercial", alt: "Office cleaning" },
-  { src: "/images/services/f7990ebd-7762-4961-bb15-60648046f3b4_1767643158635-DqH5-qtO.jpg", category: "Industrial", alt: "Industrial facility" },
-  { src: "/images/services/13861450-daa5-4248-bb08-de14e018fd16_1767643162967-C7NIC8Ex.jpg", category: "Commercial", alt: "Office building" },
-  { src: "/images/services/d865150d-7215-4494-bbdf-06ccbe397679_1767643388358-BGdRjNKS.jpg", category: "Industrial", alt: "Industrial cleaning" },
-  { src: "/images/services/ab8693e4-5b4d-401a-8dd4-0940e4b26366_1767643390203-3vwITDI4.jpg", category: "Specialized", alt: "Specialized cleaning" },
-  { src: "/images/services/46d54f10-ed35-44a7-89ce-19eb8f9ebbfb_1767643425721-BVQrG0Tg.jpg", category: "Commercial", alt: "School cleaning" },
-  { src: "/images/services/a9826249-9689-4a7d-bfd2-9675ebac083a_1767643428382-B6DbbN7F.jpg", category: "Medical", alt: "Medical facility" },
-  { src: "/images/services/10058993-6a9c-45d5-b3a5-d8635899bae7_1767644062493-BSaFDC1I.jpg", category: "Medical", alt: "Clinical cleaning" },
-  { src: "/images/services/338a6f3d-4f6d-49dc-9e4b-0043852bf68c_1767644054741-BZeABH9x.jpg", category: "Medical", alt: "Surgery center cleaning" },
+  { src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop", category: "Commercial", alt: "Commercial office cleaning" },
+  { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop", category: "Commercial", alt: "Modern office building" },
+  { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop", category: "Industrial", alt: "Industrial facility cleaning" },
+  { src: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop", category: "Commercial", alt: "Professional cleaning team" },
+  { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop", category: "Commercial", alt: "Restaurant deep cleaning" },
+  { src: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=800&h=600&fit=crop", category: "Specialized", alt: "Power washing services" },
+  { src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop", category: "Commercial", alt: "School facility maintenance" },
+  { src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop", category: "Medical", alt: "Medical clinic sanitization" },
+  { src: "https://images.unsplash.com/photo-1551190822-a9ce113ac100?w=800&h=600&fit=crop", category: "Medical", alt: "Surgery center cleaning" },
+  { src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop", category: "Medical", alt: "Healthcare facility" },
+  { src: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=800&h=600&fit=crop", category: "Concrete", alt: "Concrete floor polishing" },
+  { src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop", category: "Industrial", alt: "Warehouse cleaning" },
 ];
 
 export default function GalleryPage() {
