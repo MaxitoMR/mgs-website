@@ -30,7 +30,7 @@ export default function QuotePage() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-xl bg-brand-green p-6 text-white shadow-lg">
+            <div className="rounded-none bg-brand-green p-6 text-white shadow-lg">
               <h3 className="font-display text-xl font-bold">
                 Need Immediate Help?
               </h3>
@@ -47,7 +47,7 @@ export default function QuotePage() {
               </a>
             </div>
 
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="rounded-none border border-gray-200 bg-white p-6 shadow-sm">
               <h3 className="font-display text-lg font-bold text-gray-900">
                 What to Expect
               </h3>

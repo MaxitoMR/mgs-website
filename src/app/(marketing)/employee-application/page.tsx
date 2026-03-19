@@ -41,9 +41,9 @@ export default function EmployeeApplicationPage() {
 
       <SectionWrapper>
         {submitted ? (
-          <div className="mx-auto flex max-w-md items-center justify-center rounded-2xl bg-white p-12 shadow-sm">
+          <div className="mx-auto flex max-w-md items-center justify-center rounded-none bg-white p-12 shadow-sm">
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-brand-green/10">
+              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-none bg-brand-green/10">
                 <CheckCircle className="h-10 w-10 text-brand-green" />
               </div>
               <h3 className="font-display text-2xl font-bold text-gray-900">
@@ -60,7 +60,7 @@ export default function EmployeeApplicationPage() {
             onSubmit={handleSubmit(onSubmit)}
             className="mx-auto max-w-2xl space-y-6"
           >
-            <div className="rounded-xl bg-white p-6 shadow-sm">
+            <div className="rounded-none bg-white p-6 shadow-sm">
               <h3 className="mb-4 font-display text-lg font-bold text-gray-900">
                 Personal Information
               </h3>
@@ -78,7 +78,7 @@ export default function EmployeeApplicationPage() {
                     <input
                       {...register(field.name)}
                       type={field.type || "text"}
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                      className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                       placeholder={field.placeholder}
                     />
                     {errors[field.name] && (
@@ -91,7 +91,7 @@ export default function EmployeeApplicationPage() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-white p-6 shadow-sm">
+            <div className="rounded-none bg-white p-6 shadow-sm">
               <h3 className="mb-4 font-display text-lg font-bold text-gray-900">
                 Position Details
               </h3>
@@ -102,7 +102,7 @@ export default function EmployeeApplicationPage() {
                   </label>
                   <select
                     {...register("position")}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                    className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                   >
                     <option value="">Select position</option>
                     <option value="janitorial-team-member">Janitorial Team Member</option>
@@ -121,7 +121,7 @@ export default function EmployeeApplicationPage() {
                   </label>
                   <select
                     {...register("availability")}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                    className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                   >
                     <option value="">Select availability</option>
                     <option value="full-time">Full-Time</option>
@@ -137,7 +137,7 @@ export default function EmployeeApplicationPage() {
                 <textarea
                   {...register("experience")}
                   rows={3}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                  className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                   placeholder="Describe any relevant cleaning, maintenance, or facility management experience..."
                 />
               </div>
@@ -148,7 +148,7 @@ export default function EmployeeApplicationPage() {
                 <textarea
                   {...register("notes")}
                   rows={3}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                  className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                   placeholder="Anything else you'd like us to know..."
                 />
               </div>
@@ -157,7 +157,7 @@ export default function EmployeeApplicationPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-green px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-brand-lime disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-brand-lime disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting ? (
                 <Loader2 className="h-5 w-5 animate-spin" />

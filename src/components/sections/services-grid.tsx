@@ -72,7 +72,7 @@ export function ServicesGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.75, delay: 0.15 + index * 0.125 }}
-              className="group relative overflow-hidden rounded-3xl bg-white shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-2"
+              className="group relative overflow-hidden rounded-none bg-white shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-2"
             >
               {/* Gradient top accent */}
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-green to-brand-lime opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -80,7 +80,7 @@ export function ServicesGrid() {
               <div className="p-8">
                 {/* Icon with glow */}
                 <div className="relative mb-6 inline-flex">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-green/10 to-brand-lime/10 text-brand-green transition-all duration-500 group-hover:from-brand-green group-hover:to-brand-lime group-hover:text-white group-hover:shadow-green-glow">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-none bg-gradient-to-br from-brand-green/10 to-brand-lime/10 text-brand-green transition-all duration-500 group-hover:from-brand-green group-hover:to-brand-lime group-hover:text-white group-hover:shadow-green-glow">
                     <Icon className="h-8 w-8" />
                   </div>
                 </div>
@@ -90,7 +90,7 @@ export function ServicesGrid() {
                   <h3 className="font-display text-xl font-extrabold tracking-[-0.01em] text-gray-900">
                     {category.name}
                   </h3>
-                  <span className="inline-flex h-6 items-center rounded-full bg-brand-green/10 px-2.5 text-xs font-bold text-brand-green">
+                  <span className="inline-flex h-6 items-center rounded-none bg-brand-green/10 px-2.5 text-xs font-bold text-brand-green">
                     {categoryServices.length}
                   </span>
                 </div>
@@ -106,7 +106,7 @@ export function ServicesGrid() {
                         href={`/services/${service.slug}`}
                         className="group/link flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-brand-green"
                       >
-                        <span className="h-1 w-1 rounded-full bg-gray-300 transition-colors group-hover/link:bg-brand-green" />
+                        <span className="h-1 w-1 rounded-none bg-gray-300 transition-colors group-hover/link:bg-brand-green" />
                         {service.shortTitle}
                       </Link>
                     </li>

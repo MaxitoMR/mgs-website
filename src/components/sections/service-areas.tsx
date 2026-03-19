@@ -57,7 +57,7 @@ export function ServiceAreas() {
           {areas.map((area) => (
             <div
               key={area}
-              className="flex items-center gap-2 rounded-lg bg-gray-50 px-3 py-2 text-sm text-gray-700"
+              className="flex items-center gap-2 rounded-none bg-gray-50 px-3 py-2 text-sm text-gray-700"
             >
               <MapPin className="h-3 w-3 text-brand-green" />
               {area}

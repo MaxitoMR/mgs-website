@@ -49,7 +49,7 @@ export function Header() {
           <nav className="hidden items-center gap-1 lg:flex">
             <Link
               href="/"
-              className="rounded-lg px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-brand-green/5 hover:text-brand-green"
+              className="rounded-none px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-brand-green/5 hover:text-brand-green"
             >
               Home
             </Link>
@@ -60,7 +60,7 @@ export function Header() {
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <button className="flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-brand-green/5 hover:text-brand-green">
+              <button className="flex items-center gap-1 rounded-none px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-brand-green/5 hover:text-brand-green">
                 Services
                 <ChevronDown
                   className={cn(
@@ -79,7 +79,7 @@ export function Header() {
                     : "pointer-events-none -translate-y-2 opacity-0"
                 )}
               >
-                <div className="w-[800px] rounded-2xl border border-gray-200/80 bg-white/95 p-8 shadow-premium-lg backdrop-blur-xl">
+                <div className="w-[800px] rounded-none border border-gray-200/80 bg-white/95 p-8 shadow-premium-lg backdrop-blur-xl">
                   <div className="grid grid-cols-4 gap-8">
                     {serviceNav.map((category) => (
                       <div key={category.label}>
@@ -92,7 +92,7 @@ export function Header() {
                               <Link
                                 href={item.href}
                                 onClick={() => setServicesOpen(false)}
-                                className="block rounded-lg px-2.5 py-1.5 text-sm text-gray-600 transition-all duration-200 hover:bg-brand-green/5 hover:text-brand-green"
+                                className="block rounded-none px-2.5 py-1.5 text-sm text-gray-600 transition-all duration-200 hover:bg-brand-green/5 hover:text-brand-green"
                               >
                                 {item.label}
                               </Link>
@@ -121,7 +121,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-lg px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-brand-green/5 hover:text-brand-green"
+                  className="rounded-none px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-brand-green/5 hover:text-brand-green"
                 >
                   {item.label}
                 </Link>
@@ -139,7 +139,7 @@ export function Header() {
             </a>
             <Link
               href="/quote"
-              className="relative overflow-hidden rounded-xl bg-gradient-to-r from-brand-green to-brand-lime px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-brand-green/20 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/30 hover:-translate-y-0.5"
+              className="relative overflow-hidden rounded-none bg-gradient-to-r from-brand-green to-brand-lime px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-brand-green/20 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/30 hover:-translate-y-0.5"
             >
               Get a Quote
             </Link>
@@ -148,7 +148,7 @@ export function Header() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 lg:hidden"
+            className="rounded-none p-2 text-gray-700 transition-colors hover:bg-gray-100 lg:hidden"
             aria-label="Toggle menu"
           >
             {mobileOpen ? (

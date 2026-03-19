@@ -35,8 +35,8 @@ export function PageHeader({
       <div className="absolute inset-0 grid-pattern" />
 
       {/* Decorative green glows */}
-      <div className="absolute -left-32 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-brand-green/5 blur-[100px]" />
-      <div className="absolute -right-32 bottom-0 h-48 w-48 rounded-full bg-brand-lime/5 blur-[80px]" />
+      <div className="absolute -left-32 top-1/2 h-64 w-64 -translate-y-1/2 rounded-none bg-brand-green/5 blur-[100px]" />
+      <div className="absolute -right-32 bottom-0 h-48 w-48 rounded-none bg-brand-lime/5 blur-[80px]" />
 
       {/* Diagonal accent */}
       <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-brand-green/3 to-transparent" />
@@ -96,7 +96,7 @@ export function PageHeader({
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 h-1 w-24 origin-left rounded-full bg-gradient-to-r from-brand-green to-brand-lime"
+          className="mt-8 h-1 w-24 origin-left rounded-none bg-gradient-to-r from-brand-green to-brand-lime"
         />
       </div>
     </div>

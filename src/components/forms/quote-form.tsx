@@ -59,9 +59,9 @@ export function QuoteForm() {
 
   if (submitted) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center rounded-2xl bg-white p-12 shadow-sm">
+      <div className="flex min-h-[400px] items-center justify-center rounded-none bg-white p-12 shadow-sm">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-brand-green/10">
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-none bg-brand-green/10">
             <CheckCircle className="h-10 w-10 text-brand-green" />
           </div>
           <h3 className="font-display text-2xl font-bold text-gray-900">
@@ -85,7 +85,7 @@ export function QuoteForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Contact Info */}
-      <div className="rounded-xl bg-white p-6 shadow-sm">
+      <div className="rounded-none bg-white p-6 shadow-sm">
         <h3 className="mb-4 font-display text-lg font-bold text-gray-900">
           Contact Information
         </h3>
@@ -96,7 +96,7 @@ export function QuoteForm() {
             </label>
             <input
               {...register("name")}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+              className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
               placeholder="John Smith"
             />
             {errors.name && (
@@ -109,7 +109,7 @@ export function QuoteForm() {
             </label>
             <input
               {...register("company")}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+              className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
               placeholder="Company name"
             />
           </div>
@@ -120,7 +120,7 @@ export function QuoteForm() {
             <input
               {...register("email")}
               type="email"
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+              className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
               placeholder="john@company.com"
             />
             {errors.email && (
@@ -134,7 +134,7 @@ export function QuoteForm() {
             <input
               {...register("phone")}
               type="tel"
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+              className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
               placeholder="(555) 123-4567"
             />
             {errors.phone && (
@@ -145,7 +145,7 @@ export function QuoteForm() {
       </div>
 
       {/* Facility Info */}
-      <div className="rounded-xl bg-white p-6 shadow-sm">
+      <div className="rounded-none bg-white p-6 shadow-sm">
         <h3 className="mb-4 font-display text-lg font-bold text-gray-900">
           Facility Details
         </h3>
@@ -156,7 +156,7 @@ export function QuoteForm() {
             </label>
             <select
               {...register("facilityType")}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+              className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
             >
               <option value="">Select facility type</option>
               {facilityTypes.map((type) => (
@@ -177,7 +177,7 @@ export function QuoteForm() {
             </label>
             <input
               {...register("squareFootage")}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+              className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
               placeholder="e.g. 10,000 sq ft"
             />
           </div>
@@ -189,7 +189,7 @@ export function QuoteForm() {
             </label>
             <input
               {...register("customFacilityType")}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+              className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
               placeholder="Describe your facility"
             />
             {errors.customFacilityType && (
@@ -202,7 +202,7 @@ export function QuoteForm() {
       </div>
 
       {/* Services Selection */}
-      <div className="rounded-xl bg-white p-6 shadow-sm">
+      <div className="rounded-none bg-white p-6 shadow-sm">
         <h3 className="mb-4 font-display text-lg font-bold text-gray-900">
           Services Needed *
         </h3>
@@ -226,7 +226,7 @@ export function QuoteForm() {
           ].map((service) => (
             <label
               key={service}
-              className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-sm transition-all ${
+              className={`flex cursor-pointer items-center gap-3 rounded-none border p-3 text-sm transition-all ${
                 selectedServices.includes(service)
                   ? "border-brand-green bg-brand-green/5 text-brand-green"
                   : "border-gray-200 hover:border-brand-green/30"
@@ -239,7 +239,7 @@ export function QuoteForm() {
                 className="sr-only"
               />
               <div
-                className={`flex h-5 w-5 items-center justify-center rounded border ${
+                className={`flex h-5 w-5 items-center justify-center rounded-none border ${
                   selectedServices.includes(service)
                     ? "border-brand-green bg-brand-green text-white"
                     : "border-gray-300"
@@ -256,14 +256,14 @@ export function QuoteForm() {
       </div>
 
       {/* Notes */}
-      <div className="rounded-xl bg-white p-6 shadow-sm">
+      <div className="rounded-none bg-white p-6 shadow-sm">
         <label className="mb-1.5 block text-sm font-medium text-gray-700">
           Additional Notes
         </label>
         <textarea
           {...register("notes")}
           rows={4}
-          className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+          className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
           placeholder="Tell us about any specific requirements, scheduling preferences, or questions..."
         />
       </div>
@@ -271,7 +271,7 @@ export function QuoteForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-green px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-brand-lime hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-brand-lime hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isSubmitting ? (
           <Loader2 className="h-5 w-5 animate-spin" />

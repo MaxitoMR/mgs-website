@@ -66,7 +66,7 @@ export default function GalleryPage() {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={cn(
-                "rounded-full px-5 py-2 text-sm font-medium transition-all",
+                "rounded-none px-5 py-2 text-sm font-medium transition-all",
                 activeCategory === cat
                   ? "bg-brand-green text-white shadow-md"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -88,7 +88,7 @@ export default function GalleryPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="group cursor-pointer overflow-hidden rounded-xl"
+                className="group cursor-pointer overflow-hidden rounded-none"
                 onClick={() => setLightboxImage(image.src)}
               >
                 <div className="aspect-[4/3] overflow-hidden">
@@ -117,7 +117,7 @@ export default function GalleryPage() {
             onClick={() => setLightboxImage(null)}
           >
             <button
-              className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+              className="absolute right-4 top-4 rounded-none bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
               onClick={() => setLightboxImage(null)}
               aria-label="Close lightbox"
             >
@@ -134,7 +134,7 @@ export default function GalleryPage() {
                 alt="Gallery image"
                 width={1200}
                 height={900}
-                className="max-h-[85vh] w-auto rounded-lg object-contain"
+                className="max-h-[85vh] w-auto rounded-none object-contain"
               />
             </motion.div>
           </motion.div>

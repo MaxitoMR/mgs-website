@@ -103,8 +103,8 @@ export function WhyChooseUs() {
       <section className="relative overflow-hidden bg-brand-dark py-[60px] md:py-[80px] lg:py-[100px]">
         <div className="absolute inset-0 grid-pattern" />
         {/* Subtle green glow */}
-        <div className="absolute left-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-brand-green/5 blur-[100px]" />
-        <div className="absolute right-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-brand-lime/5 blur-[100px]" />
+        <div className="absolute left-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-none bg-brand-green/5 blur-[100px]" />
+        <div className="absolute right-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-none bg-brand-lime/5 blur-[100px]" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
@@ -160,13 +160,13 @@ export function WhyChooseUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.75, delay: 0.1 + index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1"
+              className="group relative overflow-hidden rounded-none bg-white p-8 shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1"
             >
               {/* Hover gradient accent */}
               <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-brand-green to-brand-lime opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
               <div className="relative mb-5 inline-flex">
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-green/10 to-brand-lime/5 text-brand-green transition-all duration-500 group-hover:shadow-green-glow">
+                <div className="flex h-14 w-14 items-center justify-center rounded-none bg-gradient-to-br from-brand-green/10 to-brand-lime/5 text-brand-green transition-all duration-500 group-hover:shadow-green-glow">
                   <feature.icon className="h-7 w-7" />
                 </div>
               </div>

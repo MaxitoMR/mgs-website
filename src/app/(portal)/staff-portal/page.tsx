@@ -43,7 +43,7 @@ export default function StaffPortalPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="rounded-2xl bg-white p-8 shadow-lg"
+          className="rounded-none bg-white p-8 shadow-lg"
         >
           <div className="mb-6">
             <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -55,14 +55,14 @@ export default function StaffPortalPage() {
                 type="password"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                className="w-full rounded-none border border-gray-300 py-3 pl-10 pr-4 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                 placeholder="Enter your access code"
               />
             </div>
           </div>
 
           {error && (
-            <p className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+            <p className="mb-4 rounded-none bg-red-50 p-3 text-sm text-red-600">
               {error}
             </p>
           )}
@@ -70,7 +70,7 @@ export default function StaffPortalPage() {
           <button
             type="submit"
             disabled={loading || !code}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-green py-3 font-semibold text-white transition-all hover:bg-brand-lime disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green py-3 font-semibold text-white transition-all hover:bg-brand-lime disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? (
               <Loader2 className="h-5 w-5 animate-spin" />

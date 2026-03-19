@@ -92,7 +92,7 @@ export default function AboutPage() {
               {values.map((value) => (
                 <div
                   key={value.title}
-                  className="rounded-xl bg-gray-50 p-6"
+                  className="rounded-none bg-gray-50 p-6"
                 >
                   <value.icon className="mb-3 h-8 w-8 text-brand-green" />
                   <h3 className="font-display text-lg font-bold text-gray-900">

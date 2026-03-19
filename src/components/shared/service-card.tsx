@@ -21,7 +21,7 @@ export function ServiceCard({ service, index = 0 }: ServiceCardProps) {
     >
       <Link
         href={`/services/${service.slug}`}
-        className="group relative block overflow-hidden rounded-2xl shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-2"
+        className="group relative block overflow-hidden rounded-none shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-2"
       >
         {/* Full image background */}
         <div className="aspect-[4/3] overflow-hidden">

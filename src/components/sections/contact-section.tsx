@@ -101,7 +101,7 @@ export function ContactSection() {
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="group flex items-start gap-4"
               >
-                <div className="flex h-13 w-13 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-green/10 to-brand-lime/5 text-brand-green transition-all duration-300 group-hover:shadow-green-glow">
+                <div className="flex h-13 w-13 flex-shrink-0 items-center justify-center rounded-none bg-gradient-to-br from-brand-green/10 to-brand-lime/5 text-brand-green transition-all duration-300 group-hover:shadow-green-glow">
                   <Icon className="h-5 w-5" />
                 </div>
                 <div>
@@ -129,7 +129,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.75, delay: 0.5 }}
-            className="mt-10 overflow-hidden rounded-2xl"
+            className="mt-10 overflow-hidden rounded-none"
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3464.5!2d-95.82!3d29.79!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDQ3JzI0LjAiTiA5NcKwNDknMTIuMCJX!5e0!3m2!1sen!2sus!4v1"
@@ -140,7 +140,7 @@ export function ContactSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="MGS Supply & Services Location"
-              className="rounded-2xl"
+              className="rounded-none"
             />
           </motion.div>
         </div>
@@ -153,9 +153,9 @@ export function ContactSection() {
           transition={{ duration: 0.75, delay: 0.3 }}
         >
           {submitted ? (
-            <div className="flex h-full items-center justify-center rounded-3xl bg-white p-12 shadow-premium">
+            <div className="flex h-full items-center justify-center rounded-none bg-white p-12 shadow-premium">
               <div className="text-center">
-                <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-green/10 to-brand-lime/10">
+                <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-none bg-gradient-to-br from-brand-green/10 to-brand-lime/10">
                   <Send className="h-9 w-9 text-brand-green" />
                 </div>
                 <h3 className="font-display text-2xl font-extrabold text-gray-900">
@@ -169,7 +169,7 @@ export function ContactSection() {
           ) : (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="rounded-3xl bg-white p-8 shadow-premium md:p-10"
+              className="rounded-none bg-white p-8 shadow-premium md:p-10"
             >
               <div className="mb-8">
                 <h3 className="font-display text-xl font-extrabold text-gray-900">Send us a message</h3>
@@ -183,7 +183,7 @@ export function ContactSection() {
                   </label>
                   <input
                     {...register("name")}
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
+                    className="w-full rounded-none border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                     placeholder="Your full name"
                   />
                   {errors.name && (
@@ -199,7 +199,7 @@ export function ContactSection() {
                     <input
                       {...register("email")}
                       type="email"
-                      className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
+                      className="w-full rounded-none border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                       placeholder="your@email.com"
                     />
                     {errors.email && (
@@ -213,7 +213,7 @@ export function ContactSection() {
                     <input
                       {...register("phone")}
                       type="tel"
-                      className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
+                      className="w-full rounded-none border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                       placeholder="(555) 123-4567"
                     />
                   </div>
@@ -226,7 +226,7 @@ export function ContactSection() {
                   <textarea
                     {...register("message")}
                     rows={4}
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
+                    className="w-full rounded-none border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                     placeholder="How can we help?"
                   />
                   {errors.message && (
@@ -237,7 +237,7 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-green to-brand-lime px-8 py-4 font-bold text-white shadow-lg shadow-brand-green/20 transition-all duration-300 hover:shadow-xl hover:shadow-brand-green/30 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="group flex w-full items-center justify-center gap-2 rounded-none bg-gradient-to-r from-brand-green to-brand-lime px-8 py-4 font-bold text-white shadow-lg shadow-brand-green/20 transition-all duration-300 hover:shadow-xl hover:shadow-brand-green/30 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />

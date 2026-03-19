@@ -17,14 +17,14 @@ export default function NotFound() {
         <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-lg bg-brand-green px-6 py-3 font-semibold text-white transition-all hover:bg-brand-lime"
+            className="inline-flex items-center gap-2 rounded-none bg-brand-green px-6 py-3 font-semibold text-white transition-all hover:bg-brand-lime"
           >
             <Home className="h-5 w-5" />
             Go Home
           </Link>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 rounded-lg border-2 border-brand-green px-6 py-3 font-semibold text-brand-green transition-all hover:bg-brand-green hover:text-white"
+            className="inline-flex items-center gap-2 rounded-none border-2 border-brand-green px-6 py-3 font-semibold text-brand-green transition-all hover:bg-brand-green hover:text-white"
           >
             <Search className="h-5 w-5" />
             Browse Services

@@ -82,7 +82,7 @@ export default async function ServicePage({
       <SectionWrapper>
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Image */}
-          <div className="overflow-hidden rounded-2xl">
+          <div className="overflow-hidden rounded-none">
             <Image
               src={service.image}
               alt={service.title}
@@ -119,14 +119,14 @@ export default async function ServicePage({
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/quote"
-                className="group inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:bg-brand-lime hover:shadow-lg"
+                className="group inline-flex items-center justify-center gap-2 rounded-none bg-brand-green px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:bg-brand-lime hover:shadow-lg"
               >
                 Get a Quote
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-brand-green px-8 py-3.5 font-semibold text-brand-green transition-all hover:bg-brand-green hover:text-white"
+                className="inline-flex items-center justify-center gap-2 rounded-none border-2 border-brand-green px-8 py-3.5 font-semibold text-brand-green transition-all hover:bg-brand-green hover:text-white"
               >
                 <Phone className="h-5 w-5" />
                 {COMPANY.phone.display}
@@ -136,7 +136,7 @@ export default async function ServicePage({
         </div>
 
         {/* Benefits */}
-        <div className="mt-16 rounded-2xl bg-brand-green/5 p-8 lg:p-12">
+        <div className="mt-16 rounded-none bg-brand-green/5 p-8 lg:p-12">
           <h3 className="font-display text-2xl font-bold text-gray-900">
             Key Benefits
           </h3>
@@ -144,9 +144,9 @@ export default async function ServicePage({
             {service.benefits.map((benefit) => (
               <div
                 key={benefit}
-                className="flex items-center gap-3 rounded-lg bg-white p-4 shadow-sm"
+                className="flex items-center gap-3 rounded-none bg-white p-4 shadow-sm"
               >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-brand-green text-white">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-none bg-brand-green text-white">
                   <CheckCircle className="h-4 w-4" />
                 </div>
                 <span className="text-sm font-medium text-gray-800">

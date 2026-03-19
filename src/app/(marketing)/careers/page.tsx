@@ -89,7 +89,7 @@ export default function CareersPage() {
           {benefits.map((benefit, i) => (
             <MotionWrapper key={benefit.title} delay={i * 0.1}>
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-green/10 text-brand-green">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-none bg-brand-green/10 text-brand-green">
                   <benefit.icon className="h-8 w-8" />
                 </div>
                 <h3 className="font-display text-lg font-bold text-gray-900">
@@ -111,7 +111,7 @@ export default function CareersPage() {
         <div className="space-y-4">
           {openPositions.map((position) => (
             <MotionWrapper key={position.title}>
-              <div className="flex flex-col items-start justify-between gap-4 rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:items-center">
+              <div className="flex flex-col items-start justify-between gap-4 rounded-none bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:items-center">
                 <div>
                   <h3 className="font-display text-lg font-bold text-gray-900">
                     {position.title}
@@ -122,7 +122,7 @@ export default function CareersPage() {
                 </div>
                 <Link
                   href="/employee-application"
-                  className="group inline-flex items-center gap-2 rounded-lg bg-brand-green px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-lime"
+                  className="group inline-flex items-center gap-2 rounded-none bg-brand-green px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-lime"
                 >
                   Apply Now
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

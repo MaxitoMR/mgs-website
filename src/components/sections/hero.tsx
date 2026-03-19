@@ -80,10 +80,10 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="glass inline-flex items-center gap-2 rounded-full px-5 py-2 text-[13px] font-semibold uppercase tracking-[0.15em] text-brand-lime">
+              <span className="glass inline-flex items-center gap-2 rounded-none px-5 py-2 text-[13px] font-semibold uppercase tracking-[0.15em] text-brand-lime">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-lime opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-lime" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-none bg-brand-lime opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-none bg-brand-lime" />
                 </span>
                 Enterprise-Grade Facility Solutions
               </span>
@@ -118,7 +118,7 @@ export function HeroSection() {
             >
               <Link
                 href="/quote"
-                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-brand-green to-brand-lime px-10 py-5 text-lg font-bold text-white shadow-xl shadow-brand-green/20 transition-all duration-300 hover:shadow-2xl hover:shadow-brand-green/30 hover:-translate-y-0.5"
+                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none bg-gradient-to-r from-brand-green to-brand-lime px-10 py-5 text-lg font-bold text-white shadow-xl shadow-brand-green/20 transition-all duration-300 hover:shadow-2xl hover:shadow-brand-green/30 hover:-translate-y-0.5"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Get a Free Quote
@@ -128,7 +128,7 @@ export function HeroSection() {
               </Link>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="glass inline-flex items-center justify-center gap-2 rounded-xl px-10 py-5 text-lg font-bold text-white transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
+                className="glass inline-flex items-center justify-center gap-2 rounded-none px-10 py-5 text-lg font-bold text-white transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
               >
                 <Phone className="h-5 w-5" />
                 Call {COMPANY.phone.display}
@@ -149,7 +149,7 @@ export function HeroSection() {
                 "Certified Teams",
               ].map((badge) => (
                 <span key={badge} className="flex items-center gap-2.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-lime shadow-[0_0_6px_rgba(159,208,27,0.6)]" />
+                  <span className="h-1.5 w-1.5 rounded-none bg-brand-lime shadow-[0_0_6px_rgba(159,208,27,0.6)]" />
                   {badge}
                 </span>
               ))}
@@ -169,7 +169,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 1.25 + i * 0.1 }}
-                className="glass rounded-2xl p-5 text-center transition-all duration-300 hover:bg-white/10"
+                className="glass rounded-none p-5 text-center transition-all duration-300 hover:bg-white/10"
               >
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 <div className="mt-1 text-xs font-medium uppercase tracking-wider text-gray-400">

@@ -30,9 +30,9 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder:text-gray-500 backdrop-blur-sm transition-all duration-300 focus:border-brand-green/50 focus:outline-none focus:ring-2 focus:ring-brand-green/10"
+                className="w-full rounded-none border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder:text-gray-500 backdrop-blur-sm transition-all duration-300 focus:border-brand-green/50 focus:outline-none focus:ring-2 focus:ring-brand-green/10"
               />
-              <button className="flex-shrink-0 rounded-xl bg-gradient-to-r from-brand-green to-brand-lime px-6 py-3 text-sm font-bold text-white shadow-lg shadow-brand-green/20 transition-all duration-300 hover:shadow-xl hover:shadow-brand-green/30 hover:-translate-y-0.5">
+              <button className="flex-shrink-0 rounded-none bg-gradient-to-r from-brand-green to-brand-lime px-6 py-3 text-sm font-bold text-white shadow-lg shadow-brand-green/20 transition-all duration-300 hover:shadow-xl hover:shadow-brand-green/30 hover:-translate-y-0.5">
                 Subscribe
               </button>
             </div>
@@ -60,7 +60,7 @@ export function Footer() {
                 href={`tel:${COMPANY.phone.primary}`}
                 className="group flex items-center gap-3 text-sm transition-colors duration-300 hover:text-brand-lime"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-brand-green transition-all duration-300 group-hover:bg-brand-green/10">
+                <div className="flex h-9 w-9 items-center justify-center rounded-none bg-white/5 text-brand-green transition-all duration-300 group-hover:bg-brand-green/10">
                   <Phone className="h-4 w-4" />
                 </div>
                 {COMPANY.phone.display}
@@ -69,7 +69,7 @@ export function Footer() {
                 href={`mailto:${COMPANY.email}`}
                 className="group flex items-center gap-3 text-sm transition-colors duration-300 hover:text-brand-lime"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-brand-green transition-all duration-300 group-hover:bg-brand-green/10">
+                <div className="flex h-9 w-9 items-center justify-center rounded-none bg-white/5 text-brand-green transition-all duration-300 group-hover:bg-brand-green/10">
                   <Mail className="h-4 w-4" />
                 </div>
                 {COMPANY.email}
@@ -80,13 +80,13 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 text-sm transition-colors duration-300 hover:text-brand-lime"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-brand-green transition-all duration-300 group-hover:bg-brand-green/10">
+                <div className="flex h-9 w-9 items-center justify-center rounded-none bg-white/5 text-brand-green transition-all duration-300 group-hover:bg-brand-green/10">
                   <MapPin className="h-4 w-4" />
                 </div>
                 {COMPANY.address.full}
               </a>
               <div className="group flex items-center gap-3 text-sm">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-brand-green">
+                <div className="flex h-9 w-9 items-center justify-center rounded-none bg-white/5 text-brand-green">
                   <Clock className="h-4 w-4" />
                 </div>
                 24/7 Emergency Services
@@ -164,7 +164,7 @@ export function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 text-gray-400 transition-all duration-300 hover:bg-brand-green hover:text-white hover:shadow-green-glow hover:-translate-y-0.5"
+                    className="flex h-11 w-11 items-center justify-center rounded-none bg-white/5 text-gray-400 transition-all duration-300 hover:bg-brand-green hover:text-white hover:shadow-green-glow hover:-translate-y-0.5"
                   >
                     <Icon className="h-4 w-4" />
                   </a>

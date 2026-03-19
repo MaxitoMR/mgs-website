@@ -42,7 +42,7 @@ export function VideoShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.15 }}
-            className="overflow-hidden rounded-xl"
+            className="overflow-hidden rounded-none"
           >
             <div className="aspect-video bg-black">
               <VideoPlayer

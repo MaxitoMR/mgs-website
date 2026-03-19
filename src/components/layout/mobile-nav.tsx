@@ -99,13 +99,13 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 <Link
                   href="/quote"
                   onClick={onClose}
-                  className="block w-full rounded-lg bg-brand-green py-3 text-center font-semibold text-white shadow-md transition-all hover:bg-brand-lime"
+                  className="block w-full rounded-none bg-brand-green py-3 text-center font-semibold text-white shadow-md transition-all hover:bg-brand-lime"
                 >
                   Get a Quote
                 </Link>
                 <a
                   href={`tel:${COMPANY.phone.primary}`}
-                  className="flex items-center justify-center gap-2 rounded-lg border border-brand-green py-3 font-medium text-brand-green"
+                  className="flex items-center justify-center gap-2 rounded-none border border-brand-green py-3 font-medium text-brand-green"
                 >
                   <Phone className="h-4 w-4" />
                   {COMPANY.phone.display}

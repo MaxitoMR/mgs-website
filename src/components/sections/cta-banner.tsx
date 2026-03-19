@@ -18,17 +18,17 @@ export function CtaBanner() {
       <motion.div
         animate={{ y: [0, -30, 0], rotate: [0, 5, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-brand-lime/5 blur-3xl"
+        className="absolute -left-20 top-1/4 h-80 w-80 rounded-none bg-brand-lime/5 blur-3xl"
       />
       <motion.div
         animate={{ y: [0, 20, 0], rotate: [0, -3, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-full bg-brand-green/5 blur-3xl"
+        className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-none bg-brand-green/5 blur-3xl"
       />
       <motion.div
         animate={{ y: [0, -15, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute left-1/3 top-10 h-40 w-40 rounded-full bg-white/3 blur-2xl"
+        className="absolute left-1/3 top-10 h-40 w-40 rounded-none bg-white/3 blur-2xl"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -73,7 +73,7 @@ export function CtaBanner() {
           >
             <Link
               href="/quote"
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-white px-10 py-5 font-bold text-brand-dark shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5"
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none bg-white px-10 py-5 font-bold text-brand-dark shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Get a Free Quote
@@ -83,7 +83,7 @@ export function CtaBanner() {
             </Link>
             <a
               href={`tel:${COMPANY.phone.primary}`}
-              className="glass inline-flex items-center justify-center gap-2 rounded-xl px-10 py-5 font-bold text-white transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
+              className="glass inline-flex items-center justify-center gap-2 rounded-none px-10 py-5 font-bold text-white transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
             >
               <Phone className="h-5 w-5" />
               {COMPANY.phone.display}

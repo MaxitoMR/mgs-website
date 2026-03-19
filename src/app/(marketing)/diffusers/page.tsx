@@ -78,7 +78,7 @@ export default function DiffusersPage() {
             <div className="mt-8 space-y-6">
               {features.map((feature) => (
                 <div key={feature.title} className="flex gap-4">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-brand-green/10 text-brand-green">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-none bg-brand-green/10 text-brand-green">
                     <feature.icon className="h-6 w-6" />
                   </div>
                   <div>
@@ -95,7 +95,7 @@ export default function DiffusersPage() {
           </MotionWrapper>
 
           <MotionWrapper delay={0.2}>
-            <div className="rounded-2xl bg-gradient-to-br from-brand-green to-brand-lime p-8 text-white">
+            <div className="rounded-none bg-gradient-to-br from-brand-green to-brand-lime p-8 text-white">
               <h3 className="font-display text-2xl font-bold">Key Benefits</h3>
               <ul className="mt-6 space-y-4">
                 {benefits.map((benefit) => (
@@ -107,7 +107,7 @@ export default function DiffusersPage() {
               </ul>
               <Link
                 href="/quote"
-                className="mt-8 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-brand-green transition-all hover:bg-gray-50"
+                className="mt-8 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3 font-semibold text-brand-green transition-all hover:bg-gray-50"
               >
                 Request a Consultation
                 <ArrowRight className="h-5 w-5" />
