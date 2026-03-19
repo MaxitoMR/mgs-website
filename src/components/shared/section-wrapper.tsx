@@ -17,7 +17,7 @@ export function SectionWrapper({
     <section
       id={id}
       className={cn(
-        "py-16 md:py-24",
+        "relative py-[60px] md:py-[80px] lg:py-[120px]",
         dark ? "bg-brand-dark text-white" : "bg-white",
         className
       )}

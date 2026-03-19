@@ -33,14 +33,16 @@ export function ContactSection() {
   };
 
   return (
-    <SectionWrapper id="contact" className="bg-gray-50">
-      <div className="grid gap-12 lg:grid-cols-2">
+    <SectionWrapper id="contact" className="bg-gray-50/80">
+      <div className="grid gap-16 lg:grid-cols-2">
+        {/* Left: Contact Info */}
         <div>
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-sm font-bold uppercase tracking-widest text-brand-green"
+            transition={{ duration: 0.75 }}
+            className="subtitle inline-block text-brand-green"
           >
             Get In Touch
           </motion.span>
@@ -48,8 +50,8 @@ export function ContactSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl"
+            transition={{ duration: 0.75, delay: 0.15 }}
+            className="mt-4 font-display text-4xl font-extrabold tracking-[-0.02em] text-gray-900 sm:text-5xl"
           >
             Contact Us
           </motion.h2>
@@ -57,14 +59,14 @@ export function ContactSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-4 text-lg text-gray-600"
+            transition={{ duration: 0.75, delay: 0.3 }}
+            className="mt-5 text-lg text-gray-500"
           >
             Ready to experience the MGS difference? Reach out today for a free
             consultation.
           </motion.p>
 
-          <div className="mt-8 space-y-6">
+          <div className="mt-10 space-y-6">
             {[
               {
                 icon: Phone,
@@ -90,47 +92,76 @@ export function ContactSection() {
                 value: "24/7 Emergency Services Available",
                 href: undefined,
               },
-            ].map(({ icon: Icon, label, value, href }) => (
-              <div key={label} className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-brand-green/10 text-brand-green">
+            ].map(({ icon: Icon, label, value, href }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                className="group flex items-start gap-4"
+              >
+                <div className="flex h-13 w-13 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-green/10 to-brand-lime/5 text-brand-green transition-all duration-300 group-hover:shadow-green-glow">
                   <Icon className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-500">{label}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">{label}</p>
                   {href ? (
                     <a
                       href={href}
                       target={href.startsWith("http") ? "_blank" : undefined}
                       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="text-gray-900 transition-colors hover:text-brand-green"
+                      className="mt-0.5 text-gray-900 transition-colors hover:text-brand-green"
                     >
                       {value}
                     </a>
                   ) : (
-                    <p className="text-gray-900">{value}</p>
+                    <p className="mt-0.5 text-gray-900">{value}</p>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
+
+          {/* Map placeholder */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.75, delay: 0.5 }}
+            className="mt-10 overflow-hidden rounded-2xl"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3464.5!2d-95.82!3d29.79!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDQ3JzI0LjAiTiA5NcKwNDknMTIuMCJX!5e0!3m2!1sen!2sus!4v1"
+              width="100%"
+              height="200"
+              style={{ border: 0, filter: "grayscale(0.5) contrast(1.1)" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="MGS Supply & Services Location"
+              className="rounded-2xl"
+            />
+          </motion.div>
         </div>
 
+        {/* Right: Form */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.75, delay: 0.3 }}
         >
           {submitted ? (
-            <div className="flex h-full items-center justify-center rounded-2xl bg-white p-12 shadow-sm">
+            <div className="flex h-full items-center justify-center rounded-3xl bg-white p-12 shadow-premium">
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-green/10">
-                  <Send className="h-8 w-8 text-brand-green" />
+                <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-brand-green/10 to-brand-lime/10">
+                  <Send className="h-9 w-9 text-brand-green" />
                 </div>
-                <h3 className="font-display text-2xl font-bold text-gray-900">
+                <h3 className="font-display text-2xl font-extrabold text-gray-900">
                   Message Sent!
                 </h3>
-                <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-gray-500">
                   We&apos;ll get back to you within 24 hours.
                 </p>
               </div>
@@ -138,16 +169,21 @@ export function ContactSection() {
           ) : (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="rounded-2xl bg-white p-8 shadow-sm"
+              className="rounded-3xl bg-white p-8 shadow-premium md:p-10"
             >
+              <div className="mb-8">
+                <h3 className="font-display text-xl font-extrabold text-gray-900">Send us a message</h3>
+                <p className="mt-1 text-sm text-gray-500">Fill out the form and we&apos;ll respond promptly.</p>
+              </div>
+
               <div className="space-y-5">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                <div className="group relative">
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-400">
                     Name
                   </label>
                   <input
                     {...register("name")}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm transition-colors focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                     placeholder="Your full name"
                   />
                   {errors.name && (
@@ -157,13 +193,13 @@ export function ContactSection() {
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-400">
                       Email
                     </label>
                     <input
                       {...register("email")}
                       type="email"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm transition-colors focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                      className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                       placeholder="your@email.com"
                     />
                     {errors.email && (
@@ -171,26 +207,26 @@ export function ContactSection() {
                     )}
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-400">
                       Phone
                     </label>
                     <input
                       {...register("phone")}
                       type="tel"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm transition-colors focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                      className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                       placeholder="(555) 123-4567"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-400">
                     Message
                   </label>
                   <textarea
                     {...register("message")}
                     rows={4}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm transition-colors focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3.5 text-sm transition-all duration-300 placeholder:text-gray-400 focus:border-brand-green focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-green/10"
                     placeholder="How can we help?"
                   />
                   {errors.message && (
@@ -201,14 +237,14 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-green px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:bg-brand-lime hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-green to-brand-lime px-8 py-4 font-bold text-white shadow-lg shadow-brand-green/20 transition-all duration-300 hover:shadow-xl hover:shadow-brand-green/30 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
                     <>
                       Send Message
-                      <Send className="h-4 w-4" />
+                      <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </>
                   )}
                 </button>
