@@ -11,18 +11,31 @@ import { cn } from "@/lib/utils";
 const categories = ["All", "Commercial", "Medical", "Industrial", "Concrete", "Specialized"];
 
 const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop", category: "Commercial", alt: "Commercial office cleaning" },
-  { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop", category: "Commercial", alt: "Modern office building" },
-  { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop", category: "Industrial", alt: "Industrial facility cleaning" },
-  { src: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop", category: "Commercial", alt: "Professional cleaning team" },
-  { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop", category: "Commercial", alt: "Restaurant deep cleaning" },
-  { src: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=800&h=600&fit=crop", category: "Specialized", alt: "Power washing services" },
-  { src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=600&fit=crop", category: "Commercial", alt: "School facility maintenance" },
-  { src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop", category: "Medical", alt: "Medical clinic sanitization" },
-  { src: "https://images.unsplash.com/photo-1551190822-a9ce113ac100?w=800&h=600&fit=crop", category: "Medical", alt: "Surgery center cleaning" },
-  { src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop", category: "Medical", alt: "Healthcare facility" },
-  { src: "https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=800&h=600&fit=crop", category: "Concrete", alt: "Concrete floor polishing" },
-  { src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop", category: "Industrial", alt: "Warehouse cleaning" },
+  // Commercial
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Commercial-3_1751305978237.jpg", category: "Commercial", alt: "Commercial cleaning" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Commercial-4_1751323808588.jpg", category: "Commercial", alt: "Office cleaning" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Commercial-9-1536x1152_1752007287553.jpg", category: "Commercial", alt: "Commercial facility" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Commercial-10_1752003221911.jpg", category: "Commercial", alt: "Commercial services" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Commercial-11_1752003063871.jpg", category: "Commercial", alt: "Retail cleaning" },
+  // Medical
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Medical_Sterilization-1-768x1024_1752603315092.jpg", category: "Medical", alt: "Medical sterilization" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Medical_Sterilization-7-768x1024_1752603341667.jpg", category: "Medical", alt: "Hospital sanitization" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Medical_Sterilization-9-1536x1152_1752603436540.jpg", category: "Medical", alt: "Healthcare cleaning" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Sanitizing-1_1752167117841.jpg", category: "Medical", alt: "Sanitizing services" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Sanitizing-3_1752528648365.jpg", category: "Medical", alt: "Disinfection services" },
+  // Concrete
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Concrete-1_1752594857721.jpg", category: "Concrete", alt: "Concrete floor polishing" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Concrete-2_1752594857721.jpg", category: "Concrete", alt: "Concrete coating" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Concrete-5_1752594857722.jpg", category: "Concrete", alt: "Concrete restoration" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Concrete-7_1752594857723.jpg", category: "Concrete", alt: "Floor finishing" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Concrete-10_1752594857723.jpg", category: "Concrete", alt: "Concrete maintenance" },
+  // VCT/Industrial
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-VCT_Floor-1_1752594965441.jpg", category: "Industrial", alt: "VCT floor care" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-VCT_Floor-2_1752594969143.jpg", category: "Industrial", alt: "Floor stripping" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-VCT_Floor-3_1752594969143.jpg", category: "Industrial", alt: "Floor waxing" },
+  // Specialized
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Special_Clean-18_1751918025461.jpg", category: "Specialized", alt: "Specialized cleaning" },
+  { src: "/attached_assets/MGS_Supply_And_Services_Gallery-Carpet_Shampooing-1_1752528755838.jpg", category: "Specialized", alt: "Carpet shampooing" },
 ];
 
 export default function GalleryPage() {

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11060183424"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11060183424');
+      gtag('event', 'conversion', {'send_to': 'AW-11060183424/KuCrCPWB5vUbEICD9Jkp'});
+    </script>
+    <!-- Event snippet for click conversion tracking -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-11060183424/KuCrCPWB5vUbEICD9Jkp',
+            'event_callback': callback
+        });
+        return false;
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>MGS Supply & Services - Professional Janitorial Services | Commercial, Medical, Industrial Cleaning</title>
+    <meta name="description" content="MGS Supply & Services provides enterprise-grade janitorial services for commercial, medical, and industrial facilities. Schedule a walkthrough or request a quote today." />
+    <meta name="keywords" content="janitorial services, commercial cleaning, medical facility cleaning, industrial cleaning, facility management, professional cleaning services" />
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="MGS Supply & Services - Professional Janitorial Services" />
+    <meta property="og:description" content="Enterprise-grade janitorial services for commercial, medical, and industrial facilities nationwide." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=Urbanist:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="module" crossorigin src="/assets/index-BqRNnl8h.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-n4Mm7OBV.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+  </body>
+</html>
