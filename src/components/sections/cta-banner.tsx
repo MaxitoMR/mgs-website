@@ -15,9 +15,6 @@ export function CtaBanner() {
         <defs>
           <pattern id="leaf-veins-green" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
             <line x1="0" y1="80" x2="80" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-            <line x1="20" y1="80" x2="50" y2="30" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
-            <line x1="0" y1="50" x2="40" y2="20" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
-            <line x1="40" y1="80" x2="80" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#leaf-veins-green)" />

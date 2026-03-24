@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { DropletAccent } from "@/components/shared/droplet-accent";
 
 const testimonials = [
   {
@@ -71,8 +70,7 @@ export function Testimonials() {
               viewport={{ once: true }}
               className="eyebrow text-[#69AF23] mb-4"
             >
-              <DropletAccent color="#69AF23" size={13} />
-              Testimonials
+Testimonials
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

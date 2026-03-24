@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Shield, Microscope, Award, Clock } from "lucide-react";
-import { DropletAccent } from "@/components/shared/droplet-accent";
 
 const features = [
   {
@@ -45,12 +44,7 @@ export function WhyChooseUs() {
       <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
         <defs>
           <pattern id="leaf-veins-dark" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-            {/* Main vein — diagonal */}
             <line x1="0" y1="80" x2="80" y2="0" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-            {/* Secondary veins branching off */}
-            <line x1="20" y1="80" x2="50" y2="30" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
-            <line x1="0" y1="50" x2="40" y2="20" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
-            <line x1="40" y1="80" x2="80" y2="40" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#leaf-veins-dark)" />
@@ -66,8 +60,7 @@ export function WhyChooseUs() {
               viewport={{ once: true }}
               className="eyebrow text-[#9FD01B] mb-4"
             >
-              <DropletAccent color="#9FD01B" size={13} />
-              Why MGS
+Why MGS
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

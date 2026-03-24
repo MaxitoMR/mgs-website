@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { DropletAccent } from "@/components/shared/droplet-accent";
 
 const unsplashUrl = (id: string) =>
   `https://images.unsplash.com/${id}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600`;
@@ -102,8 +101,7 @@ function CategorySection({
               className="eyebrow mb-4"
               style={{ color: category.color }}
             >
-              <DropletAccent color={category.color} size={13} />
-              {category.eyebrow}
+{category.eyebrow}
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
