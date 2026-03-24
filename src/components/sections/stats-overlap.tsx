@@ -46,38 +46,31 @@ const stats = [
 
 export function StatsOverlap() {
   return (
-    <section
-      className="relative z-20 w-full bg-white"
-      style={{
-        marginTop: 'clamp(-4rem, -6vw, -8rem)',
-        borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-10 lg:py-14">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+    <section className="w-full bg-[#FBFBFE] border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 lg:py-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="text-center lg:text-left"
             >
               <div
                 className="font-gothic text-[#69AF23]"
                 style={{
-                  fontSize: 'clamp(2.5rem, 4vw, 4rem)',
+                  fontSize: 'clamp(2.25rem, 3.5vw, 3.5rem)',
                   fontWeight: 300,
                   lineHeight: 1,
                 }}
               >
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
               </div>
-              <p className="font-medium text-gray-900 mt-2 text-base">
+              <p className="font-medium text-gray-900 mt-2 text-sm lg:text-base">
                 {stat.label}
               </p>
-              <p className="text-gray-500 mt-1 text-sm" style={{ fontWeight: 300 }}>
+              <p className="text-gray-500 mt-1 text-xs lg:text-sm" style={{ fontWeight: 300 }}>
                 {stat.description}
               </p>
             </motion.div>
