@@ -32,12 +32,19 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section className="full-screen-section relative overflow-hidden radius-large bg-[#1a252f]">
+    <section
+      className="relative w-full overflow-hidden bg-[#1a252f]"
+      style={{
+        paddingTop: 'clamp(5rem, 10vw, 10rem)',
+        paddingBottom: 'clamp(5rem, 10vw, 10rem)',
+        borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)',
+      }}
+    >
       {/* Subtle dot pattern */}
       <div className="absolute inset-0 dot-pattern" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 section-padding-lg">
-        {/* Pfizer-style two-column header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-16 lg:mb-20">
           <div>
             <motion.p
@@ -55,8 +62,9 @@ export function WhyChooseUs() {
               transition={{ delay: 0.1 }}
               className="font-gothic text-white"
               style={{
-                fontSize: 'var(--font-h2)',
+                fontSize: 'clamp(1.75rem, 3.5vw, 3rem)',
                 fontWeight: 300,
+                lineHeight: 1.1,
               }}
             >
               Why industry leaders{' '}
@@ -70,7 +78,7 @@ export function WhyChooseUs() {
             transition={{ delay: 0.2 }}
             className="flex items-end"
           >
-            <p className="text-gray-400" style={{ fontSize: 'var(--font-body-base)', fontWeight: 300, lineHeight: 1.7 }}>
+            <p className="text-gray-400 text-base" style={{ fontWeight: 300, lineHeight: 1.7 }}>
               Our focus on precision, technology, and accountability sets us apart.
               We don&apos;t just clean facilities — we protect your investment and
               maintain the standards your operation demands.
@@ -78,7 +86,7 @@ export function WhyChooseUs() {
           </motion.div>
         </div>
 
-        {/* AbbVie-style feature cards — 4-column grid */}
+        {/* Feature cards — 4-column grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {features.map((feature, i) => {
             const Icon = feature.icon;
@@ -96,7 +104,6 @@ export function WhyChooseUs() {
                   borderTopLeftRadius: '2rem',
                 }}
               >
-                {/* Icon */}
                 <div
                   className="flex h-14 w-14 items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
                   style={{
@@ -107,17 +114,15 @@ export function WhyChooseUs() {
                   <Icon className="h-6 w-6" style={{ color: feature.color }} />
                 </div>
 
-                {/* Title */}
-                <h3 className="font-clinical text-white mb-3" style={{ fontSize: 'var(--font-h3)', fontWeight: 500 }}>
+                <h3 className="text-white mb-3 text-lg font-medium">
                   {feature.title}
                 </h3>
 
-                {/* Description */}
-                <p className="text-gray-400" style={{ fontSize: 'var(--font-caption)', fontWeight: 300, lineHeight: 1.7 }}>
+                <p className="text-gray-400 text-sm" style={{ fontWeight: 300, lineHeight: 1.7 }}>
                   {feature.description}
                 </p>
 
-                {/* Accent line */}
+                {/* Accent line on hover */}
                 <div
                   className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500"
                   style={{ background: feature.color }}

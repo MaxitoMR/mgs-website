@@ -6,7 +6,10 @@ import { ArrowRight, Phone } from "lucide-react";
 
 export function CtaBanner() {
   return (
-    <section className="full-screen-section relative overflow-hidden radius-large bg-[#69AF23]">
+    <section
+      className="relative w-full overflow-hidden bg-[#69AF23]"
+      style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
+    >
       {/* Decorative shapes — AbbVie-style layered elements */}
       <div
         className="absolute top-0 right-0 w-[40%] h-full opacity-10"

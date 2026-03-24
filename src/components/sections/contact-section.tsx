@@ -32,7 +32,15 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="full-screen-section radius-medium bg-white section-padding relative overflow-hidden">
+    <section
+      id="contact"
+      className="relative w-full bg-white overflow-hidden"
+      style={{
+        paddingTop: 'clamp(4rem, 8vw, 8rem)',
+        paddingBottom: 'clamp(4rem, 8vw, 8rem)',
+        borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
+      }}
+    >
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <div className="grid gap-16 lg:grid-cols-2">
           {/* Left: Contact Info */}

@@ -52,9 +52,16 @@ export function Testimonials() {
   }, [emblaApi]);
 
   return (
-    <section className="full-screen-section radius-medium bg-[#f0f5e8] section-padding relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        {/* Pfizer-style two-column header */}
+    <section
+      className="relative w-full overflow-hidden bg-[#f0f5e8]"
+      style={{
+        paddingTop: 'clamp(4rem, 8vw, 8rem)',
+        paddingBottom: 'clamp(4rem, 8vw, 8rem)',
+        borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        {/* Header with nav controls */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-12 lg:mb-16">
           <div>
             <motion.p
@@ -71,21 +78,14 @@ export function Testimonials() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               className="font-gothic text-gray-900"
-              style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
+              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
             >
               What our clients{' '}
               <span className="text-[#69AF23]">say.</span>
             </motion.h2>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex items-end"
-          >
-            {/* Navigation controls — right-aligned */}
-            <div className="flex items-center gap-4 ml-auto">
+          <div className="flex items-end">
+            <div className="flex items-center gap-4 lg:ml-auto">
               <button
                 onClick={scrollPrev}
                 className="flex h-12 w-12 items-center justify-center border border-gray-300 text-gray-500 transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
@@ -103,7 +103,7 @@ export function Testimonials() {
                 <ChevronRight className="h-5 w-5" />
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Carousel */}
@@ -118,25 +118,18 @@ export function Testimonials() {
                   className="group relative h-full overflow-hidden bg-white p-8 shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1"
                   style={{ borderTopLeftRadius: '2rem' }}
                 >
-                  {/* Decorative quote */}
                   <Quote className="mb-5 h-10 w-10 text-[#69AF23]/10" />
 
-                  {/* Stars */}
                   <div className="mb-5 flex gap-1">
                     {Array.from({ length: testimonial.rating }).map((_, j) => (
-                      <Star
-                        key={j}
-                        className="h-4 w-4 fill-[#9FD01B] text-[#9FD01B]"
-                      />
+                      <Star key={j} className="h-4 w-4 fill-[#9FD01B] text-[#9FD01B]" />
                     ))}
                   </div>
 
-                  {/* Quote text */}
-                  <p className="text-gray-600" style={{ fontSize: 'var(--font-caption)', fontWeight: 300, lineHeight: 1.8 }}>
+                  <p className="text-gray-600 text-sm" style={{ fontWeight: 300, lineHeight: 1.8 }}>
                     &ldquo;{testimonial.text}&rdquo;
                   </p>
 
-                  {/* Author */}
                   <div className="mt-8 flex items-center gap-4 border-t border-gray-100 pt-6">
                     <div
                       className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-[#69AF23] text-sm font-medium text-white"
@@ -145,10 +138,8 @@ export function Testimonials() {
                       {testimonial.initials}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900" style={{ fontSize: 'var(--font-caption)' }}>
-                        {testimonial.name}
-                      </p>
-                      <p className="text-gray-500 mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300 }}>
+                      <p className="font-medium text-gray-900 text-sm">{testimonial.name}</p>
+                      <p className="text-gray-500 text-xs mt-0.5" style={{ fontWeight: 300 }}>
                         {testimonial.title}
                       </p>
                     </div>
@@ -159,7 +150,7 @@ export function Testimonials() {
           </div>
         </div>
 
-        {/* Dot indicators */}
+        {/* Dots */}
         <div className="flex justify-center gap-2 mt-10">
           {testimonials.map((_, i) => (
             <button
@@ -167,11 +158,8 @@ export function Testimonials() {
               onClick={() => emblaApi?.scrollTo(i)}
               className={cn(
                 "h-2 transition-all duration-300",
-                selectedIndex === i
-                  ? "w-10 bg-[#69AF23]"
-                  : "w-2 bg-gray-300 hover:bg-gray-400"
+                selectedIndex === i ? "w-10 bg-[#69AF23]" : "w-2 bg-gray-300 hover:bg-gray-400"
               )}
-              style={{ borderRadius: '1px' }}
               aria-label={`Go to testimonial ${i + 1}`}
             />
           ))}

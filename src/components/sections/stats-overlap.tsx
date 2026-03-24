@@ -46,8 +46,14 @@ const stats = [
 
 export function StatsOverlap() {
   return (
-    <section className="section-overlap radius-medium bg-white full-screen-section relative z-20">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-16 lg:py-20">
+    <section
+      className="relative z-20 w-full bg-white"
+      style={{
+        marginTop: 'clamp(-5rem, -8vw, -10rem)',
+        borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, i) => (
             <motion.div
@@ -68,10 +74,10 @@ export function StatsOverlap() {
               >
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
               </div>
-              <p className="font-clinical font-medium text-gray-900 mt-2" style={{ fontSize: 'var(--font-body-base)' }}>
+              <p className="font-medium text-gray-900 mt-2 text-base">
                 {stat.label}
               </p>
-              <p className="font-clinical text-gray-500 mt-1" style={{ fontSize: 'var(--font-caption)', fontWeight: 300 }}>
+              <p className="text-gray-500 mt-1 text-sm" style={{ fontWeight: 300 }}>
                 {stat.description}
               </p>
             </motion.div>

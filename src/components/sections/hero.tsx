@@ -75,7 +75,7 @@ function HeroVideo() {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-end full-screen-section overflow-hidden">
+    <section className="relative w-full min-h-screen flex items-center overflow-hidden">
       {/* Video Background */}
       <HeroVideo />
 
@@ -91,11 +91,16 @@ export function HeroSection() {
         }}
       />
 
-      {/* ExxonMobil-style bottom-heavy gradient overlay */}
-      <div className="absolute inset-0 z-[21] hero-overlay" />
+      {/* ExxonMobil-style gradient overlay — darker at bottom for text legibility */}
+      <div
+        className="absolute inset-0 z-[21]"
+        style={{
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%)',
+        }}
+      />
 
-      {/* Text Content — positioned lower like ExxonMobil */}
-      <div className="relative z-50 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12 pb-32 lg:pb-40">
+      {/* Text Content — vertically centered, left-aligned */}
+      <div className="relative z-50 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20">
         <div className="max-w-3xl">
           {/* Eyebrow */}
           <p className="eyebrow text-[#9FD01B] mb-5">
@@ -103,11 +108,11 @@ export function HeroSection() {
             Est. 2006
           </p>
 
-          {/* Main heading — Pfizer-sized */}
+          {/* Main heading — large Pfizer-style */}
           <h1
             className="font-gothic text-[#FBFBFE] hero-text-shadow"
             style={{
-              fontSize: 'var(--font-hero-heading)',
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
               fontWeight: 300,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -120,11 +125,11 @@ export function HeroSection() {
             Precision Cleaning
           </h1>
 
-          {/* Subtitle — Pfizer-sized body */}
+          {/* Subtitle */}
           <p
-            className="font-clinical text-gray-300 mt-7 mb-10 max-w-xl"
+            className="text-gray-300 mt-7 mb-10 max-w-xl"
             style={{
-              fontSize: 'var(--font-body-large)',
+              fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
               fontWeight: 300,
               lineHeight: 1.7,
             }}
@@ -137,8 +142,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 text-white font-medium tracking-wide transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg"
-              style={{ fontSize: 'var(--font-body-base)' }}
+              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 text-white font-medium tracking-wide transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg text-base"
             >
               Get a Free Quote
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -147,17 +151,13 @@ export function HeroSection() {
             </Link>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 px-8 py-4 text-white font-light tracking-wide transition-all duration-300 hover:border-white hover:bg-white/10"
-              style={{ fontSize: 'var(--font-body-base)' }}
+              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 px-8 py-4 text-white font-light tracking-wide transition-all duration-300 hover:border-white hover:bg-white/10 text-base"
             >
               Learn About Us
             </Link>
           </div>
         </div>
       </div>
-
-      {/* Bottom fade for overlap transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 z-[22] bg-gradient-to-t from-[#FBFBFE] to-transparent" />
     </section>
   );
 }
