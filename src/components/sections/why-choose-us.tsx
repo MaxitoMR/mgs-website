@@ -46,11 +46,11 @@ export function WhyChooseUs() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(135deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-            linear-gradient(45deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+            linear-gradient(135deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(255,255,255,0.06) 1px, transparent 1px)
           `,
-          backgroundSize: '40px 40px, 60px 60px',
-          backgroundPosition: '0 0, 20px 20px',
+          backgroundSize: '32px 32px, 48px 48px',
+          backgroundPosition: '0 0, 16px 16px',
         }}
       />
 
@@ -113,7 +113,7 @@ export function WhyChooseUs() {
                 style={{
                   background: 'rgba(255, 255, 255, 0.04)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '2rem 0.5rem 0.5rem 0.5rem',
+                  borderRadius: '2.5rem 0.25rem 0.25rem 0.25rem',
                 }}
               >
                 <div

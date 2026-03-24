@@ -15,11 +15,11 @@ export function CtaBanner() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(135deg, rgba(255,255,255,0.06) 1px, transparent 1px),
-            linear-gradient(45deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+            linear-gradient(135deg, rgba(255,255,255,0.12) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(255,255,255,0.07) 1px, transparent 1px)
           `,
-          backgroundSize: '40px 40px, 60px 60px',
-          backgroundPosition: '0 0, 20px 20px',
+          backgroundSize: '32px 32px, 48px 48px',
+          backgroundPosition: '0 0, 16px 16px',
         }}
       />
       {/* Soft radial glow */}

@@ -52,13 +52,13 @@ export function RipplePattern({
           key={ring}
           className="absolute rounded-full"
           style={{
-            width: `${ring * 20}%`,
-            height: `${ring * 20}%`,
+            width: `${ring * 22}%`,
+            height: `${ring * 22}%`,
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)',
-            border: `1px solid ${color}`,
-            opacity: opacity / ring,
+            border: `2px solid ${color}`,
+            opacity: opacity / (ring * 0.7),
           }}
         />
       ))}
