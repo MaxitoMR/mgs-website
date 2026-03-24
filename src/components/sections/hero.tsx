@@ -85,7 +85,6 @@ export function HeroSection() {
         style={{
           backgroundImage: "url('/images/imaging_1751323808587.png')",
           backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
           backgroundPosition: 'center',
           opacity: 0.4,
         }}
