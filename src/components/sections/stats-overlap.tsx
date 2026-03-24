@@ -49,11 +49,11 @@ export function StatsOverlap() {
     <section
       className="relative z-20 w-full bg-white"
       style={{
-        marginTop: 'clamp(-5rem, -8vw, -10rem)',
+        marginTop: 'clamp(-4rem, -6vw, -8rem)',
         borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-10 lg:py-14">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, i) => (
             <motion.div

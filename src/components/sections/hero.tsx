@@ -75,7 +75,7 @@ function HeroVideo() {
 
 export function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen flex items-center overflow-hidden">
+    <section className="relative w-full flex items-center overflow-hidden" style={{ minHeight: 'clamp(28rem, 70vh, 48rem)' }}>
       {/* Video Background */}
       <HeroVideo />
 

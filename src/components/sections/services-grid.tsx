@@ -85,8 +85,8 @@ function CategorySection({
       id={`category-${category.id}`}
       className={`relative w-full overflow-hidden ${sectionBgs[index]}`}
       style={{
-        paddingTop: 'clamp(4rem, 8vw, 8rem)',
-        paddingBottom: 'clamp(4rem, 8vw, 8rem)',
+        paddingTop: 'clamp(3rem, 5vw, 5rem)',
+        paddingBottom: 'clamp(3rem, 5vw, 5rem)',
         borderTopLeftRadius: index > 0 ? 'clamp(2rem, 4vw, 4rem)' : undefined,
       }}
     >
