@@ -58,11 +58,14 @@
   }
 }
 
-/* Reset */
-*, html, body {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Reset — Tailwind v4 preflight handles margin/padding resets.
+   Only set box-sizing here; margin/padding on * would override
+   all Tailwind utilities (mx-auto, px-6, py-16, etc.) because
+   unlayered CSS beats @layer utilities in the cascade. */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 }
 
 html, body {
@@ -83,17 +86,16 @@ body {
   line-height: 1.6;
 }
 
-/* Global font override */
-* {
-  font-family: 'Manrope', var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* Global transitions */
-* {
-  transition: color 0.2s ease, background-color 0.2s ease;
+/* Global font override & transitions — must be in @layer base
+   to avoid overriding Tailwind utility classes */
+@layer base {
+  * {
+    font-family: 'Manrope', var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
