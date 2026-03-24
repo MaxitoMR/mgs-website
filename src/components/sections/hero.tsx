@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { DropletAccent } from "@/components/shared/droplet-accent";
 
 const SUPABASE_PROJECT_REF = 'uuvspvqebodievfkwwss';
 const heroVideos = [
@@ -104,7 +105,7 @@ export function HeroSection() {
         <div className="max-w-3xl">
           {/* Eyebrow */}
           <p className="eyebrow text-[#9FD01B] mb-5">
-            <span className="inline-block w-10 h-px bg-[#9FD01B] mr-3 align-middle" />
+            <DropletAccent color="#9FD01B" size={14} />
             Est. 2006
           </p>
 

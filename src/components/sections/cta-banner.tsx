@@ -10,17 +10,23 @@ export function CtaBanner() {
       className="relative w-full overflow-hidden bg-[#69AF23]"
       style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
     >
-      {/* Decorative shapes — AbbVie-style layered elements */}
+      {/* Leaf-vein pattern overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(135deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px, 60px 60px',
+          backgroundPosition: '0 0, 20px 20px',
+        }}
+      />
+      {/* Soft radial glow */}
       <div
         className="absolute top-0 right-0 w-[40%] h-full opacity-10"
         style={{
           background: 'radial-gradient(circle at 70% 30%, #ffffff 0%, transparent 60%)',
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[30%] h-[60%] opacity-5"
-        style={{
-          background: 'radial-gradient(circle at 30% 70%, #000000 0%, transparent 60%)',
         }}
       />
 

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Shield, Microscope, Award, Clock } from "lucide-react";
+import { DropletAccent } from "@/components/shared/droplet-accent";
 
 const features = [
   {
@@ -40,8 +41,18 @@ export function WhyChooseUs() {
         borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)',
       }}
     >
-      {/* Subtle dot pattern */}
-      <div className="absolute inset-0 dot-pattern" />
+      {/* Subtle leaf-vein pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(135deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px, 60px 60px',
+          backgroundPosition: '0 0, 20px 20px',
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
@@ -53,6 +64,7 @@ export function WhyChooseUs() {
               viewport={{ once: true }}
               className="eyebrow text-[#9FD01B] mb-4"
             >
+              <DropletAccent color="#9FD01B" size={13} />
               Why MGS
             </motion.p>
             <motion.h2
@@ -101,7 +113,7 @@ export function WhyChooseUs() {
                 style={{
                   background: 'rgba(255, 255, 255, 0.04)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderTopLeftRadius: '2rem',
+                  borderRadius: '2rem 0.5rem 0.5rem 0.5rem',
                 }}
               >
                 <div

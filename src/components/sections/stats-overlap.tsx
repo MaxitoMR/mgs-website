@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { RipplePattern } from "@/components/shared/droplet-accent";
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -46,8 +47,9 @@ const stats = [
 
 export function StatsOverlap() {
   return (
-    <section className="w-full bg-[#FBFBFE] border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 lg:py-16">
+    <section className="relative w-full bg-[#FBFBFE] border-b border-gray-100 overflow-hidden">
+      <RipplePattern color="#69AF23" opacity={0.035} />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 lg:py-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
           {stats.map((stat, i) => (
             <motion.div

@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Phone, Mail, MapPin, Clock, Send, Loader2 } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 import { contactSchema, type ContactFormData } from "@/types/forms";
+import { DropletAccent } from "@/components/shared/droplet-accent";
 
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -51,6 +52,7 @@ export function ContactSection() {
               viewport={{ once: true }}
               className="eyebrow text-[#69AF23] mb-4"
             >
+              <DropletAccent color="#69AF23" size={13} />
               Get In Touch
             </motion.p>
             <motion.h2
