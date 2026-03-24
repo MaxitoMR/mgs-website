@@ -10,18 +10,18 @@ export function CtaBanner() {
       className="relative w-full overflow-hidden bg-[#69AF23]"
       style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
     >
-      {/* Leaf-vein pattern overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(135deg, rgba(255,255,255,0.12) 1px, transparent 1px),
-            linear-gradient(45deg, rgba(255,255,255,0.07) 1px, transparent 1px)
-          `,
-          backgroundSize: '32px 32px, 48px 48px',
-          backgroundPosition: '0 0, 16px 16px',
-        }}
-      />
+      {/* Leaf-vein SVG pattern */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <pattern id="leaf-veins-green" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="80" x2="80" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+            <line x1="20" y1="80" x2="50" y2="30" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+            <line x1="0" y1="50" x2="40" y2="20" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+            <line x1="40" y1="80" x2="80" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#leaf-veins-green)" />
+      </svg>
       {/* Soft radial glow */}
       <div
         className="absolute top-0 right-0 w-[40%] h-full opacity-10"

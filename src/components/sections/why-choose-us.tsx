@@ -41,18 +41,20 @@ export function WhyChooseUs() {
         borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)',
       }}
     >
-      {/* Subtle leaf-vein pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(135deg, rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(45deg, rgba(255,255,255,0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: '32px 32px, 48px 48px',
-          backgroundPosition: '0 0, 16px 16px',
-        }}
-      />
+      {/* Leaf-vein SVG pattern */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <pattern id="leaf-veins-dark" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+            {/* Main vein — diagonal */}
+            <line x1="0" y1="80" x2="80" y2="0" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+            {/* Secondary veins branching off */}
+            <line x1="20" y1="80" x2="50" y2="30" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
+            <line x1="0" y1="50" x2="40" y2="20" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
+            <line x1="40" y1="80" x2="80" y2="40" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#leaf-veins-dark)" />
+      </svg>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
@@ -111,8 +113,8 @@ export function WhyChooseUs() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="group relative p-8 transition-all duration-500 hover:-translate-y-2"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
                   borderRadius: '2.5rem 0.25rem 0.25rem 0.25rem',
                 }}
               >
