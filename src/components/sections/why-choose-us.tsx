@@ -1,185 +1,132 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Shield,
-  Clock,
-  Award,
-  Users,
-  CheckCircle,
-  Zap,
-} from "lucide-react";
-import { SectionWrapper } from "@/components/shared/section-wrapper";
-
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          const duration = 2000;
-          const steps = 60;
-          const increment = target / steps;
-          let current = 0;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              setCount(target);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(current));
-            }
-          }, duration / steps);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <span ref={ref}>
-      {count}{suffix}
-    </span>
-  );
-}
-
-const stats = [
-  { value: 500, suffix: "+", label: "Facilities Served" },
-  { value: 15, suffix: "+", label: "Years Experience" },
-  { value: 99, suffix: "%", label: "Client Retention" },
-  { value: 50, suffix: "+", label: "Certified Staff" },
-];
+import { Shield, Microscope, Award, Clock } from "lucide-react";
 
 const features = [
   {
     icon: Shield,
-    title: "Certified & Insured",
-    description:
-      "Fully licensed, bonded, and insured with comprehensive coverage for every project.",
+    color: "#69AF23",
+    title: "Industry Certified Standards",
+    description: "OSHA compliant, EPA registered products, and comprehensive quality assurance protocols for every facility we service.",
   },
   {
-    icon: Clock,
-    title: "24/7 Availability",
-    description:
-      "Rapid deployment teams available around the clock for scheduled and emergency services.",
+    icon: Microscope,
+    color: "#2196F3",
+    title: "Advanced Technology",
+    description: "ATP testing verification, UV-C disinfection, and electrostatic application systems — science-driven cleaning.",
   },
   {
     icon: Award,
-    title: "AEPA Approved Vendor",
-    description:
-      "Active vendor certification ensuring compliance with the highest industry standards.",
+    color: "#9FD01B",
+    title: "Proven Track Record",
+    description: "500+ facilities managed with 99.8% service reliability across commercial, medical, and industrial sectors.",
   },
   {
-    icon: Users,
-    title: "Trained Professionals",
-    description:
-      "Every team member undergoes rigorous training, background checks, and ongoing education.",
-  },
-  {
-    icon: CheckCircle,
-    title: "ATP Testing Verified",
-    description:
-      "Scientific verification of cleaning results with documented ATP testing protocols.",
-  },
-  {
-    icon: Zap,
-    title: "Advanced Equipment",
-    description:
-      "Industrial-grade equipment and EPA-registered hospital-grade disinfectants.",
+    icon: Clock,
+    color: "#FF8F00",
+    title: "24/7 Availability",
+    description: "Emergency response teams ready around the clock. We're always here when your facility needs us most.",
   },
 ];
 
 export function WhyChooseUs() {
   return (
-    <>
-      {/* Stats Section - Dark */}
-      <section className="relative overflow-hidden bg-brand-dark py-[60px] md:py-[80px] lg:py-[100px]">
-        <div className="absolute inset-0 grid-pattern" />
-        {/* Subtle green glow */}
-        <div className="absolute left-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-none bg-brand-green/5 blur-[100px]" />
-        <div className="absolute right-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-none bg-brand-lime/5 blur-[100px]" />
+    <section className="full-screen-section relative overflow-hidden radius-large bg-[#1a252f]">
+      {/* Subtle dot pattern */}
+      <div className="absolute inset-0 dot-pattern" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {stats.map((stat, i) => (
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 section-padding-lg">
+        {/* Pfizer-style two-column header */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-16 lg:mb-20">
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="eyebrow text-[#9FD01B] mb-4"
+            >
+              Why MGS
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-gothic text-white"
+              style={{
+                fontSize: 'var(--font-h2)',
+                fontWeight: 300,
+              }}
+            >
+              Why industry leaders{' '}
+              <span className="text-[#69AF23]">choose us.</span>
+            </motion.h2>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="flex items-end"
+          >
+            <p className="text-gray-400" style={{ fontSize: 'var(--font-body-base)', fontWeight: 300, lineHeight: 1.7 }}>
+              Our focus on precision, technology, and accountability sets us apart.
+              We don&apos;t just clean facilities — we protect your investment and
+              maintain the standards your operation demands.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* AbbVie-style feature cards — 4-column grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {features.map((feature, i) => {
+            const Icon = feature.icon;
+            return (
               <motion.div
-                key={stat.label}
+                key={feature.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.75, delay: i * 0.125 }}
-                className="text-center"
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group relative p-8 transition-all duration-500 hover:-translate-y-2"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderTopLeftRadius: '2rem',
+                }}
               >
-                <div className="font-display text-5xl font-extrabold tracking-[-0.02em] text-white md:text-6xl lg:text-7xl">
-                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                {/* Icon */}
+                <div
+                  className="flex h-14 w-14 items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    background: `${feature.color}15`,
+                    borderTopLeftRadius: '1rem',
+                  }}
+                >
+                  <Icon className="h-6 w-6" style={{ color: feature.color }} />
                 </div>
-                <div className="mt-2 text-sm font-semibold uppercase tracking-wider text-gray-400">
-                  {stat.label}
-                </div>
+
+                {/* Title */}
+                <h3 className="font-clinical text-white mb-3" style={{ fontSize: 'var(--font-h3)', fontWeight: 500 }}>
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-400" style={{ fontSize: 'var(--font-caption)', fontWeight: 300, lineHeight: 1.7 }}>
+                  {feature.description}
+                </p>
+
+                {/* Accent line */}
+                <div
+                  className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500"
+                  style={{ background: feature.color }}
+                />
               </motion.div>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      </section>
-
-      {/* Features Section */}
-      <SectionWrapper className="bg-gray-50/80">
-        <div className="text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75 }}
-            className="subtitle inline-block text-brand-green"
-          >
-            Why Choose MGS
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75, delay: 0.15 }}
-            className="mt-4 font-display text-4xl font-extrabold tracking-[-0.02em] text-gray-900 sm:text-5xl"
-          >
-            The MGS Difference
-          </motion.h2>
-        </div>
-
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.75, delay: 0.1 + index * 0.1 }}
-              className="group relative overflow-hidden rounded-none bg-white p-8 shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1"
-            >
-              {/* Hover gradient accent */}
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-brand-green to-brand-lime opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-              <div className="relative mb-5 inline-flex">
-                <div className="flex h-14 w-14 items-center justify-center rounded-none bg-gradient-to-br from-brand-green/10 to-brand-lime/5 text-brand-green transition-all duration-500 group-hover:shadow-green-glow">
-                  <feature.icon className="h-7 w-7" />
-                </div>
-              </div>
-              <h3 className="font-display text-lg font-extrabold tracking-[-0.01em] text-gray-900">
-                {feature.title}
-              </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-gray-500">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </SectionWrapper>
-    </>
+      </div>
+    </section>
   );
 }

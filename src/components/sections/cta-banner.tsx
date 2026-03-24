@@ -3,93 +3,70 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
-import { COMPANY } from "@/lib/constants";
 
 export function CtaBanner() {
   return (
-    <section className="relative overflow-hidden py-[60px] md:py-[80px] lg:py-[120px]">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 animated-gradient-bg" />
-
-      {/* Dot pattern */}
-      <div className="absolute inset-0 dot-pattern" />
-
-      {/* Floating decorative shapes */}
-      <motion.div
-        animate={{ y: [0, -30, 0], rotate: [0, 5, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-20 top-1/4 h-80 w-80 rounded-none bg-brand-lime/5 blur-3xl"
+    <section className="full-screen-section relative overflow-hidden radius-large bg-[#69AF23]">
+      {/* Decorative shapes — AbbVie-style layered elements */}
+      <div
+        className="absolute top-0 right-0 w-[40%] h-full opacity-10"
+        style={{
+          background: 'radial-gradient(circle at 70% 30%, #ffffff 0%, transparent 60%)',
+        }}
       />
-      <motion.div
-        animate={{ y: [0, 20, 0], rotate: [0, -3, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-none bg-brand-green/5 blur-3xl"
-      />
-      <motion.div
-        animate={{ y: [0, -15, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute left-1/3 top-10 h-40 w-40 rounded-none bg-white/3 blur-2xl"
+      <div
+        className="absolute bottom-0 left-0 w-[30%] h-[60%] opacity-5"
+        style={{
+          background: 'radial-gradient(circle at 30% 70%, #000000 0%, transparent 60%)',
+        }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75 }}
-            className="subtitle mb-5 text-brand-lime/80"
+      <div className="relative z-10 mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 section-padding text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="font-gothic text-white"
+          style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
+        >
+          Ready to transform your facility?
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-white/90 mt-6 mb-12 max-w-2xl mx-auto"
+          style={{ fontSize: 'var(--font-body-large)', fontWeight: 300, lineHeight: 1.7 }}
+        >
+          Experience the MGS difference with a complimentary facility assessment
+          and customized cleaning proposal tailored to your needs.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <Link
+            href="/quote"
+            className="inline-flex items-center gap-3 bg-white px-8 py-4 font-medium text-[#69AF23] transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
+            style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
           >
-            Get Started Today
-          </motion.span>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75, delay: 0.15 }}
-            className="max-w-3xl font-display text-4xl font-extrabold leading-[1.1em] tracking-[-0.02em] text-white sm:text-5xl md:text-6xl"
+            Schedule Free Assessment
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <a
+            href="tel:+12818295358"
+            className="inline-flex items-center gap-3 border-2 border-white/50 px-8 py-4 font-light text-white transition-all duration-300 hover:border-white hover:bg-white/10"
+            style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
           >
-            Ready for a{" "}
-            <span className="text-gradient">Cleaner Facility?</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75, delay: 0.3 }}
-            className="mt-6 max-w-xl text-lg text-gray-300/90"
-          >
-            Schedule a free walkthrough and get a custom quote tailored to your
-            facility&apos;s needs.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75, delay: 0.45 }}
-            className="mt-10 flex flex-col gap-4 sm:flex-row"
-          >
-            <Link
-              href="/quote"
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none bg-white px-10 py-5 font-bold text-brand-dark shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                Get a Free Quote
-                <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-lime/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            </Link>
-            <a
-              href={`tel:${COMPANY.phone.primary}`}
-              className="glass inline-flex items-center justify-center gap-2 rounded-none px-10 py-5 font-bold text-white transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
-            >
-              <Phone className="h-5 w-5" />
-              {COMPANY.phone.display}
-            </a>
-          </motion.div>
-        </div>
+            <Phone className="h-4 w-4" />
+            Call (281) 829-5358
+          </a>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,205 +1,163 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { Phone, ArrowRight, ChevronDown } from "lucide-react";
-import { COMPANY, CLOUDFLARE_STREAMS } from "@/lib/constants";
-import { VideoPlayer } from "@/components/shared/video-player";
+import Image from "next/image";
 
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
+const SUPABASE_PROJECT_REF = 'uuvspvqebodievfkwwss';
+const heroVideos = [
+  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-1.mp4`,
+  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-2.mp4`,
+  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-3.mp4`,
+  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-4.mp4`,
+  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-5.mp4`,
+];
+
+function HeroVideo() {
+  const videoRef1 = useRef<HTMLVideoElement>(null);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
+  const [activePlayer, setActivePlayer] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          const duration = 2000;
-          const steps = 60;
-          const increment = target / steps;
-          let current = 0;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              setCount(target);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(current));
-            }
-          }, duration / steps);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target]);
+    const video1 = videoRef1.current;
+    if (video1) {
+      video1.src = heroVideos[0];
+      video1.playbackRate = 0.6;
+      video1.play().catch(() => {});
+      setIsLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % heroVideos.length;
+      const nextVideo = activePlayer === 0 ? videoRef2.current : videoRef1.current;
+      if (nextVideo) {
+        nextVideo.src = heroVideos[nextIndex];
+        nextVideo.playbackRate = 0.6;
+        nextVideo.play().catch(() => {});
+      }
+      setActivePlayer(activePlayer === 0 ? 1 : 0);
+      setCurrentIndex(nextIndex);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, activePlayer]);
 
   return (
-    <div ref={ref} className="font-display text-3xl font-extrabold tracking-tight text-white md:text-4xl">
-      {count}{suffix}
+    <div className="absolute inset-0 z-10">
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+          <p className="text-gray-400 font-light">Loading videos...</p>
+        </div>
+      )}
+      <video
+        ref={videoRef1}
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
+        style={{ opacity: activePlayer === 0 ? 1 : 0 }}
+      />
+      <video
+        ref={videoRef2}
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
+        style={{ opacity: activePlayer === 1 ? 1 : 0 }}
+      />
     </div>
   );
 }
 
-const stats = [
-  { value: 500, suffix: "+", label: "Facilities Served" },
-  { value: 15, suffix: "+", label: "Years Experience" },
-  { value: 99, suffix: "%", label: "Client Retention" },
-  { value: 24, suffix: "/7", label: "Emergency Response" },
-];
-
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-end full-screen-section overflow-hidden">
       {/* Video Background */}
-      <div className="absolute inset-0">
-        <VideoPlayer
-          src={CLOUDFLARE_STREAMS.hero}
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
-        {/* Subtle green overlay at bottom */}
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-brand-green/5 to-transparent" />
-      </div>
+      <HeroVideo />
 
-      {/* Dot pattern overlay */}
-      <div className="absolute inset-0 dot-pattern opacity-30" />
+      {/* Hero overlay image at 40% opacity */}
+      <div
+        className="absolute inset-0 z-20"
+        style={{
+          backgroundImage: "url('/attached_assets/MGS_HERO_VID_4_frame_cropped.jpg')",
+          backgroundSize: 'cover',
+          backgroundAttachment: 'fixed',
+          backgroundPosition: 'center',
+          opacity: 0.4,
+        }}
+      />
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        <div className="w-full pt-24 pb-32">
-          <div className="max-w-4xl">
-            {/* Floating badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <span className="glass inline-flex items-center gap-2 rounded-none px-5 py-2 text-[13px] font-semibold uppercase tracking-[0.15em] text-brand-lime">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-none bg-brand-lime opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-none bg-brand-lime" />
-                </span>
-                Enterprise-Grade Facility Solutions
-              </span>
-            </motion.div>
+      {/* ExxonMobil-style bottom-heavy gradient overlay */}
+      <div className="absolute inset-0 z-[21] hero-overlay" />
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 font-display text-5xl font-extrabold leading-[1em] tracking-[-0.02em] text-white sm:text-6xl md:text-7xl lg:text-8xl"
-            >
-              Professional
-              <br />
-              <span className="text-gradient">Janitorial</span> Services
-            </motion.h1>
+      {/* Text Content — positioned lower like ExxonMobil */}
+      <div className="relative z-50 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12 pb-32 lg:pb-40">
+        <div className="max-w-3xl">
+          {/* Eyebrow */}
+          <p className="eyebrow text-[#9FD01B] mb-5">
+            <span className="inline-block w-10 h-px bg-[#9FD01B] mr-3 align-middle" />
+            Est. 2006
+          </p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 max-w-xl text-lg leading-relaxed text-gray-300/90 md:text-xl"
-            >
-              Commercial, medical, and industrial cleaning solutions trusted by
-              leading facilities across Texas. Certified teams. Proven results.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-12 flex flex-col gap-4 sm:flex-row"
-            >
-              <Link
-                href="/quote"
-                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none bg-gradient-to-r from-brand-green to-brand-lime px-10 py-5 text-lg font-bold text-white shadow-xl shadow-brand-green/20 transition-all duration-300 hover:shadow-2xl hover:shadow-brand-green/30 hover:-translate-y-0.5"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  Get a Free Quote
-                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-brand-lime to-brand-green opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              </Link>
-              <a
-                href={`tel:${COMPANY.phone.primary}`}
-                className="glass inline-flex items-center justify-center gap-2 rounded-none px-10 py-5 text-lg font-bold text-white transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
-              >
-                <Phone className="h-5 w-5" />
-                Call {COMPANY.phone.display}
-              </a>
-            </motion.div>
-
-            {/* Trust Badges */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.75, delay: 1.0 }}
-              className="mt-14 flex flex-wrap gap-x-8 gap-y-3 text-sm text-gray-400"
-            >
-              {[
-                "Licensed & Insured",
-                "24/7 Emergency Services",
-                "AEPA Approved Vendor",
-                "Certified Teams",
-              ].map((badge) => (
-                <span key={badge} className="flex items-center gap-2.5">
-                  <span className="h-1.5 w-1.5 rounded-none bg-brand-lime shadow-[0_0_6px_rgba(159,208,27,0.6)]" />
-                  {badge}
-                </span>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Glassmorphic Stats Overlay */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 1.25, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-20 grid grid-cols-2 gap-4 md:grid-cols-4 lg:max-w-3xl"
+          {/* Main heading — Pfizer-sized */}
+          <h1
+            className="font-gothic text-[#FBFBFE] hero-text-shadow"
+            style={{
+              fontSize: 'var(--font-hero-heading)',
+              fontWeight: 300,
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+            }}
           >
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.25 + i * 0.1 }}
-                className="glass rounded-none p-5 text-center transition-all duration-300 hover:bg-white/10"
-              >
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                <div className="mt-1 text-xs font-medium uppercase tracking-wider text-gray-400">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+            Leaders In
+            <br />
+            <span className="text-[#69AF23]">Methodical</span>
+            <br />
+            Precision Cleaning
+          </h1>
+
+          {/* Subtitle — Pfizer-sized body */}
+          <p
+            className="font-clinical text-gray-300 mt-7 mb-10 max-w-xl"
+            style={{
+              fontSize: 'var(--font-body-large)',
+              fontWeight: 300,
+              lineHeight: 1.7,
+            }}
+          >
+            Comprehensive facility management for commercial, medical,
+            and industrial environments with proven expertise since 2006.
+          </p>
+
+          {/* ExxonMobil-style CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/quote"
+              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 text-white font-medium tracking-wide transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg"
+              style={{ fontSize: 'var(--font-body-base)' }}
+            >
+              Get a Free Quote
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 px-8 py-4 text-white font-light tracking-wide transition-all duration-300 hover:border-white hover:bg-white/10"
+              style={{ fontSize: 'var(--font-body-base)' }}
+            >
+              Learn About Us
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Animated scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.75 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
-        >
-          <span className="text-xs font-medium uppercase tracking-widest text-gray-400">Scroll</span>
-          <ChevronDown className="h-5 w-5 text-brand-lime" />
-        </motion.div>
-      </motion.div>
-
-      {/* Bottom gradient to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent" />
+      {/* Bottom fade for overlap transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 z-[22] bg-gradient-to-t from-[#FBFBFE] to-transparent" />
     </section>
   );
 }

@@ -1,0 +1,83 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+
+function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const duration = 2000;
+          const steps = 60;
+          const increment = target / steps;
+          let current = 0;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              setCount(target);
+              clearInterval(timer);
+            } else {
+              setCount(Math.floor(current));
+            }
+          }, duration / steps);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
+const stats = [
+  { value: 500, suffix: "+", label: "Facilities Managed", description: "across commercial, medical & industrial sectors" },
+  { value: 99.8, suffix: "%", label: "Service Reliability", description: "consistent quality every visit" },
+  { value: 30, suffix: "", label: "Years Experience", description: "trusted since 2006" },
+  { value: 24, suffix: "/7", label: "Emergency Response", description: "always available when you need us" },
+];
+
+export function StatsOverlap() {
+  return (
+    <section className="section-overlap radius-medium bg-white full-screen-section relative z-20">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-16 lg:py-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="text-center lg:text-left"
+            >
+              <div
+                className="font-gothic text-[#69AF23]"
+                style={{
+                  fontSize: 'clamp(2.5rem, 4vw, 4rem)',
+                  fontWeight: 300,
+                  lineHeight: 1,
+                }}
+              >
+                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+              </div>
+              <p className="font-clinical font-medium text-gray-900 mt-2" style={{ fontSize: 'var(--font-body-base)' }}>
+                {stat.label}
+              </p>
+              <p className="font-clinical text-gray-500 mt-1" style={{ fontSize: 'var(--font-caption)', fontWeight: 300 }}>
+                {stat.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

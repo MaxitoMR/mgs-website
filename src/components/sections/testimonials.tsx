@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
-import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { cn } from "@/lib/utils";
 
 const testimonials = [
@@ -53,29 +52,61 @@ export function Testimonials() {
   }, [emblaApi]);
 
   return (
-    <SectionWrapper>
-      <div className="text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.75 }}
-          className="subtitle inline-block text-brand-green"
-        >
-          Testimonials
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.75, delay: 0.15 }}
-          className="mt-4 font-display text-4xl font-extrabold tracking-[-0.02em] text-gray-900 sm:text-5xl"
-        >
-          What Our Clients Say
-        </motion.h2>
-      </div>
+    <section className="full-screen-section radius-medium bg-[#f0f5e8] section-padding relative overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+        {/* Pfizer-style two-column header */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-12 lg:mb-16">
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="eyebrow text-[#69AF23] mb-4"
+            >
+              Testimonials
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-gothic text-gray-900"
+              style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
+            >
+              What our clients{' '}
+              <span className="text-[#69AF23]">say.</span>
+            </motion.h2>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="flex items-end"
+          >
+            {/* Navigation controls — right-aligned */}
+            <div className="flex items-center gap-4 ml-auto">
+              <button
+                onClick={scrollPrev}
+                className="flex h-12 w-12 items-center justify-center border border-gray-300 text-gray-500 transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
+                style={{ borderTopLeftRadius: '0.75rem' }}
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={scrollNext}
+                className="flex h-12 w-12 items-center justify-center border border-gray-300 text-gray-500 transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
+                style={{ borderTopLeftRadius: '0.75rem' }}
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </motion.div>
+        </div>
 
-      <div className="relative mt-16">
+        {/* Carousel */}
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {testimonials.map((testimonial, i) => (
@@ -83,39 +114,41 @@ export function Testimonials() {
                 key={i}
                 className="min-w-0 flex-[0_0_100%] px-3 md:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
               >
-                <div className="group relative h-full overflow-hidden rounded-none bg-white p-8 shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1">
-                  {/* Gradient border accent on hover */}
-                  <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-brand-green to-brand-lime opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-                  {/* Large decorative quote */}
-                  <Quote className="mb-5 h-10 w-10 text-brand-green/10" />
+                <div
+                  className="group relative h-full overflow-hidden bg-white p-8 shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1"
+                  style={{ borderTopLeftRadius: '2rem' }}
+                >
+                  {/* Decorative quote */}
+                  <Quote className="mb-5 h-10 w-10 text-[#69AF23]/10" />
 
                   {/* Stars */}
                   <div className="mb-5 flex gap-1">
                     {Array.from({ length: testimonial.rating }).map((_, j) => (
                       <Star
                         key={j}
-                        className="h-4 w-4 fill-brand-lime text-brand-lime"
+                        className="h-4 w-4 fill-[#9FD01B] text-[#9FD01B]"
                       />
                     ))}
                   </div>
 
                   {/* Quote text */}
-                  <p className="text-[15px] leading-relaxed text-gray-600">
+                  <p className="text-gray-600" style={{ fontSize: 'var(--font-caption)', fontWeight: 300, lineHeight: 1.8 }}>
                     &ldquo;{testimonial.text}&rdquo;
                   </p>
 
                   {/* Author */}
                   <div className="mt-8 flex items-center gap-4 border-t border-gray-100 pt-6">
-                    {/* Avatar placeholder */}
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-none bg-gradient-to-br from-brand-green to-brand-lime text-sm font-bold text-white">
+                    <div
+                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-[#69AF23] text-sm font-medium text-white"
+                      style={{ borderTopLeftRadius: '0.75rem' }}
+                    >
                       {testimonial.initials}
                     </div>
                     <div>
-                      <p className="font-display text-[15px] font-bold text-gray-900">
+                      <p className="font-medium text-gray-900" style={{ fontSize: 'var(--font-caption)' }}>
                         {testimonial.name}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-gray-500 mt-0.5" style={{ fontSize: '0.75rem', fontWeight: 300 }}>
                         {testimonial.title}
                       </p>
                     </div>
@@ -126,39 +159,24 @@ export function Testimonials() {
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="mt-10 flex items-center justify-center gap-6">
-          <button
-            onClick={scrollPrev}
-            className="flex h-12 w-12 items-center justify-center rounded-none border border-gray-200 text-gray-400 shadow-sm transition-all duration-300 hover:border-brand-green hover:text-brand-green hover:shadow-green-glow"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <div className="flex gap-2">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => emblaApi?.scrollTo(i)}
-                className={cn(
-                  "h-2 rounded-none transition-all duration-300",
-                  selectedIndex === i
-                    ? "w-10 bg-gradient-to-r from-brand-green to-brand-lime"
-                    : "w-2 bg-gray-200 hover:bg-gray-300"
-                )}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={scrollNext}
-            className="flex h-12 w-12 items-center justify-center rounded-none border border-gray-200 text-gray-400 shadow-sm transition-all duration-300 hover:border-brand-green hover:text-brand-green hover:shadow-green-glow"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-10">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => emblaApi?.scrollTo(i)}
+              className={cn(
+                "h-2 transition-all duration-300",
+                selectedIndex === i
+                  ? "w-10 bg-[#69AF23]"
+                  : "w-2 bg-gray-300 hover:bg-gray-400"
+              )}
+              style={{ borderRadius: '1px' }}
+              aria-label={`Go to testimonial ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
-    </SectionWrapper>
+    </section>
   );
 }
