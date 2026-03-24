@@ -83,7 +83,7 @@ export function HeroSection() {
       <div
         className="absolute inset-0 z-20"
         style={{
-          backgroundImage: "url('/attached_assets/MGS_HERO_VID_4_frame_cropped.jpg')",
+          backgroundImage: "url('/images/imaging_1751323808587.png')",
           backgroundSize: 'cover',
           backgroundAttachment: 'fixed',
           backgroundPosition: 'center',
