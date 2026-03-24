@@ -3,12 +3,50 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { serviceNav, rightNav, portalItems } from "@/lib/navigation";
 import { COMPANY } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Search, Facebook, Twitter, Linkedin, Phone, Mail, Menu, X } from "lucide-react";
+import {
+  ChevronDown, ChevronRight, Search, Facebook, Twitter, Linkedin,
+  Phone, Mail, Menu, X,
+  Building2, Stethoscope, Factory, Wrench, ArrowRight,
+} from "lucide-react";
 import { MobileNav } from "./mobile-nav";
 import { TopBar } from "./top-bar";
+
+/* ─────── Category metadata for mega menu ─────── */
+const categoryMeta: Record<string, {
+  icon: typeof Building2;
+  color: string;
+  description: string;
+  image: string;
+}> = {
+  Commercial: {
+    icon: Building2,
+    color: "#69AF23",
+    description: "Professional cleaning solutions for offices, retail, restaurants, and business environments.",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&h=400",
+  },
+  Medical: {
+    icon: Stethoscope,
+    color: "#2196F3",
+    description: "Infection-control-grade protocols for surgical centers, labs, imaging facilities, and clinics.",
+    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=600&h=400",
+  },
+  Industrial: {
+    icon: Factory,
+    color: "#FF8F00",
+    description: "Heavy-duty cleaning for factories, petrochemical plants, warehouses, and power facilities.",
+    image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=600&h=400",
+  },
+  Specialized: {
+    icon: Wrench,
+    color: "#9FD01B",
+    description: "Advanced solutions for post-construction, concrete, windows, power washing, and more.",
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600&h=400",
+  },
+};
 
 /* ─────── Search Data ─────── */
 const searchData = [
@@ -105,31 +143,136 @@ function SearchBar() {
 }
 
 /* ─────── Mega Menu Component ─────── */
-function MegaMenu({ category, isOpen }: { category: typeof serviceNav[0]; isOpen: boolean }) {
-  if (!isOpen) return null;
+function MegaMenu({
+  category,
+  isOpen,
+  onClose,
+}: {
+  category: typeof serviceNav[0];
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const meta = categoryMeta[category.label];
+  const Icon = meta?.icon || Building2;
 
   return (
-    <div className="absolute left-0 right-0 top-full z-50 border-t-2 border-[#69AF23] bg-white shadow-2xl">
-      <div className="mx-auto max-w-7xl p-6" style={{ padding: 'clamp(1rem, 2vw, 2rem)', gap: 'clamp(0.75rem, 1.5vw, 1.5rem)' }}>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" style={{ gap: 'clamp(0.5rem, 1vw, 1rem)' }}>
-          {category.items.map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block px-3 py-2 text-sm font-light text-gray-600 transition-colors hover:bg-[#69AF23]/5 hover:text-[#69AF23]"
-              style={{ animationDelay: `${i * 0.05}s` }}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-        <div className="mt-4 border-t border-gray-200 pt-4">
-          <Link href="/quote" className="text-sm font-light text-[#69AF23] hover:text-[#9FD01B]">
-            Need a Custom Solution? Contact us for a free assessment &rarr;
-          </Link>
-        </div>
-      </div>
-    </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="absolute left-0 right-0 top-full z-50 bg-white shadow-premium-lg"
+          style={{ borderBottomLeftRadius: '2rem' }}
+        >
+          {/* Top accent line */}
+          <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${meta?.color || '#69AF23'}, ${meta?.color || '#69AF23'}40)` }} />
+
+          <div className="mx-auto max-w-7xl px-8 lg:px-12">
+            <div className="grid grid-cols-12 gap-0">
+
+              {/* Left: Category header + service links */}
+              <div className="col-span-8 py-8 pr-10">
+                {/* Category header */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div
+                    className="flex h-10 w-10 items-center justify-center"
+                    style={{
+                      background: `${meta?.color || '#69AF23'}12`,
+                      borderTopLeftRadius: '0.75rem',
+                    }}
+                  >
+                    <Icon className="h-5 w-5" style={{ color: meta?.color || '#69AF23' }} />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-gray-900 text-base">{category.label} Services</h3>
+                    <p className="text-gray-500 text-xs mt-0.5" style={{ fontWeight: 300 }}>
+                      {meta?.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-gray-100 mb-6" />
+
+                {/* Service links grid */}
+                <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-1">
+                  {category.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={onClose}
+                      className="group flex items-center gap-2 px-3 py-2.5 text-sm text-gray-600 transition-all duration-200 hover:bg-[#69AF23]/5 hover:text-[#69AF23]"
+                      style={{ borderTopLeftRadius: '0.5rem' }}
+                    >
+                      <ChevronRight
+                        className="h-3.5 w-3.5 text-gray-300 transition-all duration-200 group-hover:text-[#69AF23] group-hover:translate-x-0.5"
+                      />
+                      <span className="font-light">{item.label}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Bottom CTA */}
+                <div className="mt-6 pt-5 border-t border-gray-100">
+                  <Link
+                    href="/quote"
+                    onClick={onClose}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-[#69AF23] hover:text-[#5a9a1e] transition-colors"
+                  >
+                    Need a custom solution? Get a free assessment
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right: Featured image + quick action */}
+              <div className="col-span-4 border-l border-gray-100">
+                <div className="py-8 pl-8">
+                  {/* Featured image */}
+                  <div
+                    className="relative overflow-hidden aspect-[3/2] mb-5"
+                    style={{ borderTopLeftRadius: '1.5rem' }}
+                  >
+                    <Image
+                      src={meta?.image || ''}
+                      alt={category.label}
+                      fill
+                      className="object-cover"
+                      sizes="300px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  </div>
+
+                  {/* Quick links */}
+                  <p className="eyebrow text-gray-400 mb-3" style={{ fontSize: '0.7rem' }}>Quick Actions</p>
+                  <div className="space-y-2">
+                    <Link
+                      href="/quote"
+                      onClick={onClose}
+                      className="flex items-center gap-2 px-4 py-2.5 bg-[#69AF23] text-white text-sm font-medium transition-all hover:bg-[#5a9a1e]"
+                      style={{ borderTopLeftRadius: '0.75rem' }}
+                    >
+                      Request Quote
+                      <ArrowRight className="h-3.5 w-3.5 ml-auto" />
+                    </Link>
+                    <a
+                      href={`tel:${COMPANY.phone.primary}`}
+                      className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-gray-700 text-sm font-light transition-all hover:border-[#69AF23] hover:text-[#69AF23]"
+                      style={{ borderTopLeftRadius: '0.75rem' }}
+                    >
+                      <Phone className="h-3.5 w-3.5" />
+                      {COMPANY.phone.display}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -145,7 +288,11 @@ function DesktopNav() {
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    timeoutRef.current = setTimeout(() => setOpenMenu(null), 150);
+    timeoutRef.current = setTimeout(() => setOpenMenu(null), 200);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpenMenu(null);
   }, []);
 
   useEffect(() => {
@@ -166,14 +313,30 @@ function DesktopNav() {
               onMouseEnter={() => handleMouseEnter(category.label)}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center gap-1 px-3 text-white hover:text-green-100 font-light transition-colors" style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}>
+              <button
+                className={cn(
+                  "flex items-center gap-1 px-3 h-full text-white font-light transition-all duration-200",
+                  openMenu === category.label
+                    ? "bg-white/15"
+                    : "hover:bg-white/10"
+                )}
+                style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
+              >
                 {category.label}
-                <ChevronDown className="h-4 w-4" />
+                <ChevronDown
+                  className={cn(
+                    "h-3.5 w-3.5 transition-transform duration-200",
+                    openMenu === category.label && "rotate-180"
+                  )}
+                />
               </button>
-              <MegaMenu category={category} isOpen={openMenu === category.label} />
             </div>
           ))}
-          <Link href="/diffusers" className="flex items-center px-3 text-white hover:text-green-100 font-light transition-colors" style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}>
+          <Link
+            href="/diffusers"
+            className="flex items-center px-3 text-white hover:bg-white/10 h-full font-light transition-all duration-200"
+            style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
+          >
             Diffusers
           </Link>
         </div>
@@ -184,7 +347,7 @@ function DesktopNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center px-3 text-white hover:text-green-100 font-light transition-colors"
+              className="flex items-center px-3 h-full text-white hover:bg-white/10 font-light transition-all duration-200"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               {item.label}
@@ -196,26 +359,54 @@ function DesktopNav() {
             onMouseEnter={() => setPortalsOpen(true)}
             onMouseLeave={() => setPortalsOpen(false)}
           >
-            <button className="flex items-center gap-1 px-3 py-1 bg-white/10 text-white hover:text-green-100 font-light transition-colors" style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}>
+            <button
+              className="flex items-center gap-1 px-3 py-1 bg-white/10 text-white hover:bg-white/15 font-light transition-all duration-200"
+              style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
+            >
               Portals
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-3.5 w-3.5" />
             </button>
-            {portalsOpen && (
-              <div className="absolute right-0 top-full z-50 mt-0 min-w-[180px] border border-gray-200 bg-white shadow-lg">
-                {portalItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="block px-4 py-2 text-sm font-light text-gray-700 hover:bg-[#69AF23]/5 hover:text-[#69AF23]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {portalsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 top-full z-50 mt-0 min-w-[200px] bg-white shadow-premium-lg overflow-hidden"
+                  style={{ borderBottomLeftRadius: '1rem' }}
+                >
+                  {portalItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center gap-2 px-5 py-3 text-sm font-light text-gray-700 hover:bg-[#69AF23]/5 hover:text-[#69AF23] transition-colors"
+                    >
+                      <ChevronRight className="h-3 w-3 text-gray-300" />
+                      {item.label}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
+
+      {/* Mega menu panels — rendered here so they span full nav width */}
+      {serviceNav.map((category) => (
+        <div
+          key={category.label}
+          onMouseEnter={() => handleMouseEnter(category.label)}
+          onMouseLeave={handleMouseLeave}
+        >
+          <MegaMenu
+            category={category}
+            isOpen={openMenu === category.label}
+            onClose={handleClose}
+          />
+        </div>
+      ))}
     </nav>
   );
 }
@@ -265,7 +456,7 @@ export function Header() {
           </div>
         </div>
 
-        {/* 3. Green Navigation Bar */}
+        {/* 3. Green Navigation Bar + Mega Menu */}
         <DesktopNav />
       </div>
 
