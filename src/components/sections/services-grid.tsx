@@ -6,9 +6,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const unsplashUrl = (id: string) =>
-  `https://images.unsplash.com/${id}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600`;
-
 const serviceCategories = [
   {
     id: "commercial",
@@ -18,11 +15,11 @@ const serviceCategories = [
       "Elevate your business environment with comprehensive cleaning solutions designed for professional spaces.",
     color: "#69AF23",
     services: [
-      { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "photo-1497366216548-37526070297c" },
-      { name: "Retail Spaces", link: "/services/retail-facilities", image: "photo-1441986300917-64674bd600d8" },
-      { name: "Restaurants", link: "/services/restaurants", image: "photo-1414235077428-338989a2e8c0" },
-      { name: "Gymnasiums", link: "/services/gymnasiums", image: "photo-1534438327276-14e5300c3a48" },
-      { name: "Car Dealerships", link: "/services/car-dealerships", image: "photo-1562694583-0671889972d9" },
+      { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "/images/1_1751323808589.png" },
+      { name: "Retail Spaces", link: "/services/retail-facilities", image: "/images/MGS_Supply_And_Services_Gallery-Commercial-10_1752003221911.jpg" },
+      { name: "Restaurants", link: "/services/restaurants", image: "/images/Official_About_Us_Background_1752010002961.png" },
+      { name: "Gymnasiums", link: "/services/gymnasiums", image: "/images/school image_1752005095720.png" },
+      { name: "Car Dealerships", link: "/services/car-dealerships", image: "/images/Car Dealership pic 2_1752160411184.png" },
     ],
   },
   {
@@ -33,11 +30,11 @@ const serviceCategories = [
       "Specialized cleaning protocols that meet the highest healthcare standards for infection control.",
     color: "#2196F3",
     services: [
-      { name: "Surgical Centers", link: "/services/surgery-centers", image: "photo-1559757148-5c350d0d3c56" },
-      { name: "Laboratories", link: "/services/laboratories", image: "photo-1582719471384-894fbb16e074" },
-      { name: "Imaging Centers", link: "/services/imaging-facilities", image: "photo-1551190822-a9333d879b1f" },
-      { name: "Sports Rehab", link: "/services/sports-rehabilitation", image: "photo-1576091160550-2173dba999ef" },
-      { name: "Private Practices", link: "/services/clinics", image: "photo-1666214280557-f1b5022eb634" },
+      { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery center image 2_1752526747820.jpg" },
+      { name: "Laboratories", link: "/services/laboratories", image: "/images/laboratories image_1752167124287.png" },
+      { name: "Imaging Centers", link: "/services/imaging-facilities", image: "/images/imaging center image_1752168794610.png" },
+      { name: "Sports Rehab", link: "/services/sports-rehabilitation", image: "/images/sports n rehab image_1752182551586.png" },
+      { name: "Private Practices", link: "/services/clinics", image: "/images/private practice image 2_1752166261770.png" },
     ],
   },
   {
@@ -48,10 +45,10 @@ const serviceCategories = [
       "Robust cleaning services designed for manufacturing, processing, and heavy-duty environments.",
     color: "#FF8F00",
     services: [
-      { name: "Factory Plants", link: "/services/factory-plants", image: "photo-1565793298595-6a879b1d9492" },
-      { name: "Petrochemical Plants", link: "/services/petrochemical-plants", image: "photo-1518709268805-4e9042af2176" },
-      { name: "Warehouses", link: "/services/warehouses", image: "photo-1566041510394-cf7c8fe21800" },
-      { name: "Hydroelectric Plants", link: "/services/hydroelectric-plants", image: "photo-1473341304170-971dccb5ac1e" },
+      { name: "Factory Plants", link: "/services/factory-plants", image: "/images/factory plant image_1752262345888.png" },
+      { name: "Petrochemical Plants", link: "/services/petrochemical-plants", image: "/images/commercial-claning-housong-chemical-plants_1752268757986.jpeg" },
+      { name: "Warehouses", link: "/services/warehouses", image: "/images/IMG_1741_1751917994935.JPG" },
+      { name: "Hydroelectric Plants", link: "/services/hydroelectric-plants", image: "/images/10_1752185091077.png" },
     ],
   },
   {
@@ -62,11 +59,11 @@ const serviceCategories = [
       "Advanced cleaning for unique requirements and challenging environments.",
     color: "#9FD01B",
     services: [
-      { name: "Post-Construction", link: "/services/post-construction", image: "photo-1541888946425-d81bb19240f5" },
-      { name: "Industrial Cleanup", link: "/services/industrial-cleanup", image: "photo-1581578731548-c64695cc6952" },
-      { name: "Window Cleaning", link: "/services/windows", image: "photo-1462826303086-329426d1aef5" },
-      { name: "Terminal Sanitization", link: "/services/terminal-sanitization", image: "photo-1584982751601-97dcc096659c" },
-      { name: "Concrete Floors", link: "/services/concrete-floors", image: "photo-1558618666-fcd25c85cd64" },
+      { name: "Post-Construction", link: "/services/post-construction", image: "/images/post construction image_1752524176668.png" },
+      { name: "Industrial Cleanup", link: "/services/industrial-cleanup", image: "/images/9_1752184097090.png" },
+      { name: "Window Cleaning", link: "/services/windows", image: "/images/7_1752264862114.png" },
+      { name: "Terminal Sanitization", link: "/services/terminal-sanitization", image: "/images/terminal sanitization_1752528525894.png" },
+      { name: "Concrete Floors", link: "/services/concrete-floors", image: "/images/MGS_Supply_And_Services_Gallery-Concrete-8_1752005273591.jpg" },
     ],
   },
 ];
@@ -91,7 +88,7 @@ function CategorySection({
       }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        {/* Pfizer-style header: eyebrow + heading left, description right */}
+        {/* Header: eyebrow + heading left, description right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 mb-12 lg:mb-16">
           <div>
             <motion.p
@@ -101,7 +98,7 @@ function CategorySection({
               className="eyebrow mb-4"
               style={{ color: category.color }}
             >
-{category.eyebrow}
+              {category.eyebrow}
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -134,7 +131,7 @@ function CategorySection({
           </motion.div>
         </div>
 
-        {/* Card grid — 2 cols mobile, 3 cols tablet, responsive for 4-5 items */}
+        {/* Card grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 lg:gap-6">
           {category.services.map((service, serviceIndex) => (
             <motion.div
@@ -152,10 +149,9 @@ function CategorySection({
                 className="group relative block overflow-hidden bg-white shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-2"
                 style={{ borderTopLeftRadius: '1.5rem' }}
               >
-                {/* Image */}
                 <div className="aspect-[4/3] overflow-hidden relative">
                   <Image
-                    src={unsplashUrl(service.image)}
+                    src={service.image}
                     alt={service.name}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -164,7 +160,6 @@ function CategorySection({
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 </div>
 
-                {/* Label */}
                 <div className="p-4">
                   <h3 className="text-sm font-medium text-gray-900 group-hover:text-[#69AF23] transition-colors">
                     {service.name}
@@ -181,15 +176,6 @@ function CategorySection({
 }
 
 export function ServicesGrid() {
-  useEffect(() => {
-    serviceCategories.forEach((cat) => {
-      cat.services.forEach((s) => {
-        const sImg = new window.Image();
-        sImg.src = unsplashUrl(s.image);
-      });
-    });
-  }, []);
-
   return (
     <>
       {serviceCategories.map((category, index) => (
