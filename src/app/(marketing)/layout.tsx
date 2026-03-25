@@ -1,6 +1,6 @@
-import { TopBar } from "@/components/layout/top-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { FloatingActionButtons } from "@/components/shared/floating-buttons";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
 
 export default function MarketingLayout({
@@ -10,10 +10,10 @@ export default function MarketingLayout({
 }) {
   return (
     <>
-      <TopBar />
       <Header />
-      <main className="pt-16">{children}</main>
+      <main>{children}</main>
       <Footer />
+      <FloatingActionButtons />
       <ScrollToTop />
     </>
   );

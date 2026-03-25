@@ -5,9 +5,9 @@ export const COMPANY = {
   description:
     "Enterprise-grade janitorial services for commercial, medical, and industrial facilities.",
   phone: {
-    primary: "+17138048529",
-    display: "(713) 804-8529",
-    secondary: "281-829-5357",
+    primary: "+12818295358",
+    display: "(281)-829-5358",
+    secondary: "(281)-829-5357",
   },
   email: "support@mgssupplyandservices.com",
   address: {
