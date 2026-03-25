@@ -1,0 +1,109 @@
+version: "3.9"
+
+services:
+  # ─── PostgreSQL ───────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: mgs
+      POSTGRES_PASSWORD: mgs_secret
+      POSTGRES_DB: mgs
+    ports: ["5432:5432"]
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mgs"]
+      interval: 5s
+      retries: 5
+    networks: [mgs-network]
+
+  # ─── PgBouncer ────────────────────────────────────
+  pgbouncer:
+    image: edoburu/pgbouncer:1.23.1
+    ports: ["6432:6432"]
+    volumes:
+      - ./pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./userlist.txt:/etc/pgbouncer/userlist.txt:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [mgs-network]
+
+  # ─── Redis ────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 5
+    networks: [mgs-network]
+
+  # ─── Temporal Server ──────────────────────────────
+  temporal:
+    image: temporalio/auto-setup:1.25
+    ports: ["7233:7233"]
+    environment:
+      DB: postgres12
+      DB_PORT: "5432"
+      POSTGRES_USER: mgs
+      POSTGRES_PWD: mgs_secret
+      POSTGRES_SEEDS: postgres
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [mgs-network]
+
+  # ─── Temporal Web UI ──────────────────────────────
+  temporal-ui:
+    image: temporalio/ui:2.31.2
+    ports: ["8080:8080"]
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_CORS_ORIGINS: http://localhost:3000
+    depends_on: [temporal]
+    networks: [mgs-network]
+
+  # ─── Backend API ──────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://mgs:mgs_secret@pgbouncer:6432/mgs
+      REDIS_URL: redis://redis:6379/0
+      TEMPORAL_HOST: temporal:7233
+      DD_SERVICE: mgs-backend
+      DD_ENV: development
+      ENVIRONMENT: development
+      DEBUG: "true"
+    depends_on:
+      pgbouncer: { condition: service_started }
+      redis: { condition: service_healthy }
+      temporal: { condition: service_started }
+    networks: [mgs-network]
+
+  # ─── Temporal Worker ──────────────────────────────
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.worker
+    environment:
+      DATABASE_URL: postgresql+asyncpg://mgs:mgs_secret@pgbouncer:6432/mgs
+      REDIS_URL: redis://redis:6379/0
+      TEMPORAL_HOST: temporal:7233
+      DD_SERVICE: mgs-worker
+      DD_ENV: development
+    depends_on:
+      pgbouncer: { condition: service_started }
+      redis: { condition: service_healthy }
+      temporal: { condition: service_started }
+    networks: [mgs-network]
+
+volumes:
+  postgres-data:
+  redis-data:
+
+networks:
+  mgs-network:
+    driver: bridge

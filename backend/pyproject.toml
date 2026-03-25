@@ -1,0 +1,53 @@
+[project]
+name = "mgs-backend"
+version = "0.1.0"
+description = "MGS Supply & Services - Backend API & Workflow Engine"
+requires-python = ">=3.12"
+dependencies = [
+    # Web framework
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    # Database
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+    # Cache / Rate limiting
+    "redis>=5.2.0",
+    # Workflow orchestration
+    "temporalio>=1.7.0",
+    # Observability
+    "ddtrace>=2.17.0",
+    "sentry-sdk[fastapi]>=2.19.0",
+    "python-json-logger>=2.0.7",
+    # Blob storage
+    "azure-storage-blob>=12.24.0",
+    "google-cloud-storage>=2.19.0",
+    # HTTP / Resilience
+    "httpx>=0.28.0",
+    "tenacity>=9.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "httpx>=0.28.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

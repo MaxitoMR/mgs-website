@@ -1,0 +1,4 @@
+config:
+  azure-native:location: eastus
+  mgs-infra:environment: development
+  mgs-infra:nodeCount: "2"

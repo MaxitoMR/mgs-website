@@ -1,0 +1,43 @@
+backend:
+  replicaCount: 3
+  image:
+    repository: mgsacr.azurecr.io/mgs-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8000
+  resources:
+    requests: { cpu: 250m, memory: 512Mi }
+    limits: { cpu: 1000m, memory: 1Gi }
+
+worker:
+  replicaCount: 2
+  image:
+    repository: mgsacr.azurecr.io/mgs-worker
+    tag: latest
+    pullPolicy: IfNotPresent
+  resources:
+    requests: { cpu: 250m, memory: 512Mi }
+    limits: { cpu: 1000m, memory: 1Gi }
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilization: 70
+
+ingress:
+  enabled: true
+  className: nginx
+  host: api.mgssupplyandservices.com
+  tls: true
+
+config:
+  environment: production
+  ddService: mgs-backend
+  ddEnv: production
+  temporalHost: temporal:7233
+  blobProvider: azure
+  logLevel: INFO

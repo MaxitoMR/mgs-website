@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mgs-backend
+  namespace: mgs-app
+spec:
+  selector: { app: mgs-backend }
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: ClusterIP

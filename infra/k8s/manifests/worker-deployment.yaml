@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mgs-worker
+  namespace: mgs-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: mgs-worker }
+  template:
+    metadata:
+      labels: { app: mgs-worker }
+    spec:
+      containers:
+        - name: worker
+          image: mgsacr.azurecr.io/mgs-worker:latest
+          envFrom:
+            - configMapRef: { name: mgs-config }
+            - secretRef: { name: mgs-secrets }
+          resources:
+            requests: { cpu: "250m", memory: "512Mi" }
+            limits: { cpu: "1000m", memory: "1Gi" }

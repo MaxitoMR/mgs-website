@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mgs-app.fullname" . }}-worker
+  labels: {{- include "mgs-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.worker.replicaCount }}
+  selector:
+    matchLabels: { app: mgs-worker }
+  template:
+    metadata:
+      labels: { app: mgs-worker }
+    spec:
+      containers:
+        - name: worker
+          image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
+          imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
+          envFrom:
+            - configMapRef: { name: {{ include "mgs-app.fullname" . }}-config }
+            - secretRef: { name: {{ include "mgs-app.fullname" . }}-secrets }
+          resources: {{- toYaml .Values.worker.resources | nindent 12 }}

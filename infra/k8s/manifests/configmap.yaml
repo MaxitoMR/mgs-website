@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mgs-config
+  namespace: mgs-app
+data:
+  ENVIRONMENT: "production"
+  DD_SERVICE: "mgs-backend"
+  DD_ENV: "production"
+  TEMPORAL_HOST: "temporal:7233"
+  TEMPORAL_NAMESPACE: "default"
+  TEMPORAL_TASK_QUEUE: "mgs-tasks"
+  LOG_LEVEL: "INFO"
+  BLOB_PROVIDER: "azure"
+  RATE_LIMIT_PER_USER: "100"
+  RATE_LIMIT_PER_ORG: "1000"
+  RATE_LIMIT_WINDOW_SECONDS: "60"

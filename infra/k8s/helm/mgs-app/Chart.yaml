@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mgs-app
+description: MGS Supply & Services — full application Helm chart
+version: 0.1.0
+appVersion: "0.1.0"
+type: application

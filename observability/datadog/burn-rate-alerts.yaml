@@ -1,0 +1,36 @@
+# Burn-rate alerting — multi-window error budget consumption
+alerts:
+  - name: "Fast Burn — API Availability"
+    description: "14.4x error budget consumption over 1 hour"
+    type: query alert
+    query: |
+      (1 - (sum:trace.fastapi.request.hits{service:mgs-backend,!http.status_code:5xx}.as_count().rollup(sum, 3600)
+      / sum:trace.fastapi.request.hits{service:mgs-backend}.as_count().rollup(sum, 3600))) / (1 - 0.999) > 14.4
+    notify:
+      - "@pagerduty-mgs-critical"
+      - "@slack-mgs-alerts"
+    tags: [slo:api-availability, severity:critical]
+    priority: P1
+
+  - name: "Slow Burn — API Availability"
+    description: "6x error budget consumption over 6 hours"
+    type: query alert
+    query: |
+      (1 - (sum:trace.fastapi.request.hits{service:mgs-backend,!http.status_code:5xx}.as_count().rollup(sum, 21600)
+      / sum:trace.fastapi.request.hits{service:mgs-backend}.as_count().rollup(sum, 21600))) / (1 - 0.999) > 6
+    notify:
+      - "@pagerduty-mgs-warning"
+      - "@slack-mgs-alerts"
+    tags: [slo:api-availability, severity:warning]
+    priority: P2
+
+  - name: "Workflow Failure Spike"
+    description: "Workflow failure rate exceeds 5% over 15 minutes"
+    type: query alert
+    query: |
+      sum:temporal.workflow.failed{namespace:default}.as_count().rollup(sum, 900)
+      / sum:temporal.workflow.started{namespace:default}.as_count().rollup(sum, 900) > 0.05
+    notify:
+      - "@pagerduty-mgs-warning"
+    tags: [service:mgs-worker, severity:warning]
+    priority: P2

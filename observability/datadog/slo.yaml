@@ -1,0 +1,32 @@
+# Datadog SLO definitions
+slos:
+  - name: "API Availability"
+    description: "Backend API returns non-5xx responses"
+    type: metric
+    query:
+      numerator: "sum:trace.fastapi.request.hits{service:mgs-backend,!http.status_code:5xx}.as_count()"
+      denominator: "sum:trace.fastapi.request.hits{service:mgs-backend}.as_count()"
+    target: 99.9
+    warning: 99.95
+    timeframe: 30d
+    tags: [service:mgs-backend, team:platform]
+
+  - name: "API Latency p99"
+    description: "99th percentile latency under 500ms"
+    type: metric
+    query:
+      numerator: "sum:trace.fastapi.request.hits{service:mgs-backend,duration:<500000000}.as_count()"
+      denominator: "sum:trace.fastapi.request.hits{service:mgs-backend}.as_count()"
+    target: 99.0
+    timeframe: 30d
+    tags: [service:mgs-backend, team:platform]
+
+  - name: "Workflow Completion Rate"
+    description: "Temporal workflows complete successfully"
+    type: metric
+    query:
+      numerator: "sum:temporal.workflow.completed{namespace:default}.as_count()"
+      denominator: "sum:temporal.workflow.started{namespace:default}.as_count()"
+    target: 99.5
+    timeframe: 30d
+    tags: [service:mgs-worker, team:platform]
