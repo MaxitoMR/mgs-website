@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Building2, Stethoscope, Factory, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const serviceCategories = [
   {
@@ -76,9 +76,64 @@ const serviceCategories = [
 export function ServicesGrid() {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = serviceCategories[activeIndex];
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  // Animate header on first scroll into view
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".svc-header-el",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.6, stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 80%", once: true },
+        }
+      );
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
+  // Animate cards when tab changes
+  const animateCards = useCallback(() => {
+    if (!contentRef.current) return;
+    const cards = contentRef.current.querySelectorAll(".svc-card");
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 30, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.06, ease: "power2.out" }
+    );
+    // Animate description bar
+    const bar = contentRef.current.querySelector(".svc-desc");
+    if (bar) {
+      gsap.fromTo(bar, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" });
+    }
+  }, []);
+
+  useEffect(() => {
+    animateCards();
+  }, [activeIndex, animateCards]);
+
+  const handleTabClick = (i: number) => {
+    if (i === activeIndex) return;
+    // Quick fade out current cards
+    if (contentRef.current) {
+      const cards = contentRef.current.querySelectorAll(".svc-card");
+      gsap.to(cards, {
+        opacity: 0, y: -15, duration: 0.2, stagger: 0.03,
+        ease: "power2.in",
+        onComplete: () => setActiveIndex(i),
+      });
+    } else {
+      setActiveIndex(i);
+    }
+  };
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#FBFBFE]"
       style={{
         paddingTop: 'clamp(3rem, 5vw, 5rem)',
@@ -88,15 +143,10 @@ export function ServicesGrid() {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-10 lg:mb-14"
-        >
-          <p className="eyebrow text-[#69AF23] mb-4">Our Services</p>
+        <div ref={headerRef} className="mb-10 lg:mb-14">
+          <p className="svc-header-el eyebrow text-[#69AF23] mb-4 opacity-0">Our Services</p>
           <h2
-            className="font-gothic text-gray-900"
+            className="svc-header-el font-gothic text-gray-900 opacity-0"
             style={{
               fontSize: 'clamp(1.75rem, 3.5vw, 3rem)',
               fontWeight: 300,
@@ -105,7 +155,7 @@ export function ServicesGrid() {
           >
             What we <span className="text-[#69AF23]">do.</span>
           </h2>
-        </motion.div>
+        </div>
 
         {/* Category tabs */}
         <div className="flex flex-wrap gap-2 mb-10 lg:mb-14">
@@ -115,7 +165,7 @@ export function ServicesGrid() {
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => handleTabClick(i)}
                 className={cn(
                   "group flex items-center gap-2.5 px-5 py-3 text-sm font-medium transition-all duration-300",
                   isActive
@@ -143,16 +193,9 @@ export function ServicesGrid() {
         </div>
 
         {/* Active category content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active.id}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-          >
+          <div ref={contentRef} key={active.id}>
             {/* Description bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div className="svc-desc flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
               <div className="flex items-center gap-3">
                 <div
                   className="h-8 w-1 rounded-full"
@@ -173,16 +216,7 @@ export function ServicesGrid() {
             {/* Service cards grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 lg:gap-6">
               {active.services.map((service, serviceIndex) => (
-                <motion.div
-                  key={service.name}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: serviceIndex * 0.07,
-                    ease: "easeOut",
-                  }}
-                >
+                <div key={service.name} className="svc-card opacity-0">
                   <Link
                     href={service.link}
                     className="group relative block overflow-hidden bg-white shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-2"
@@ -211,11 +245,10 @@ export function ServicesGrid() {
                       <ArrowRight className="h-4 w-4 mt-2 text-gray-400 group-hover:text-[#69AF23] transition-all duration-300 group-hover:translate-x-1" />
                     </div>
                   </Link>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
 
         {/* View all link */}
         <div className="mt-10 text-center">

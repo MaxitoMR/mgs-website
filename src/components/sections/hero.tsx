@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { gsap } from "@/lib/gsap";
 
 const SUPABASE_PROJECT_REF = 'uuvspvqebodievfkwwss';
 const heroVideos = [
@@ -74,12 +74,66 @@ function HeroVideo() {
 }
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const eyebrowRef = useRef<HTMLParagraphElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // Eyebrow — slide in from left with a line wipe
+      tl.fromTo(
+        eyebrowRef.current,
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.6 },
+        0.3
+      );
+
+      // Heading lines — each line clips up from below
+      const lines = headingRef.current?.querySelectorAll(".hero-line");
+      if (lines) {
+        tl.fromTo(
+          lines,
+          { opacity: 0, y: 60, rotateX: 15 },
+          { opacity: 1, y: 0, rotateX: 0, duration: 0.8, stagger: 0.15 },
+          0.5
+        );
+      }
+
+      // Subtitle — fade up
+      tl.fromTo(
+        subtitleRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        1.1
+      );
+
+      // CTA buttons — stagger in from below
+      const buttons = ctaRef.current?.querySelectorAll("a");
+      if (buttons) {
+        tl.fromTo(
+          buttons,
+          { opacity: 0, y: 24, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12 },
+          1.3
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative w-full flex items-center overflow-hidden" style={{ minHeight: 'clamp(28rem, 70vh, 48rem)' }}>
-      {/* Video Background */}
+    <section
+      ref={sectionRef}
+      className="relative w-full flex items-center overflow-hidden"
+      style={{ minHeight: 'clamp(28rem, 70vh, 48rem)' }}
+    >
       <HeroVideo />
 
-      {/* Hero overlay image at 40% opacity */}
       <div
         className="absolute inset-0 z-20"
         style={{
@@ -90,7 +144,6 @@ export function HeroSection() {
         }}
       />
 
-      {/* ExxonMobil-style gradient overlay — darker at bottom for text legibility */}
       <div
         className="absolute inset-0 z-[21]"
         style={{
@@ -98,34 +151,33 @@ export function HeroSection() {
         }}
       />
 
-      {/* Text Content — vertically centered, left-aligned */}
       <div className="relative z-50 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20">
         <div className="max-w-3xl">
-          {/* Eyebrow */}
-          <p className="eyebrow text-[#9FD01B] mb-5">
-Est. 2006
+          <p ref={eyebrowRef} className="eyebrow text-[#9FD01B] mb-5 opacity-0">
+            Est. 2006
           </p>
 
-          {/* Main heading — large Pfizer-style */}
           <h1
+            ref={headingRef}
             className="font-gothic text-[#FBFBFE] hero-text-shadow"
             style={{
               fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
               fontWeight: 300,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
+              perspective: '600px',
             }}
           >
-            Leaders In
+            <span className="hero-line inline-block opacity-0">Leaders In</span>
             <br />
-            <span className="text-[#69AF23]">Methodical</span>
+            <span className="hero-line inline-block opacity-0 text-[#69AF23]">Methodical</span>
             <br />
-            Precision Cleaning
+            <span className="hero-line inline-block opacity-0">Precision Cleaning</span>
           </h1>
 
-          {/* Subtitle */}
           <p
-            className="text-gray-300 mt-7 mb-10 max-w-xl"
+            ref={subtitleRef}
+            className="text-gray-300 mt-7 mb-10 max-w-xl opacity-0"
             style={{
               fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
               fontWeight: 300,
@@ -136,11 +188,10 @@ Est. 2006
             and industrial environments with proven expertise since 2006.
           </p>
 
-          {/* ExxonMobil-style CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 text-white font-medium tracking-wide transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg text-base"
+              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 text-white font-medium tracking-wide transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg text-base opacity-0"
             >
               Get a Free Quote
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -149,7 +200,7 @@ Est. 2006
             </Link>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 px-8 py-4 text-white font-light tracking-wide transition-all duration-300 hover:border-white hover:bg-white/10 text-base"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 px-8 py-4 text-white font-light tracking-wide transition-all duration-300 hover:border-white hover:bg-white/10 text-base opacity-0"
             >
               Learn About Us
             </Link>

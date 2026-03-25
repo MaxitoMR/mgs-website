@@ -1,42 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { RipplePattern } from "@/components/shared/droplet-accent";
-
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          const duration = 2000;
-          const steps = 60;
-          const increment = target / steps;
-          let current = 0;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              setCount(target);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(current));
-            }
-          }, duration / steps);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return <span ref={ref}>{count}{suffix}</span>;
-}
 
 const stats = [
   { value: 500, suffix: "+", label: "Facilities Managed", description: "across commercial, medical & industrial sectors" },
@@ -46,20 +12,66 @@ const stats = [
 ];
 
 export function StatsOverlap() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate each stat card sliding up with stagger
+      gsap.fromTo(
+        ".stat-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // Animate number countups
+      stats.forEach((stat, i) => {
+        const el = numberRefs.current[i];
+        if (!el) return;
+
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: stat.value,
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            once: true,
+          },
+          onUpdate: () => {
+            const display = stat.value % 1 !== 0
+              ? obj.val.toFixed(1)
+              : Math.floor(obj.val).toString();
+            el.textContent = display + stat.suffix;
+          },
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative w-full bg-[#FBFBFE] border-b border-gray-100 overflow-hidden">
+    <section ref={sectionRef} className="relative w-full bg-[#FBFBFE] border-b border-gray-100 overflow-hidden">
       <RipplePattern color="#69AF23" opacity={0.12} />
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 lg:py-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
           {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
+            <div key={stat.label} className="stat-card opacity-0">
               <div
+                ref={(el) => { numberRefs.current[i] = el; }}
                 className="font-gothic text-[#69AF23]"
                 style={{
                   fontSize: 'clamp(2.25rem, 3.5vw, 3.5rem)',
@@ -67,7 +79,7 @@ export function StatsOverlap() {
                   lineHeight: 1,
                 }}
               >
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                0{stat.suffix}
               </div>
               <p className="font-medium text-gray-900 mt-2 text-sm lg:text-base">
                 {stat.label}
@@ -75,7 +87,7 @@ export function StatsOverlap() {
               <p className="text-gray-500 mt-1 text-xs lg:text-sm" style={{ fontWeight: 300 }}>
                 {stat.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
