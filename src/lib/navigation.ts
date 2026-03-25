@@ -12,46 +12,45 @@ export const serviceNav: NavCategory[] = [
   {
     label: "Commercial",
     items: [
-      { label: "Banks", href: "/services/banks" },
-      { label: "Car Dealerships", href: "/services/car-dealerships" },
-      { label: "Churches", href: "/services/churches" },
-      { label: "Office Buildings", href: "/services/multi-tenant-offices" },
-      { label: "Restaurants", href: "/services/restaurants" },
+      { label: "Multi Tenant Offices", href: "/services/multi-tenant-offices" },
       { label: "Retail Facilities", href: "/services/retail-facilities" },
-      { label: "Schools & Universities", href: "/services/schools" },
+      { label: "Restaurants", href: "/services/restaurants" },
       { label: "Gymnasiums", href: "/services/gymnasiums" },
+      { label: "Car Dealerships", href: "/services/car-dealerships" },
+      { label: "School & University", href: "/services/schools" },
+      { label: "Banks", href: "/services/banks" },
+      { label: "Churches", href: "/services/churches" },
     ],
   },
   {
     label: "Medical",
     items: [
-      { label: "Clinics", href: "/services/clinics" },
       { label: "Surgery Centers", href: "/services/surgery-centers" },
-      { label: "Imaging Facilities", href: "/services/imaging-facilities" },
       { label: "Laboratories", href: "/services/laboratories" },
-      { label: "Sports Rehabilitation", href: "/services/sports-rehabilitation" },
-      { label: "Terminal Sanitization", href: "/services/terminal-sanitization" },
+      { label: "Imaging Facilities", href: "/services/imaging-facilities" },
+      { label: "Sports & Rehab", href: "/services/sports-rehabilitation" },
+      { label: "Clinic & Private Practice", href: "/services/clinics" },
+      { label: "Terminal Cleaning", href: "/services/terminal-sanitization" },
     ],
   },
   {
     label: "Industrial",
     items: [
-      { label: "Factory & Plants", href: "/services/factory-plants" },
-      { label: "Warehouses", href: "/services/warehouses" },
+      { label: "Factory Plants", href: "/services/factory-plants" },
+      { label: "Hydroelectric Power Plants", href: "/services/hydroelectric-plants" },
       { label: "Petrochemical Plants", href: "/services/petrochemical-plants" },
-      { label: "Hydroelectric Plants", href: "/services/hydroelectric-plants" },
+      { label: "Warehouses", href: "/services/warehouses" },
     ],
   },
   {
-    label: "Additional Services",
+    label: "Specialized",
     items: [
-      { label: "Concrete Floors", href: "/services/concrete-floors" },
-      { label: "Post-Construction", href: "/services/post-construction" },
+      { label: "Terminal Sanitization", href: "/services/terminal-sanitization" },
+      { label: "Various Concrete Floors", href: "/services/concrete-floors" },
+      { label: "Post-Construction Cleanup", href: "/services/post-construction" },
       { label: "Industrial Cleanup", href: "/services/industrial-cleanup" },
-      { label: "Power Washing", href: "/services/power-washing" },
       { label: "Windows", href: "/services/windows" },
-      { label: "Upholstery", href: "/services/upholstery" },
-      { label: "Specialized Cleaning", href: "/services/specialized-cleaning" },
+      { label: "Power Washing", href: "/services/power-washing" },
     ],
   },
 ];
@@ -62,4 +61,14 @@ export const mainNav: NavItem[] = [
   { label: "Gallery", href: "/gallery" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/#contact" },
+];
+
+export const rightNav: NavItem[] = [
+  { label: "About", href: "/about" },
+  { label: "Apply Now", href: "/careers" },
+];
+
+export const portalItems: NavItem[] = [
+  { label: "Staff Portal", href: "/staff-portal" },
+  { label: "Client Portal", href: "#" },
 ];
