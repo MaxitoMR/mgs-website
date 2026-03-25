@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { serviceNav, rightNav, portalItems } from "@/lib/navigation";
 import { COMPANY } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import {
   ChevronDown, ChevronRight, Search, Facebook, Twitter, Linkedin,
   Phone, Mail, Menu, X,
@@ -414,25 +415,87 @@ function DesktopNav() {
 /* ─────── Main Header Component ─────── */
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const desktopRef = useRef<HTMLDivElement>(null);
+  const topBarRef = useRef<HTMLDivElement>(null);
+  const logoRowRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+  const navBarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!desktopRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Track scroll direction
+      let lastScroll = 0;
+
+      ScrollTrigger.create({
+        start: "top top",
+        end: "max",
+        onUpdate: (self) => {
+          const scrollY = self.scroll();
+          const isScrolled = scrollY > 120;
+          const isDown = scrollY > lastScroll;
+          lastScroll = scrollY;
+
+          // Top bar — hide on scroll down, show on scroll up
+          if (topBarRef.current) {
+            gsap.to(topBarRef.current, {
+              y: isDown && isScrolled ? -40 : 0,
+              opacity: isDown && isScrolled ? 0 : 1,
+              duration: 0.3,
+              ease: "power2.out",
+              overwrite: true,
+            });
+          }
+
+          // Logo — shrink when scrolled
+          if (logoRef.current) {
+            gsap.to(logoRef.current, {
+              height: isScrolled ? "4.5rem" : "clamp(6rem, 8vw, 8rem)",
+              duration: 0.4,
+              ease: "power2.out",
+              overwrite: true,
+            });
+          }
+
+          // Logo row — compress padding
+          if (logoRowRef.current) {
+            gsap.to(logoRowRef.current, {
+              paddingTop: isScrolled ? "0.5rem" : "1rem",
+              paddingBottom: isScrolled ? "0.5rem" : "1rem",
+              duration: 0.3,
+              ease: "power2.out",
+              overwrite: true,
+            });
+          }
+        },
+      });
+    }, desktopRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
-      <div className="hidden lg:block">
+      <div ref={desktopRef} className="hidden lg:block sticky top-0 z-[999]">
         {/* 1. Top Bar - Contact info */}
-        <TopBar />
+        <div ref={topBarRef}>
+          <TopBar />
+        </div>
 
         {/* 2. Main Header Row - Logo + Search + Social */}
-        <div className="bg-white py-4">
+        <div ref={logoRowRef} className="bg-white py-4">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0" style={{ marginLeft: 'clamp(-0.75rem, -0.75vw, -0.5rem)' }}>
               <Image
+                ref={logoRef}
                 src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
                 alt={COMPANY.name}
                 width={320}
                 height={100}
-                className="w-auto"
+                className="w-auto transition-none"
                 style={{ height: 'clamp(6rem, 8vw, 8rem)' }}
                 priority
               />
@@ -457,7 +520,9 @@ export function Header() {
         </div>
 
         {/* 3. Green Navigation Bar + Mega Menu */}
-        <DesktopNav />
+        <div ref={navBarRef}>
+          <DesktopNav />
+        </div>
       </div>
 
       {/* ===== MOBILE HEADER ===== */}
