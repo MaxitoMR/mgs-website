@@ -421,59 +421,23 @@ export function Header() {
   const logoRef = useRef<HTMLImageElement>(null);
   const navBarRef = useRef<HTMLDivElement>(null);
 
+  const [stickyOffset, setStickyOffset] = useState(-999);
+
   useEffect(() => {
-    if (!navBarRef.current) return;
-
-    const nav = navBarRef.current;
-    let navTop = 0;
-    let navHeight = 0;
-    let pinned = false;
-
     const measure = () => {
-      if (!pinned) {
-        navTop = nav.getBoundingClientRect().top + window.scrollY;
-        navHeight = nav.offsetHeight;
-      }
+      const topH = topBarRef.current?.offsetHeight || 0;
+      const logoH = logoRowRef.current?.offsetHeight || 0;
+      setStickyOffset(-(topH + logoH));
     };
-
     measure();
     window.addEventListener("resize", measure);
-
-    const onScroll = () => {
-      if (window.scrollY >= navTop && !pinned) {
-        pinned = true;
-        // Insert placeholder before pinning
-        const ph = document.createElement("div");
-        ph.id = "nav-ph";
-        ph.style.height = navHeight + "px";
-        nav.parentNode?.insertBefore(ph, nav.nextSibling);
-        // Pin the nav
-        nav.style.position = "fixed";
-        nav.style.top = "0";
-        nav.style.left = "0";
-        nav.style.right = "0";
-        nav.style.zIndex = "1000";
-        nav.style.boxShadow = "0 4px 20px rgba(0,0,0,0.15)";
-      } else if (window.scrollY < navTop && pinned) {
-        pinned = false;
-        nav.style.cssText = "";
-        document.getElementById("nav-ph")?.remove();
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", measure);
-      document.getElementById("nav-ph")?.remove();
-    };
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
-      <div ref={desktopRef} className="hidden lg:block">
+      <div ref={desktopRef} className="hidden lg:block" style={{ position: 'sticky', top: `${stickyOffset}px`, zIndex: 999 }}>
         {/* 1. Top Bar - Contact info */}
         <div ref={topBarRef}>
           <TopBar />
