@@ -422,28 +422,53 @@ export function Header() {
   const navBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!desktopRef.current) return;
+    if (!navBarRef.current) return;
 
-    const ctx = gsap.context(() => {
-      // Add shadow to green nav bar when it becomes stuck
-      ScrollTrigger.create({
-        trigger: navBarRef.current,
-        start: "top top",
-        end: "max",
-        onUpdate: (self) => {
-          if (!navBarRef.current) return;
-          const isStuck = self.scroll() > (navBarRef.current.offsetTop || 150);
-          gsap.to(navBarRef.current, {
-            boxShadow: isStuck ? "0 4px 20px rgba(0,0,0,0.15)" : "none",
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: true,
-          });
-        },
-      });
-    }, desktopRef);
+    const nav = navBarRef.current;
+    let navTop = nav.offsetTop;
 
-    return () => ctx.revert();
+    // Recalculate on resize
+    const recalc = () => { navTop = nav.offsetTop; };
+    window.addEventListener("resize", recalc);
+
+    const onScroll = () => {
+      if (window.scrollY >= navTop) {
+        nav.style.position = "fixed";
+        nav.style.top = "0";
+        nav.style.left = "0";
+        nav.style.right = "0";
+        nav.style.zIndex = "1000";
+        nav.style.boxShadow = "0 4px 20px rgba(0,0,0,0.15)";
+        // Prevent layout shift
+        if (!nav.dataset.placeholder) {
+          const placeholder = document.createElement("div");
+          placeholder.style.height = nav.offsetHeight + "px";
+          placeholder.id = "nav-placeholder";
+          nav.parentNode?.insertBefore(placeholder, nav.nextSibling);
+          nav.dataset.placeholder = "true";
+        }
+      } else {
+        nav.style.position = "";
+        nav.style.top = "";
+        nav.style.left = "";
+        nav.style.right = "";
+        nav.style.zIndex = "";
+        nav.style.boxShadow = "";
+        const placeholder = document.getElementById("nav-placeholder");
+        if (placeholder) {
+          placeholder.remove();
+          delete nav.dataset.placeholder;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", recalc);
+      const placeholder = document.getElementById("nav-placeholder");
+      if (placeholder) placeholder.remove();
+    };
   }, []);
 
   return (
@@ -491,7 +516,7 @@ export function Header() {
         </div>
 
         {/* 3. Green Navigation Bar + Mega Menu */}
-        <div ref={navBarRef} className="sticky top-0 z-[1000]">
+        <div ref={navBarRef}>
           <DesktopNav />
         </div>
       </div>
