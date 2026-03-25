@@ -422,16 +422,29 @@ export function Header() {
   const navBarRef = useRef<HTMLDivElement>(null);
 
   const [stickyOffset, setStickyOffset] = useState(-999);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let topH = 0;
+    let logoH = 0;
+
     const measure = () => {
-      const topH = topBarRef.current?.offsetHeight || 0;
-      const logoH = logoRowRef.current?.offsetHeight || 0;
+      topH = topBarRef.current?.offsetHeight || 0;
+      logoH = logoRowRef.current?.offsetHeight || 0;
       setStickyOffset(-(topH + logoH));
     };
     measure();
+
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > topH + logoH);
+    };
+
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
@@ -479,7 +492,13 @@ export function Header() {
         </div>
 
         {/* 3. Green Navigation Bar + Mega Menu */}
-        <div ref={navBarRef}>
+        <div
+          ref={navBarRef}
+          className="transition-shadow duration-300"
+          style={{
+            boxShadow: isScrolled ? '0 4px 24px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.1)' : 'none',
+          }}
+        >
           <DesktopNav />
         </div>
       </div>
