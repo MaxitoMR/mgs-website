@@ -425,49 +425,20 @@ export function Header() {
     if (!desktopRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Track scroll direction
-      let lastScroll = 0;
-
+      // Add shadow to green nav bar when it becomes stuck
       ScrollTrigger.create({
+        trigger: navBarRef.current,
         start: "top top",
         end: "max",
         onUpdate: (self) => {
-          const scrollY = self.scroll();
-          const isScrolled = scrollY > 120;
-          const isDown = scrollY > lastScroll;
-          lastScroll = scrollY;
-
-          // Top bar — hide on scroll down, show on scroll up
-          if (topBarRef.current) {
-            gsap.to(topBarRef.current, {
-              y: isDown && isScrolled ? -40 : 0,
-              opacity: isDown && isScrolled ? 0 : 1,
-              duration: 0.3,
-              ease: "power2.out",
-              overwrite: true,
-            });
-          }
-
-          // Logo — shrink when scrolled
-          if (logoRef.current) {
-            gsap.to(logoRef.current, {
-              height: isScrolled ? "4.5rem" : "clamp(6rem, 8vw, 8rem)",
-              duration: 0.4,
-              ease: "power2.out",
-              overwrite: true,
-            });
-          }
-
-          // Logo row — compress padding
-          if (logoRowRef.current) {
-            gsap.to(logoRowRef.current, {
-              paddingTop: isScrolled ? "0.5rem" : "1rem",
-              paddingBottom: isScrolled ? "0.5rem" : "1rem",
-              duration: 0.3,
-              ease: "power2.out",
-              overwrite: true,
-            });
-          }
+          if (!navBarRef.current) return;
+          const isStuck = self.scroll() > (navBarRef.current.offsetTop || 150);
+          gsap.to(navBarRef.current, {
+            boxShadow: isStuck ? "0 4px 20px rgba(0,0,0,0.15)" : "none",
+            duration: 0.3,
+            ease: "power2.out",
+            overwrite: true,
+          });
         },
       });
     }, desktopRef);
@@ -478,7 +449,7 @@ export function Header() {
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
-      <div ref={desktopRef} className="hidden lg:block sticky top-0 z-[999]">
+      <div ref={desktopRef} className="hidden lg:block relative z-[999]">
         {/* 1. Top Bar - Contact info */}
         <div ref={topBarRef}>
           <TopBar />
@@ -520,7 +491,7 @@ export function Header() {
         </div>
 
         {/* 3. Green Navigation Bar + Mega Menu */}
-        <div ref={navBarRef}>
+        <div ref={navBarRef} className="sticky top-0 z-[1000]">
           <DesktopNav />
         </div>
       </div>
