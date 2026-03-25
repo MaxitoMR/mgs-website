@@ -425,56 +425,55 @@ export function Header() {
     if (!navBarRef.current) return;
 
     const nav = navBarRef.current;
-    let navTop = nav.offsetTop;
+    let navTop = 0;
+    let navHeight = 0;
+    let pinned = false;
 
-    // Recalculate on resize
-    const recalc = () => { navTop = nav.offsetTop; };
-    window.addEventListener("resize", recalc);
+    const measure = () => {
+      if (!pinned) {
+        navTop = nav.getBoundingClientRect().top + window.scrollY;
+        navHeight = nav.offsetHeight;
+      }
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
 
     const onScroll = () => {
-      if (window.scrollY >= navTop) {
+      if (window.scrollY >= navTop && !pinned) {
+        pinned = true;
+        // Insert placeholder before pinning
+        const ph = document.createElement("div");
+        ph.id = "nav-ph";
+        ph.style.height = navHeight + "px";
+        nav.parentNode?.insertBefore(ph, nav.nextSibling);
+        // Pin the nav
         nav.style.position = "fixed";
         nav.style.top = "0";
         nav.style.left = "0";
         nav.style.right = "0";
         nav.style.zIndex = "1000";
         nav.style.boxShadow = "0 4px 20px rgba(0,0,0,0.15)";
-        // Prevent layout shift
-        if (!nav.dataset.placeholder) {
-          const placeholder = document.createElement("div");
-          placeholder.style.height = nav.offsetHeight + "px";
-          placeholder.id = "nav-placeholder";
-          nav.parentNode?.insertBefore(placeholder, nav.nextSibling);
-          nav.dataset.placeholder = "true";
-        }
-      } else {
-        nav.style.position = "";
-        nav.style.top = "";
-        nav.style.left = "";
-        nav.style.right = "";
-        nav.style.zIndex = "";
-        nav.style.boxShadow = "";
-        const placeholder = document.getElementById("nav-placeholder");
-        if (placeholder) {
-          placeholder.remove();
-          delete nav.dataset.placeholder;
-        }
+      } else if (window.scrollY < navTop && pinned) {
+        pinned = false;
+        nav.style.cssText = "";
+        document.getElementById("nav-ph")?.remove();
       }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", recalc);
-      const placeholder = document.getElementById("nav-placeholder");
-      if (placeholder) placeholder.remove();
+      window.removeEventListener("resize", measure);
+      document.getElementById("nav-ph")?.remove();
     };
   }, []);
 
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
-      <div ref={desktopRef} className="hidden lg:block relative z-[999]">
+      <div ref={desktopRef} className="hidden lg:block">
         {/* 1. Top Bar - Contact info */}
         <div ref={topBarRef}>
           <TopBar />
