@@ -15,10 +15,8 @@ export default function HomePage() {
       <StatsOverlap />
       <ServicesGrid />
       <WhyChooseUs />
-      <Testimonials />
-      <div className="bg-[#f0f5e8]">
-        <CtaBanner />
-      </div>
+      {/* <Testimonials /> — hidden until real client reviews are collected */}
+      <CtaBanner />
       <ContactSection />
     </>
   );
