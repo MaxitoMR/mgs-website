@@ -428,24 +428,24 @@ export function Header() {
 
   const [stickyOffset, setStickyOffset] = useState(-999);
   const [isScrolled, setIsScrolled] = useState(false);
+  const thresholdRef = useRef(0);
 
   useEffect(() => {
-    let topH = 0;
-    let logoH = 0;
-
     const measure = () => {
-      topH = topBarRef.current?.offsetHeight || 0;
-      logoH = logoRowRef.current?.offsetHeight || 0;
+      const topH = topBarRef.current?.offsetHeight || 0;
+      const logoH = logoRowRef.current?.offsetHeight || 0;
+      thresholdRef.current = topH + logoH;
       setStickyOffset(-(topH + logoH));
     };
     measure();
 
     const onScroll = () => {
-      setIsScrolled(window.scrollY > topH + logoH);
+      setIsScrolled(window.scrollY > thresholdRef.current);
     };
 
     window.addEventListener("resize", measure);
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // check immediately
     return () => {
       window.removeEventListener("resize", measure);
       window.removeEventListener("scroll", onScroll);
