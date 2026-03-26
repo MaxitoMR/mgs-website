@@ -390,8 +390,8 @@ function DesktopNav() {
                       <ChevronRight className="h-3 w-3 text-gray-300" />
                       {item.label}
                     </Link>
-                    );}
-                  ))}
+                    );
+                  })}
                 </motion.div>
               )}
             </AnimatePresence>
