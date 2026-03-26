@@ -377,15 +377,20 @@ function DesktopNav() {
                   className="absolute right-0 top-full z-50 mt-0 min-w-[200px] bg-white shadow-premium-lg overflow-hidden"
                   style={{ borderBottomLeftRadius: '1rem' }}
                 >
-                  {portalItems.map((item) => (
+                  {portalItems.map((item) => {
+                    const isExternal = item.href.startsWith("http");
+                    return (
                     <Link
                       key={item.href}
                       href={item.href}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
                       className="flex items-center gap-2 px-5 py-3 text-sm font-light text-gray-700 hover:bg-[#69AF23]/5 hover:text-[#69AF23] transition-colors"
                     >
                       <ChevronRight className="h-3 w-3 text-gray-300" />
                       {item.label}
                     </Link>
+                    );}
                   ))}
                 </motion.div>
               )}
