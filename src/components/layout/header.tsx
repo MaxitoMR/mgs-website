@@ -27,25 +27,25 @@ const categoryMeta: Record<string, {
     icon: Building2,
     color: "#69AF23",
     description: "Professional cleaning solutions for offices, retail, restaurants, and business environments.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&h=400",
+    image: "/images/1_1751323808589.png",
   },
   Medical: {
     icon: Stethoscope,
     color: "#2196F3",
     description: "Infection-control-grade protocols for surgical centers, labs, imaging facilities, and clinics.",
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=600&h=400",
+    image: "/images/imaging center image_1752168794610.png",
   },
   Industrial: {
     icon: Factory,
     color: "#FF8F00",
     description: "Heavy-duty cleaning for factories, petrochemical plants, warehouses, and power facilities.",
-    image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=600&h=400",
+    image: "/images/IMG_1741_1751917994935.JPG",
   },
   Specialized: {
     icon: Wrench,
     color: "#9FD01B",
     description: "Advanced solutions for post-construction, concrete, windows, power washing, and more.",
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600&h=400",
+    image: "/images/7_1752264862114.png",
   },
 };
 
