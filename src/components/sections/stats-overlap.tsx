@@ -5,9 +5,9 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { RipplePattern } from "@/components/shared/droplet-accent";
 
 const stats = [
-  { value: 500, suffix: "+", label: "Facilities Managed", description: "across commercial, medical & industrial sectors" },
+  { value: 100, suffix: "+", label: "Facilities Managed", description: "across commercial, medical & industrial sectors" },
   { value: 99.8, suffix: "%", label: "Service Reliability", description: "consistent quality every visit" },
-  { value: 30, suffix: "", label: "Years Experience", description: "trusted since 2006" },
+  { value: 20, suffix: "", label: "Years Experience", description: "trusted since 2006" },
   { value: 24, suffix: "/7", label: "Emergency Response", description: "always available when you need us" },
 ];
 
