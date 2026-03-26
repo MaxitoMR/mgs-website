@@ -499,9 +499,11 @@ export function Header() {
         {/* 3. Green Navigation Bar + Mega Menu */}
         <div
           ref={navBarRef}
-          className="transition-shadow duration-300"
+          className="transition-all duration-500"
           style={{
-            boxShadow: isScrolled ? '0 4px 24px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.1)' : 'none',
+            boxShadow: isScrolled
+              ? '0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)'
+              : 'none',
           }}
         >
           <DesktopNav />
