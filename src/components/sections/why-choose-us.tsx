@@ -86,15 +86,6 @@ export function WhyChooseUs() {
         borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)',
       }}
     >
-      {/* Leaf-vein SVG pattern */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <pattern id="leaf-veins-dark" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="80" x2="80" y2="0" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#leaf-veins-dark)" />
-      </svg>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
