@@ -428,24 +428,25 @@ export function Header() {
 
   const [stickyOffset, setStickyOffset] = useState(-999);
   const [isScrolled, setIsScrolled] = useState(false);
-  const thresholdRef = useRef(0);
 
   useEffect(() => {
     const measure = () => {
       const topH = topBarRef.current?.offsetHeight || 0;
       const logoH = logoRowRef.current?.offsetHeight || 0;
-      thresholdRef.current = topH + logoH;
       setStickyOffset(-(topH + logoH));
     };
     measure();
 
     const onScroll = () => {
-      setIsScrolled(window.scrollY > thresholdRef.current);
+      // When stuck, the nav bar's top === 0 (it's at the viewport top)
+      if (navBarRef.current) {
+        const rect = navBarRef.current.getBoundingClientRect();
+        setIsScrolled(rect.top <= 1);
+      }
     };
 
     window.addEventListener("resize", measure);
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // check immediately
     return () => {
       window.removeEventListener("resize", measure);
       window.removeEventListener("scroll", onScroll);
