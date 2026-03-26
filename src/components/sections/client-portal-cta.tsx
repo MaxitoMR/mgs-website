@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { LayoutDashboard, FileText, Star, ClipboardCheck, ArrowRight } from "lucide-react";
 
@@ -14,11 +13,10 @@ const features = [
 export function ClientPortalCta() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#1a252f]"
+      className="relative w-full overflow-hidden bg-white"
       style={{
         paddingTop: 'clamp(4rem, 7vw, 7rem)',
         paddingBottom: 'clamp(4rem, 7vw, 7rem)',
-        borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
       }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
@@ -29,7 +27,7 @@ export function ClientPortalCta() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="eyebrow text-[#9FD01B] mb-4"
+              className="eyebrow text-[#69AF23] mb-4"
             >
               Client Portal
             </motion.p>
@@ -38,7 +36,7 @@ export function ClientPortalCta() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="font-gothic text-white mb-5"
+              className="font-gothic text-gray-900 mb-5"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
             >
               Manage your facilities{' '}
@@ -49,7 +47,7 @@ export function ClientPortalCta() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-gray-400 mb-8"
+              className="text-gray-500 mb-8"
               style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}
             >
               Access your dedicated client portal to track location health scores,
@@ -74,36 +72,41 @@ export function ClientPortalCta() {
             </motion.div>
           </div>
 
-          {/* Right — feature cards */}
-          <div className="grid grid-cols-2 gap-4">
-            {features.map((f, i) => {
-              const Icon = f.icon;
-              return (
-                <motion.div
-                  key={f.label}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 + i * 0.08 }}
-                  className="p-5 transition-all duration-300 hover:-translate-y-1"
-                  style={{
-                    background: 'rgba(255,255,255,0.04)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    borderRadius: '1.5rem 0.25rem 0.25rem 0.25rem',
-                  }}
-                >
-                  <div
-                    className="w-10 h-10 flex items-center justify-center mb-3"
-                    style={{ background: '#69AF2315', borderTopLeftRadius: '0.75rem' }}
+          {/* Right — feature cards in a tinted container */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="bg-[#f0f5e8] p-6 lg:p-8"
+            style={{ borderTopLeftRadius: '2.5rem' }}
+          >
+            <div className="grid grid-cols-2 gap-4">
+              {features.map((f, i) => {
+                const Icon = f.icon;
+                return (
+                  <motion.div
+                    key={f.label}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 + i * 0.08 }}
+                    className="bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                    style={{ borderTopLeftRadius: '1.25rem' }}
                   >
-                    <Icon className="h-5 w-5 text-[#69AF23]" />
-                  </div>
-                  <p className="text-white text-sm font-medium mb-1">{f.label}</p>
-                  <p className="text-gray-500 text-xs" style={{ fontWeight: 300 }}>{f.description}</p>
-                </motion.div>
-              );
-            })}
-          </div>
+                    <div
+                      className="w-10 h-10 flex items-center justify-center mb-3"
+                      style={{ background: '#69AF2312', borderTopLeftRadius: '0.75rem' }}
+                    >
+                      <Icon className="h-5 w-5 text-[#69AF23]" />
+                    </div>
+                    <p className="text-gray-900 text-sm font-medium mb-1">{f.label}</p>
+                    <p className="text-gray-500 text-xs" style={{ fontWeight: 300 }}>{f.description}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
