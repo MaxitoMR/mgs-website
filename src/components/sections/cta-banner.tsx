@@ -10,22 +10,6 @@ export function CtaBanner() {
       className="relative w-full overflow-hidden bg-[#69AF23]"
       style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
     >
-      {/* Leaf-vein SVG pattern */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <pattern id="leaf-veins-green" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="80" x2="80" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#leaf-veins-green)" />
-      </svg>
-      {/* Soft radial glow */}
-      <div
-        className="absolute top-0 right-0 w-[40%] h-full opacity-10"
-        style={{
-          background: 'radial-gradient(circle at 70% 30%, #ffffff 0%, transparent 60%)',
-        }}
-      />
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 section-padding text-center">
         <motion.h2

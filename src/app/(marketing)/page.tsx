@@ -16,7 +16,9 @@ export default function HomePage() {
       <ServicesGrid />
       <WhyChooseUs />
       <Testimonials />
-      <CtaBanner />
+      <div className="bg-[#f0f5e8]">
+        <CtaBanner />
+      </div>
       <ContactSection />
     </>
   );
