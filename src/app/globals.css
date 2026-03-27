@@ -367,6 +367,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
 }
 
+/* Fallback: ensure GSAP-animated elements become visible even if ScrollTrigger doesn't fire */
+@media (max-width: 1023px) {
+  .wcu-header, .wcu-card, .wcu-accent,
+  .tb-header, .tb-card,
+  .svc-header-el, .svc-card,
+  .stat-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Hide scrollbar for horizontal scroll containers */
 .scrollbar-hide {
   -ms-overflow-style: none;

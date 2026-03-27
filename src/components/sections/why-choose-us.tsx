@@ -43,19 +43,19 @@ export function WhyChooseUs() {
         {
           opacity: 1, y: 0, duration: 0.7, stagger: 0.15,
           ease: "power2.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 90%", once: true },
         }
       );
 
       // Cards — stagger from bottom with a slight rotation
       gsap.fromTo(
         ".wcu-card",
-        { opacity: 0, y: 60, rotateY: 8 },
+        { opacity: 0, y: 40, rotateY: 8 },
         {
           opacity: 1, y: 0, rotateY: 0,
           duration: 0.7, stagger: 0.12,
           ease: "power3.out",
-          scrollTrigger: { trigger: ".wcu-grid", start: "top 80%", once: true },
+          scrollTrigger: { trigger: ".wcu-grid", start: "top 95%", once: true },
         }
       );
 
@@ -67,7 +67,7 @@ export function WhyChooseUs() {
           width: "30%",
           duration: 0.8, stagger: 0.12,
           ease: "power2.inOut",
-          scrollTrigger: { trigger: ".wcu-grid", start: "top 75%", once: true },
+          scrollTrigger: { trigger: ".wcu-grid", start: "top 95%", once: true },
           delay: 0.5,
         }
       );

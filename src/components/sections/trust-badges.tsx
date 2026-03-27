@@ -60,7 +60,7 @@ export function TrustBadges() {
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 78%",
+            start: "top 95%",
             once: true,
           },
         }
@@ -78,7 +78,7 @@ export function TrustBadges() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".tb-grid",
-            start: "top 82%",
+            start: "top 95%",
             once: true,
           },
         }
