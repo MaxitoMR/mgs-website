@@ -1,31 +1,28 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Loader2, Send, CheckCircle } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { applicationSchema, type ApplicationFormData } from "@/types/forms";
+import { api } from "@/lib/api";
 
 export default function EmployeeApplicationPage() {
-  const [submitted, setSubmitted] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ApplicationFormData>({
     resolver: zodResolver(applicationSchema),
   });
 
-  const onSubmit = async (data: ApplicationFormData) => {
-    const res = await fetch("/api/application", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) setSubmitted(true);
-  };
+  const mutation = useMutation({
+    mutationFn: (data: ApplicationFormData) => api.submitApplication(data),
+  });
+
+  const onSubmit = (data: ApplicationFormData) => mutation.mutate(data);
 
   return (
     <>
@@ -40,7 +37,7 @@ export default function EmployeeApplicationPage() {
       />
 
       <SectionWrapper>
-        {submitted ? (
+        {mutation.isSuccess ? (
           <div className="mx-auto flex max-w-md items-center justify-center rounded-none bg-white p-12 shadow-sm">
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-none bg-brand-green/10">
@@ -156,10 +153,10 @@ export default function EmployeeApplicationPage() {
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={mutation.isPending}
               className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-brand-lime disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isSubmitting ? (
+              {mutation.isPending ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
                 <>

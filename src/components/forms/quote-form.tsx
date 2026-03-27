@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Loader2, Send, CheckCircle } from "lucide-react";
 import { quoteSchema, type QuoteFormData } from "@/types/forms";
 import { services } from "@/lib/services-data";
 import { gtagReportConversion } from "@/lib/analytics";
+import { api } from "@/lib/api";
 
 const facilityTypes = [
   "Commercial Office",
@@ -21,7 +23,6 @@ const facilityTypes = [
 ];
 
 export function QuoteForm() {
-  const [submitted, setSubmitted] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const {
@@ -29,10 +30,15 @@ export function QuoteForm() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<QuoteFormData>({
     resolver: zodResolver(quoteSchema),
     defaultValues: { services: [] },
+  });
+
+  const mutation = useMutation({
+    mutationFn: (data: QuoteFormData) => api.submitQuote(data),
+    onSuccess: () => gtagReportConversion(),
   });
 
   const facilityType = watch("facilityType");
@@ -45,19 +51,9 @@ export function QuoteForm() {
     setValue("services", updated, { shouldValidate: true });
   };
 
-  const onSubmit = async (data: QuoteFormData) => {
-    const res = await fetch("/api/quote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) {
-      setSubmitted(true);
-      gtagReportConversion();
-    }
-  };
+  const onSubmit = (data: QuoteFormData) => mutation.mutate(data);
 
-  if (submitted) {
+  if (mutation.isSuccess) {
     return (
       <div className="flex min-h-[400px] items-center justify-center rounded-none bg-white p-12 shadow-sm">
         <div className="text-center">
@@ -270,10 +266,10 @@ export function QuoteForm() {
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={mutation.isPending}
         className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-brand-lime hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isSubmitting ? (
+        {mutation.isPending ? (
           <Loader2 className="h-5 w-5 animate-spin" />
         ) : (
           <>

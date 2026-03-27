@@ -1,35 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Phone, Mail, MapPin, Clock, Send, Loader2 } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 import { contactSchema, type ContactFormData } from "@/types/forms";
+import { api } from "@/lib/api";
 
 export function ContactSection() {
-  const [submitted, setSubmitted] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) {
-      setSubmitted(true);
-      reset();
-    }
-  };
+  const mutation = useMutation({
+    mutationFn: (data: ContactFormData) => api.submitContact(data),
+    onSuccess: () => reset(),
+  });
+
+  const onSubmit = (data: ContactFormData) => mutation.mutate(data);
 
   return (
     <section
@@ -144,7 +139,7 @@ Get In Touch
 
           {/* Right: Form */}
           <div>
-            {submitted ? (
+            {mutation.isSuccess ? (
               <div
                 className="flex h-full items-center justify-center bg-[#f0f5e8] p-12 shadow-premium"
                 style={{ borderTopLeftRadius: '3rem' }}
@@ -243,11 +238,11 @@ Get In Touch
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={mutation.isPending}
                     className="flex w-full items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 font-medium text-white shadow-lg transition-all hover:bg-[#5a9a1e] disabled:cursor-not-allowed disabled:opacity-50"
                     style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
                   >
-                    {isSubmitting ? (
+                    {mutation.isPending ? (
                       <Loader2 className="h-5 w-5 animate-spin" />
                     ) : (
                       <>
