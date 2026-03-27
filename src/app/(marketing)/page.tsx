@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/sections/hero";
 import { StatsOverlap } from "@/components/sections/stats-overlap";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";
+import { TrustBadges } from "@/components/sections/trust-badges";
 import { Testimonials } from "@/components/sections/testimonials";
 import { ClientPortalCta } from "@/components/sections/client-portal-cta";
 import { CtaBanner } from "@/components/sections/cta-banner";
@@ -16,6 +17,7 @@ export default function HomePage() {
       <StatsOverlap />
       <ServicesGrid />
       <WhyChooseUs />
+      <TrustBadges />
       {/* <Testimonials /> — hidden until real client reviews are collected */}
       <ClientPortalCta />
       <CtaBanner />
