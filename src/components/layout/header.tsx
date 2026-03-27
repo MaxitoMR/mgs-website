@@ -546,46 +546,40 @@ export function Header() {
       </div>
 
       {/* ===== MOBILE HEADER ===== */}
-      <div className="lg:hidden">
-        {/* Mobile top contact bar */}
-        <div className="flex h-8 items-center justify-center gap-4 bg-white text-xs text-gray-600">
-          <a href={`tel:${COMPANY.phone.primary}`} className="flex items-center gap-1">
-            <Phone className="h-3 w-3" />
-            {COMPANY.phone.display}
-          </a>
-          <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-1">
-            <Mail className="h-3 w-3" />
-            {COMPANY.email}
-          </a>
-        </div>
-
+      <div className="lg:hidden sticky top-0 z-[998]">
         {/* Mobile main row */}
-        <div className="flex items-center justify-between bg-white px-4 py-2">
+        <div className="flex items-center justify-between bg-white px-4 py-2 border-b border-gray-100">
           <Link href="/">
             <Image
               src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
               alt={COMPANY.name}
-              width={160}
-              height={48}
-              className="h-12 w-auto"
+              width={140}
+              height={42}
+              className="h-10 w-auto"
               priority
             />
           </Link>
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 text-gray-700"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="flex items-center gap-1">
+            <a href={`tel:${COMPANY.phone.primary}`} className="flex items-center justify-center w-9 h-9 text-gray-500 hover:text-[#69AF23]">
+              <Phone className="h-4 w-4" />
+            </a>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="flex items-center justify-center w-9 h-9 text-gray-700"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile green nav bar */}
-        <div className="bg-[#69AF23] px-4 py-2">
-          <div className="flex items-center justify-center gap-4 text-sm text-white font-light">
-            <Link href="/services" className="hover:text-green-100">Services</Link>
-            <Link href="/about" className="hover:text-green-100">About</Link>
-            <Link href="/quote" className="hover:text-green-100">Quote</Link>
+        <div className="bg-[#69AF23] px-3 py-1.5">
+          <div className="flex items-center justify-center gap-4 text-[11px] text-white font-medium tracking-wide">
+            <Link href="/services" className="hover:text-green-100 py-1">Services</Link>
+            <Link href="/about" className="hover:text-green-100 py-1">About</Link>
+            <Link href="/quote" className="hover:text-green-100 py-1">Quote</Link>
+            <Link href="/walkthrough" className="hover:text-green-100 py-1">Walkthrough</Link>
           </div>
         </div>
       </div>

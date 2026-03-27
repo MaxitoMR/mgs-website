@@ -158,7 +158,7 @@ export function ServicesGrid() {
         </div>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap gap-2 mb-10 lg:mb-14">
+        <div className="flex gap-2 mb-10 lg:mb-14 overflow-x-auto pb-2 -mx-2 px-2 scrollbar-hide">
           {serviceCategories.map((cat, i) => {
             const Icon = cat.icon;
             const isActive = i === activeIndex;
@@ -167,7 +167,7 @@ export function ServicesGrid() {
                 key={cat.id}
                 onClick={() => handleTabClick(i)}
                 className={cn(
-                  "group flex items-center gap-2.5 px-5 py-3 text-sm font-medium transition-all duration-300",
+                  "group flex items-center gap-2.5 px-5 py-3 text-sm font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0",
                   isActive
                     ? "text-white shadow-lg"
                     : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:text-gray-900"
