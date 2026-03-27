@@ -109,34 +109,68 @@ function SearchBar() {
     return () => clearTimeout(timer);
   }, [query]);
 
+  const hasQuery = query.trim().length > 0;
+
   return (
-    <div ref={ref} className="relative" style={{ width: 'clamp(28rem, 35vw, 35rem)' }}>
-      <div className="flex items-center border border-gray-300 bg-gray-50">
-        <Search className="ml-3 h-4 w-4 text-gray-400" />
+    <div ref={ref} className="relative" style={{ width: 'clamp(20rem, 30vw, 30rem)' }}>
+      <div className={cn(
+        "flex items-center gap-2 px-4 py-2.5 border transition-all duration-200",
+        hasQuery
+          ? "border-[#69AF23] bg-white shadow-sm"
+          : "border-gray-200 bg-gray-50/80 hover:border-gray-300"
+      )} style={{ borderTopLeftRadius: '0.75rem' }}>
+        <Search className={cn("h-4 w-4 flex-shrink-0 transition-colors", hasQuery ? "text-[#69AF23]" : "text-gray-400")} />
         <input
           type="text"
           placeholder="Search services..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.trim() && setShowResults(true)}
-          className="w-full bg-transparent px-3 py-2 text-sm font-light text-gray-700 placeholder:text-gray-400 focus:outline-none"
+          className="w-full bg-transparent text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none"
         />
+        {hasQuery && (
+          <button onClick={() => { setQuery(""); setShowResults(false); }} className="flex-shrink-0 text-gray-400 hover:text-gray-600">
+            <X className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
+
       {showResults && results.length > 0 && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-96 overflow-y-auto border border-gray-200 bg-white shadow-lg">
+        <div
+          className="absolute left-0 right-0 top-full z-50 mt-2 max-h-80 overflow-y-auto bg-white shadow-premium-lg border border-gray-100"
+          style={{ borderBottomLeftRadius: '1rem' }}
+        >
+          <div className="px-4 py-2 border-b border-gray-50">
+            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">{results.length} result{results.length !== 1 ? 's' : ''}</span>
+          </div>
           {results.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => { setShowResults(false); setQuery(""); }}
-              className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 transition-colors hover:bg-[#69AF23]/5 hover:text-[#69AF23] border-b border-gray-50 last:border-0"
             >
-              <span>{item.title}</span>
-              <span className={cn("rounded-sm px-2 py-0.5 text-xs", categoryColors[item.category] || "bg-gray-100 text-gray-800")}>
+              <div className="flex items-center gap-2.5">
+                <ChevronRight className="h-3 w-3 text-gray-300" />
+                <span className="font-light">{item.title}</span>
+              </div>
+              <span className={cn("px-2 py-0.5 text-[10px] font-semibold", categoryColors[item.category] || "bg-gray-100 text-gray-800")}>
                 {item.category}
               </span>
             </Link>
           ))}
+        </div>
+      )}
+
+      {showResults && hasQuery && results.length === 0 && (
+        <div
+          className="absolute left-0 right-0 top-full z-50 mt-2 bg-white shadow-premium-lg border border-gray-100 px-4 py-6 text-center"
+          style={{ borderBottomLeftRadius: '1rem' }}
+        >
+          <p className="text-sm text-gray-400">No services found for &ldquo;{query}&rdquo;</p>
+          <Link href="/quote" onClick={() => { setShowResults(false); setQuery(""); }} className="text-xs text-[#69AF23] font-medium mt-1 inline-block hover:underline">
+            Request a custom quote instead
+          </Link>
         </div>
       )}
     </div>
