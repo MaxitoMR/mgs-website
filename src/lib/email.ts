@@ -1,9 +1,6 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const TO = "max@mgssupplyandservices.com";
-const FROM = process.env.RESEND_FROM || "MGS Website <noreply@mgssupplyandservices.com>";
 
 export async function sendEmail({
   subject,
@@ -14,8 +11,14 @@ export async function sendEmail({
   html: string;
   replyTo?: string;
 }) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) throw new Error("RESEND_API_KEY not configured");
+
+  const resend = new Resend(apiKey);
+  const from = process.env.RESEND_FROM || "MGS Website <noreply@mgssupplyandservices.com>";
+
   const { error } = await resend.emails.send({
-    from: FROM,
+    from,
     to: TO,
     subject,
     html,
