@@ -137,7 +137,7 @@ function SearchBar() {
 
       {showResults && results.length > 0 && (
         <div
-          className="absolute left-0 right-0 top-full z-50 mt-2 max-h-80 overflow-y-auto bg-white shadow-premium-lg border border-gray-100"
+          className="absolute left-0 right-0 top-full z-[2000] mt-2 max-h-80 overflow-y-auto bg-white shadow-premium-lg border border-gray-100"
           style={{ borderBottomLeftRadius: '1rem' }}
         >
           <div className="px-4 py-2 border-b border-gray-50">
@@ -164,7 +164,7 @@ function SearchBar() {
 
       {showResults && hasQuery && results.length === 0 && (
         <div
-          className="absolute left-0 right-0 top-full z-50 mt-2 bg-white shadow-premium-lg border border-gray-100 px-4 py-6 text-center"
+          className="absolute left-0 right-0 top-full z-[2000] mt-2 bg-white shadow-premium-lg border border-gray-100 px-4 py-6 text-center"
           style={{ borderBottomLeftRadius: '1rem' }}
         >
           <p className="text-sm text-gray-400">No services found for &ldquo;{query}&rdquo;</p>
