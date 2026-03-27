@@ -14,7 +14,7 @@ export function FloatingActionButtons() {
         </span>
       </Link>
       <Link
-        href="/quote"
+        href="/walkthrough"
         className="flex items-center justify-center text-center border-2 border-[#69AF23] bg-white text-[#69AF23] hover:bg-[#69AF23] hover:text-white shadow-lg hover:scale-105 transition-all duration-300 px-4 py-2.5 lg:px-5 lg:py-3"
       >
         <span className="font-clinical font-light text-xs md:text-sm lg:text-base tracking-wide uppercase whitespace-nowrap">
