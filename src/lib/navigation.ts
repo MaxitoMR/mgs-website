@@ -65,7 +65,7 @@ export const mainNav: NavItem[] = [
 
 export const rightNav: NavItem[] = [
   { label: "About", href: "/about" },
-  { label: "Apply Now", href: "/careers" },
+  { label: "Apply Now", href: "/employee-application" },
 ];
 
 export const portalItems: NavItem[] = [
