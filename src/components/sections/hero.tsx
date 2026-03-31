@@ -17,7 +17,8 @@ function HeroVideo() {
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
   const [activePlayer, setActivePlayer] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentIndexRef = useRef(0);
+  const activePlayerRef = useRef(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -32,19 +33,20 @@ function HeroVideo() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % heroVideos.length;
-      const nextVideo = activePlayer === 0 ? videoRef2.current : videoRef1.current;
+      const nextIndex = (currentIndexRef.current + 1) % heroVideos.length;
+      const nextVideo = activePlayerRef.current === 0 ? videoRef2.current : videoRef1.current;
       if (nextVideo) {
         nextVideo.src = heroVideos[nextIndex];
         nextVideo.playbackRate = 0.6;
         nextVideo.play().catch(() => {});
       }
-      setActivePlayer(activePlayer === 0 ? 1 : 0);
-      setCurrentIndex(nextIndex);
+      activePlayerRef.current = activePlayerRef.current === 0 ? 1 : 0;
+      currentIndexRef.current = nextIndex;
+      setActivePlayer(activePlayerRef.current);
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [currentIndex, activePlayer]);
+  }, []);
 
   return (
     <div className="absolute inset-0 z-10">

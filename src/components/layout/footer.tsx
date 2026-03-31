@@ -27,9 +27,10 @@ const resources = [
   { label: "About Us", href: "/about" },
   { label: "Careers", href: "/careers" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Get a Quote", href: "/#contact" },
-  { label: "Schedule Walkthrough", href: "/#contact" },
-  { label: "Client Portal", href: "/portal" },
+  { label: "Get a Quote", href: "/quote" },
+  { label: "Schedule Walkthrough", href: "/walkthrough" },
+  { label: "Client Portal", href: "https://mgs-client-portal.vercel.app/" },
+  { label: "FAQ", href: "/faq" },
   { label: "Privacy Policy", href: "/privacy-policy" },
 ];
 

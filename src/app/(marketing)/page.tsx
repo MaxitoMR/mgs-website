@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/hero";
+
+export const metadata: Metadata = {
+  title: "MGS Supply & Services — Professional Janitorial Services",
+  description:
+    "Enterprise-grade janitorial services for commercial, medical, and industrial facilities in the Greater Houston area. 20+ years of proven expertise.",
+  openGraph: {
+    title: "MGS Supply & Services",
+    description: "Professional janitorial services for commercial, medical, and industrial facilities.",
+    type: "website",
+  },
+};
 import { StatsOverlap } from "@/components/sections/stats-overlap";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";

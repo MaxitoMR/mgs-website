@@ -9,6 +9,7 @@ import { quoteSchema, type QuoteFormData } from "@/types/forms";
 import { services } from "@/lib/services-data";
 import { gtagReportConversion } from "@/lib/analytics";
 import { api } from "@/lib/api";
+import { COMPANY } from "@/lib/constants";
 
 const facilityTypes = [
   "Commercial Office",
@@ -69,8 +70,8 @@ export function QuoteForm() {
           </p>
           <p className="mt-2 text-sm text-gray-500">
             For immediate assistance, call{" "}
-            <a href="tel:+17138048529" className="text-brand-green hover:underline">
-              (713) 804-8529
+            <a href={`tel:${COMPANY.phone.primary}`} className="text-brand-green hover:underline">
+              {COMPANY.phone.display}
             </a>
           </p>
         </div>
@@ -80,6 +81,11 @@ export function QuoteForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {mutation.isError && (
+        <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-sm">
+          Something went wrong. Please try again or call us directly.
+        </div>
+      )}
       {/* Contact Info */}
       <div className="rounded-none bg-white p-6 shadow-sm">
         <h3 className="mb-4 font-display text-lg font-bold text-gray-900">

@@ -30,7 +30,6 @@ export const serviceNav: NavCategory[] = [
       { label: "Imaging Facilities", href: "/services/imaging-facilities" },
       { label: "Sports & Rehab", href: "/services/sports-rehabilitation" },
       { label: "Clinic & Private Practice", href: "/services/clinics" },
-      { label: "Terminal Cleaning", href: "/services/terminal-sanitization" },
     ],
   },
   {

@@ -20,9 +20,9 @@ export const COMPANY = {
   },
   url: "https://mgssupplyandservices.com",
   social: {
-    facebook: "#",
-    instagram: "#",
-    linkedin: "#",
+    facebook: "https://facebook.com/mgssupplyandservices",
+    instagram: "https://instagram.com/mgssupplyandservices",
+    linkedin: "https://linkedin.com/company/mgs-supply-and-services",
   },
 } as const;
 
