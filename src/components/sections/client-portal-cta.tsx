@@ -129,11 +129,11 @@ export function ClientPortalCta() {
                 className="overflow-hidden bg-white"
                 style={{
                   borderRadius: '12px',
-                  boxShadow: '0 25px 60px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.03)',
+                  boxShadow: '0 25px 60px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.05), 0 0 0 0px transparent',
                 }}
               >
                 {/* Browser chrome — small */}
-                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#f8f8f8] border-b border-gray-100">
+                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#f8f8f8] border-b border-gray-100/50">
                   <div className="flex gap-1">
                     <div className="w-[7px] h-[7px] rounded-full bg-[#ff5f57]" />
                     <div className="w-[7px] h-[7px] rounded-full bg-[#febc2e]" />
@@ -175,7 +175,7 @@ export function ClientPortalCta() {
             boxShadow: '0 15px 40px rgba(0,0,0,0.08), 0 5px 15px rgba(0,0,0,0.04)',
           }}
         >
-          <div className="flex items-center gap-1.5 px-3 py-2 bg-[#f8f8f8] border-b border-gray-100">
+          <div className="flex items-center gap-1.5 px-3 py-2 bg-[#f8f8f8] border-b border-gray-100/50">
             <div className="flex gap-1">
               <div className="w-[6px] h-[6px] rounded-full bg-[#ff5f57]" />
               <div className="w-[6px] h-[6px] rounded-full bg-[#febc2e]" />
