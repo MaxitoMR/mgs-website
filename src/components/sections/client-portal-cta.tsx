@@ -116,11 +116,13 @@ export function ClientPortalCta() {
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
             className="lg:col-span-7 relative"
           >
-            {/* Container that overflows right on large screens */}
+            {/* Container that overflows right with fade */}
             <div
-              className="lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-0 lg:right-0"
+              className="lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-0"
               style={{
-                marginRight: 'clamp(-4rem, -10vw, -12rem)',
+                right: 'clamp(-12rem, -15vw, -20rem)',
+                maskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
               }}
             >
               <div
