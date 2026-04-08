@@ -121,13 +121,14 @@ export function ClientPortalCta() {
             </motion.div>
           </div>
 
-          {/* Right — floating app screenshots (3 cols) */}
+          {/* Right — floating app screenshots (3 cols), overflows right with fade */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
-            className="relative lg:col-span-3"
+            className="relative lg:col-span-3 lg:-mr-32 xl:-mr-48"
+            style={{ maskImage: 'linear-gradient(to right, black 70%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, black 70%, transparent 100%)' }}
           >
             {/* Dashboard screenshot — main */}
             <div
