@@ -29,10 +29,10 @@ export function ClientPortalCta() {
       />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-10 items-center">
 
-          {/* Left — text content */}
-          <div className="relative z-10">
+          {/* Left — text content (2 cols) */}
+          <div className="relative z-10 lg:col-span-2">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -121,13 +121,13 @@ export function ClientPortalCta() {
             </motion.div>
           </div>
 
-          {/* Right — floating app screenshots */}
+          {/* Right — floating app screenshots (3 cols) */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
-            className="relative"
+            className="relative lg:col-span-3"
           >
             {/* Dashboard screenshot — main */}
             <div
