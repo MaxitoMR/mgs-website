@@ -1,111 +1,185 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { LayoutDashboard, FileText, Star, ClipboardCheck, ArrowRight } from "lucide-react";
+import { ArrowRight, LayoutDashboard, FileText, Star, ClipboardCheck } from "lucide-react";
 
 const features = [
-  { icon: LayoutDashboard, label: "Location Health", description: "Real-time facility health scores" },
-  { icon: FileText, label: "Pay Invoices", description: "View and manage billing" },
-  { icon: Star, label: "Send Feedback", description: "Rate your cleaning service" },
-  { icon: ClipboardCheck, label: "QA Reports", description: "Inspection scores & details" },
+  { icon: LayoutDashboard, label: "Location Health Scores" },
+  { icon: FileText, label: "Pay Invoices Online" },
+  { icon: Star, label: "Submit Service Feedback" },
+  { icon: ClipboardCheck, label: "View QA Reports" },
 ];
 
 export function ClientPortalCta() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-white"
+      className="relative w-full overflow-hidden bg-[#FBFBFE]"
       style={{
-        paddingTop: 'clamp(4rem, 7vw, 7rem)',
-        paddingBottom: 'clamp(4rem, 7vw, 7rem)',
+        paddingTop: 'clamp(4rem, 8vw, 8rem)',
+        paddingBottom: 'clamp(4rem, 8vw, 8rem)',
       }}
     >
+      {/* Subtle background gradient blob */}
+      <div
+        className="absolute top-0 right-0 w-[60%] h-full opacity-[0.04] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at 70% 40%, #69AF23 0%, transparent 60%)',
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left — text + CTA */}
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+
+          {/* Left — text content */}
+          <div className="relative z-10">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="eyebrow text-[#69AF23] mb-4"
+              className="eyebrow text-[#69AF23] mb-5"
             >
               Client Portal
             </motion.p>
+
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="font-gothic text-gray-900 mb-5"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
+              className="font-gothic text-gray-900"
+              style={{
+                fontSize: 'clamp(2rem, 4vw, 3.25rem)',
+                fontWeight: 300,
+                lineHeight: 1.08,
+                letterSpacing: '-0.02em',
+              }}
             >
-              Manage your facilities{' '}
-              <span className="text-[#69AF23]">online.</span>
+              Meet your new
+              <br />
+              <span className="text-[#69AF23]">facility dashboard.</span>
             </motion.h2>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-gray-500 mb-8"
-              style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}
+              className="text-gray-500 mt-5 mb-8 max-w-md"
+              style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.05rem)', fontWeight: 300, lineHeight: 1.7 }}
             >
-              Access your dedicated client portal to track location health scores,
-              pay invoices, submit feedback, and view QA inspection reports — all in one place.
+              Track your facility&apos;s health score, pay invoices, submit feedback, and view
+              QA inspection reports — all from one clean, simple portal built for you.
             </motion.p>
+
+            {/* Feature list */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+              className="grid grid-cols-2 gap-x-6 gap-y-3 mb-8"
+            >
+              {features.map((f) => {
+                const Icon = f.icon;
+                return (
+                  <div key={f.label} className="flex items-center gap-2.5">
+                    <Icon className="h-4 w-4 text-[#69AF23] flex-shrink-0" />
+                    <span className="text-sm text-gray-700" style={{ fontWeight: 400 }}>{f.label}</span>
+                  </div>
+                );
+              })}
+            </motion.div>
+
+            {/* CTA buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
+              className="flex flex-wrap gap-3"
             >
               <a
                 href="https://mgs-client-portal.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-[#69AF23] px-7 py-3.5 text-white font-medium transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg"
+                className="inline-flex items-center gap-2.5 bg-[#69AF23] px-7 py-3.5 text-white font-medium transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg"
                 style={{ fontSize: '0.95rem', borderTopLeftRadius: '1.25rem' }}
               >
-                Go to Client Portal
+                Go to Portal
                 <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="https://mgs-client-portal.vercel.app/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 border border-gray-200 px-7 py-3.5 text-gray-700 font-light transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
+                style={{ fontSize: '0.95rem', borderTopLeftRadius: '1.25rem' }}
+              >
+                Sign In
               </a>
             </motion.div>
           </div>
 
-          {/* Right — feature cards in a tinted container */}
+          {/* Right — floating app screenshots */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="bg-[#f0f5e8] p-6 lg:p-8"
-            style={{ borderTopLeftRadius: '2.5rem' }}
+            transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
+            className="relative"
           >
-            <div className="grid grid-cols-2 gap-4">
-              {features.map((f, i) => {
-                const Icon = f.icon;
-                return (
-                  <motion.div
-                    key={f.label}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.08 }}
-                    className="bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-                    style={{ borderTopLeftRadius: '1.25rem' }}
-                  >
-                    <div
-                      className="w-10 h-10 flex items-center justify-center mb-3"
-                      style={{ background: '#69AF2312', borderTopLeftRadius: '0.75rem' }}
-                    >
-                      <Icon className="h-5 w-5 text-[#69AF23]" />
-                    </div>
-                    <p className="text-gray-900 text-sm font-medium mb-1">{f.label}</p>
-                    <p className="text-gray-500 text-xs" style={{ fontWeight: 300 }}>{f.description}</p>
-                  </motion.div>
-                );
-              })}
+            {/* Dashboard screenshot — main */}
+            <div
+              className="relative z-10 overflow-hidden border border-gray-200/60 bg-white"
+              style={{
+                borderRadius: '12px',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.06)',
+                transform: 'perspective(1200px) rotateY(-4deg) rotateX(2deg)',
+              }}
+            >
+              <Image
+                src="/images/portal-dashboard.png"
+                alt="MGS Client Portal — Dashboard showing location health score, service history, and invoices"
+                width={1400}
+                height={900}
+                className="w-full h-auto"
+                priority
+              />
             </div>
+
+            {/* Invoice screenshot — floating behind/below */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="absolute -bottom-8 -left-8 w-[55%] z-20 hidden lg:block"
+              style={{
+                borderRadius: '10px',
+                boxShadow: '0 20px 50px rgba(0,0,0,0.15), 0 6px 16px rgba(0,0,0,0.08)',
+                border: '1px solid rgba(255,255,255,0.8)',
+                overflow: 'hidden',
+              }}
+            >
+              <Image
+                src="/images/portal-invoice.png"
+                alt="MGS Client Portal — Invoice detail with payment timeline"
+                width={800}
+                height={500}
+                className="w-full h-auto"
+              />
+            </motion.div>
+
+            {/* Decorative green accent */}
+            <div
+              className="absolute -top-4 -right-4 w-24 h-24 opacity-10 pointer-events-none hidden lg:block"
+              style={{
+                background: '#69AF23',
+                borderRadius: '50%',
+                filter: 'blur(30px)',
+              }}
+            />
           </motion.div>
         </div>
       </div>
