@@ -16,8 +16,8 @@ export function ClientPortalCta() {
     <section
       className="relative w-full overflow-hidden bg-[#FBFBFE]"
       style={{
-        paddingTop: 'clamp(4rem, 8vw, 8rem)',
-        paddingBottom: 'clamp(4rem, 8vw, 8rem)',
+        paddingTop: 'clamp(6rem, 12vw, 12rem)',
+        paddingBottom: 'clamp(6rem, 12vw, 12rem)',
       }}
     >
       {/* Subtle background gradient blob */}
@@ -49,10 +49,10 @@ export function ClientPortalCta() {
               transition={{ delay: 0.1 }}
               className="font-gothic text-gray-900"
               style={{
-                fontSize: 'clamp(2rem, 4vw, 3.25rem)',
+                fontSize: 'clamp(2.25rem, 5vw, 4rem)',
                 fontWeight: 300,
-                lineHeight: 1.08,
-                letterSpacing: '-0.02em',
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
               }}
             >
               Meet your new
