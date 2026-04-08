@@ -14,7 +14,7 @@ const features = [
 export function ClientPortalCta() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#FBFBFE]"
+      className="relative w-full overflow-hidden bg-[#f0f5e8]"
       style={{ minHeight: 'clamp(30rem, 70vh, 45rem)' }}
     >
       {/* Background gradient */}
