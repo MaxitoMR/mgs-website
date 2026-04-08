@@ -17,11 +17,6 @@ export function ClientPortalCta() {
       className="relative w-full overflow-hidden bg-[#f0f5e8]"
       style={{ minHeight: 'clamp(30rem, 70vh, 45rem)' }}
     >
-      {/* Background gradient */}
-      <div
-        className="absolute top-0 right-0 w-[50%] h-full opacity-[0.03] pointer-events-none"
-        style={{ background: 'radial-gradient(circle at 80% 50%, #69AF23 0%, transparent 60%)' }}
-      />
 
       <div className="relative z-10 h-full flex items-center" style={{ paddingTop: 'clamp(5rem, 10vw, 8rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
         {/* Left side — constrained to max-w-7xl */}
@@ -122,9 +117,9 @@ export function ClientPortalCta() {
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
           className="absolute top-1/2 -translate-y-1/2 right-0 hidden lg:block"
           style={{
-            left: '45%',
-            maskImage: 'linear-gradient(to right, black 60%, transparent 98%)',
-            WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 98%)',
+            left: '44%',
+            maskImage: 'linear-gradient(to right, black 65%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, black 65%, transparent 100%)',
           }}
         >
           <div
