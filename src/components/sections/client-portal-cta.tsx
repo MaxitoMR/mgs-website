@@ -141,9 +141,11 @@ export function ClientPortalCta() {
               <Image
                 src="/images/portal-dashboard.png"
                 alt="MGS Client Portal — Dashboard showing location health score, service history, and invoices"
-                width={1400}
-                height={900}
+                width={3439}
+                height={1269}
                 className="w-full h-auto"
+                quality={100}
+                unoptimized
                 priority
               />
             </div>
@@ -165,9 +167,11 @@ export function ClientPortalCta() {
               <Image
                 src="/images/portal-invoice.png"
                 alt="MGS Client Portal — Invoice detail with payment timeline"
-                width={800}
-                height={500}
+                width={3439}
+                height={1269}
                 className="w-full h-auto"
+                quality={100}
+                unoptimized
               />
             </motion.div>
 
