@@ -29,7 +29,7 @@ const resources = [
   { label: "Gallery", href: "/gallery" },
   { label: "Get a Quote", href: "/quote" },
   { label: "Schedule Walkthrough", href: "/walkthrough" },
-  { label: "Client Portal", href: "https://mgs-client-portal.vercel.app/" },
+  { label: "Client Portal", href: "https://mgsclientportal.app/" },
   { label: "FAQ", href: "/faq" },
   { label: "Privacy Policy", href: "/privacy-policy" },
 ];

@@ -122,7 +122,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               </p>
               {[
                 { label: "MGS Manager", href: "https://mgsmanagement.app/", external: true },
-                { label: "Client Portal", href: "https://mgs-client-portal.vercel.app/", external: true },
+                { label: "Client Portal", href: "https://mgsclientportal.app/", external: true },
                 { label: "Staff Portal", href: "/staff-portal", external: false },
               ].map((item) => (
                 <Link

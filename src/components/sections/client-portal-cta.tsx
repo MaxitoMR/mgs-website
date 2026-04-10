@@ -87,7 +87,7 @@ export function ClientPortalCta() {
               className="flex flex-wrap gap-3"
             >
               <a
-                href="https://mgs-client-portal.vercel.app/"
+                href="https://mgsclientportal.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 bg-[#69AF23] px-6 py-3 text-white text-sm font-medium transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg"
@@ -97,7 +97,7 @@ export function ClientPortalCta() {
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
-                href="https://mgs-client-portal.vercel.app/login"
+                href="https://mgsclientportal.app/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 border border-gray-300 px-6 py-3 text-gray-700 text-sm font-light transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
@@ -141,7 +141,7 @@ export function ClientPortalCta() {
                   </div>
                   <div className="flex-1 flex justify-center">
                     <div className="hidden sm:block px-8 py-0.5 bg-white border border-gray-200 rounded text-[10px] text-gray-400 font-light">
-                      portal.mgssupplyandservices.com
+                      mgsclientportal.app
                     </div>
                   </div>
                   <div className="w-8" />
