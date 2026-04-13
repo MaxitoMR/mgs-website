@@ -7,9 +7,13 @@ import { ArrowRight, Phone } from "lucide-react";
 export function CtaBanner() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#69AF23]"
-      style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
+      className="relative w-full overflow-hidden bg-[#2C3E50]"
     >
+      {/* Green inner with curved top-left, sitting on the dark blue background */}
+      <div
+        className="relative w-full bg-[#69AF23]"
+        style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
+      >
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 sm:px-8 lg:px-12 section-padding text-center">
         <motion.h2
@@ -57,6 +61,7 @@ export function CtaBanner() {
             Call (281) 829-5358
           </a>
         </motion.div>
+      </div>
       </div>
     </section>
   );
