@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Smartphone,
   MapPin,
@@ -17,18 +16,6 @@ import {
 const APP_STORE_URL =
   "https://apps.apple.com/us/app/mgs-management-app/id6760367154";
 
-const screenshots = [
-  { src: "/images/app-screenshots/active-shift.png", alt: "Active shift timer with GPS clock-in", label: "Employee" },
-  { src: "/images/app-screenshots/qa-inspection.png", alt: "QA inspection scoring workflow", label: "Supervisor" },
-  { src: "/images/app-screenshots/client-dashboard.png", alt: "Client location health dashboard", label: "Client" },
-  { src: "/images/app-screenshots/team-reports.png", alt: "Team performance reports", label: "Supervisor" },
-  { src: "/images/app-screenshots/shift-workflow.png", alt: "Shift details and service workflow", label: "Admin" },
-  { src: "/images/app-screenshots/admin-shift-details.png", alt: "Admin shift details with time log", label: "Admin" },
-  { src: "/images/app-screenshots/admin-actions.png", alt: "Admin actions and shift management", label: "Admin" },
-  { src: "/images/app-screenshots/shift-details.png", alt: "Shift details with assigned staff", label: "Employee" },
-  { src: "/images/app-screenshots/supervisor-menu.png", alt: "Supervisor menu and navigation", label: "Supervisor" },
-];
-
 const features = [
   { icon: MapPin, label: "GPS Clock In/Out" },
   { icon: ClipboardCheck, label: "QA Inspections" },
@@ -41,19 +28,6 @@ const features = [
 ];
 
 export function AppPromo() {
-  const [current, setCurrent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % screenshots.length);
-  }, []);
-
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(next, 3000);
-    return () => clearInterval(timer);
-  }, [isPaused, next]);
-
   return (
     <section
       className="relative w-full overflow-hidden bg-[#2C3E50]"
@@ -82,11 +56,7 @@ export function AppPromo() {
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
             className="lg:col-span-5 flex justify-center"
           >
-            <div
-              className="relative"
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
+            <div className="relative">
               {/* Glow behind phone */}
               <div
                 className="absolute inset-0 blur-[80px] opacity-30"
@@ -119,66 +89,15 @@ export function AppPromo() {
                   className="relative overflow-hidden bg-white"
                   style={{ borderRadius: "28px", aspectRatio: "9/19.5" }}
                 >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={current}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="absolute inset-0"
-                    >
-                      <Image
-                        src={screenshots[current].src}
-                        alt={screenshots[current].alt}
-                        fill
-                        className="object-cover object-top"
-                        sizes="280px"
-                        priority={current === 0}
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <Image
+                    src="/images/app-screenshots/active-shift.png"
+                    alt="MGS Management App — Active shift with GPS clock-in timer"
+                    fill
+                    className="object-cover object-top"
+                    sizes="280px"
+                    priority
+                  />
                 </div>
-              </div>
-
-              {/* Role label */}
-              <div className="flex justify-center mt-4">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={current}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.25 }}
-                    className="px-3 py-1 text-[11px] font-medium rounded-full border border-[#69AF23]/30 text-[#69AF23] bg-[#69AF23]/10"
-                  >
-                    {screenshots[current].label} View
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-
-              {/* Dot indicators */}
-              <div className="flex justify-center gap-1.5 mt-3">
-                {screenshots.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrent(i)}
-                    className="p-0.5"
-                    aria-label={`Go to screenshot ${i + 1}`}
-                  >
-                    <div
-                      className="rounded-full transition-all duration-300"
-                      style={{
-                        width: i === current ? "16px" : "5px",
-                        height: "5px",
-                        backgroundColor:
-                          i === current
-                            ? "#69AF23"
-                            : "rgba(255,255,255,0.2)",
-                      }}
-                    />
-                  </button>
-                ))}
               </div>
             </div>
           </motion.div>
