@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Smartphone,
   MapPin,
@@ -15,6 +17,18 @@ import {
 const APP_STORE_URL =
   "https://apps.apple.com/us/app/mgs-management-app/id6760367154";
 
+const screenshots = [
+  { src: "/images/app-screenshots/active-shift.png", alt: "Active shift timer with GPS clock-in", label: "Employee" },
+  { src: "/images/app-screenshots/qa-inspection.png", alt: "QA inspection scoring workflow", label: "Supervisor" },
+  { src: "/images/app-screenshots/client-dashboard.png", alt: "Client location health dashboard", label: "Client" },
+  { src: "/images/app-screenshots/team-reports.png", alt: "Team performance reports", label: "Supervisor" },
+  { src: "/images/app-screenshots/shift-workflow.png", alt: "Shift details and service workflow", label: "Admin" },
+  { src: "/images/app-screenshots/admin-shift-details.png", alt: "Admin shift details with time log", label: "Admin" },
+  { src: "/images/app-screenshots/admin-actions.png", alt: "Admin actions and shift management", label: "Admin" },
+  { src: "/images/app-screenshots/shift-details.png", alt: "Shift details with assigned staff", label: "Employee" },
+  { src: "/images/app-screenshots/supervisor-menu.png", alt: "Supervisor menu and navigation", label: "Supervisor" },
+];
+
 const features = [
   { icon: MapPin, label: "GPS Clock In/Out" },
   { icon: ClipboardCheck, label: "QA Inspections" },
@@ -27,6 +41,19 @@ const features = [
 ];
 
 export function AppPromo() {
+  const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % screenshots.length);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(next, 3000);
+    return () => clearInterval(timer);
+  }, [isPaused, next]);
+
   return (
     <section
       className="relative w-full overflow-hidden bg-[#2C3E50]"
@@ -47,7 +74,7 @@ export function AppPromo() {
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Left — Phone Mockup */}
+          {/* Left — Phone Mockup with real screenshots */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -55,7 +82,11 @@ export function AppPromo() {
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
             className="lg:col-span-5 flex justify-center"
           >
-            <div className="relative">
+            <div
+              className="relative"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
               {/* Glow behind phone */}
               <div
                 className="absolute inset-0 blur-[80px] opacity-30"
@@ -69,98 +100,85 @@ export function AppPromo() {
               <div
                 className="relative w-[260px] sm:w-[280px] mx-auto"
                 style={{
-                  background: "linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)",
+                  background:
+                    "linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)",
                   borderRadius: "36px",
-                  padding: "12px",
+                  padding: "10px",
                   boxShadow:
                     "0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
                 }}
               >
-                {/* Notch */}
+                {/* Dynamic Island */}
                 <div
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[28px] bg-black z-10"
-                  style={{ borderRadius: "0 0 18px 18px" }}
+                  className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[90px] h-[24px] bg-black z-20"
+                  style={{ borderRadius: "20px" }}
                 />
 
                 {/* Screen */}
                 <div
-                  className="relative overflow-hidden bg-[#1a2332]"
-                  style={{ borderRadius: "26px", aspectRatio: "9/19.2" }}
+                  className="relative overflow-hidden bg-white"
+                  style={{ borderRadius: "28px", aspectRatio: "9/19.5" }}
                 >
-                  {/* Status bar */}
-                  <div className="flex items-center justify-between px-6 pt-4 pb-2">
-                    <span className="text-[10px] text-white/60 font-medium">
-                      9:41
-                    </span>
-                    <div className="flex items-center gap-1">
-                      <div className="w-3.5 h-2 border border-white/40 rounded-[2px] relative">
-                        <div className="absolute inset-[1px] right-[2px] bg-[#69AF23] rounded-[1px]" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* App header */}
-                  <div className="px-5 pt-2 pb-3">
-                    <p className="text-[10px] text-[#69AF23] font-medium tracking-wider uppercase">
-                      MGS Management
-                    </p>
-                    <p className="text-white text-[16px] font-semibold mt-0.5">
-                      Dashboard
-                    </p>
-                  </div>
-
-                  {/* Stats cards */}
-                  <div className="px-4 grid grid-cols-2 gap-2">
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/5">
-                      <div className="w-5 h-5 rounded-lg bg-[#69AF23]/20 flex items-center justify-center mb-2">
-                        <Clock className="w-3 h-3 text-[#69AF23]" />
-                      </div>
-                      <p className="text-white text-[13px] font-semibold">12</p>
-                      <p className="text-white/40 text-[9px]">Active Shifts</p>
-                    </div>
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/5">
-                      <div className="w-5 h-5 rounded-lg bg-[#69AF23]/20 flex items-center justify-center mb-2">
-                        <ClipboardCheck className="w-3 h-3 text-[#69AF23]" />
-                      </div>
-                      <p className="text-white text-[13px] font-semibold">98%</p>
-                      <p className="text-white/40 text-[9px]">QA Score</p>
-                    </div>
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/5">
-                      <div className="w-5 h-5 rounded-lg bg-[#69AF23]/20 flex items-center justify-center mb-2">
-                        <MapPin className="w-3 h-3 text-[#69AF23]" />
-                      </div>
-                      <p className="text-white text-[13px] font-semibold">8</p>
-                      <p className="text-white/40 text-[9px]">Locations</p>
-                    </div>
-                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/5">
-                      <div className="w-5 h-5 rounded-lg bg-[#69AF23]/20 flex items-center justify-center mb-2">
-                        <BarChart3 className="w-3 h-3 text-[#69AF23]" />
-                      </div>
-                      <p className="text-white text-[13px] font-semibold">A+</p>
-                      <p className="text-white/40 text-[9px]">Health Score</p>
-                    </div>
-                  </div>
-
-                  {/* Activity feed preview */}
-                  <div className="px-4 mt-3">
-                    <p className="text-[10px] text-white/30 font-medium uppercase tracking-wider mb-2">
-                      Live Activity
-                    </p>
-                    {[
-                      { text: "John clocked in — Site 4", time: "2m ago" },
-                      { text: "QA inspection completed", time: "15m ago" },
-                      { text: "Supply request approved", time: "1h ago" },
-                    ].map((item) => (
-                      <div
-                        key={item.text}
-                        className="flex items-center justify-between py-1.5 border-b border-white/5 last:border-0"
-                      >
-                        <p className="text-[9px] text-white/60">{item.text}</p>
-                        <p className="text-[8px] text-white/25">{item.time}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={current}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={screenshots[current].src}
+                        alt={screenshots[current].alt}
+                        fill
+                        className="object-cover object-top"
+                        sizes="280px"
+                        priority={current === 0}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
+              </div>
+
+              {/* Role label */}
+              <div className="flex justify-center mt-4">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={current}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.25 }}
+                    className="px-3 py-1 text-[11px] font-medium rounded-full border border-[#69AF23]/30 text-[#69AF23] bg-[#69AF23]/10"
+                  >
+                    {screenshots[current].label} View
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+
+              {/* Dot indicators */}
+              <div className="flex justify-center gap-1.5 mt-3">
+                {screenshots.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrent(i)}
+                    className="p-0.5"
+                    aria-label={`Go to screenshot ${i + 1}`}
+                  >
+                    <div
+                      className="rounded-full transition-all duration-300"
+                      style={{
+                        width: i === current ? "16px" : "5px",
+                        height: "5px",
+                        backgroundColor:
+                          i === current
+                            ? "#69AF23"
+                            : "rgba(255,255,255,0.2)",
+                      }}
+                    />
+                  </button>
+                ))}
               </div>
             </div>
           </motion.div>
