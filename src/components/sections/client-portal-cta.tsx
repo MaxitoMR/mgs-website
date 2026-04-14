@@ -87,7 +87,7 @@ export function ClientPortalCta() {
               className="flex flex-wrap gap-3"
             >
               <a
-                href="https://mgsclientportal.app/"
+                href="https://mgsclientportal.app/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 bg-[#69AF23] px-6 py-3 text-white text-sm font-medium transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg"
