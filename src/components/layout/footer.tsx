@@ -29,7 +29,7 @@ const resources = [
   { label: "Gallery", href: "/gallery" },
   { label: "Get a Quote", href: "/quote" },
   { label: "Schedule Walkthrough", href: "/walkthrough" },
-  { label: "Client Portal", href: "https://mgsclientportal.app/login" },
+  { label: "Client Portal", href: "https://www.mgsclientportal.app/" },
   { label: "Download App", href: "https://apps.apple.com/us/app/mgs-management-app/id6760367154" },
   { label: "FAQ", href: "/faq" },
   { label: "Privacy Policy", href: "/privacy-policy" },
