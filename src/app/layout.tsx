@@ -27,8 +27,10 @@ export const metadata: Metadata = {
     "industrial cleaning",
     "facility management",
     "professional cleaning services",
-    "Houston",
-    "Katy TX",
+    "Houston cleaning company",
+    "Katy TX janitorial",
+    "office cleaning Houston",
+    "surgery center cleaning",
   ],
   openGraph: {
     type: "website",
@@ -37,11 +39,28 @@ export const metadata: Metadata = {
     siteName: COMPANY.name,
     title: `${COMPANY.name} - ${COMPANY.tagline}`,
     description: COMPANY.description,
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 1200,
+        height: 630,
+        alt: COMPANY.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${COMPANY.name} - ${COMPANY.tagline}`,
     description: COMPANY.description,
+    images: ["/images/logo.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/images/logo.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/images/logo.png" },
+    ],
   },
   robots: {
     index: true,
@@ -53,6 +72,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  alternates: {
+    canonical: COMPANY.url,
   },
 };
 

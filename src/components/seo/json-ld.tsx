@@ -1,7 +1,7 @@
 import { COMPANY } from "@/lib/constants";
 
 interface JsonLdProps {
-  type: "LocalBusiness" | "Service" | "WebPage";
+  type: "LocalBusiness" | "Service" | "WebPage" | "FAQPage";
   data?: Record<string, unknown>;
 }
 
@@ -43,10 +43,24 @@ export function JsonLd({ type, data }: JsonLdProps) {
       opens: "00:00",
       closes: "23:59",
     },
+    sameAs: [
+      COMPANY.social.facebook,
+      COMPANY.social.instagram,
+      COMPANY.social.linkedin,
+    ],
+    image: `${COMPANY.url}/images/logo.png`,
+    priceRange: "$$",
     ...data,
   };
 
-  const jsonLd = type === "LocalBusiness" ? localBusiness : { ...baseData, ...data };
+  let jsonLd;
+  if (type === "LocalBusiness") {
+    jsonLd = localBusiness;
+  } else if (type === "FAQPage") {
+    jsonLd = { ...baseData, ...data };
+  } else {
+    jsonLd = { ...baseData, ...data };
+  }
 
   return (
     <script

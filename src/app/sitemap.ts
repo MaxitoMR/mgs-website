@@ -6,20 +6,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = COMPANY.url;
 
   const staticPages = [
-    "",
-    "/about",
-    "/services",
-    "/gallery",
-    "/careers",
-    "/employee-application",
-    "/quote",
-    "/diffusers",
-    "/privacy-policy",
-  ].map((route) => ({
-    url: `${base}${route}`,
+    { route: "", priority: 1, changeFrequency: "weekly" as const },
+    { route: "/about", priority: 0.8, changeFrequency: "monthly" as const },
+    { route: "/services", priority: 0.9, changeFrequency: "weekly" as const },
+    { route: "/gallery", priority: 0.7, changeFrequency: "monthly" as const },
+    { route: "/faq", priority: 0.7, changeFrequency: "monthly" as const },
+    { route: "/careers", priority: 0.7, changeFrequency: "monthly" as const },
+    { route: "/employee-application", priority: 0.5, changeFrequency: "monthly" as const },
+    { route: "/quote", priority: 0.8, changeFrequency: "monthly" as const },
+    { route: "/walkthrough", priority: 0.8, changeFrequency: "monthly" as const },
+    { route: "/diffusers", priority: 0.6, changeFrequency: "monthly" as const },
+    { route: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" as const },
+    { route: "/terms", priority: 0.3, changeFrequency: "yearly" as const },
+  ].map((page) => ({
+    url: `${base}${page.route}`,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: route === "" ? 1 : 0.8,
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
   }));
 
   const servicePages = getAllSlugs().map((slug) => ({
