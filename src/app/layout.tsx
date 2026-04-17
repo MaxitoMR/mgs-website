@@ -41,10 +41,10 @@ export const metadata: Metadata = {
     description: COMPANY.description,
     images: [
       {
-        url: "/images/logo.png",
-        width: 1200,
-        height: 630,
-        alt: COMPANY.name,
+        url: "/og-image.png",
+        width: 800,
+        height: 800,
+        alt: "MGS Supply & Services — Total Janitorial Management",
       },
     ],
   },
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${COMPANY.name} - ${COMPANY.tagline}`,
     description: COMPANY.description,
-    images: ["/images/logo.png"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [

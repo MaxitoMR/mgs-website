@@ -48,7 +48,7 @@ export function JsonLd({ type, data }: JsonLdProps) {
       COMPANY.social.instagram,
       COMPANY.social.linkedin,
     ],
-    image: `${COMPANY.url}/images/logo.png`,
+    image: `${COMPANY.url}/og-image.png`,
     priceRange: "$$",
     ...data,
   };
