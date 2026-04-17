@@ -114,7 +114,7 @@ export function ClientPortalCta() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
-            className="lg:col-span-7 relative"
+            className="hidden lg:block lg:col-span-7 relative"
           >
             {/* Container that overflows right with fade */}
             <div
