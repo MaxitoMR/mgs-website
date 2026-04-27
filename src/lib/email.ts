@@ -15,7 +15,7 @@ export async function sendEmail({
   if (!apiKey) throw new Error("RESEND_API_KEY not configured");
 
   const resend = new Resend(apiKey);
-  const from = process.env.RESEND_FROM || "MGS Website <noreply@mgssupplyandservices.com>";
+  const from = process.env.RESEND_FROM || "MGS Website <onboarding@resend.dev>";
 
   const { error } = await resend.emails.send({
     from,
