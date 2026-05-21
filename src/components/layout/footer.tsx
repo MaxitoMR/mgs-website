@@ -182,7 +182,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Column 1 - Company */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="mb-5 inline-block bg-white px-4 py-3">
+            <Link href="/" className="mb-5 inline-block">
               <Image
                 src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
                 alt={COMPANY.name}
