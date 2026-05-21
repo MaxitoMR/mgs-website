@@ -47,25 +47,36 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="bg-[#1a252f] text-white">
-      {/* Newsletter band */}
-      <div className="border-b border-white/5 bg-[#141d25]">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.1fr_1fr]">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#69AF23]">
-                MGS Field Brief
-              </p>
-              <h3 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
-                One useful email a month.
-              </h3>
-              <p className="mt-3 max-w-lg text-sm text-gray-400">
-                Field notes from our drivers and techs, practical updates on
-                supplies and pricing, and the occasional industry call-out.
-                Nothing else.
-              </p>
-            </div>
-            <div>
-              <NewsletterForm source="website_footer" variant="compact" />
+      {/* Newsletter band — stacked-card overlap on the same footer blue */}
+      <div className="bg-[#1a252f]">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="relative">
+            {/* Offset green "paper" behind the card */}
+            <div
+              aria-hidden
+              className="absolute inset-0 hidden translate-x-3 translate-y-3 bg-[#69AF23] sm:block"
+            />
+            {/* Front card */}
+            <div className="relative border-l-2 border-[#69AF23] bg-[#0f1820] p-8 ring-1 ring-white/5 sm:p-10 lg:p-12">
+              <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#69AF23]">
+                    MGS Field Brief
+                  </p>
+                  <h3 className="mt-3 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
+                    One useful email <br className="hidden sm:block" />
+                    a month.
+                  </h3>
+                  <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-400">
+                    Field notes from our drivers and techs, practical updates on
+                    supplies and pricing, and the occasional industry call-out.
+                    Nothing else.
+                  </p>
+                </div>
+                <div>
+                  <NewsletterForm source="website_footer" variant="compact" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
