@@ -58,3 +58,11 @@ export const contactSchema = z.object({
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;
+
+export const newsletterSchema = z.object({
+  email: z.string().email("Enter a valid email"),
+  name: z.string().optional(),
+  source: z.string().optional(),
+});
+
+export type NewsletterFormData = z.infer<typeof newsletterSchema>;

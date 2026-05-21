@@ -12,6 +12,7 @@ import {
   Instagram,
 } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
+import { NewsletterForm } from "@/components/forms/newsletter-form";
 
 const services = [
   { label: "Commercial Cleaning", href: "/services/multi-tenant-offices" },
@@ -29,6 +30,7 @@ const resources = [
   { label: "Gallery", href: "/gallery" },
   { label: "Get a Quote", href: "/quote" },
   { label: "Schedule Walkthrough", href: "/walkthrough" },
+  { label: "Newsletter", href: "/newsletter" },
   { label: "Client Portal", href: "https://www.mgsclientportal.app/" },
   { label: "Download App", href: "https://apps.apple.com/us/app/mgs-management-app/id6760367154" },
   { label: "FAQ", href: "/faq" },
@@ -45,6 +47,30 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="bg-[#1a252f] text-white">
+      {/* Newsletter band */}
+      <div className="border-b border-white/5 bg-[#141d25]">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.1fr_1fr]">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#69AF23]">
+                MGS Field Brief
+              </p>
+              <h3 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
+                One useful email a month.
+              </h3>
+              <p className="mt-3 max-w-lg text-sm text-gray-400">
+                Field notes from our drivers and techs, practical updates on
+                supplies and pricing, and the occasional industry call-out.
+                Nothing else.
+              </p>
+            </div>
+            <div>
+              <NewsletterForm source="website_footer" variant="compact" />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main footer content */}
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">

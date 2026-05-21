@@ -23,4 +23,5 @@ export const api = {
   submitQuote: (data: unknown) => post("/api/quote", data),
   submitApplication: (data: unknown) => post("/api/application", data),
   submitWalkthrough: (data: unknown) => post("/api/walkthrough", data),
+  submitNewsletter: (data: unknown) => post("/api/newsletter-signup", data),
 };
