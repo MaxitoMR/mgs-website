@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   Phone,
   Mail,
@@ -181,14 +182,16 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Column 1 - Company */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="mb-5">
-              <p className="text-lg font-bold tracking-wide text-white">
-                MGS SUPPLY &amp; SERVICES
-              </p>
-              <p className="text-xs font-medium uppercase tracking-widest text-[#69AF23]">
-                total janitorial management
-              </p>
-            </div>
+            <Link href="/" className="mb-5 inline-block bg-white px-4 py-3">
+              <Image
+                src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
+                alt={COMPANY.name}
+                width={240}
+                height={75}
+                className="h-12 w-auto sm:h-14"
+                priority={false}
+              />
+            </Link>
             <p className="mb-6 text-sm leading-relaxed text-gray-500">
               Delivering enterprise-grade facility management and janitorial
               services for commercial, medical, and industrial environments
