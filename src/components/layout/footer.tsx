@@ -95,15 +95,12 @@ export function Footer() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              {/* The actual MGS / NEWS masthead users will see in the email */}
-              <div className="flex items-stretch gap-0">
-                <span className="inline-flex items-center bg-[#69AF23] px-6 py-4 font-display text-5xl font-black leading-none tracking-tight text-white sm:px-8 sm:py-5 sm:text-6xl">
-                  MGS
-                </span>
-                <span className="inline-flex items-center bg-[#111827] px-4 py-4 text-sm font-extrabold tracking-[0.25em] text-white uppercase sm:px-5 sm:text-base">
-                  News
-                </span>
-              </div>
+              {/* MGS News logo lockup — same mark used in the email masthead */}
+              <img
+                src="/mgs-news-logo.svg"
+                alt="MGS News — Field Brief"
+                className="h-24 w-auto sm:h-28"
+              />
 
               <h3 className="mt-8 max-w-lg font-display text-3xl font-bold leading-[1.1] text-white sm:text-4xl lg:text-[44px]">
                 One short issue a month.{" "}
