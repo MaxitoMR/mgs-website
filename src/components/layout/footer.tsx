@@ -55,22 +55,6 @@ export function Footer() {
     <footer className="bg-[#1a252f] text-white">
       {/* Newsletter band — magazine masthead identity, same footer blue */}
       <section className="relative overflow-hidden bg-[#1a252f]">
-        {/* Massive translucent FIELD BRIEF backdrop */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 flex select-none items-center justify-center"
-        >
-          <p className="whitespace-nowrap font-display text-[22vw] font-black uppercase leading-none tracking-tighter text-white/[0.025] sm:text-[18vw]">
-            Field Brief
-          </p>
-        </div>
-
-        {/* Diagonal green accent slash, off-axis */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-32 -top-16 h-[420px] w-[140px] rotate-[18deg] bg-[#69AF23]/[0.06] sm:-right-20"
-        />
-
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           {/* Top metadata rule */}
           <div className="flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">
