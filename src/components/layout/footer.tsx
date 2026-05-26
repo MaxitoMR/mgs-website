@@ -97,7 +97,7 @@ export function Footer() {
             >
               {/* MGS News logo lockup — same mark used in the email masthead */}
               <img
-                src="/mgs-news-logo.svg"
+                src="/mgs-news-logo.png"
                 alt="MGS News — Field Brief"
                 className="h-24 w-auto sm:h-28"
               />
