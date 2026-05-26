@@ -129,19 +129,14 @@ export function Footer() {
               </div>
             </motion.div>
 
-            {/* Right: subscribe card on offset green paper */}
+            {/* Right: subscribe card — flat surface, matches the rest of the section */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-              className="relative"
             >
-              <div
-                aria-hidden
-                className="absolute inset-0 hidden translate-x-3 translate-y-3 bg-[#69AF23] sm:block"
-              />
-              <div className="relative border-l-2 border-[#69AF23] bg-[#0f1820] p-7 ring-1 ring-white/5 sm:p-9">
+              <div className="border border-white/10 bg-white/[0.03] p-7 sm:p-9">
                 <div className="flex items-center gap-2">
                   <span className="h-px flex-1 bg-[#69AF23]/30" />
                   <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#69AF23]">
