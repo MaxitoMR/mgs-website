@@ -22,37 +22,118 @@ const INTERNAL_NOTIFY_TO = "max@mgssupplyandservices.com";
 const NEWSLETTER_FROM = "MGS Field Brief <news@news.mgssupplyandservices.com>";
 const REPLY_TO = "support@mgssupplyandservices.com";
 
+// Confirmation email sent right after signup. Designed to feel continuous
+// with the actual newsletter — same logo, same masthead strip, same green/
+// navy palette — so the first impression matches what they'll keep receiving.
 function welcomeHtml(name?: string) {
-  const greeting = name ? `Hey ${escapeHtml(name)},` : "Hey,";
+  const greeting = name ? `Hey ${escapeHtml(name)} — ` : "Hey — ";
+  const FONT = `'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif`;
+  const GREEN = "#69AF23";
+  const INK = "#111827";
+  const BODY = "#374151";
+  const MUTED = "#6b7280";
+  const RULE = "#e5e7eb";
+  const PAPER = "#ffffff";
+  const BG = "#f4f4f5";
+  const LOGO = "https://ejivobojvlxrngsdcjjk.supabase.co/storage/v1/object/public/newsletter/mgs-news-logo.png";
+
+  const promiseRow = (label: string, blurb: string) => `
+    <tr><td style="padding:14px 0;border-top:1px solid ${RULE};">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td valign="top" style="vertical-align:top;width:150px;padding-right:14px;">
+            <div style="font-family:${FONT};font-size:11px;font-weight:800;color:${INK};letter-spacing:1.5px;text-transform:uppercase;">${label}</div>
+          </td>
+          <td valign="top" style="vertical-align:top;font-family:${FONT};font-size:14px;color:${BODY};line-height:1.55;">${blurb}</td>
+        </tr>
+      </table>
+    </td></tr>`;
+
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Welcome to MGS Field Brief</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Welcome to the MGS Field Brief</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+body { margin:0; padding:0; background:${BG}; -webkit-text-size-adjust:100%; }
+table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+img { border:0; outline:none; text-decoration:none; }
+a { color:${GREEN}; text-decoration:none; }
+</style>
 </head>
-<body style="margin:0;padding:0;background:#f4f4f5;font-family:Arial,sans-serif;color:#1f2937;">
-<center style="width:100%;background:#f4f4f5;">
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;margin:0 auto;background:#ffffff;">
-    <tr><td style="padding:32px 28px 8px;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#69AF23;text-transform:uppercase;">Welcome</div>
-      <h1 style="margin:8px 0 16px;font-size:28px;font-weight:800;color:#111827;letter-spacing:-0.5px;">You're on the list.</h1>
-      <p style="margin:0 0 14px;font-size:16px;line-height:1.6;color:#374151;">${greeting} you'll get the MGS Field Brief in your inbox once a month. Short, useful, no fluff.</p>
-      <p style="margin:0 0 14px;font-size:16px;line-height:1.6;color:#374151;">Expect field notes from our drivers and techs, practical updates on supplies and pricing, and the occasional industry call-out. If it's not useful to a facility manager, it doesn't go in.</p>
-      <p style="margin:0 0 14px;font-size:16px;line-height:1.6;color:#374151;">If you ever want off, every issue has an unsubscribe link at the bottom. One click.</p>
-    </td></tr>
-    <tr><td style="padding:12px 28px 36px;">
-      <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-        <tr><td style="background:#69AF23;">
-          <a href="https://www.mgssupplyandservices.com" style="display:inline-block;padding:14px 28px;color:#FFFFFF;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;">Visit MGS</a>
-        </td></tr>
-      </table>
-    </td></tr>
-    <tr><td style="background:#111827;padding:20px 28px;">
-      <div style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:#FFFFFF;text-transform:uppercase;opacity:0.85;">MGS Supply &amp; Services</div>
-      <div style="margin-top:4px;font-family:Arial,sans-serif;font-size:10px;color:#69AF23;letter-spacing:1.5px;text-transform:uppercase;">Total Janitorial Management.</div>
-    </td></tr>
-  </table>
+<body style="margin:0;padding:0;background:${BG};font-family:${FONT};width:100%;">
+<div style="display:none;max-height:0;overflow:hidden;font-size:1px;line-height:1px;color:${BG};opacity:0;">You're on the list. One short field brief a month, no fluff.</div>
+
+<center style="width:100%;background:${BG};">
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:${BG};">
+  <tr><td align="center" style="padding:24px 12px;">
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;background:${PAPER};margin:0 auto;">
+
+      <!-- Masthead: logo left, metadata stacked right -->
+      <tr><td style="padding:24px 28px 18px;border-bottom:1px solid ${RULE};">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td valign="middle" style="vertical-align:middle;">
+              <img src="${LOGO}" alt="MGS Field Brief — by MGS Supply &amp; Services" width="180" style="display:block;border:0;outline:none;text-decoration:none;height:auto;max-width:180px;">
+            </td>
+            <td valign="middle" align="right" style="vertical-align:middle;font-family:${FONT};line-height:1.55;">
+              <div style="font-size:11px;font-weight:700;color:${GREEN};letter-spacing:2px;text-transform:uppercase;">Subscription</div>
+              <div style="font-size:11px;color:${MUTED};">Confirmed</div>
+            </td>
+          </tr>
+        </table>
+      </td></tr>
+
+      <!-- Hero band: dark navy with the confirmation headline -->
+      <tr><td style="background:${INK};padding:52px 32px;">
+        <div style="font-family:${FONT};font-size:11px;font-weight:800;color:${GREEN};letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">— Welcome aboard</div>
+        <h1 style="margin:0 0 18px;font-family:${FONT};font-size:42px;font-weight:800;color:#ffffff;line-height:1.05;letter-spacing:-1.2px;">You're on the list.</h1>
+        <p style="margin:0;font-family:${FONT};font-size:15px;color:#d1d5db;line-height:1.65;max-width:460px;">${greeting}one short field brief lands in your inbox each month. Written for facility managers who run buildings — not marketers chasing inboxes.</p>
+      </td></tr>
+
+      <!-- What you'll get -->
+      <tr><td style="padding:36px 32px 8px;">
+        <div style="font-family:${FONT};font-size:11px;font-weight:800;color:${GREEN};letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;">What you'll get</div>
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top:8px;">
+          ${promiseRow("Field Notes", "What our drivers and techs actually see on route, in their own words.")}
+          ${promiseRow("Supply Pricing", "Real numbers on the supplies you buy — no inflated catalog markups.")}
+          ${promiseRow("Industry Calls", "Honest take on what's shifting in commercial, medical, and industrial cleaning.")}
+          ${promiseRow("Stat Drop", "One number worth knowing this month, with the context behind it.")}
+        </table>
+      </td></tr>
+
+      <!-- CTA -->
+      <tr><td style="padding:32px 32px 8px;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+          <tr><td style="background:${GREEN};">
+            <a href="https://www.mgssupplyandservices.com" style="display:inline-block;padding:16px 32px;color:#ffffff;font-family:${FONT};font-size:12px;font-weight:800;text-decoration:none;letter-spacing:2px;text-transform:uppercase;">Visit MGS Supply &amp; Services</a>
+          </td></tr>
+        </table>
+      </td></tr>
+
+      <!-- Trust note -->
+      <tr><td style="padding:24px 32px 36px;">
+        <p style="margin:0;font-family:${FONT};font-size:12px;color:${MUTED};line-height:1.65;">Every issue has a one-click unsubscribe at the bottom. We won't bury it, and we won't sell or share your email.</p>
+      </td></tr>
+
+      <!-- Footer band -->
+      <tr><td style="background:${INK};padding:22px 32px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td style="font-family:${FONT};font-size:10px;font-weight:800;letter-spacing:2px;color:#ffffff;text-transform:uppercase;">MGS Supply &amp; Services</td>
+            <td align="right" style="font-family:${FONT};font-size:10px;font-weight:700;color:${GREEN};letter-spacing:1.5px;text-transform:uppercase;">Field Brief</td>
+          </tr>
+        </table>
+      </td></tr>
+
+    </table>
+
+  </td></tr>
+</table>
 </center>
 </body>
 </html>`;
