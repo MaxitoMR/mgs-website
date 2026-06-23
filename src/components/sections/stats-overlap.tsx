@@ -5,10 +5,10 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { RipplePattern } from "@/components/shared/droplet-accent";
 
 const stats = [
-  { value: 100, suffix: "+", label: "Facilities Managed", description: "across commercial, medical & industrial sectors" },
-  { value: 99.8, suffix: "%", label: "Service Reliability", description: "consistent quality every visit" },
-  { value: 20, suffix: "", label: "Years Experience", description: "trusted since 2006" },
-  { value: 24, suffix: "/7", label: "Emergency Response", description: "always available when you need us" },
+  { value: 100, suffix: "+", label: "Facilities Cleaned", description: "offices, clinics & industrial sites around Houston" },
+  { value: 99.8, suffix: "%", label: "QA Inspection Score", description: "averaged across our site inspections" },
+  { value: 20, suffix: "", label: "Years In Business", description: "since 2006" },
+  { value: 24, suffix: "/7", label: "Emergency Line", description: "for spills, floods & urgent calls" },
 ];
 
 export function StatsOverlap() {

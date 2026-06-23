@@ -5,42 +5,42 @@ import { CtaBanner } from "@/components/sections/cta-banner";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { MotionWrapper } from "@/components/shared/motion-wrapper";
 import {
-  Target,
-  Eye,
-  Heart,
   Users,
+  Phone,
+  ShieldCheck,
+  ClipboardCheck,
 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about MGS Supply & Services — our mission, values, and commitment to delivering enterprise-grade janitorial solutions.",
+    "MGS Supply & Services is a janitorial company based in Katy, TX, cleaning Houston-area facilities since 2006.",
 };
 
 const values = [
   {
-    icon: Target,
-    title: "Mission",
-    description:
-      "To provide unmatched facility maintenance services that create healthier, safer, and more productive environments for every client we serve.",
-  },
-  {
-    icon: Eye,
-    title: "Vision",
-    description:
-      "To be the most trusted name in professional janitorial services across Texas, setting the standard for quality, reliability, and innovation.",
-  },
-  {
-    icon: Heart,
-    title: "Values",
-    description:
-      "Integrity, excellence, accountability, and continuous improvement drive every decision we make and every facility we maintain.",
-  },
-  {
     icon: Users,
-    title: "Our Team",
+    title: "Dedicated Crews",
     description:
-      "A family of certified professionals, each rigorously trained, background-checked, and committed to exceeding expectations daily.",
+      "The same team cleans your building every visit. They learn your space, so you're not re-explaining the job to a new face each week.",
+  },
+  {
+    icon: Phone,
+    title: "We Pick Up the Phone",
+    description:
+      "Call us and you get a person who knows your account — not a ticket number and a queue.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Background-Checked",
+    description:
+      "Every employee clears a criminal background check before their first shift. They're insured and bonded, too.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "QA You Can See",
+    description:
+      "We inspect our own work and post the scores to your portal. If a site slips, you'll know before we do something about it.",
   },
 ];
 
@@ -49,7 +49,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         title="About Us"
-        subtitle="Enterprise-grade janitorial services built on trust, expertise, and an unwavering commitment to excellence."
+        subtitle="We run a janitorial company out of Katy, TX. We've been doing this since 2006."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us" },
@@ -63,26 +63,23 @@ export default function AboutPage() {
               Our Story
             </span>
             <h2 className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl">
-              Built on a Foundation of Excellence
+              Where MGS started
             </h2>
             <div className="mt-6 space-y-4 text-gray-600">
               <p>
-                MGS Supply &amp; Services was founded with a clear mission: to
-                elevate the standard of professional janitorial services for
-                commercial, medical, and industrial facilities across Texas.
+                MGS started in 2006 taking commercial office contracts around
+                Katy. A few buildings, a small crew, and one rule we didn&apos;t
+                want to break: do the job right and show up when we said we would.
               </p>
               <p>
-                What began as a commitment to cleaner spaces has grown into a
-                comprehensive facility management operation serving hundreds of
-                clients across the Greater Houston area. Our growth has been
-                driven by one principle — deliver results that exceed
-                expectations, every single time.
+                Over the years we picked up medical and industrial accounts,
+                mostly because clients referred us to people they knew. We
+                haven&apos;t run much advertising. The work brought in the work.
               </p>
               <p>
-                Today, we deploy certified teams equipped with advanced
-                technology, EPA-registered disinfectants, and industry-leading
-                protocols to protect the health and safety of every facility we
-                serve.
+                These days the crews use EPA-registered disinfectants and tools
+                like ATP testing to verify a clean instead of eyeballing it. The
+                tools changed. The rule from 2006 didn&apos;t.
               </p>
             </div>
           </MotionWrapper>

@@ -14,7 +14,7 @@ const serviceCategories = [
     shortTitle: "Commercial",
     icon: Building2,
     description:
-      "Elevate your business environment with comprehensive cleaning solutions designed for professional spaces.",
+      "Cleaning for offices, retail, restaurants, and the other spaces your business runs out of.",
     color: "#69AF23",
     services: [
       { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "/images/1_1751323808589.png" },
@@ -30,7 +30,7 @@ const serviceCategories = [
     shortTitle: "Medical",
     icon: Stethoscope,
     description:
-      "Specialized cleaning protocols that meet the highest healthcare standards for infection control.",
+      "Infection-control cleaning for clinics, labs, and surgical centers — where a wipe-down doesn't cut it.",
     color: "#2196F3",
     services: [
       { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery center image 2_1752526747820.jpg" },
@@ -46,7 +46,7 @@ const serviceCategories = [
     shortTitle: "Industrial",
     icon: Factory,
     description:
-      "Robust cleaning services designed for manufacturing, processing, and heavy-duty environments.",
+      "Cleaning built for plants, warehouses, and heavy-duty environments.",
     color: "#FF8F00",
     services: [
       { name: "Factory Plants", link: "/services/factory-plants", image: "/images/factory plant image_1752262345888.png" },
@@ -61,7 +61,7 @@ const serviceCategories = [
     shortTitle: "Specialized",
     icon: Wrench,
     description:
-      "Advanced cleaning for unique requirements and challenging environments.",
+      "The jobs that don't fit a standard schedule — post-construction, window work, concrete floors.",
     color: "#9FD01B",
     services: [
       { name: "Post-Construction", link: "/services/post-construction", image: "/images/post construction image_1752524176668.png" },

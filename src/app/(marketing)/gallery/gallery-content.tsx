@@ -78,7 +78,7 @@ export default function GalleryContent() {
     <>
       <PageHeader
         title="Our Work"
-        subtitle="See the MGS difference in action across commercial, medical, and industrial facilities."
+        subtitle="Real jobs across offices, clinics, and industrial sites around Houston."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Gallery" },

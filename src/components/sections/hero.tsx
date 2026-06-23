@@ -170,11 +170,11 @@ export function HeroSection() {
               perspective: '600px',
             }}
           >
-            <span className="hero-line inline-block opacity-0">Leaders In</span>
+            <span className="hero-line inline-block opacity-0">Cleaning crews</span>
             <br />
-            <span className="hero-line inline-block opacity-0 text-[#69AF23]">Methodical</span>
+            <span className="hero-line inline-block opacity-0 text-[#69AF23]">you can actually</span>
             <br />
-            <span className="hero-line inline-block opacity-0">Precision Cleaning</span>
+            <span className="hero-line inline-block opacity-0">count on.</span>
           </h1>
 
           <p
@@ -186,8 +186,9 @@ export function HeroSection() {
               lineHeight: 1.7,
             }}
           >
-            Comprehensive facility management for commercial, medical,
-            and industrial environments with proven expertise since 2006.
+            We&apos;ve been cleaning Houston-area facilities since 2006 — offices,
+            clinics, warehouses. Our crews show up on time, do the work, and tell
+            you when something&apos;s off.
           </p>
 
           <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">

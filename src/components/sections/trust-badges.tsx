@@ -9,37 +9,37 @@ const certifications = [
     icon: Shield,
     label: "OSHA Compliant",
     description:
-      "Full compliance with Occupational Safety and Health Administration standards across all operations.",
+      "Our crews follow OSHA safety standards on every site — for their safety and yours.",
   },
   {
     icon: Leaf,
-    label: "EPA Registered Products",
+    label: "EPA-Registered Products",
     description:
-      "Exclusively using Environmental Protection Agency registered cleaning and disinfection products.",
+      "We only use cleaning and disinfection products registered with the EPA.",
   },
   {
     icon: Award,
     label: "ISSA Member",
     description:
-      "Proud member of the International Sanitary Supply Association, the cleaning industry authority.",
+      "Member of the ISSA, the trade association for the cleaning industry.",
   },
   {
     icon: ShieldCheck,
     label: "Fully Insured & Bonded",
     description:
-      "Comprehensive liability coverage and bonding for complete peace of mind on every project.",
+      "Fully insured and bonded. If something goes wrong in your facility, you're covered.",
   },
   {
     icon: UserCheck,
-    label: "Background Checked Staff",
+    label: "Background-Checked Staff",
     description:
-      "Every team member passes thorough background screening before entering your facility.",
+      "Every employee goes through a criminal background check before their first shift. No exceptions.",
   },
   {
     icon: Clock,
     label: "24/7 Emergency Response",
     description:
-      "Round-the-clock availability for emergency cleaning, spill response, and urgent facility needs.",
+      "A real line for spills, floods, and urgent cleanups — not a voicemail you hear back from on Monday.",
   },
 ];
 
@@ -102,7 +102,7 @@ export function TrustBadges() {
         {/* Header */}
         <div className="mb-14 text-center">
           <p className="tb-header eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#69AF23] opacity-0">
-            Trusted &amp; Certified
+            How We Operate
           </p>
           <h2
             className="tb-header font-gothic text-gray-900 opacity-0"
@@ -112,7 +112,7 @@ export function TrustBadges() {
               lineHeight: 1.15,
             }}
           >
-            Industry-recognized standards.
+            What we require of every crew.
           </h2>
         </div>
 

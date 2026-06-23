@@ -169,9 +169,8 @@ export function Footer() {
               />
             </Link>
             <p className="mb-6 text-sm leading-relaxed text-gray-500">
-              Delivering enterprise-grade facility management and janitorial
-              services for commercial, medical, and industrial environments
-              across the Greater Houston area since 2006.
+              Houston-area janitorial services for offices, clinics, and
+              industrial facilities. In business since 2006.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (

@@ -3,7 +3,7 @@ export const COMPANY = {
   legalName: "MGS Supply & Services LLC",
   tagline: "Professional Janitorial Services",
   description:
-    "Enterprise-grade janitorial services for commercial, medical, and industrial facilities.",
+    "Houston-area janitorial services for offices, clinics, and industrial facilities. In business since 2006.",
   phone: {
     primary: "+12818295358",
     display: "(281)-829-5358",

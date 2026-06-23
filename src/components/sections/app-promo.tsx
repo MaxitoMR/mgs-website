@@ -126,9 +126,9 @@ export function AppPromo() {
                 letterSpacing: "-0.02em",
               }}
             >
-              Total janitorial
+              The app that runs
               <br />
-              <span className="text-[#69AF23]">management in hand.</span>
+              <span className="text-[#69AF23]">our field work.</span>
             </motion.h2>
 
             <motion.p
@@ -144,9 +144,9 @@ export function AppPromo() {
                 maxWidth: "34rem",
               }}
             >
-              From GPS-verified clock-ins to real-time QA inspections, our
-              all-in-one workforce app gives admins, supervisors, employees, and
-              clients everything they need — right from their phone.
+              We built an app to run our field operations: GPS clock-ins, QA
+              checklists, shift notes, supply requests. Clients can log in and
+              see what&apos;s happening at their site.
             </motion.p>
 
             <motion.div

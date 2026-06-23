@@ -8,26 +8,26 @@ const features = [
   {
     icon: Shield,
     color: "#69AF23",
-    title: "Industry Certified Standards",
-    description: "OSHA compliant, EPA registered products, and comprehensive quality assurance protocols for every facility we service.",
+    title: "OSHA & EPA Compliant",
+    description: "Every product we use is EPA-registered, and our crews follow OSHA standards on the job. In medical settings, you can't cut corners on disinfection — so we don't.",
   },
   {
     icon: Microscope,
     color: "#2196F3",
-    title: "Advanced Technology",
-    description: "ATP testing verification, UV-C disinfection, and electrostatic application systems — science-driven cleaning.",
+    title: "We Verify Clean",
+    description: "We use ATP testing to confirm a surface is actually clean, not just clean-looking. If a test fails, the crew re-cleans before we sign off. UV-C and electrostatic disinfection where it's warranted.",
   },
   {
     icon: Award,
     color: "#9FD01B",
-    title: "Proven Track Record",
-    description: "500+ facilities managed with 99.8% service reliability across commercial, medical, and industrial sectors.",
+    title: "A Real Track Record",
+    description: "100+ facilities cleaned across offices, clinics, and industrial sites — with QA scores we actually track and share with clients.",
   },
   {
     icon: Clock,
     color: "#FF8F00",
-    title: "24/7 Availability",
-    description: "Emergency response teams ready around the clock. We're always here when your facility needs us most.",
+    title: "We Pick Up at 2 AM",
+    description: "Pipe burst? Need a deep clean before an inspection? Someone's reachable around the clock, not just a voicemail box.",
   },
 ];
 
@@ -98,15 +98,15 @@ export function WhyChooseUs() {
               className="wcu-header font-gothic text-white opacity-0"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
             >
-              Why industry leaders{' '}
-              <span className="text-[#69AF23]">choose us.</span>
+              Why clients{' '}
+              <span className="text-[#69AF23]">stay with us.</span>
             </h2>
           </div>
           <div className="flex items-end">
             <p className="wcu-header text-gray-400 text-base opacity-0" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-              Our focus on precision, technology, and accountability sets us apart.
-              We don&apos;t just clean facilities — we protect your investment and
-              maintain the standards your operation demands.
+              Most cleaning companies send whoever&apos;s available that night. We
+              assign dedicated teams to each facility, so the same people show up
+              every time and they get to know your building.
             </p>
           </div>
         </div>

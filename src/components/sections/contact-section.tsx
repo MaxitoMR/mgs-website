@@ -67,8 +67,8 @@ Get In Touch
               className="text-gray-500 mb-12"
               style={{ fontSize: 'var(--font-body-base)', fontWeight: 300, lineHeight: 1.7 }}
             >
-              Ready to experience the MGS difference? Reach out today for a free
-              consultation and customized proposal.
+              Tell us about your facility. We&apos;ll follow up within a day to set
+              up a walkthrough and put a quote together.
             </motion.p>
 
             <div className="space-y-6">

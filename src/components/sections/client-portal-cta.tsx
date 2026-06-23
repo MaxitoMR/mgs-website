@@ -44,9 +44,9 @@ export function ClientPortalCta() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Meet your new
+              Your account,
               <br />
-              <span className="text-[#69AF23]">facility dashboard.</span>
+              <span className="text-[#69AF23]">online.</span>
             </motion.h2>
 
             <motion.p
@@ -57,8 +57,8 @@ export function ClientPortalCta() {
               className="text-gray-600 mt-5 mb-7"
               style={{ fontSize: 'clamp(0.85rem, 1.1vw, 1rem)', fontWeight: 300, lineHeight: 1.7 }}
             >
-              Track your facility&apos;s health score, pay invoices, submit feedback, and view
-              QA inspection reports — all from one clean, simple portal.
+              Clients get a portal to check QA inspection reports, pay invoices, and flag
+              issues. No need to call or email us for the basics.
             </motion.p>
 
             <motion.div

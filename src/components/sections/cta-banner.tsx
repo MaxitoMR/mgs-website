@@ -24,7 +24,7 @@ export function CtaBanner() {
           className="font-gothic text-white"
           style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
         >
-          Ready to transform your facility?
+          Want to see if we&apos;re a fit?
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -34,8 +34,8 @@ export function CtaBanner() {
           className="text-white/90 mt-6 mb-12 max-w-2xl mx-auto"
           style={{ fontSize: 'var(--font-body-large)', fontWeight: 300, lineHeight: 1.7 }}
         >
-          Experience the MGS difference with a complimentary facility assessment
-          and customized cleaning proposal tailored to your needs.
+          We&apos;ll come walk your facility and put together a quote. No pressure,
+          no obligation.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
