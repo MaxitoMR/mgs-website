@@ -137,7 +137,8 @@ export default function AboutPage() {
       </SectionWrapper>
 
       <WhyChooseUs />
-      <CtaBanner />
+      {/* WhyChooseUs is #1a252f, so the CTA backdrop must match it (not the default #2C3E50) */}
+      <CtaBanner backdrop="#1a252f" />
     </>
   );
 }

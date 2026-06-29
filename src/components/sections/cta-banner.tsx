@@ -4,12 +4,16 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
 
-export function CtaBanner() {
+// `backdrop` must match the background of whatever section sits directly above
+// this one, because the green box's curved corner reveals it. Homepage stacks
+// it under AppPromo (#2C3E50); the About page stacks it under WhyChooseUs (#1a252f).
+export function CtaBanner({ backdrop = "#2C3E50" }: { backdrop?: string }) {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#2C3E50]"
+      className="relative w-full overflow-hidden"
+      style={{ backgroundColor: backdrop }}
     >
-      {/* Green inner with curved top-left, sitting on the dark blue background */}
+      {/* Green inner with curved top-left, sitting on the dark backdrop */}
       <div
         className="relative w-full bg-[#69AF23]"
         style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
