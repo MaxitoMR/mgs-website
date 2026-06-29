@@ -85,7 +85,7 @@ export default function AboutPage() {
 
           {/* Right — photo with the four cards floating at its corners */}
           <MotionWrapper delay={0.2}>
-            <div className="relative lg:mx-12 lg:my-10">
+            <div className="relative lg:mx-10 lg:my-8">
               <div
                 className="overflow-hidden shadow-premium"
                 style={{ borderTopLeftRadius: "clamp(1.5rem, 3vw, 3rem)" }}
@@ -106,7 +106,7 @@ export default function AboutPage() {
                 {values.map((value) => (
                   <div
                     key={value.title}
-                    className={`w-full border border-gray-100 bg-white p-4 lg:absolute lg:w-60 ${value.position}`}
+                    className={`w-full border border-gray-100 bg-white p-3.5 lg:absolute lg:w-48 ${value.position}`}
                     style={{
                       borderTopLeftRadius: "1rem",
                       boxShadow:
@@ -114,18 +114,18 @@ export default function AboutPage() {
                     }}
                   >
                     <div
-                      className="mb-3 flex h-10 w-10 items-center justify-center"
+                      className="mb-2.5 flex h-9 w-9 items-center justify-center"
                       style={{
                         background: "#69AF2315",
                         borderTopLeftRadius: "0.6rem",
                       }}
                     >
-                      <value.icon className="h-5 w-5 text-brand-green" />
+                      <value.icon className="h-4 w-4 text-brand-green" />
                     </div>
-                    <h3 className="font-display text-base font-bold text-gray-900">
+                    <h3 className="font-display text-sm font-bold text-gray-900">
                       {value.title}
                     </h3>
-                    <p className="mt-1 text-[13px] leading-snug text-gray-600">
+                    <p className="mt-1 text-[12px] leading-snug text-gray-600">
                       {value.description}
                     </p>
                   </div>
