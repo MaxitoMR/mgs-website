@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/shared/page-header";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
@@ -76,6 +77,16 @@ export default function NewsletterPage() {
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Admin: gated subscriber list (access-key protected) */}
+        <div className="mt-16 border-t border-gray-100 pt-6 text-right">
+          <Link
+            href="/newsletter/subscribers"
+            className="text-xs text-gray-400 transition-colors hover:text-[#69AF23]"
+          >
+            Admin · View subscribers →
+          </Link>
         </div>
       </SectionWrapper>
     </>
