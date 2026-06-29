@@ -153,6 +153,27 @@ export async function POST(request: Request) {
     const body = await request.json();
     const data = newsletterSchema.parse(body);
 
+    // --- Spam gates ---------------------------------------------------------
+    // Both fail SILENTLY: we return success so a bot gets no useful signal,
+    // but we skip the DB write and every side effect (welcome email, notify,
+    // webhook). Real users never trip either of these.
+
+    // 1. Honeypot: the hidden company_url field should always be empty.
+    if (data.company_url && data.company_url.trim() !== "") {
+      console.warn("Newsletter honeypot tripped — dropping signup silently.");
+      return NextResponse.json({ success: true });
+    }
+
+    // 2. Minimum time-to-submit: no human fills this form in under ~2s.
+    const MIN_SUBMIT_MS = 2000;
+    if (typeof data.elapsed_ms === "number" && data.elapsed_ms < MIN_SUBMIT_MS) {
+      console.warn(
+        `Newsletter submitted in ${data.elapsed_ms}ms (< ${MIN_SUBMIT_MS}ms) — dropping signup silently.`,
+      );
+      return NextResponse.json({ success: true });
+    }
+    // ------------------------------------------------------------------------
+
     const serviceKey = process.env.MGS_MANAGER_SUPABASE_SERVICE_KEY;
     if (!serviceKey) {
       return NextResponse.json(

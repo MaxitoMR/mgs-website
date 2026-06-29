@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -42,12 +43,36 @@ export function NewsletterForm({
     resolver: zodResolver(newsletterSchema),
   });
 
+  // When the form first mounted — used to reject suspiciously fast (bot) submits.
+  const loadedAt = useRef(Date.now());
+
   const mutation = useMutation({
     mutationFn: (data: NewsletterFormData) =>
       api.submitNewsletter({ ...data, source }),
   });
 
-  const onSubmit = (data: NewsletterFormData) => mutation.mutate(data);
+  const onSubmit = (data: NewsletterFormData) =>
+    mutation.mutate({ ...data, elapsed_ms: Date.now() - loadedAt.current });
+
+  // Hidden honeypot field. Visually removed (not display:none, which some bots
+  // skip), kept out of the tab order and a11y tree, and autocomplete off so
+  // browsers never fill it. Any value submitted here flags the row as spam.
+  const honeypot = (
+    <input
+      type="text"
+      tabIndex={-1}
+      autoComplete="off"
+      aria-hidden="true"
+      {...register("company_url")}
+      style={{
+        position: "absolute",
+        left: "-9999px",
+        width: "1px",
+        height: "1px",
+        opacity: 0,
+      }}
+    />
+  );
 
   if (mutation.isSuccess) {
     return (
@@ -72,6 +97,7 @@ export function NewsletterForm({
   if (variant === "compact") {
     return (
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+        {honeypot}
         {(heading || blurb) && (
           <div>
             {heading && (
@@ -131,6 +157,7 @@ export function NewsletterForm({
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 rounded-none bg-white p-8 shadow-sm sm:p-10"
     >
+      {honeypot}
       {(heading || blurb) && (
         <div className="space-y-2">
           {heading && (

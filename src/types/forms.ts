@@ -63,6 +63,12 @@ export const newsletterSchema = z.object({
   email: z.string().email("Enter a valid email"),
   name: z.string().optional(),
   source: z.string().optional(),
+  // Honeypot: a hidden field real users never see. Bots tend to fill every
+  // input, so any value here means the submission is almost certainly spam.
+  company_url: z.string().optional(),
+  // Milliseconds between the form loading and submitting. Humans take more
+  // than a couple seconds; sub-2s submissions are bots.
+  elapsed_ms: z.number().optional(),
 });
 
 export type NewsletterFormData = z.infer<typeof newsletterSchema>;
