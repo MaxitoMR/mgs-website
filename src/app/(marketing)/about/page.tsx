@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHeader } from "@/components/shared/page-header";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { CtaBanner } from "@/components/sections/cta-banner";
@@ -103,6 +104,30 @@ export default function AboutPage() {
             </div>
           </MotionWrapper>
         </div>
+      </SectionWrapper>
+
+      <SectionWrapper className="pt-0">
+        <MotionWrapper>
+          <figure className="mx-auto max-w-5xl">
+            <div
+              className="overflow-hidden shadow-premium"
+              style={{ borderTopLeftRadius: "clamp(1.5rem, 3vw, 3rem)" }}
+            >
+              <Image
+                src="/images/mgs-katy-2006.jpg"
+                alt="The MGS home base in Katy, Texas"
+                width={2000}
+                height={1333}
+                sizes="(min-width: 1024px) 64rem, 100vw"
+                quality={80}
+                className="h-auto w-full object-cover"
+              />
+            </div>
+            <figcaption className="mt-4 text-center text-sm text-gray-500">
+              Home base in Katy, Texas — where MGS has run since 2006.
+            </figcaption>
+          </figure>
+        </MotionWrapper>
       </SectionWrapper>
 
       <WhyChooseUs />
