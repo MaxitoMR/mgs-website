@@ -24,25 +24,25 @@ const values = [
     title: "Dedicated Crews",
     description: "The same team every visit. They learn your building.",
     // corner position on the floating layout (lg and up)
-    position: "lg:-top-6 lg:-left-6",
+    position: "lg:-top-8 lg:-left-8",
   },
   {
     icon: Phone,
     title: "We Pick Up the Phone",
     description: "Call and reach a person who knows your account.",
-    position: "lg:-top-6 lg:-right-6",
+    position: "lg:-top-8 lg:-right-8",
   },
   {
     icon: ShieldCheck,
     title: "Background-Checked",
     description: "Every employee cleared before their first shift.",
-    position: "lg:-bottom-6 lg:-left-6",
+    position: "lg:-bottom-8 lg:-left-8",
   },
   {
     icon: ClipboardCheck,
     title: "QA You Can See",
     description: "Inspection scores posted to your portal.",
-    position: "lg:-bottom-6 lg:-right-6",
+    position: "lg:-bottom-8 lg:-right-8",
   },
 ];
 
@@ -85,7 +85,7 @@ export default function AboutPage() {
 
           {/* Right — photo with the four cards floating at its corners */}
           <MotionWrapper delay={0.2}>
-            <div className="relative lg:mx-8 lg:my-6">
+            <div className="relative lg:mx-12 lg:my-10">
               <div
                 className="overflow-hidden shadow-premium"
                 style={{ borderTopLeftRadius: "clamp(1.5rem, 3vw, 3rem)" }}
@@ -106,9 +106,22 @@ export default function AboutPage() {
                 {values.map((value) => (
                   <div
                     key={value.title}
-                    className={`w-full bg-white p-4 shadow-xl ring-1 ring-gray-100 lg:absolute lg:w-60 ${value.position}`}
+                    className={`w-full border border-gray-100 bg-white p-4 lg:absolute lg:w-60 ${value.position}`}
+                    style={{
+                      borderTopLeftRadius: "1rem",
+                      boxShadow:
+                        "0 22px 48px -12px rgba(17,24,39,0.28), 0 6px 16px -8px rgba(17,24,39,0.18)",
+                    }}
                   >
-                    <value.icon className="mb-2 h-6 w-6 text-brand-green" />
+                    <div
+                      className="mb-3 flex h-10 w-10 items-center justify-center"
+                      style={{
+                        background: "#69AF2315",
+                        borderTopLeftRadius: "0.6rem",
+                      }}
+                    >
+                      <value.icon className="h-5 w-5 text-brand-green" />
+                    </div>
                     <h3 className="font-display text-base font-bold text-gray-900">
                       {value.title}
                     </h3>
