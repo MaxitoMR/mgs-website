@@ -22,26 +22,27 @@ const values = [
   {
     icon: Users,
     title: "Dedicated Crews",
-    description:
-      "The same team cleans your building every visit. They learn your space, so you're not re-explaining the job to a new face each week.",
+    description: "The same team every visit. They learn your building.",
+    // corner position on the floating layout (lg and up)
+    position: "lg:-top-6 lg:-left-6",
   },
   {
     icon: Phone,
     title: "We Pick Up the Phone",
-    description:
-      "Call us and you get a person who knows your account — not a ticket number and a queue.",
+    description: "Call and reach a person who knows your account.",
+    position: "lg:-top-6 lg:-right-6",
   },
   {
     icon: ShieldCheck,
     title: "Background-Checked",
-    description:
-      "Every employee clears a criminal background check before their first shift. They're insured and bonded, too.",
+    description: "Every employee cleared before their first shift.",
+    position: "lg:-bottom-6 lg:-left-6",
   },
   {
     icon: ClipboardCheck,
     title: "QA You Can See",
-    description:
-      "We inspect our own work and post the scores to your portal. If a site slips, you'll know before we do something about it.",
+    description: "Inspection scores posted to your portal.",
+    position: "lg:-bottom-6 lg:-right-6",
   },
 ];
 
@@ -58,76 +59,68 @@ export default function AboutPage() {
       />
 
       <SectionWrapper>
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Left — copy */}
           <MotionWrapper>
             <span className="text-sm font-bold uppercase tracking-widest text-brand-green">
-              Our Story
+              Who We Are
             </span>
             <h2 className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl">
-              Where MGS started
+              The crew behind your clean building.
             </h2>
             <div className="mt-6 space-y-4 text-gray-600">
               <p>
-                MGS started in 2006 taking commercial office contracts around
-                Katy. A few buildings, a small crew, and one rule we didn&apos;t
-                want to break: do the job right and show up when we said we would.
+                We&apos;re a janitorial company based in Katy, cleaning offices,
+                clinics, and industrial facilities across the Houston area. The
+                same crews, the same standards, every visit.
               </p>
               <p>
-                Over the years we picked up medical and industrial accounts,
-                mostly because clients referred us to people they knew. We
-                haven&apos;t run much advertising. The work brought in the work.
-              </p>
-              <p>
-                These days the crews use EPA-registered disinfectants and tools
-                like ATP testing to verify a clean instead of eyeballing it. The
-                tools changed. The rule from 2006 didn&apos;t.
+                Our work runs on EPA-registered disinfectants and tools like ATP
+                testing — we verify a surface is actually clean instead of
+                eyeballing it. When a site slips, we catch it before you have to
+                call.
               </p>
             </div>
           </MotionWrapper>
 
+          {/* Right — photo with the four cards floating at its corners */}
           <MotionWrapper delay={0.2}>
-            <div className="grid gap-6 sm:grid-cols-2">
-              {values.map((value) => (
-                <div
-                  key={value.title}
-                  className="rounded-none bg-gray-50 p-6"
-                >
-                  <value.icon className="mb-3 h-8 w-8 text-brand-green" />
-                  <h3 className="font-display text-lg font-bold text-gray-900">
-                    {value.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-600">
-                    {value.description}
-                  </p>
-                </div>
-              ))}
+            <div className="relative lg:mx-8 lg:my-6">
+              <div
+                className="overflow-hidden shadow-premium"
+                style={{ borderTopLeftRadius: "clamp(1.5rem, 3vw, 3rem)" }}
+              >
+                <Image
+                  src="/images/mgs-katy-2006.jpg"
+                  alt="The MGS home base in Katy, Texas"
+                  width={2000}
+                  height={1333}
+                  sizes="(min-width: 1024px) 36rem, 100vw"
+                  quality={80}
+                  className="h-auto w-full object-cover"
+                />
+              </div>
+
+              {/* contents on lg lets each card position against the image wrapper */}
+              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-0 lg:contents">
+                {values.map((value) => (
+                  <div
+                    key={value.title}
+                    className={`w-full bg-white p-4 shadow-xl ring-1 ring-gray-100 lg:absolute lg:w-60 ${value.position}`}
+                  >
+                    <value.icon className="mb-2 h-6 w-6 text-brand-green" />
+                    <h3 className="font-display text-base font-bold text-gray-900">
+                      {value.title}
+                    </h3>
+                    <p className="mt-1 text-[13px] leading-snug text-gray-600">
+                      {value.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </MotionWrapper>
         </div>
-      </SectionWrapper>
-
-      <SectionWrapper className="pt-0">
-        <MotionWrapper>
-          <figure className="mx-auto max-w-5xl">
-            <div
-              className="overflow-hidden shadow-premium"
-              style={{ borderTopLeftRadius: "clamp(1.5rem, 3vw, 3rem)" }}
-            >
-              <Image
-                src="/images/mgs-katy-2006.jpg"
-                alt="The MGS home base in Katy, Texas"
-                width={2000}
-                height={1333}
-                sizes="(min-width: 1024px) 64rem, 100vw"
-                quality={80}
-                className="h-auto w-full object-cover"
-              />
-            </div>
-            <figcaption className="mt-4 text-center text-sm text-gray-500">
-              Home base in Katy, Texas — where MGS has run since 2006.
-            </figcaption>
-          </figure>
-        </MotionWrapper>
       </SectionWrapper>
 
       <WhyChooseUs />
