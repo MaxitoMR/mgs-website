@@ -52,9 +52,9 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#1a252f] text-white">
+    <footer className="bg-[#111827] text-white">
       {/* Newsletter band — magazine masthead identity, same footer blue */}
-      <section className="relative overflow-hidden bg-[#1a252f]">
+      <section className="relative overflow-hidden bg-[#111827]">
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           {/* Top metadata rule */}
           <div className="flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">

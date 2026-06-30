@@ -79,7 +79,7 @@ export function WhyChooseUs() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#1a252f]"
+      className="relative w-full overflow-hidden bg-[#111827]"
       style={{
         paddingTop: 'clamp(5rem, 10vw, 10rem)',
         paddingBottom: 'clamp(5rem, 10vw, 10rem)',

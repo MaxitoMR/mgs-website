@@ -42,7 +42,7 @@ export default function FAQContent() {
   return (
     <>
       {/* Hero */}
-      <div className="relative overflow-hidden bg-[#1a252f]" style={{ paddingTop: 'clamp(6rem, 12vw, 10rem)', paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
+      <div className="relative overflow-hidden bg-[#111827]" style={{ paddingTop: 'clamp(6rem, 12vw, 10rem)', paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
         <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
           <nav className="mb-6 flex items-center gap-2 text-sm text-white/50">
             <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>

@@ -43,7 +43,7 @@ export default function ServicesContent() {
   return (
     <>
       {/* Hero */}
-      <div className="relative overflow-hidden bg-[#1a252f]" style={{ paddingTop: 'clamp(6rem, 12vw, 10rem)', paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
+      <div className="relative overflow-hidden bg-[#111827]" style={{ paddingTop: 'clamp(6rem, 12vw, 10rem)', paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
         <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
           <nav className="mb-6 flex items-center gap-2 text-sm text-white/50">
             <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
@@ -212,7 +212,7 @@ export default function ServicesContent() {
       })}
 
       {/* Bottom CTA */}
-      <section className="bg-[#1a252f]" style={{ paddingTop: 'clamp(3rem, 5vw, 5rem)', paddingBottom: 'clamp(3rem, 5vw, 5rem)' }}>
+      <section className="bg-[#111827]" style={{ paddingTop: 'clamp(3rem, 5vw, 5rem)', paddingBottom: 'clamp(3rem, 5vw, 5rem)' }}>
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="font-gothic text-white mb-4" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>
             Don&apos;t see what you need?

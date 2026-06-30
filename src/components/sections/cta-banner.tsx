@@ -6,8 +6,8 @@ import { ArrowRight, Phone } from "lucide-react";
 
 // `backdrop` must match the background of whatever section sits directly above
 // this one, because the green box's curved corner reveals it. Homepage stacks
-// it under AppPromo (#2C3E50); the About page stacks it under WhyChooseUs (#1a252f).
-export function CtaBanner({ backdrop = "#2C3E50" }: { backdrop?: string }) {
+// it under AppPromo (#1F2937); the About page stacks it under WhyChooseUs (#111827).
+export function CtaBanner({ backdrop = "#1F2937" }: { backdrop?: string }) {
   return (
     <section
       className="relative w-full overflow-hidden"

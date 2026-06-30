@@ -86,7 +86,7 @@ export default function GalleryContent() {
       />
 
       {/* Before & After Section */}
-      <SectionWrapper className="bg-[#1a252f]" dark>
+      <SectionWrapper className="bg-[#111827]" dark>
         <div className="text-center mb-10">
           <p className="eyebrow text-[#9FD01B] mb-3">Before & After</p>
           <h2 className="font-gothic text-white" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>

@@ -30,7 +30,7 @@ const features = [
 export function AppPromo() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#2C3E50]"
+      className="relative w-full overflow-hidden bg-[#1F2937]"
       style={{
         paddingTop: "clamp(5rem, 10vw, 8rem)",
         paddingBottom: "clamp(5rem, 10vw, 8rem)",
@@ -201,7 +201,7 @@ export function AppPromo() {
                 href={APP_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-white px-6 py-3.5 text-[#2C3E50] transition-all duration-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-white/10"
+                className="inline-flex items-center gap-3 bg-white px-6 py-3.5 text-[#1F2937] transition-all duration-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-white/10"
                 style={{ borderTopLeftRadius: "1rem" }}
               >
                 {/* Apple logo */}
