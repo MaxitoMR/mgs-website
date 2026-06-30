@@ -31,7 +31,7 @@ const serviceCategories = [
     icon: Stethoscope,
     description:
       "Infection-control cleaning for clinics, labs, and surgical centers — where a wipe-down doesn't cut it.",
-    color: "#2196F3",
+    color: "#19A0DB",
     services: [
       { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery center image 2_1752526747820.jpg" },
       { name: "Laboratories", link: "/services/laboratories", image: "/images/laboratories image_1752167124287.png" },

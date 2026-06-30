@@ -31,7 +31,7 @@ const categoryMeta: Record<string, {
   },
   Medical: {
     icon: Stethoscope,
-    color: "#2196F3",
+    color: "#19A0DB",
     description: "Infection-control-grade protocols for surgical centers, labs, imaging facilities, and clinics.",
     image: "/images/imaging center image_1752168794610.png",
   },

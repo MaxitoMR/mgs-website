@@ -17,7 +17,7 @@ const categoryIcons: Record<string, typeof Building2> = {
 
 const categoryColors: Record<string, string> = {
   commercial: "#69AF23",
-  medical: "#2196F3",
+  medical: "#19A0DB",
   industrial: "#FF8F00",
   additional: "#9FD01B",
 };

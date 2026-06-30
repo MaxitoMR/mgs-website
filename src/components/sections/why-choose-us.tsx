@@ -13,7 +13,7 @@ const features = [
   },
   {
     icon: Microscope,
-    color: "#2196F3",
+    color: "#19A0DB",
     title: "We Verify Clean",
     description: "We use ATP testing to confirm a surface is actually clean, not just clean-looking. If a test fails, the crew re-cleans before we sign off. UV-C and electrostatic disinfection where it's warranted.",
   },
