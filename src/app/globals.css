@@ -4,19 +4,35 @@
   /* Unified MGS palette — shared with the manager app's theme tokens. */
   --color-brand-green: #69AF23;
   --color-brand-lime: #9FD01B;
-  --color-brand-dark: #1F2937;          /* unified dark slate (was navy #2C3E50) */
+  --color-brand-dark: #191919;          /* Radix grayDark gray2 (matches app dark surface) */
   --color-brand-green-light: #69AF2320;
   --color-brand-green-glow: #69AF2340;
-  --color-brand-dark-deeper: #111827;   /* unified deep slate (was #1a252f) */
+  --color-brand-dark-deeper: #111111;   /* Radix grayDark gray1 (matches app dark page) */
   --color-mgs-primary: #69AF23;
   --color-mgs-secondary: #9FD01B;
   --color-mgs-accent: #19A0DB;
-  --color-mgs-clinical-gray: #ECECEF;   /* Platinum page grey */
+  --color-mgs-clinical-gray: #ECECEF;   /* Platinum page grey (kept) */
   --color-mgs-black: #0F0A0A;           /* Pitch Black — text */
   --color-mgs-steel: #A0A0A0;           /* Cool Steel — muted text/icons */
   --color-mgs-silver: #B0B0B0;          /* Silver — faint/disabled */
   --color-mgs-red: #FF0A2B;             /* Racing Red — error / alert */
   --color-mgs-orange: #F95A10;          /* Blaze Orange — warning */
+
+  /* Radix Colors neutral scale (gray) exposed as Tailwind utilities
+     (bg-rgray-3, border-rgray-6, text-rgray-11, …) — the same gray steps
+     the manager app pulls from @radix-ui/colors, inlined for build safety. */
+  --color-rgray-1: #fcfcfc;
+  --color-rgray-2: #f9f9f9;
+  --color-rgray-3: #f0f0f0;
+  --color-rgray-4: #e8e8e8;
+  --color-rgray-5: #e0e0e0;
+  --color-rgray-6: #d9d9d9;
+  --color-rgray-7: #cecece;
+  --color-rgray-8: #bbbbbb;
+  --color-rgray-9: #8d8d8d;
+  --color-rgray-10: #838383;
+  --color-rgray-11: #646464;
+  --color-rgray-12: #202020;
 
   --font-sans: var(--font-manrope), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: var(--font-manrope), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

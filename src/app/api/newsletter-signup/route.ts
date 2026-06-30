@@ -29,7 +29,7 @@ function welcomeHtml(name?: string) {
   const greeting = name ? `Hey ${escapeHtml(name)} — ` : "Hey — ";
   const FONT = `'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif`;
   const GREEN = "#69AF23";
-  const INK = "#111827";
+  const INK = "#111111";
   const BODY = "#374151";
   const MUTED = "#6b7280";
   const RULE = "#e5e7eb";

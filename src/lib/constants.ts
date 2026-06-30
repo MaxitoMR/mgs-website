@@ -29,7 +29,7 @@ export const COMPANY = {
 export const BRAND = {
   green: "#69AF23",
   lime: "#9FD01B",
-  dark: "#1F2937",
+  dark: "#191919",
 } as const;
 
 export const CLOUDFLARE_STREAMS = {
