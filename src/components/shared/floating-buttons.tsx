@@ -41,7 +41,8 @@ export function FloatingActionButtons() {
           className="flex flex-1 items-center justify-center border-2 border-[#69AF23] bg-white px-4 py-3 text-center text-[#69AF23] shadow-lg transition-all duration-300 hover:bg-[#69AF23] hover:text-white sm:flex-none sm:px-5 sm:hover:scale-105"
         >
           <span className="font-clinical whitespace-nowrap text-[11px] font-light uppercase tracking-wide md:text-sm lg:text-base">
-            Schedule Walkthrough
+            <span className="sm:hidden">Walkthrough</span>
+            <span className="hidden sm:inline">Schedule Walkthrough</span>
           </span>
         </Link>
       )}
