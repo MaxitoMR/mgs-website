@@ -490,6 +490,21 @@ export function Header() {
         transition: { duration: 0.2, ease: "easeOut" as const },
       };
 
+  // Desktop green nav: same show/hide-on-scroll as the CTAs (0.3s ease-out,
+  // same scroll-direction signal). Gated on `navStuck` so it only slides up once
+  // it's actually pinned to the top — before that it scrolls away with the
+  // header in normal flow.
+  const navHidden = scrollingDown && navStuck;
+  const navMotion = reduce
+    ? {
+        animate: { opacity: navHidden ? 0 : 1, y: 0 },
+        transition: { duration: 0 },
+      }
+    : {
+        animate: { y: navHidden ? "-100%" : "0%" },
+        transition: { duration: 0.3, ease: "easeOut" as const },
+      };
+
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
@@ -537,17 +552,22 @@ export function Header() {
       {/* Sentinel: marks where the sticky nav engages, for the stuck shadow. */}
       <div ref={sentinelRef} aria-hidden className="hidden lg:block h-px -mb-px" />
 
-      {/* 3. Green Navigation Bar + Mega Menu — sticks to the top on scroll */}
-      <div
+      {/* 3. Green Navigation Bar + Mega Menu — sticks to the top, then hides on
+             scroll-down / returns on scroll-up (matches the CTA buttons). */}
+      <motion.div
         className="hidden lg:block sticky top-0 z-[999] transition-shadow duration-500"
+        initial={false}
+        animate={navMotion.animate}
+        transition={navMotion.transition}
         style={{
           boxShadow: navStuck
             ? '0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)'
             : 'none',
+          pointerEvents: navHidden ? 'none' : 'auto',
         }}
       >
         <DesktopNav />
-      </div>
+      </motion.div>
 
       {/* ===== MOBILE HEADER ===== */}
       <motion.div
