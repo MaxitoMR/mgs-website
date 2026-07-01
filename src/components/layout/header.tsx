@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { MobileNav } from "./mobile-nav";
 import { TopBar } from "./top-bar";
+import { useHideOnScroll } from "@/hooks/use-hide-on-scroll";
 
 /* ─────── Category metadata for mega menu ─────── */
 const categoryMeta: Record<string, {
@@ -454,6 +455,9 @@ function DesktopNav() {
 /* ─────── Main Header Component ─────── */
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Hide the mobile header on scroll-down, bring it back on scroll-up.
+  // Never hide while the mobile menu is open.
+  const hideMobileHeader = useHideOnScroll(80) && !mobileOpen;
   const desktopRef = useRef<HTMLDivElement>(null);
   const topBarRef = useRef<HTMLDivElement>(null);
   const logoRowRef = useRef<HTMLDivElement>(null);
@@ -546,7 +550,12 @@ export function Header() {
       </div>
 
       {/* ===== MOBILE HEADER ===== */}
-      <div className="lg:hidden sticky top-0 z-[998]">
+      <div
+        className={cn(
+          "lg:hidden sticky top-0 z-[998] transition-transform duration-300 ease-out",
+          hideMobileHeader ? "-translate-y-full" : "translate-y-0",
+        )}
+      >
         {/* Mobile main row */}
         <div className="flex items-center justify-between bg-white px-4 py-2 border-b border-gray-100">
           <Link href="/">

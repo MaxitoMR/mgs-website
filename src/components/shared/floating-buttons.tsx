@@ -2,20 +2,35 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useHideOnScroll } from "@/hooks/use-hide-on-scroll";
 
 export function FloatingActionButtons() {
   const pathname = usePathname();
   const onQuote = pathname === "/quote";
   const onWalkthrough = pathname === "/walkthrough";
+  const hidden = useHideOnScroll(120);
+
+  // Nothing to show if we're on both target pages (can't happen, but tidy).
+  if (onQuote && onWalkthrough) return null;
 
   return (
-    <div className="fixed bottom-4 right-6 z-[9999] flex flex-col space-y-2">
+    <div
+      className={[
+        // Mobile: full-width row pinned to the bottom, buttons side by side.
+        "fixed inset-x-3 bottom-3 z-40 flex items-stretch gap-2",
+        // Desktop: shrink to content, tuck into the bottom-right.
+        "sm:inset-x-auto sm:right-6 sm:gap-3",
+        // Slide down off-screen on scroll-down, back up on scroll-up.
+        "transition-transform duration-300 ease-out",
+        hidden ? "translate-y-[160%]" : "translate-y-0",
+      ].join(" ")}
+    >
       {!onQuote && (
         <Link
           href="/quote"
-          className="flex items-center justify-center text-center bg-[#69AF23] hover:bg-[#9FD01B] text-white shadow-lg hover:scale-105 transition-all duration-300 px-4 py-2.5 lg:px-5 lg:py-3"
+          className="flex flex-1 items-center justify-center bg-[#69AF23] px-4 py-3 text-center text-white shadow-lg transition-all duration-300 hover:bg-[#9FD01B] sm:flex-none sm:px-5 sm:hover:scale-105"
         >
-          <span className="font-clinical font-light text-xs md:text-sm lg:text-base tracking-wide uppercase whitespace-nowrap">
+          <span className="font-clinical whitespace-nowrap text-[11px] font-light uppercase tracking-wide md:text-sm lg:text-base">
             Request Quote
           </span>
         </Link>
@@ -23,9 +38,9 @@ export function FloatingActionButtons() {
       {!onWalkthrough && (
         <Link
           href="/walkthrough"
-          className="flex items-center justify-center text-center border-2 border-[#69AF23] bg-white text-[#69AF23] hover:bg-[#69AF23] hover:text-white shadow-lg hover:scale-105 transition-all duration-300 px-4 py-2.5 lg:px-5 lg:py-3"
+          className="flex flex-1 items-center justify-center border-2 border-[#69AF23] bg-white px-4 py-3 text-center text-[#69AF23] shadow-lg transition-all duration-300 hover:bg-[#69AF23] hover:text-white sm:flex-none sm:px-5 sm:hover:scale-105"
         >
-          <span className="font-clinical font-light text-xs md:text-sm lg:text-base tracking-wide uppercase whitespace-nowrap">
+          <span className="font-clinical whitespace-nowrap text-[11px] font-light uppercase tracking-wide md:text-sm lg:text-base">
             Schedule Walkthrough
           </span>
         </Link>
