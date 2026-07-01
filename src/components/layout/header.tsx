@@ -493,13 +493,15 @@ export function Header() {
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
-      {/* Top bar + logo scroll away in normal flow; only the green nav sticks. */}
-      <div className="hidden lg:block">
-        {/* 1. Top Bar - Contact info */}
-        <TopBar />
+      {/* Rendered as siblings (NOT wrapped in one div) so the sticky nav's
+          containing block is the full page, not a short header-height box — a
+          sticky element can only stick within its parent's bounds. Top bar +
+          logo scroll away in normal flow; only the green nav sticks. */}
+      {/* 1. Top Bar - Contact info */}
+      <TopBar />
 
-        {/* 2. Main Header Row - Logo + Search + Social */}
-        <div className="bg-white py-4">
+      {/* 2. Main Header Row - Logo + Search + Social */}
+      <div className="hidden lg:block bg-white py-4">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0" style={{ marginLeft: 'clamp(-0.75rem, -0.75vw, -0.5rem)' }}>
@@ -532,20 +534,19 @@ export function Header() {
           </div>
         </div>
 
-        {/* Sentinel: marks where the sticky nav engages, for the stuck shadow. */}
-        <div ref={sentinelRef} aria-hidden className="h-px -mb-px" />
+      {/* Sentinel: marks where the sticky nav engages, for the stuck shadow. */}
+      <div ref={sentinelRef} aria-hidden className="hidden lg:block h-px -mb-px" />
 
-        {/* 3. Green Navigation Bar + Mega Menu — sticks to the top on scroll */}
-        <div
-          className="sticky top-0 z-[999] transition-shadow duration-500"
-          style={{
-            boxShadow: navStuck
-              ? '0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)'
-              : 'none',
-          }}
-        >
-          <DesktopNav />
-        </div>
+      {/* 3. Green Navigation Bar + Mega Menu — sticks to the top on scroll */}
+      <div
+        className="hidden lg:block sticky top-0 z-[999] transition-shadow duration-500"
+        style={{
+          boxShadow: navStuck
+            ? '0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)'
+            : 'none',
+        }}
+      >
+        <DesktopNav />
       </div>
 
       {/* ===== MOBILE HEADER ===== */}
