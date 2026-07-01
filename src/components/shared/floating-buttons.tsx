@@ -56,6 +56,11 @@ export function FloatingActionButtons() {
     ? "h-12 w-12 rounded-full"
     : "flex-1 gap-2 px-4 py-3 sm:flex-none sm:px-5 sm:hover:scale-105";
 
+  // Same layered lift as the header's scrolled shadow, so the floating pair
+  // reads as sitting above the page rather than pasted onto it.
+  const liftShadow =
+    "0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)";
+
   return (
     <motion.div
       initial={false}
@@ -74,8 +79,9 @@ export function FloatingActionButtons() {
         <Link
           href="/quote"
           aria-label="Request a quote"
+          style={{ boxShadow: liftShadow }}
           className={cn(
-            "group flex items-center justify-center bg-[#69AF23] text-white shadow-lg transition-all duration-200 hover:bg-[#9FD01B]",
+            "group flex items-center justify-center bg-[#69AF23] text-white transition-all duration-200 hover:bg-[#9FD01B]",
             shape,
           )}
         >
@@ -89,8 +95,9 @@ export function FloatingActionButtons() {
         <Link
           href="/walkthrough"
           aria-label="Schedule a walkthrough"
+          style={{ boxShadow: liftShadow }}
           className={cn(
-            "group flex items-center justify-center border-2 border-[#69AF23] bg-white text-[#69AF23] shadow-lg transition-all duration-200 hover:bg-[#69AF23] hover:text-white",
+            "group flex items-center justify-center border-2 border-[#69AF23] bg-white text-[#69AF23] transition-all duration-200 hover:bg-[#69AF23] hover:text-white",
             shape,
           )}
         >
