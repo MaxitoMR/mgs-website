@@ -270,8 +270,12 @@ export function Footer() {
       {/* Green accent divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-[#69AF23] to-transparent" />
 
-      {/* Bottom bar */}
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* Bottom bar — extra bottom padding (+ safe area) so the fixed CTA bar
+          never permanently covers the copyright/links. */}
+      <div
+        className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8"
+        style={{ paddingBottom: "calc(4rem + env(safe-area-inset-bottom))" }}
+      >
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-sm text-gray-500">
             &copy; 2026 {COMPANY.legalName}. All rights reserved.

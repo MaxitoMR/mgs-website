@@ -49,8 +49,12 @@ export function FloatingActionButtons() {
       initial={false}
       animate={animate}
       transition={transition}
-      style={{ pointerEvents: hidden ? "none" : "auto" }}
-      className="fixed bottom-3 left-3 right-3 z-40 flex items-stretch gap-2 sm:left-auto sm:right-6 sm:gap-3"
+      style={{
+        pointerEvents: hidden ? "none" : "auto",
+        // safe-area inset so it clears the home indicator on notched phones
+        bottom: "calc(0.75rem + env(safe-area-inset-bottom))",
+      }}
+      className="fixed left-3 right-3 z-40 flex items-stretch gap-2 sm:left-auto sm:right-6 sm:gap-3"
     >
       {!onQuote && (
         <Link

@@ -9,12 +9,13 @@ import { COMPANY } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import {
-  ChevronDown, ChevronRight, Search, Facebook, Twitter, Linkedin,
-  Phone, Mail, Menu, X,
+  ChevronDown, ChevronRight, Facebook, Twitter, Linkedin,
+  Phone, Menu, X,
   Building2, Stethoscope, Factory, Wrench, ArrowRight,
 } from "lucide-react";
 import { MobileNav } from "./mobile-nav";
 import { TopBar } from "./top-bar";
+import { SearchBar } from "./search-bar";
 import { useScrollNav } from "@/components/providers/scroll-nav-provider";
 
 /* ─────── Category metadata for mega menu ─────── */
@@ -50,133 +51,6 @@ const categoryMeta: Record<string, {
   },
 };
 
-/* ─────── Search Data ─────── */
-const searchData = [
-  { title: "Multi-Tenant Offices", category: "Commercial", href: "/services/multi-tenant-offices" },
-  { title: "Retail Facilities", category: "Commercial", href: "/services/retail-facilities" },
-  { title: "Restaurants", category: "Commercial", href: "/services/restaurants" },
-  { title: "Surgery Centers", category: "Medical", href: "/services/surgery-centers" },
-  { title: "Factory Plants", category: "Industrial", href: "/services/factory-plants" },
-  { title: "Post-Construction", category: "Services", href: "/services/post-construction" },
-  { title: "Window Cleaning", category: "Services", href: "/services/windows" },
-  { title: "Power Washing", category: "Services", href: "/services/power-washing" },
-  { title: "About Us", category: "Company", href: "/about" },
-  { title: "Request a Quote", category: "Services", href: "/quote" },
-  { title: "Careers", category: "Careers", href: "/careers" },
-  { title: "Concrete Floors", category: "Services", href: "/services/concrete-floors" },
-];
-
-const categoryColors: Record<string, string> = {
-  Commercial: "bg-blue-100 text-blue-800",
-  Medical: "bg-green-100 text-green-800",
-  Industrial: "bg-orange-100 text-orange-800",
-  Services: "bg-purple-100 text-purple-800",
-  Company: "bg-gray-100 text-gray-800",
-  Careers: "bg-teal-100 text-teal-800",
-};
-
-/* ─────── Search Bar Component ─────── */
-function SearchBar() {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<typeof searchData>([]);
-  const [showResults, setShowResults] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setShowResults(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (query.trim()) {
-        const filtered = searchData.filter(
-          (item) =>
-            item.title.toLowerCase().includes(query.toLowerCase()) ||
-            item.category.toLowerCase().includes(query.toLowerCase())
-        );
-        setResults(filtered);
-        setShowResults(true);
-      } else {
-        setResults([]);
-        setShowResults(false);
-      }
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [query]);
-
-  const hasQuery = query.trim().length > 0;
-
-  return (
-    <div ref={ref} className="relative" style={{ width: 'clamp(20rem, 30vw, 30rem)' }}>
-      <div className={cn(
-        "flex items-center gap-2 px-4 py-2.5 border transition-all duration-200",
-        hasQuery
-          ? "border-[#69AF23] bg-white shadow-sm"
-          : "border-gray-200 bg-gray-50/80 hover:border-gray-300"
-      )} style={{ borderTopLeftRadius: '0.75rem' }}>
-        <Search className={cn("h-4 w-4 flex-shrink-0 transition-colors", hasQuery ? "text-[#69AF23]" : "text-gray-400")} />
-        <input
-          type="text"
-          placeholder="Search services..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => query.trim() && setShowResults(true)}
-          className="w-full bg-transparent text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none"
-        />
-        {hasQuery && (
-          <button onClick={() => { setQuery(""); setShowResults(false); }} className="flex-shrink-0 text-gray-400 hover:text-gray-600">
-            <X className="h-3.5 w-3.5" />
-          </button>
-        )}
-      </div>
-
-      {showResults && results.length > 0 && (
-        <div
-          className="absolute left-0 right-0 top-full z-[2000] mt-2 max-h-80 overflow-y-auto bg-white shadow-premium-lg border border-gray-100"
-          style={{ borderBottomLeftRadius: '1rem' }}
-        >
-          <div className="px-4 py-2 border-b border-gray-50">
-            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">{results.length} result{results.length !== 1 ? 's' : ''}</span>
-          </div>
-          {results.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => { setShowResults(false); setQuery(""); }}
-              className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 transition-colors hover:bg-[#69AF23]/5 hover:text-[#69AF23] border-b border-gray-50 last:border-0"
-            >
-              <div className="flex items-center gap-2.5">
-                <ChevronRight className="h-3 w-3 text-gray-300" />
-                <span className="font-light">{item.title}</span>
-              </div>
-              <span className={cn("px-2 py-0.5 text-[10px] font-semibold", categoryColors[item.category] || "bg-gray-100 text-gray-800")}>
-                {item.category}
-              </span>
-            </Link>
-          ))}
-        </div>
-      )}
-
-      {showResults && hasQuery && results.length === 0 && (
-        <div
-          className="absolute left-0 right-0 top-full z-[2000] mt-2 bg-white shadow-premium-lg border border-gray-100 px-4 py-6 text-center"
-          style={{ borderBottomLeftRadius: '1rem' }}
-        >
-          <p className="text-sm text-gray-400">No services found for &ldquo;{query}&rdquo;</p>
-          <Link href="/quote" onClick={() => { setShowResults(false); setQuery(""); }} className="text-xs text-[#69AF23] font-medium mt-1 inline-block hover:underline">
-            Request a custom quote instead
-          </Link>
-        </div>
-      )}
-    </div>
-  );
-}
 
 /* ─────── Mega Menu Component ─────── */
 function MegaMenu({
@@ -457,9 +331,17 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [navStuck, setNavStuck] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
 
   const { direction, atTop } = useScrollNav();
   const reduce = useReducedMotion();
+
+  // Return focus to the hamburger when the drawer closes (a11y: focus return).
+  useEffect(() => {
+    if (wasOpen.current && !mobileOpen) hamburgerRef.current?.focus();
+    wasOpen.current = mobileOpen;
+  }, [mobileOpen]);
 
   // At the very top the mobile header is always shown.
   const scrollingDown = direction === "down" && !atTop;
@@ -533,7 +415,7 @@ export function Header() {
 
             {/* Search + Social */}
             <div className="flex items-center gap-6">
-              <SearchBar />
+              <SearchBar className="w-[clamp(20rem,30vw,30rem)]" />
               <div className="flex items-center gap-3">
                 <a href={COMPANY.social.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-500 transition-colors hover:text-[#69AF23]">
                   <Facebook className="h-5 w-5" />
@@ -576,9 +458,12 @@ export function Header() {
         animate={mobileMotion.animate}
         transition={mobileMotion.transition}
       >
-        {/* Mobile main row */}
-        <div className="flex items-center justify-between bg-white px-4 py-2 border-b border-gray-100">
-          <Link href="/">
+        {/* Mobile main row — safe-area padding keeps it clear of a notch. */}
+        <div
+          className="flex items-center justify-between bg-white px-4 py-2 border-b border-gray-100"
+          style={{ paddingTop: "calc(0.5rem + env(safe-area-inset-top))" }}
+        >
+          <Link href="/" aria-label="MGS home" className="flex items-center">
             <Image
               src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
               alt={COMPANY.name}
@@ -589,16 +474,27 @@ export function Header() {
             />
           </Link>
           <div className="flex items-center gap-1">
-            <a href={`tel:${COMPANY.phone.primary}`} className="flex items-center justify-center w-9 h-9 text-gray-500 hover:text-[#69AF23]">
+            <a
+              href={`tel:${COMPANY.phone.primary}`}
+              aria-label="Call MGS"
+              className="flex h-11 w-11 items-center justify-center text-gray-500 hover:text-[#69AF23]"
+            >
               <Phone className="h-4 w-4" />
             </a>
-            <Link href="/quote" className="bg-[#69AF23] px-3 py-1.5 text-[12px] font-semibold text-white">
+            <Link
+              href="/quote"
+              aria-label="Request a quote"
+              className="flex min-h-11 items-center bg-[#69AF23] px-3 text-[12px] font-semibold text-white"
+            >
               Quote
             </Link>
             <button
+              ref={hamburgerRef}
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="flex items-center justify-center w-9 h-9 text-gray-700"
-              aria-label="Toggle menu"
+              className="flex h-11 w-11 items-center justify-center text-gray-700"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-drawer"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
