@@ -56,8 +56,8 @@ export function Footer() {
       {/* Newsletter band — magazine masthead identity, same footer blue */}
       <section className="relative overflow-hidden bg-[#111111]">
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-          {/* Top metadata rule */}
-          <div className="flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">
+          {/* Top metadata rule — decorative masthead detail, hidden on phones */}
+          <div className="hidden sm:flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#69AF23]">
               MGS Field Brief
             </span>
@@ -71,7 +71,7 @@ export function Footer() {
           </div>
 
           {/* Main grid */}
-          <div className="grid grid-cols-1 items-center gap-14 py-14 lg:grid-cols-[1.3fr_1fr] lg:gap-16 lg:py-20">
+          <div className="grid grid-cols-1 items-center gap-10 py-10 sm:gap-14 sm:py-14 lg:grid-cols-[1.3fr_1fr] lg:gap-16 lg:py-20">
             {/* Left: masthead lockup + pitch */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -141,8 +141,8 @@ export function Footer() {
             </motion.div>
           </div>
 
-          {/* Bottom metadata rule */}
-          <div className="flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">
+          {/* Bottom metadata rule — decorative masthead detail, hidden on phones */}
+          <div className="hidden sm:flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">
             <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-gray-400">
               Total Janitorial Management
             </span>
@@ -155,9 +155,9 @@ export function Footer() {
 
       {/* Main footer content */}
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:gap-10 lg:grid-cols-4 lg:gap-8">
           {/* Column 1 - Company */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="mb-5 inline-block">
               <Image
                 src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"

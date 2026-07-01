@@ -563,6 +563,9 @@ export function Header() {
             <a href={`tel:${COMPANY.phone.primary}`} className="flex items-center justify-center w-9 h-9 text-gray-500 hover:text-[#69AF23]">
               <Phone className="h-4 w-4" />
             </a>
+            <Link href="/quote" className="bg-[#69AF23] px-3 py-1.5 text-[12px] font-semibold text-white">
+              Quote
+            </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="flex items-center justify-center w-9 h-9 text-gray-700"
@@ -570,16 +573,6 @@ export function Header() {
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
-          </div>
-        </div>
-
-        {/* Mobile green nav bar */}
-        <div className="bg-[#69AF23] px-3 py-1.5">
-          <div className="flex items-center justify-center gap-4 text-[11px] text-white font-medium tracking-wide">
-            <Link href="/services" className="hover:text-green-100 py-1">Services</Link>
-            <Link href="/about" className="hover:text-green-100 py-1">About</Link>
-            <Link href="/quote" className="hover:text-green-100 py-1">Quote</Link>
-            <Link href="/walkthrough" className="hover:text-green-100 py-1">Walkthrough</Link>
           </div>
         </div>
       </div>

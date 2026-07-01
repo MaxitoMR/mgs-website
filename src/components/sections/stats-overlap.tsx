@@ -84,7 +84,7 @@ export function StatsOverlap() {
               <p className="font-medium text-gray-900 mt-2 text-sm lg:text-base">
                 {stat.label}
               </p>
-              <p className="text-gray-500 mt-1 text-xs lg:text-sm" style={{ fontWeight: 300 }}>
+              <p className="hidden sm:block text-gray-500 mt-1 text-xs lg:text-sm" style={{ fontWeight: 300 }}>
                 {stat.description}
               </p>
             </div>

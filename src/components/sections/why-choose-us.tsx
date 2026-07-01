@@ -118,7 +118,7 @@ export function WhyChooseUs() {
             return (
               <div
                 key={feature.title}
-                className="wcu-card group relative p-8 transition-all duration-500 hover:-translate-y-2 opacity-0"
+                className="wcu-card group relative p-6 sm:p-8 transition-all duration-500 hover:-translate-y-2 opacity-0"
                 style={{
                   background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.12)',
