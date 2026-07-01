@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { serviceNav, rightNav, portalItems } from "@/lib/navigation";
 import { COMPANY } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { MobileNav } from "./mobile-nav";
 import { TopBar } from "./top-bar";
-import { useHideOnScroll } from "@/hooks/use-hide-on-scroll";
+import { useScrollNav } from "@/components/providers/scroll-nav-provider";
 
 /* ─────── Category metadata for mega menu ─────── */
 const categoryMeta: Record<string, {
@@ -455,58 +455,62 @@ function DesktopNav() {
 /* ─────── Main Header Component ─────── */
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  // Hide the mobile header on scroll-down, bring it back on scroll-up.
-  // Never hide while the mobile menu is open.
-  const hideMobileHeader = useHideOnScroll(80) && !mobileOpen;
-  const desktopRef = useRef<HTMLDivElement>(null);
-  const topBarRef = useRef<HTMLDivElement>(null);
-  const logoRowRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLImageElement>(null);
-  const navBarRef = useRef<HTMLDivElement>(null);
+  const [hoverTop, setHoverTop] = useState(false);
 
-  const [stickyOffset, setStickyOffset] = useState(-999);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { direction, atTop } = useScrollNav();
+  const reduce = useReducedMotion();
 
+  // At the very top the header is always in its default (shown) state.
+  const scrollingDown = direction === "down" && !atTop;
+
+  // Desktop affordance: if the header is hidden and the cursor reaches the very
+  // top edge of the viewport, reveal it (harmless no-op on touch devices).
   useEffect(() => {
-    const measure = () => {
-      const topH = topBarRef.current?.offsetHeight || 0;
-      const logoH = logoRowRef.current?.offsetHeight || 0;
-      setStickyOffset(-(topH + logoH));
-    };
-    measure();
-
-    const onScroll = () => {
-      // When stuck, the nav bar's top === 0 (it's at the viewport top)
-      if (navBarRef.current) {
-        const rect = navBarRef.current.getBoundingClientRect();
-        setIsScrolled(rect.top <= 1);
-      }
-    };
-
-    window.addEventListener("resize", measure);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", onScroll);
-    };
+    const onMove = (e: MouseEvent) => setHoverTop(e.clientY <= 6);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
   }, []);
+
+  const desktopHidden = scrollingDown && !hoverTop;
+  const mobileHidden = scrollingDown && !mobileOpen;
+
+  // transform (translateY) + opacity only — GPU-friendly, never top/height.
+  // Reduced motion swaps the slide for a near-instant fade.
+  const slide = (hidden: boolean, seconds: number) =>
+    reduce
+      ? {
+          animate: { opacity: hidden ? 0 : 1, y: 0 },
+          transition: { duration: 0 },
+        }
+      : {
+          animate: { y: hidden ? "-100%" : "0%" },
+          transition: { duration: seconds, ease: "easeOut" as const },
+        };
+
+  // Desktop: ~300ms, mouse-wheel scrolling is chunkier so slower feels smoother.
+  const desktopMotion = slide(desktopHidden, 0.3);
+  // Mobile: ~200ms, touch scrolling is continuous — a slow header feels laggy.
+  const mobileMotion = slide(mobileHidden, 0.2);
 
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
-      <div ref={desktopRef} className="hidden lg:block" style={{ position: 'sticky', top: `${stickyOffset}px`, zIndex: 999 }}>
+      <motion.div
+        className="hidden lg:block sticky top-0 z-[999]"
+        initial={false}
+        animate={desktopMotion.animate}
+        transition={desktopMotion.transition}
+        style={{ pointerEvents: desktopHidden ? "none" : "auto" }}
+      >
         {/* 1. Top Bar - Contact info */}
-        <div ref={topBarRef}>
-          <TopBar />
-        </div>
+        <TopBar />
 
         {/* 2. Main Header Row - Logo + Search + Social */}
-        <div ref={logoRowRef} className="bg-white py-4">
+        <div className="bg-white py-4">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0" style={{ marginLeft: 'clamp(-0.75rem, -0.75vw, -0.5rem)' }}>
               <Image
-                ref={logoRef}
                 src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
                 alt={COMPANY.name}
                 width={320}
@@ -537,24 +541,23 @@ export function Header() {
 
         {/* 3. Green Navigation Bar + Mega Menu */}
         <div
-          ref={navBarRef}
-          className="transition-all duration-500"
+          className="transition-shadow duration-500"
           style={{
-            boxShadow: isScrolled
+            boxShadow: !atTop
               ? '0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)'
               : 'none',
           }}
         >
           <DesktopNav />
         </div>
-      </div>
+      </motion.div>
 
       {/* ===== MOBILE HEADER ===== */}
-      <div
-        className={cn(
-          "lg:hidden sticky top-0 z-[998] transition-transform duration-300 ease-out",
-          hideMobileHeader ? "-translate-y-full" : "translate-y-0",
-        )}
+      <motion.div
+        className="lg:hidden sticky top-0 z-[998]"
+        initial={false}
+        animate={mobileMotion.animate}
+        transition={mobileMotion.transition}
       >
         {/* Mobile main row */}
         <div className="flex items-center justify-between bg-white px-4 py-2 border-b border-gray-100">
@@ -584,7 +587,7 @@ export function Header() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
