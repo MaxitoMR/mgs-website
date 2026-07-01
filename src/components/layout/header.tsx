@@ -455,53 +455,46 @@ function DesktopNav() {
 /* ─────── Main Header Component ─────── */
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hoverTop, setHoverTop] = useState(false);
+  const [navStuck, setNavStuck] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   const { direction, atTop } = useScrollNav();
   const reduce = useReducedMotion();
 
-  // At the very top the header is always in its default (shown) state.
+  // At the very top the mobile header is always shown.
   const scrollingDown = direction === "down" && !atTop;
-
-  // Desktop affordance: if the header is hidden and the cursor reaches the very
-  // top edge of the viewport, reveal it (harmless no-op on touch devices).
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => setHoverTop(e.clientY <= 6);
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  const desktopHidden = scrollingDown && !hoverTop;
   const mobileHidden = scrollingDown && !mobileOpen;
 
-  // transform (translateY) + opacity only — GPU-friendly, never top/height.
-  // Reduced motion swaps the slide for a near-instant fade.
-  const slide = (hidden: boolean, seconds: number) =>
-    reduce
-      ? {
-          animate: { opacity: hidden ? 0 : 1, y: 0 },
-          transition: { duration: 0 },
-        }
-      : {
-          animate: { y: hidden ? "-100%" : "0%" },
-          transition: { duration: seconds, ease: "easeOut" as const },
-        };
+  // Shadow the sticky green nav only once it's actually stuck to the top.
+  // An IntersectionObserver on a sentinel avoids adding a second scroll listener.
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setNavStuck(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
-  // Desktop: ~300ms, mouse-wheel scrolling is chunkier so slower feels smoother.
-  const desktopMotion = slide(desktopHidden, 0.3);
-  // Mobile: ~200ms, touch scrolling is continuous — a slow header feels laggy.
-  const mobileMotion = slide(mobileHidden, 0.2);
+  // Mobile header: slide up on scroll-down, back on scroll-up. transform +
+  // opacity only; reduced motion swaps the slide for a near-instant fade.
+  const mobileMotion = reduce
+    ? {
+        animate: { opacity: mobileHidden ? 0 : 1, y: 0 },
+        transition: { duration: 0 },
+      }
+    : {
+        animate: { y: mobileHidden ? "-100%" : "0%" },
+        transition: { duration: 0.2, ease: "easeOut" as const },
+      };
 
   return (
     <>
       {/* ===== DESKTOP HEADER ===== */}
-      <motion.div
-        className="hidden lg:block sticky top-0 z-[999]"
-        initial={false}
-        animate={desktopMotion.animate}
-        transition={desktopMotion.transition}
-        style={{ pointerEvents: desktopHidden ? "none" : "auto" }}
-      >
+      {/* Top bar + logo scroll away in normal flow; only the green nav sticks. */}
+      <div className="hidden lg:block">
         {/* 1. Top Bar - Contact info */}
         <TopBar />
 
@@ -539,18 +532,21 @@ export function Header() {
           </div>
         </div>
 
-        {/* 3. Green Navigation Bar + Mega Menu */}
+        {/* Sentinel: marks where the sticky nav engages, for the stuck shadow. */}
+        <div ref={sentinelRef} aria-hidden className="h-px -mb-px" />
+
+        {/* 3. Green Navigation Bar + Mega Menu — sticks to the top on scroll */}
         <div
-          className="transition-shadow duration-500"
+          className="sticky top-0 z-[999] transition-shadow duration-500"
           style={{
-            boxShadow: !atTop
+            boxShadow: navStuck
               ? '0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)'
               : 'none',
           }}
         >
           <DesktopNav />
         </div>
-      </motion.div>
+      </div>
 
       {/* ===== MOBILE HEADER ===== */}
       <motion.div
