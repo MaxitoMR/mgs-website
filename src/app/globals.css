@@ -91,8 +91,12 @@
 }
 
 html, body {
-  height: 100%;
-  overflow-x: hidden;
+  /* No viewport-height clamp: the document must flow so the WINDOW is the
+     scroller (window.scrollY works). Clamping html/body to 100% height while
+     `overflow-x: hidden` forces `overflow-y: auto` turns <body> into the scroll
+     container, which freezes window.scrollY at 0 and kills scroll-aware UI. */
+  overflow-x: clip; /* clip, not hidden — prevents horizontal scroll WITHOUT
+                       forcing overflow-y to `auto` (no scroll box is created). */
   scroll-behavior: smooth;
 }
 
