@@ -152,7 +152,7 @@ export const services: Service[] = [
     category: "medical",
     description: "Hygienic cleaning for sports medicine and rehabilitation centers.",
     longDescription: "Sports rehabilitation facilities require frequent sanitization of treatment tables, hydrotherapy pools, exercise equipment, and patient care areas. Our teams maintain the highest hygiene standards to protect recovering athletes.",
-    image: "/attached_assets/8c978a9b-5378-40fe-98b8-e677220740ba_1752181548559.jpg",
+    image: "/images/sports-rehab.jpg",
     features: ["Treatment room sanitization", "Hydrotherapy pool maintenance", "Equipment cleaning", "Locker room servicing", "Physical therapy area care", "Athletic training facilities"],
     benefits: ["Infection prevention", "Patient safety", "Equipment longevity", "Athletic Support Facilities"],
   },
