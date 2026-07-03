@@ -6,8 +6,8 @@ export interface Service {
   description: string;
   longDescription: string;
   image: string;
-  /** Optional extra photos shown in a gallery on the service detail page. */
-  gallery?: string[];
+  /** Optional extra photos shown in a "closer look" feature on the detail page. */
+  gallery?: { src: string; title?: string; caption?: string }[];
   features: string[];
   benefits: string[];
 }
@@ -122,7 +122,14 @@ export const services: Service[] = [
     description: "Sterile environment maintenance for ambulatory surgical centers.",
     longDescription: "Ambulatory surgical centers demand the highest levels of cleanliness. Our certified teams perform terminal cleaning of operating rooms, pre-op and recovery areas, and sterilization departments following AORN and Joint Commission guidelines.",
     image: "/images/surgery-center.jpg",
-    gallery: ["/images/surgery-center-cleaning.jpg"],
+    gallery: [
+      {
+        src: "/images/surgery-center-cleaning.jpg",
+        title: "Terminal cleaning, done right",
+        caption:
+          "Full PPE, a HEPA backpack vac, and a room-by-room protocol between cases — the way an OR has to be turned over to hold up to AORN and Joint Commission standards.",
+      },
+    ],
     features: ["Operating room terminal cleaning", "Pre-op and PACU cleaning", "Sterile processing area maintenance", "AORN guideline compliance", "ATP testing and documentation for compliance", "Air filtration system cleaning"],
     benefits: ["Surgical site infection prevention", "Accreditation compliance", "Complete facility sanitization services", "Alignment with accreditation standards for healthcare organizations"],
   },
@@ -156,7 +163,14 @@ export const services: Service[] = [
     description: "Hygienic cleaning for sports medicine and rehabilitation centers.",
     longDescription: "Sports rehabilitation facilities require frequent sanitization of treatment tables, hydrotherapy pools, exercise equipment, and patient care areas. Our teams maintain the highest hygiene standards to protect recovering athletes.",
     image: "/images/sports-rehab.jpg",
-    gallery: ["/images/sports-rehab-2.jpg"],
+    gallery: [
+      {
+        src: "/images/sports-rehab-2.jpg",
+        title: "Every surface, every machine",
+        caption:
+          "Treatment tables, hydrotherapy gear, and the high-touch points athletes cycle through all day — wiped down and verified, not just tidied.",
+      },
+    ],
     features: ["Treatment room sanitization", "Hydrotherapy pool maintenance", "Equipment cleaning", "Locker room servicing", "Physical therapy area care", "Athletic training facilities"],
     benefits: ["Infection prevention", "Patient safety", "Equipment longevity", "Athletic Support Facilities"],
   },

@@ -135,36 +135,63 @@ export default async function ServicePage({
           </div>
         </div>
 
-        {/* Gallery — optional extra facility photos for this service */}
-        {service.gallery && service.gallery.length > 0 && (
-          <div className="mt-16">
-            <h3 className="font-display text-2xl font-bold text-gray-900">
-              A closer look
-            </h3>
+        {/* Gallery — a "closer look" at real work on site */}
+        {service.gallery && service.gallery.length === 1 && (
+          <div className="mt-20 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            {/* Photo — natural aspect (no crop), elevated card */}
             <div
-              className={
-                service.gallery.length === 1
-                  ? "mt-6 max-w-xl"
-                  : "mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-              }
+              className="mgs-card overflow-hidden"
+              style={{ borderTopLeftRadius: "1.5rem" }}
             >
-              {service.gallery.map((src, i) => (
-                <div
-                  key={src}
+              <Image
+                src={service.gallery[0].src}
+                alt={service.gallery[0].title ?? `${service.title} on site`}
+                width={1200}
+                height={900}
+                sizes="(min-width:1024px) 36rem, 100vw"
+                className="h-auto w-full"
+              />
+            </div>
+            {/* Caption column — fills the space with intent */}
+            <div>
+              <p className="eyebrow mb-3 text-brand-green">A closer look</p>
+              <h3 className="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+                {service.gallery[0].title ?? service.shortTitle}
+              </h3>
+              {service.gallery[0].caption && (
+                <p className="mt-5 text-lg leading-relaxed text-gray-600">
+                  {service.gallery[0].caption}
+                </p>
+              )}
+              <div className="mt-6 h-1 w-16 rounded-full bg-brand-green" />
+            </div>
+          </div>
+        )}
+
+        {service.gallery && service.gallery.length > 1 && (
+          <div className="mt-20">
+            <p className="eyebrow mb-3 text-brand-green">A closer look</p>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {service.gallery.map((g, i) => (
+                <figure
+                  key={g.src}
                   className="mgs-card overflow-hidden"
                   style={{ borderTopLeftRadius: "1.5rem" }}
                 >
-                  {/* h-auto keeps each photo's natural aspect (portrait or
-                      landscape) so nothing gets cropped. */}
                   <Image
-                    src={src}
-                    alt={`${service.title} — facility photo ${i + 1}`}
+                    src={g.src}
+                    alt={g.title ?? `${service.title} — facility photo ${i + 1}`}
                     width={1200}
                     height={900}
-                    sizes="(min-width:1024px) 36rem, 100vw"
+                    sizes="(min-width:1024px) 33vw, 100vw"
                     className="h-auto w-full"
                   />
-                </div>
+                  {g.caption && (
+                    <figcaption className="px-4 py-3 text-sm text-gray-500">
+                      {g.caption}
+                    </figcaption>
+                  )}
+                </figure>
               ))}
             </div>
           </div>
