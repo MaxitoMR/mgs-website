@@ -144,7 +144,7 @@ export default async function ServicePage({
             <div
               className={
                 service.gallery.length === 1
-                  ? "mt-6 max-w-md"
+                  ? "mt-6 max-w-xl"
                   : "mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
               }
             >
@@ -154,15 +154,16 @@ export default async function ServicePage({
                   className="mgs-card overflow-hidden"
                   style={{ borderTopLeftRadius: "1.5rem" }}
                 >
-                  <div className="relative aspect-[3/4]">
-                    <Image
-                      src={src}
-                      alt={`${service.title} — facility photo ${i + 1}`}
-                      fill
-                      sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
+                  {/* h-auto keeps each photo's natural aspect (portrait or
+                      landscape) so nothing gets cropped. */}
+                  <Image
+                    src={src}
+                    alt={`${service.title} — facility photo ${i + 1}`}
+                    width={1200}
+                    height={900}
+                    sizes="(min-width:1024px) 36rem, 100vw"
+                    className="h-auto w-full"
+                  />
                 </div>
               ))}
             </div>

@@ -33,7 +33,7 @@ const serviceCategories = [
       "Infection-control cleaning for clinics, labs, and surgical centers — where a wipe-down doesn't cut it.",
     color: "#19A0DB",
     services: [
-      { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery center image 2_1752526747820.jpg" },
+      { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery-center.jpg" },
       { name: "Laboratories", link: "/services/laboratories", image: "/images/laboratories image_1752167124287.png" },
       { name: "Imaging Centers", link: "/services/imaging-facilities", image: "/images/imaging center image_1752168794610.png" },
       { name: "Sports Rehab", link: "/services/sports-rehabilitation", image: "/images/sports-rehab.jpg" },
