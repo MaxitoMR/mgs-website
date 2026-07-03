@@ -421,7 +421,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 1023px) {
   .wcu-header, .wcu-card, .wcu-accent,
   .tb-header, .tb-card,
-  .svc-header-el, .svc-card,
+  .svc-header-el, .svc-card, .svc-tile,
   .stat-card {
     opacity: 1 !important;
     transform: none !important;
