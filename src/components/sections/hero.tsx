@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 
 const SUPABASE_PROJECT_REF = 'uuvspvqebodievfkwwss';
@@ -75,6 +74,14 @@ function HeroVideo() {
   );
 }
 
+// Stats moved up from the old standalone bar into the hero.
+const heroStats = [
+  { value: "100+", label: "Facilities Cleaned", sub: "offices, clinics & industrial sites around Houston" },
+  { value: "99.8%", label: "QA Inspection Score", sub: "averaged across our site inspections" },
+  { value: "20", label: "Years In Business", sub: "since 2006" },
+  { value: "24/7", label: "Emergency Line", sub: "for spills, floods & urgent calls" },
+];
+
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const eyebrowRef = useRef<HTMLParagraphElement>(null);
@@ -113,13 +120,13 @@ export function HeroSection() {
         1.1
       );
 
-      // CTA buttons — stagger in from below
-      const buttons = ctaRef.current?.querySelectorAll("a");
-      if (buttons) {
+      // Hero stats — stagger in from below
+      const statItems = ctaRef.current?.querySelectorAll(".hero-stat");
+      if (statItems) {
         tl.fromTo(
-          buttons,
-          { opacity: 0, y: 24, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12 },
+          statItems,
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
           1.3
         );
       }
@@ -154,7 +161,7 @@ export function HeroSection() {
       />
 
       <div className="relative z-50 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20">
-        <div className="max-w-3xl">
+        <div className="max-w-5xl">
           <p ref={eyebrowRef} className="eyebrow text-[#9FD01B] mb-5 opacity-0">
             Est. 2006
           </p>
@@ -191,22 +198,29 @@ export function HeroSection() {
             you when something&apos;s off.
           </p>
 
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/quote"
-              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 text-white font-medium tracking-wide transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg text-base opacity-0"
-            >
-              Get a Free Quote
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 px-8 py-4 text-white font-light tracking-wide transition-all duration-300 hover:border-white hover:bg-white/10 text-base opacity-0"
-            >
-              Learn About Us
-            </Link>
+          {/* Stats — pulled up from the old standalone bar. Floating CTAs cover
+              the call-to-action, so the hero closes on proof instead. */}
+          <div
+            ref={ctaRef}
+            className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/15 pt-8 sm:flex sm:flex-wrap sm:gap-x-12 lg:gap-x-16"
+          >
+            {heroStats.map((s) => (
+              <div key={s.label} className="hero-stat opacity-0">
+                <div
+                  className="font-gothic text-[#9FD01B]"
+                  style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 300, lineHeight: 1 }}
+                >
+                  {s.value}
+                </div>
+                <div className="mt-2 text-sm font-semibold text-white">{s.label}</div>
+                <div
+                  className="mt-0.5 max-w-[12rem] text-xs text-gray-300"
+                  style={{ fontWeight: 300, lineHeight: 1.4 }}
+                >
+                  {s.sub}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

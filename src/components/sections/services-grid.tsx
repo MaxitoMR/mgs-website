@@ -208,7 +208,7 @@ export function ServicesGrid() {
           ref={gridRef}
           key={active.id}
           className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
-          style={{ gridAutoRows: "minmax(clamp(8.5rem, 13vw, 13.5rem), 1fr)", gridAutoFlow: "dense" }}
+          style={{ gridAutoRows: "minmax(clamp(11rem, 16vw, 17.5rem), 1fr)", gridAutoFlow: "dense" }}
         >
           {active.services.map((service, i) => {
             const isBig = i === 0;

@@ -11,7 +11,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-import { StatsOverlap } from "@/components/sections/stats-overlap";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { CrewBand } from "@/components/sections/crew-band";
@@ -28,7 +27,6 @@ export default function HomePage() {
     <>
       <JsonLd type="LocalBusiness" />
       <HeroSection />
-      <StatsOverlap />
       <ServicesGrid />
       <WhyChooseUs />
       <CrewBand />
