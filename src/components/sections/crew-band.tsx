@@ -20,13 +20,23 @@ export function CrewBand() {
           className="object-cover object-left"
         />
 
-        {/* Right-to-left scrim: caption sits over the softer right side, leaving
-            the sharp MGS-branded subject on the left fully visible. */}
+        {/* Desktop scrim: right-to-left, so the caption sits over the softer
+            right side while the MGS-branded subject on the left stays visible. */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden sm:block"
           style={{
             background:
               "linear-gradient(270deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.08) 65%, transparent 100%)",
+          }}
+        />
+        {/* Mobile scrim: stronger and reaches further left, since the copy
+            spans more of a narrow screen over the brighter left-anchored crop.
+            Still a gradient — no flat fill. */}
+        <div
+          className="absolute inset-0 sm:hidden"
+          style={{
+            background:
+              "linear-gradient(270deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.32) 78%, rgba(0,0,0,0.15) 100%)",
           }}
         />
 
