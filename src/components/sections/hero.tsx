@@ -213,8 +213,10 @@ export function HeroSection() {
                   {s.value}
                 </div>
                 <div className="mt-2 text-sm font-semibold text-white">{s.label}</div>
+                {/* Sub-caption hidden on phones to keep the hero uncluttered
+                    (matches the old stats bar's mobile behavior). */}
                 <div
-                  className="mt-0.5 max-w-[12rem] text-xs text-gray-300"
+                  className="mt-0.5 hidden max-w-[12rem] text-xs text-gray-300 sm:block"
                   style={{ fontWeight: 300, lineHeight: 1.4 }}
                 >
                   {s.sub}
