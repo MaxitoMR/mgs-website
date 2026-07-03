@@ -408,7 +408,7 @@ export function Header() {
                 width={253}
                 height={145}
                 className="w-auto transition-none"
-                style={{ height: 'clamp(6rem, 8vw, 8.5rem)' }}
+                style={{ height: 'clamp(6rem, 8vw, 8rem)' }}
                 priority
               />
             </Link>
@@ -469,7 +469,7 @@ export function Header() {
               alt={COMPANY.name}
               width={253}
               height={145}
-              className="h-14 w-auto"
+              className="h-10 w-auto"
               priority
             />
           </Link>
