@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 import { StatsOverlap } from "@/components/sections/stats-overlap";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";
+import { CrewBand } from "@/components/sections/crew-band";
 import { TrustBadges } from "@/components/sections/trust-badges";
 import { Testimonials } from "@/components/sections/testimonials";
 import { ClientPortalCta } from "@/components/sections/client-portal-cta";
@@ -30,6 +31,7 @@ export default function HomePage() {
       <StatsOverlap />
       <ServicesGrid />
       <WhyChooseUs />
+      <CrewBand />
       <TrustBadges />
       {/* <Testimonials /> — hidden until real client reviews are collected */}
       <ClientPortalCta />
