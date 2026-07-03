@@ -29,7 +29,7 @@ export function ScrollToTop() {
           aria-label="Scroll to top"
           // Same baseline (bottom-3) and right edge (right-3 / sm:right-6) as the
           // CTA row, so it lands exactly where the CTAs were.
-          className="fixed right-3 z-40 flex h-12 w-12 items-center justify-center bg-[#69AF23] text-white transition-colors hover:bg-[#9FD01B] sm:right-6"
+          className="fixed right-3 z-[900] flex h-12 w-12 items-center justify-center bg-[#69AF23] text-white transition-colors hover:bg-[#9FD01B] sm:right-6"
           style={{
             bottom: "calc(0.75rem + env(safe-area-inset-bottom))",
             boxShadow: "0 10px 40px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15)",
