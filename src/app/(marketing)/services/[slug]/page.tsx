@@ -135,6 +135,40 @@ export default async function ServicePage({
           </div>
         </div>
 
+        {/* Gallery — optional extra facility photos for this service */}
+        {service.gallery && service.gallery.length > 0 && (
+          <div className="mt-16">
+            <h3 className="font-display text-2xl font-bold text-gray-900">
+              A closer look
+            </h3>
+            <div
+              className={
+                service.gallery.length === 1
+                  ? "mt-6 max-w-md"
+                  : "mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              }
+            >
+              {service.gallery.map((src, i) => (
+                <div
+                  key={src}
+                  className="mgs-card overflow-hidden"
+                  style={{ borderTopLeftRadius: "1.5rem" }}
+                >
+                  <div className="relative aspect-[3/4]">
+                    <Image
+                      src={src}
+                      alt={`${service.title} — facility photo ${i + 1}`}
+                      fill
+                      sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Benefits */}
         <div className="mt-16 rounded-none bg-brand-green/5 p-8 lg:p-12">
           <h3 className="font-display text-2xl font-bold text-gray-900">

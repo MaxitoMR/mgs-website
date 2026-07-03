@@ -6,6 +6,8 @@ export interface Service {
   description: string;
   longDescription: string;
   image: string;
+  /** Optional extra photos shown in a gallery on the service detail page. */
+  gallery?: string[];
   features: string[];
   benefits: string[];
 }
@@ -153,6 +155,7 @@ export const services: Service[] = [
     description: "Hygienic cleaning for sports medicine and rehabilitation centers.",
     longDescription: "Sports rehabilitation facilities require frequent sanitization of treatment tables, hydrotherapy pools, exercise equipment, and patient care areas. Our teams maintain the highest hygiene standards to protect recovering athletes.",
     image: "/images/sports-rehab.jpg",
+    gallery: ["/images/sports-rehab-2.jpg"],
     features: ["Treatment room sanitization", "Hydrotherapy pool maintenance", "Equipment cleaning", "Locker room servicing", "Physical therapy area care", "Athletic training facilities"],
     benefits: ["Infection prevention", "Patient safety", "Equipment longevity", "Athletic Support Facilities"],
   },
