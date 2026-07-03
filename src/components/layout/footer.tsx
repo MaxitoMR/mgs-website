@@ -159,21 +159,14 @@ export function Footer() {
           {/* Column 1 - Company */}
           <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="mb-5 inline-block">
-              {/* New logo has dark text meant for light backgrounds; on the dark
-                  footer it sits on a clean white card so the full lockup reads. */}
-              <span
-                className="inline-block bg-white px-4 py-3"
-                style={{ borderTopLeftRadius: "1rem" }}
-              >
-                <Image
-                  src="/mgs-logo.png"
-                  alt={COMPANY.name}
-                  width={253}
-                  height={145}
-                  className="h-12 w-auto sm:h-14"
-                  priority={false}
-                />
-              </span>
+              <Image
+                src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
+                alt={COMPANY.name}
+                width={240}
+                height={75}
+                className="h-12 w-auto sm:h-14"
+                priority={false}
+              />
             </Link>
             <p className="mb-6 text-sm leading-relaxed text-gray-500">
               Houston-area janitorial services for offices, clinics, and
