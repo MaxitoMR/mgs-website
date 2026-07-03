@@ -123,7 +123,7 @@ export function TrustBadges() {
             return (
               <div
                 key={item.label}
-                className="tb-card group flex items-start gap-4 rounded-sm bg-white p-5 opacity-0 transition-shadow duration-300 hover:shadow-lg sm:gap-5 sm:p-7"
+                className="tb-card mgs-card group flex items-start gap-4 rounded-sm p-5 opacity-0 sm:gap-5 sm:p-7"
               >
                 {/* Icon container */}
                 <div

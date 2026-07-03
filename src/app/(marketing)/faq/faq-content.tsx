@@ -69,7 +69,7 @@ export default function FAQContent() {
               <div className="w-[3px] h-5 bg-[#69AF23]" />
               <h2 className="text-xs font-bold text-gray-900 uppercase tracking-wider">{cat.name}</h2>
             </div>
-            <div className="bg-white border border-gray-100">
+            <div className="bg-white border border-rgray-4 shadow-premium">
               {cat.faqs.map((faq) => (
                 <FAQItem key={faq.q} q={faq.q} a={faq.a} />
               ))}

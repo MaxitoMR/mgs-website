@@ -173,7 +173,7 @@ export default function ServicesContent() {
                   >
                     <Link
                       href={`/services/${service.slug}`}
-                      className="group block bg-white border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                      className="mgs-card group block overflow-hidden"
                       style={{ borderTopLeftRadius: '1.5rem' }}
                     >
                       <div className="aspect-[16/10] overflow-hidden relative">

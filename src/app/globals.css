@@ -335,19 +335,43 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Premium shadows */
+/* Premium shadows — layered (contact + ambient + hairline ring) so surfaces
+   read as genuinely lifted off the page instead of flat white-on-white. */
 .shadow-premium {
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 20px 25px -5px rgba(0, 0, 0, 0.08),
-    0 0 0 1px rgba(0, 0, 0, 0.03);
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 4px 8px -2px rgba(16, 24, 40, 0.06),
+    0 24px 32px -12px rgba(16, 24, 40, 0.10),
+    0 0 0 1px rgba(16, 24, 40, 0.045);
 }
 
 .shadow-premium-lg {
   box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.06),
-    0 40px 50px -12px rgba(0, 0, 0, 0.12),
-    0 0 0 1px rgba(0, 0, 0, 0.03);
+    0 2px 4px rgba(16, 24, 40, 0.05),
+    0 12px 20px -6px rgba(16, 24, 40, 0.09),
+    0 40px 56px -16px rgba(16, 24, 40, 0.16),
+    0 0 0 1px rgba(16, 24, 40, 0.05);
+}
+
+/* ═══════════════════════════════════════════════
+   ELEVATED CARD — the site-wide card surface. White face, hairline grey
+   border (Radix rgray), resting shadow, and a lift on hover. Use for any
+   content card sitting on a light section so it never reads as flat.
+   ═══════════════════════════════════════════════ */
+.mgs-card {
+  background: #ffffff;
+  border: 1px solid var(--color-rgray-4);            /* #e8e8e8 hairline */
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 10px 24px -10px rgba(16, 24, 40, 0.12);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+.mgs-card:hover {
+  border-color: var(--color-rgray-6);
+  box-shadow:
+    0 4px 8px rgba(16, 24, 40, 0.05),
+    0 24px 44px -14px rgba(16, 24, 40, 0.20);
+  transform: translateY(-3px);
 }
 
 .shadow-green-glow {

@@ -111,7 +111,7 @@ export default function CareersPage() {
         <div className="space-y-4">
           {openPositions.map((position) => (
             <MotionWrapper key={position.title}>
-              <div className="flex flex-col items-start justify-between gap-4 rounded-none bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:items-center">
+              <div className="mgs-card flex flex-col items-start justify-between gap-4 rounded-none p-6 sm:flex-row sm:items-center">
                 <div>
                   <h3 className="font-display text-lg font-bold text-gray-900">
                     {position.title}
