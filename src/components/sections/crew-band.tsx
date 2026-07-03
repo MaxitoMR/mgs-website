@@ -15,26 +15,29 @@ export function CrewBand() {
           fill
           sizes="100vw"
           quality={82}
-          className="object-cover object-center"
+          // Anchor left so the branded MGS crew member is never the part that
+          // gets cropped out on narrow/mobile viewports.
+          className="object-cover object-left"
         />
 
-        {/* Left-to-right scrim so the caption stays legible over the photo */}
+        {/* Right-to-left scrim: caption sits over the softer right side, leaving
+            the sharp MGS-branded subject on the left fully visible. */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.05) 70%, transparent 100%)",
+              "linear-gradient(270deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.08) 65%, transparent 100%)",
           }}
         />
 
-        <div className="absolute inset-0 flex items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-16">
+        <div className="absolute inset-0 flex items-center justify-end">
+          <div className="mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-16 flex justify-end">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="max-w-xl"
+              className="max-w-xl text-right"
             >
               <p className="eyebrow mb-4 text-[#9FD01B]">Our Crews</p>
               <h2
@@ -49,7 +52,7 @@ export function CrewBand() {
                 <span className="text-[#69AF23]">know your building.</span>
               </h2>
               <p
-                className="mt-5 max-w-md text-gray-300"
+                className="mt-5 ml-auto max-w-md text-gray-300"
                 style={{ fontWeight: 300, lineHeight: 1.7 }}
               >
                 The same uniformed team shows up each visit — not a rotating cast
