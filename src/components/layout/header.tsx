@@ -403,12 +403,12 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="flex-shrink-0" style={{ marginLeft: 'clamp(-0.75rem, -0.75vw, -0.5rem)' }}>
               <Image
-                src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
+                src="/mgs-logo.png"
                 alt={COMPANY.name}
-                width={320}
-                height={100}
+                width={253}
+                height={145}
                 className="w-auto transition-none"
-                style={{ height: 'clamp(6rem, 8vw, 8rem)' }}
+                style={{ height: 'clamp(4.5rem, 6vw, 6rem)' }}
                 priority
               />
             </Link>
@@ -465,11 +465,11 @@ export function Header() {
         >
           <Link href="/" aria-label="MGS home" className="flex items-center">
             <Image
-              src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
+              src="/mgs-logo.png"
               alt={COMPANY.name}
-              width={140}
-              height={42}
-              className="h-10 w-auto"
+              width={253}
+              height={145}
+              className="h-11 w-auto"
               priority
             />
           </Link>
