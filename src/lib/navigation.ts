@@ -69,6 +69,6 @@ export const rightNav: NavItem[] = [
 
 export const portalItems: NavItem[] = [
   { label: "MGS Manager", href: "https://mgsmanagement.app/" },
-  { label: "Staff Portal", href: "/staff-portal" },
+  { label: "Employee Training", href: "/staff-portal" },
   { label: "Client Portal", href: "https://www.mgsclientportal.app/" },
 ];

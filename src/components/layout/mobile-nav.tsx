@@ -24,7 +24,7 @@ const companyLinks = [
 const portalLinks = [
   { label: "MGS Manager", href: "https://mgsmanagement.app/", external: true },
   { label: "Client Portal", href: "https://www.mgsclientportal.app/", external: true },
-  { label: "Staff Portal", href: "/staff-portal", external: false },
+  { label: "Employee Training", href: "/staff-portal", external: false },
 ];
 
 export function MobileNav({ open, onClose }: MobileNavProps) {

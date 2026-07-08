@@ -32,6 +32,11 @@ export const BRAND = {
   dark: "#191919",
 } as const;
 
+// Cloudflare Stream customer subdomain — build an embed with
+// `https://${CLOUDFLARE_STREAM_CUSTOMER}/<videoUid>/iframe`.
+export const CLOUDFLARE_STREAM_CUSTOMER =
+  "customer-eurkcxtg1osm96dx.cloudflarestream.com";
+
 export const CLOUDFLARE_STREAMS = {
   hero: "https://customer-eurkcxtg1osm96dx.cloudflarestream.com/02c5b18d6e2c920bbfffd01c32135743/manifest/video.m3u8",
   showcase1:
