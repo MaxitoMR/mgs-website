@@ -126,9 +126,9 @@ export function AppPromo() {
                 letterSpacing: "-0.02em",
               }}
             >
-              The app that runs
+              Field operations,
               <br />
-              <span className="text-[#69AF23]">our field work.</span>
+              <span className="text-[#69AF23]">instrumented.</span>
             </motion.h2>
 
             <motion.p
@@ -144,9 +144,9 @@ export function AppPromo() {
                 maxWidth: "34rem",
               }}
             >
-              We built an app to run our field operations: GPS clock-ins, QA
-              checklists, shift notes, supply requests. Clients can log in and
-              see what&apos;s happening at their site.
+              We built the software that runs our field operations: GPS-verified
+              clock-ins, digital QA checklists, shift documentation, and supply
+              requisitions. Clients log in to see activity at their site in real time.
             </motion.p>
 
             <motion.div

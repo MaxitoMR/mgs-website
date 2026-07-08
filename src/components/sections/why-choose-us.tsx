@@ -8,26 +8,26 @@ const features = [
   {
     icon: Shield,
     color: "#69AF23",
-    title: "OSHA & EPA Compliant",
-    description: "Every product we use is EPA-registered, and our crews follow OSHA standards on the job. In medical settings, you can't cut corners on disinfection — so we don't.",
+    title: "Compliant by Design",
+    description: "Every product carries EPA registration; every crew operates to OSHA standards. In regulated environments — surgical suites, laboratories, food-adjacent spaces — compliance is documented, not assumed.",
   },
   {
     icon: Microscope,
     color: "#19A0DB",
-    title: "We Verify Clean",
-    description: "We use ATP testing to confirm a surface is actually clean, not just clean-looking. If a test fails, the crew re-cleans before we sign off. UV-C and electrostatic disinfection where it's warranted.",
+    title: "Verified, Not Assumed",
+    description: "ATP bioluminescence testing confirms a surface is clean at the microbial level, not merely to the eye. A failed reading triggers re-cleaning before sign-off. UV-C and electrostatic disinfection are deployed where the risk profile warrants.",
   },
   {
     icon: Award,
     color: "#9FD01B",
-    title: "A Real Track Record",
-    description: "100+ facilities cleaned across offices, clinics, and industrial sites — with QA scores we actually track and share with clients.",
+    title: "A Measured Track Record",
+    description: "100-plus facilities maintained across commercial, medical, and industrial portfolios — each scored against recurring QA audits and reported back to the client.",
   },
   {
     icon: Clock,
     color: "#FF8F00",
-    title: "We Pick Up at 2 AM",
-    description: "Pipe burst? Need a deep clean before an inspection? Someone's reachable around the clock, not just a voicemail box.",
+    title: "Response, Around the Clock",
+    description: "A line staffed 24/7 for spill, flood, and biohazard events. Facility risk does not observe business hours, and neither does our response.",
   },
 ];
 
@@ -98,15 +98,15 @@ export function WhyChooseUs() {
               className="wcu-header font-gothic text-white opacity-0"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
             >
-              Why clients{' '}
-              <span className="text-[#69AF23]">stay with us.</span>
+              Why facilities{' '}
+              <span className="text-[#69AF23]">standardize on us.</span>
             </h2>
           </div>
           <div className="flex items-end">
             <p className="wcu-header text-gray-400 text-base opacity-0" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-              Most cleaning companies send whoever&apos;s available that night. We
-              assign dedicated teams to each facility, so the same people show up
-              every time and they get to know your building.
+              Most contractors staff by availability. We assign a dedicated crew to
+              each site, accountable to the same documented protocol on every visit —
+              so performance stays consistent, and consistency stays verifiable.
             </p>
           </div>
         </div>

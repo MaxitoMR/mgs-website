@@ -56,8 +56,8 @@ Get In Touch
               className="font-gothic text-gray-900 mb-6"
               style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
             >
-              Let&apos;s discuss your{' '}
-              <span className="text-[#69AF23]">facility needs.</span>
+              Let&apos;s scope your{' '}
+              <span className="text-[#69AF23]">facility requirements.</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -67,8 +67,8 @@ Get In Touch
               className="text-gray-500 mb-12"
               style={{ fontSize: 'var(--font-body-base)', fontWeight: 300, lineHeight: 1.7 }}
             >
-              Tell us about your facility. We&apos;ll follow up within a day to set
-              up a walkthrough and put a quote together.
+              Send the details of your site and requirements. We respond within one
+              business day to schedule a walkthrough and prepare a proposal.
             </motion.p>
 
             <div className="space-y-6">
@@ -155,7 +155,7 @@ Get In Touch
                     Message Sent!
                   </h3>
                   <p className="text-gray-500 mt-2" style={{ fontSize: 'var(--font-caption)', fontWeight: 300 }}>
-                    We&apos;ll get back to you within 24 hours.
+                    We respond within one business day.
                   </p>
                 </div>
               </div>
@@ -170,7 +170,7 @@ Get In Touch
                     Send us a message
                   </h3>
                   <p className="text-gray-500 mt-1" style={{ fontSize: 'var(--font-caption)', fontWeight: 300 }}>
-                    Fill out the form and we&apos;ll respond promptly.
+                    Share your requirements; we respond within one business day.
                   </p>
                 </div>
 

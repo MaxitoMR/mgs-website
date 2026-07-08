@@ -76,10 +76,10 @@ function HeroVideo() {
 
 // Stats moved up from the old standalone bar into the hero.
 const heroStats = [
-  { value: "100+", label: "Facilities Cleaned", sub: "offices, clinics & industrial sites around Houston" },
-  { value: "99.8%", label: "QA Inspection Score", sub: "averaged across our site inspections" },
-  { value: "20", label: "Years In Business", sub: "since 2006" },
-  { value: "24/7", label: "Emergency Line", sub: "for spills, floods & urgent calls" },
+  { value: "100+", label: "Facilities Maintained", sub: "across commercial, medical & industrial portfolios" },
+  { value: "99.8%", label: "QA Inspection Score", sub: "measured across recurring site audits" },
+  { value: "20", label: "Years In Operation", sub: "serving greater Houston since 2006" },
+  { value: "24/7", label: "Emergency Response", sub: "spill, flood & biohazard events" },
 ];
 
 export function HeroSection() {
@@ -177,11 +177,11 @@ export function HeroSection() {
               perspective: '600px',
             }}
           >
-            <span className="hero-line inline-block opacity-0">Cleaning crews</span>
+            <span className="hero-line inline-block opacity-0">Janitorial services,</span>
             <br />
-            <span className="hero-line inline-block opacity-0 text-[#69AF23]">you can actually</span>
+            <span className="hero-line inline-block opacity-0 text-[#69AF23]">engineered to</span>
             <br />
-            <span className="hero-line inline-block opacity-0">count on.</span>
+            <span className="hero-line inline-block opacity-0">a measurable standard.</span>
           </h1>
 
           <p
@@ -193,9 +193,9 @@ export function HeroSection() {
               lineHeight: 1.7,
             }}
           >
-            We&apos;ve been cleaning Houston-area facilities since 2006 — offices,
-            clinics, warehouses. Our crews show up on time, do the work, and tell
-            you when something&apos;s off.
+            Since 2006, MGS Supply &amp; Services has maintained commercial, medical,
+            and industrial facilities across greater Houston — every visit verified
+            against a documented QA protocol, every crew accountable to it.
           </p>
 
           {/* Stats — pulled up from the old standalone bar. Floating CTAs cover

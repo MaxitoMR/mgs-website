@@ -65,7 +65,7 @@ export default function ServicesContent() {
             className="text-gray-400 mt-4 max-w-xl"
             style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}
           >
-            {services.length}+ specialized cleaning solutions across commercial, medical, industrial, and specialized sectors.
+            {services.length} defined cleaning programs across the commercial, medical, industrial, and specialized sectors — each scoped to the standards of its environment.
           </motion.p>
 
           <div className="flex flex-wrap gap-3 mt-8">

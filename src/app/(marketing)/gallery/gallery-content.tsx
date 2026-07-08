@@ -78,7 +78,7 @@ export default function GalleryContent() {
     <>
       <PageHeader
         title="Our Work"
-        subtitle="Real jobs across offices, clinics, and industrial sites around Houston."
+        subtitle="Documented results across commercial, medical, and industrial facilities throughout greater Houston."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Gallery" },

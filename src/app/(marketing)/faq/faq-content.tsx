@@ -56,7 +56,7 @@ export default function FAQContent() {
             Frequently Asked <span className="text-[#69AF23]">Questions</span>
           </h1>
           <p className="text-gray-400 mt-4 max-w-xl" style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}>
-            Everything you need to know about working with MGS Supply & Services.
+Coverage, compliance, scheduling, and pricing — the details procurement and facility teams ask before engaging MGS Supply &amp; Services.
           </p>
         </div>
       </div>

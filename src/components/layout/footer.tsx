@@ -169,8 +169,8 @@ export function Footer() {
               />
             </Link>
             <p className="mb-6 text-sm leading-relaxed text-gray-500">
-              Houston-area janitorial services for offices, clinics, and
-              industrial facilities. In business since 2006.
+              Commercial, medical, and industrial janitorial services across
+              greater Houston — operating to a documented standard since 2006.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (

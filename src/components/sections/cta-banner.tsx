@@ -28,7 +28,7 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
           className="font-gothic text-white"
           style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
         >
-          Want to see if we&apos;re a fit?
+          Request a site assessment.
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -38,8 +38,8 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
           className="text-white/90 mt-6 mb-12 max-w-2xl mx-auto"
           style={{ fontSize: 'var(--font-body-large)', fontWeight: 300, lineHeight: 1.7 }}
         >
-          We&apos;ll come walk your facility and put together a quote. No pressure,
-          no obligation.
+          We will walk your facility, scope the work against your requirements, and
+          return a detailed proposal. No obligation.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

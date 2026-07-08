@@ -9,37 +9,37 @@ const certifications = [
     icon: Shield,
     label: "OSHA Compliant",
     description:
-      "Our crews follow OSHA safety standards on every site — for their safety and yours.",
+      "Crews operate to OSHA occupational-safety standards on every site — protecting our people and your occupants alike.",
   },
   {
     icon: Leaf,
     label: "EPA-Registered Products",
     description:
-      "We only use cleaning and disinfection products registered with the EPA.",
+      "Cleaning and disinfection chemistry is EPA-registered, with Safety Data Sheets available on request.",
   },
   {
     icon: Award,
     label: "ISSA Member",
     description:
-      "Member of the ISSA, the trade association for the cleaning industry.",
+      "Member of the ISSA, the worldwide cleaning-industry association that defines professional standards.",
   },
   {
     icon: ShieldCheck,
     label: "Fully Insured & Bonded",
     description:
-      "Fully insured and bonded. If something goes wrong in your facility, you're covered.",
+      "General liability coverage and bonding on every engagement. If an incident occurs on site, you are covered.",
   },
   {
     icon: UserCheck,
     label: "Background-Checked Staff",
     description:
-      "Every employee goes through a criminal background check before their first shift. No exceptions.",
+      "Every employee clears a criminal background check before their first shift. Without exception.",
   },
   {
     icon: Clock,
     label: "24/7 Emergency Response",
     description:
-      "A real line for spills, floods, and urgent cleanups — not a voicemail you hear back from on Monday.",
+      "A staffed line for spill, flood, and urgent decontamination events — at any hour, not the next business day.",
   },
 ];
 
@@ -112,7 +112,7 @@ export function TrustBadges() {
               lineHeight: 1.15,
             }}
           >
-            What we require of every crew.
+            The standard every crew is held to.
           </h2>
         </div>
 

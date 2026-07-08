@@ -44,9 +44,9 @@ export function ClientPortalCta() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Your account,
+              Your facility,
               <br />
-              <span className="text-[#69AF23]">online.</span>
+              <span className="text-[#69AF23]">in full view.</span>
             </motion.h2>
 
             <motion.p
@@ -57,8 +57,9 @@ export function ClientPortalCta() {
               className="text-gray-600 mt-5 mb-7"
               style={{ fontSize: 'clamp(0.85rem, 1.1vw, 1rem)', fontWeight: 300, lineHeight: 1.7 }}
             >
-              Clients get a portal to check QA inspection reports, pay invoices, and flag
-              issues. No need to call or email us for the basics.
+              A dedicated client portal: review QA inspection reports, settle invoices,
+              and log service requests — a complete record of the work at your site,
+              without a phone call.
             </motion.p>
 
             <motion.div

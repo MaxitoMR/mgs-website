@@ -15,7 +15,7 @@ const serviceCategories = [
     shortTitle: "Commercial",
     icon: Building2,
     description:
-      "Cleaning for offices, retail, restaurants, and the other spaces your business runs out of.",
+      "Recurring janitorial programs for offices, retail, restaurants, and the commercial environments your operation depends on.",
     color: "#69AF23",
     services: [
       { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "/images/1_1751323808589.png" },
@@ -31,7 +31,7 @@ const serviceCategories = [
     shortTitle: "Medical",
     icon: Stethoscope,
     description:
-      "Infection-control cleaning for clinics, labs, and surgical centers — where a wipe-down doesn't cut it.",
+      "Infection-control cleaning for surgical centers, laboratories, and clinics — executed to AORN and Joint Commission expectations.",
     color: "#19A0DB",
     services: [
       { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery-center.jpg" },
@@ -47,7 +47,7 @@ const serviceCategories = [
     shortTitle: "Industrial",
     icon: Factory,
     description:
-      "Cleaning built for plants, warehouses, and heavy-duty environments.",
+      "Heavy-duty cleaning for plants, warehouses, and processing facilities, scoped to the hazards of the environment.",
     color: "#FF8F00",
     services: [
       { name: "Factory Plants", link: "/services/factory-plants", image: "/images/factory plant image_1752262345888.png" },
@@ -62,7 +62,7 @@ const serviceCategories = [
     shortTitle: "Specialized",
     icon: Wrench,
     description:
-      "The jobs that don't fit a standard schedule — post-construction, window work, concrete floors.",
+      "Project-based work — post-construction, terminal sanitization, window, and concrete-floor care — delivered to specification.",
     color: "#9FD01B",
     services: [
       { name: "Post-Construction", link: "/services/post-construction", image: "/images/post construction image_1752524176668.png" },

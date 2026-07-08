@@ -15,33 +15,33 @@ import {
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "MGS Supply & Services is a janitorial company based in Katy, TX, cleaning Houston-area facilities since 2006.",
+    "MGS Supply & Services is a Katy, Texas janitorial contractor serving commercial, medical, and industrial facilities across greater Houston since 2006.",
 };
 
 const values = [
   {
     icon: Users,
     title: "Dedicated Crews",
-    description: "The same team every visit. They learn your building.",
+    description: "One accountable team per site. No rotating subcontractors.",
     // corner position on the floating layout (lg and up)
     position: "lg:-top-8 lg:-left-8",
   },
   {
     icon: Phone,
-    title: "We Pick Up the Phone",
-    description: "Call and reach a person who knows your account.",
+    title: "Direct Line",
+    description: "Reach a person who knows your account — not a queue.",
     position: "lg:-top-8 lg:-right-8",
   },
   {
     icon: ShieldCheck,
-    title: "Background-Checked",
-    description: "Every employee cleared before their first shift.",
+    title: "Vetted & Insured",
+    description: "Background-checked, bonded, and covered on every site.",
     position: "lg:-bottom-8 lg:-left-8",
   },
   {
     icon: ClipboardCheck,
-    title: "QA You Can See",
-    description: "Inspection scores posted to your portal.",
+    title: "Documented QA",
+    description: "Inspection scores recorded and reported to the client.",
     position: "lg:-bottom-8 lg:-right-8",
   },
 ];
@@ -51,7 +51,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         title="About Us"
-        subtitle="We run a janitorial company out of Katy, TX. We've been doing this since 2006."
+        subtitle="A Katy, Texas janitorial contractor serving commercial, medical, and industrial facilities across greater Houston since 2006."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us" },
@@ -66,19 +66,21 @@ export default function AboutPage() {
               Who We Are
             </span>
             <h2 className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl">
-              The crew behind your clean building.
+              A contractor built around one standard.
             </h2>
             <div className="mt-6 space-y-4 text-gray-600">
               <p>
-                We&apos;re a janitorial company based in Katy, cleaning offices,
-                clinics, and industrial facilities across the Houston area. The
-                same crews, the same standards, every visit.
+                MGS Supply &amp; Services maintains commercial, medical, and
+                industrial facilities across greater Houston from our base in Katy,
+                Texas. A dedicated crew is assigned to each site and held to the
+                same documented protocol on every visit.
               </p>
               <p>
-                Our work runs on EPA-registered disinfectants and tools like ATP
-                testing — we verify a surface is actually clean instead of
-                eyeballing it. When a site slips, we catch it before you have to
-                call.
+                The work is built on EPA-registered chemistry and objective
+                verification — ATP bioluminescence testing confirms a surface is
+                clean at the microbial level, not to the eye. QA results are
+                recorded and reported, so a lapse is identified before it reaches
+                your desk.
               </p>
             </div>
           </MotionWrapper>

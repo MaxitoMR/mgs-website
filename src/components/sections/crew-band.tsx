@@ -58,16 +58,17 @@ export function CrewBand() {
                   lineHeight: 1.1,
                 }}
               >
-                Real people who{" "}
-                <span className="text-[#69AF23]">know your building.</span>
+                The people are{" "}
+                <span className="text-[#69AF23]">the guarantee.</span>
               </h2>
               <p
                 className="mt-5 ml-auto max-w-md text-gray-300"
                 style={{ fontWeight: 300, lineHeight: 1.7 }}
               >
-                The same uniformed team shows up each visit — not a rotating cast
-                of subcontractors. They learn your space, your schedule, and what
-                matters to you.
+                The same uniformed team services your site on every visit — no
+                rotating subcontractors, no handoffs. They know the building&apos;s
+                layout, its schedule, and its pressure points, and they are
+                accountable for the result.
               </p>
             </motion.div>
           </div>
