@@ -4,40 +4,37 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Play, CheckCircle2 } from "lucide-react";
-import { COMPANY, CLOUDFLARE_STREAM_CUSTOMER } from "@/lib/constants";
+import { COMPANY } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-// ─────────────────────────────────────────────────────────────────────────
-// TRAINING MODULES
-// `uid` is the Cloudflare Stream video ID. The four below are PLACEHOLDER ids
-// (reused from the marketing streams) so the player works out of the box —
-// replace each `uid` with the real training video's Cloudflare Stream ID.
-// Add or remove modules freely; the list drives the UI.
-// ─────────────────────────────────────────────────────────────────────────
+// Training videos hosted on Supabase Storage (public `training` bucket).
+const VIDEO_BASE =
+  "https://ejivobojvlxrngsdcjjk.supabase.co/storage/v1/object/public/training";
+
 const modules = [
   {
-    uid: "02c5b18d6e2c920bbfffd01c32135743",
-    title: "Onboarding & Company Standards",
+    file: "protective-equipment.mp4",
+    title: "Selecting & Using Protective Equipment",
     description:
-      "Conduct on client sites, uniform and PPE requirements, and the documented protocol every MGS crew is held to.",
+      "How to select, don, and doff gloves, gowns, eye protection, and respirators for the task and hazard level in front of you.",
   },
   {
-    uid: "6042b005bc6af23d33c3b8b597b50410",
-    title: "Bloodborne Pathogens & Biohazard Response",
+    file: "bloodborne-pathogens.mp4",
+    title: "Exposure to Bloodborne Pathogens",
     description:
-      "OSHA-aligned handling of blood, bodily fluids, and biohazard events — personal protection, containment, and disposal.",
+      "OSHA-aligned exposure control: recognizing bloodborne-pathogen risk, handling it safely, and following post-exposure procedure.",
   },
   {
-    uid: "7f0073dfe00c438eed908cf07b8313e2",
-    title: "Chemical Safety & Safety Data Sheets",
+    file: "terminal-cleaning-or.mp4",
+    title: "Terminal Cleaning — Operating Room",
     description:
-      "Safe handling, dilution, and storage of cleaning chemistry, and how to read a Safety Data Sheet before use.",
+      "The step-by-step protocol for terminal cleaning of an operating room between cases, executed to AORN standards.",
   },
   {
-    uid: "9d80faec3133ed23b6feb956439fd4cc",
-    title: "Restroom & High-Touch Disinfection",
+    file: "terminal-cleaning-or-es.mp4",
+    title: "Limpieza Terminal — Quirófano (Español)",
     description:
-      "The step sequence for restroom servicing and high-touch disinfection, including required disinfectant dwell times.",
+      "Limpieza terminal del quirófano entre casos, paso a paso — la misma norma, en español.",
   },
 ];
 
@@ -90,14 +87,14 @@ export function TrainingHub() {
               className="relative w-full overflow-hidden bg-black"
               style={{ aspectRatio: "16 / 9", borderTopLeftRadius: "1.25rem" }}
             >
-              <iframe
-                key={active.uid}
-                src={`https://${CLOUDFLARE_STREAM_CUSTOMER}/${active.uid}/iframe`}
-                title={active.title}
-                loading="lazy"
+              <video
+                key={active.file}
+                src={`${VIDEO_BASE}/${active.file}`}
+                controls
+                controlsList="nodownload"
+                playsInline
+                preload="metadata"
                 className="absolute inset-0 h-full w-full"
-                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                allowFullScreen
               />
             </div>
             <div className="mt-5">
@@ -122,7 +119,7 @@ export function TrainingHub() {
               {modules.map((m, i) => {
                 const isActive = i === activeIndex;
                 return (
-                  <li key={m.uid}>
+                  <li key={m.file}>
                     <button
                       onClick={() => setActiveIndex(i)}
                       className={cn(
