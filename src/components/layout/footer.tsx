@@ -32,6 +32,7 @@ const services = [
 
 const resources = [
   { label: "About Us", href: "/about" },
+  { label: "Leadership", href: "/leadership" },
   { label: "Careers", href: "/careers" },
   { label: "Gallery", href: "/gallery" },
   { label: "Get a Quote", href: "/quote" },
