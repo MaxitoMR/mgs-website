@@ -57,12 +57,12 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
             <ArrowRight className="h-4 w-4" />
           </Link>
           <a
-            href="tel:+12818295358"
+            href="tel:+12818295357"
             className="inline-flex items-center gap-3 border-2 border-white/50 px-8 py-4 font-light text-white transition-all duration-300 hover:border-white hover:bg-white/10"
             style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
           >
             <Phone className="h-4 w-4" />
-            Call (281) 829-5358
+            Call (281) 829-5357
           </a>
         </motion.div>
       </div>

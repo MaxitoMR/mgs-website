@@ -5,7 +5,7 @@ export function TopBar() {
     <div className="hidden bg-white lg:block" style={{ height: 'clamp(2rem, 2.5vw, 2.5rem)' }}>
       <div className="mx-auto flex h-full max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8" style={{ gap: 'clamp(1rem, 2vw, 2rem)' }}>
         <span className="text-gray-600" style={{ fontSize: 'clamp(0.65rem, 0.75vw, 0.75rem)' }}>
-          Call Us: {COMPANY.phone.secondary || '(281)-829-5357'}
+          Call Us: {COMPANY.phone.display}
         </span>
         <span className="text-gray-600" style={{ fontSize: 'clamp(0.65rem, 0.75vw, 0.75rem)' }}>
           Email: {COMPANY.email}

@@ -5,9 +5,9 @@ export const COMPANY = {
   description:
     "Commercial, medical, and industrial janitorial services across greater Houston. Insured, bonded, and operated to a documented QA standard since 2006.",
   phone: {
-    primary: "+12818295358",
-    display: "(281)-829-5358",
-    secondary: "(281)-829-5357",
+    primary: "+12818295357",
+    display: "(281)-829-5357",
+    secondary: "(281)-829-5358",
   },
   email: "support@mgssupplyandservices.com",
   address: {

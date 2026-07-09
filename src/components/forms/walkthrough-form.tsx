@@ -61,8 +61,8 @@ export function WalkthroughForm() {
           </p>
           <p className="mt-2 text-sm text-gray-500">
             For immediate assistance, call{" "}
-            <a href="tel:+12818295358" className="text-brand-green hover:underline">
-              (281) 829-5358
+            <a href="tel:+12818295357" className="text-brand-green hover:underline">
+              (281) 829-5357
             </a>
           </p>
         </div>
