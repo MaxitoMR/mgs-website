@@ -4,6 +4,8 @@ import { PageHeader } from "@/components/shared/page-header";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { MotionWrapper } from "@/components/shared/motion-wrapper";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { JsonLd } from "@/components/seo/json-ld";
+import { COMPANY } from "@/lib/constants";
 import { ClipboardCheck, ShieldCheck, Users } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -33,6 +35,31 @@ const principles = [
 export default function LeadershipPage() {
   return (
     <>
+      <JsonLd
+        type="Person"
+        data={{
+          name: "Gisella Islas",
+          jobTitle: "Chief Executive Officer",
+          image: `${COMPANY.url}/images/gisella-islas.jpg`,
+          url: `${COMPANY.url}/leadership`,
+          worksFor: {
+            "@type": "Organization",
+            name: COMPANY.name,
+            url: COMPANY.url,
+          },
+        }}
+      />
+      <JsonLd
+        type="BreadcrumbList"
+        data={{
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: COMPANY.url },
+            { "@type": "ListItem", position: 2, name: "About", item: `${COMPANY.url}/about` },
+            { "@type": "ListItem", position: 3, name: "Leadership", item: `${COMPANY.url}/leadership` },
+          ],
+        }}
+      />
+
       <PageHeader
         title="Leadership"
         subtitle="The people accountable for the standard MGS operates to — on every site, every visit."

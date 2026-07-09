@@ -59,13 +59,40 @@ export default async function ServicePage({
         type="Service"
         data={{
           name: service.title,
+          serviceType: service.title,
           description: service.longDescription,
+          url: `${COMPANY.url}/services/${service.slug}`,
+          image: `${COMPANY.url}${service.image}`,
           provider: {
             "@type": "LocalBusiness",
             name: COMPANY.name,
             url: COMPANY.url,
+            telephone: COMPANY.phone.display,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: COMPANY.address.street,
+              addressLocality: COMPANY.address.city,
+              addressRegion: COMPANY.address.state,
+              postalCode: COMPANY.address.zip,
+              addressCountry: "US",
+            },
           },
-          areaServed: "Greater Houston, TX",
+          areaServed: { "@type": "City", name: "Houston" },
+        }}
+      />
+      <JsonLd
+        type="BreadcrumbList"
+        data={{
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: COMPANY.url },
+            { "@type": "ListItem", position: 2, name: "Services", item: `${COMPANY.url}/services` },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: service.shortTitle,
+              item: `${COMPANY.url}/services/${service.slug}`,
+            },
+          ],
         }}
       />
 

@@ -1,7 +1,13 @@
 import { COMPANY } from "@/lib/constants";
 
 interface JsonLdProps {
-  type: "LocalBusiness" | "Service" | "WebPage" | "FAQPage";
+  type:
+    | "LocalBusiness"
+    | "Service"
+    | "WebPage"
+    | "FAQPage"
+    | "Person"
+    | "BreadcrumbList";
   data?: Record<string, unknown>;
 }
 
