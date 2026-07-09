@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Play, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Play, CheckCircle2, Lock } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 // Training videos hosted on Supabase Storage (public `training` bucket).
 const VIDEO_BASE =
   "https://ejivobojvlxrngsdcjjk.supabase.co/storage/v1/object/public/training";
+
+// Simple team access code. Note: this is a client-side gate for casual
+// gating of an internal, noindexed page — it is not hard security.
+const ACCESS_CODE = "5602";
 
 const modules = [
   {
@@ -41,6 +45,87 @@ const modules = [
 export function TrainingHub() {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = modules[activeIndex];
+
+  // Access gate
+  const [unlocked, setUnlocked] = useState(false);
+  const [code, setCode] = useState("");
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("mgs-training-ok") === "1") setUnlocked(true);
+  }, []);
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (code.trim() === ACCESS_CODE) {
+      setUnlocked(true);
+      sessionStorage.setItem("mgs-training-ok", "1");
+    } else {
+      setError(true);
+    }
+  };
+
+  if (!unlocked) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#111111] px-4 text-white">
+        <div className="w-full max-w-sm">
+          <div className="mb-8 text-center">
+            <Image
+              src="/images/logo.png"
+              alt={COMPANY.name}
+              width={180}
+              height={53}
+              className="mx-auto mb-6 h-10 w-auto brightness-0 invert"
+            />
+            <h1 className="font-gothic text-2xl font-light">Employee Training</h1>
+            <p className="mt-2 text-sm text-white/50">
+              Enter the access code to continue.
+            </p>
+          </div>
+          <form
+            onSubmit={submit}
+            className="border border-white/10 bg-white/[0.03] p-6"
+            style={{ borderTopLeftRadius: "1rem" }}
+          >
+            <div className="relative">
+              <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
+              <input
+                type="password"
+                inputMode="numeric"
+                autoFocus
+                value={code}
+                onChange={(e) => {
+                  setCode(e.target.value);
+                  setError(false);
+                }}
+                placeholder="Access code"
+                aria-label="Access code"
+                className="w-full border border-white/15 bg-white/[0.04] py-3 pl-10 pr-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-[#69AF23]"
+              />
+            </div>
+            {error && (
+              <p className="mt-3 text-sm text-red-400">Incorrect code. Try again.</p>
+            )}
+            <button
+              type="submit"
+              className="mt-4 flex w-full items-center justify-center bg-[#69AF23] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#5a9a1e]"
+            >
+              Enter
+            </button>
+          </form>
+          <div className="mt-6 text-center">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to website
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#111111] text-white">
