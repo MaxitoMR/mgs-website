@@ -111,6 +111,14 @@ export const services: Service[] = [
     description: "Medical-grade janitorial service for clinics and private practices — exam rooms and patient areas disinfected with hospital-grade, EPA-registered products under infection-control protocol.",
     longDescription: "Outpatient clinics and private practices carry hospital-level infection-control expectations on a commercial footprint. MGS performs terminal cleaning of exam rooms, disinfection of waiting and patient areas, and management of medical-waste zones using EPA-registered, hospital-grade disinfectants — with ATP verification and practices that respect patient privacy.",
     image: "/attached_assets/private practice image_1752165223451.png",
+    gallery: [
+      {
+        src: "/images/clinic-floor.jpg",
+        title: "Floor care, on the schedule",
+        caption:
+          "Low-speed scrubbing of a clinical corridor floor. In a healthcare setting the floor is part of the infection-control picture — cleaned on a schedule and worked around patient traffic, not squeezed in after hours as an afterthought.",
+      },
+    ],
     features: ["Exam room terminal cleaning", "Waiting area sanitization", "Medical waste area management", "EPA-registered disinfectants", "HIPAA-compliant practices", "ATP testing verification"],
     benefits: ["Infection control compliance", "Patient confidence", "Regulatory readiness", "ATP Testing Verification"],
   },
