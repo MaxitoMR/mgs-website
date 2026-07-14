@@ -145,7 +145,7 @@ export function ServicesGrid() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#F4F4F5]"
+      className="relative w-full overflow-hidden bg-[#111111]"
       style={{ paddingTop: "clamp(3.5rem, 6vw, 6rem)", paddingBottom: "clamp(3.5rem, 6vw, 6rem)" }}
     >
       <div className="mx-auto max-w-[92rem] px-5 sm:px-8 lg:px-12">
@@ -154,7 +154,7 @@ export function ServicesGrid() {
           <div>
             <p className="svc-header-el eyebrow mb-3 text-[#69AF23] opacity-0">Our Services</p>
             <h2
-              className="svc-header-el font-gothic text-gray-900 opacity-0"
+              className="svc-header-el font-gothic text-white opacity-0"
               style={{ fontSize: "clamp(1.9rem, 3.6vw, 3.25rem)", fontWeight: 300, lineHeight: 1.05 }}
             >
               What we <span className="text-[#69AF23]">do.</span>
@@ -172,7 +172,7 @@ export function ServicesGrid() {
                   onClick={() => handleTabClick(i)}
                   className={cn(
                     "group flex flex-shrink-0 items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-all duration-300",
-                    isActive ? "text-white shadow-lg" : "bg-white text-gray-600 ring-1 ring-rgray-5 hover:text-gray-900",
+                    isActive ? "text-white shadow-lg" : "bg-white/[0.06] text-gray-300 ring-1 ring-white/15 hover:bg-white/[0.1] hover:text-white",
                   )}
                   style={{
                     borderTopLeftRadius: "1rem",
@@ -182,7 +182,7 @@ export function ServicesGrid() {
                     ...(isActive ? { backgroundColor: cat.color } : {}),
                   }}
                 >
-                  <Icon className={cn("h-4 w-4", isActive ? "text-white" : "text-gray-400 group-hover:text-gray-600")} />
+                  <Icon className={cn("h-4 w-4", isActive ? "text-white" : "text-gray-400 group-hover:text-white")} />
                   {cat.shortTitle}
                 </button>
               );
@@ -194,11 +194,11 @@ export function ServicesGrid() {
         <div key={`${active.id}-head`} className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <span className="h-7 w-1.5 rounded-full" style={{ backgroundColor: active.color }} />
-            <h3 className="font-gothic text-gray-900" style={{ fontSize: "clamp(1.35rem, 2.2vw, 2rem)", fontWeight: 400 }}>
+            <h3 className="font-gothic text-white" style={{ fontSize: "clamp(1.35rem, 2.2vw, 2rem)", fontWeight: 400 }}>
               {active.title}
             </h3>
           </div>
-          <p className="max-w-xl text-sm text-gray-500" style={{ fontWeight: 300, lineHeight: 1.6 }}>
+          <p className="max-w-xl text-sm text-gray-400" style={{ fontWeight: 300, lineHeight: 1.6 }}>
             {active.description}
           </p>
         </div>
@@ -218,7 +218,7 @@ export function ServicesGrid() {
                 key={service.name}
                 href={service.link}
                 className={cn(
-                  "svc-tile group relative block overflow-hidden opacity-0 shadow-premium transition-shadow duration-500 hover:shadow-premium-lg",
+                  "svc-tile group relative block overflow-hidden opacity-0 ring-1 ring-white/10 transition-shadow duration-500",
                   tileSpan(i, active.services.length, bigOnRight),
                 )}
                 style={{ borderTopLeftRadius: isBig ? "2rem" : "1.25rem" }}
@@ -297,7 +297,7 @@ export function ServicesGrid() {
         <div className="mt-8 flex justify-center lg:mt-10">
           <Link
             href="/services"
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-gray-900 transition-colors hover:text-[#69AF23]"
+            className="group inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-[#69AF23]"
           >
             View all services
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
