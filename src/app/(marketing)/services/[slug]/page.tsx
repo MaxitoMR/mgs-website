@@ -162,65 +162,47 @@ export default async function ServicePage({
           </div>
         </div>
 
-        {/* Gallery — a "closer look" at real work on site */}
-        {service.gallery && service.gallery.length === 1 && (
-          <div className="mt-20 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-            {/* Photo — natural aspect (no crop), elevated card */}
-            <div
-              className="mgs-card overflow-hidden"
-              style={{ borderTopLeftRadius: "1.5rem" }}
-            >
-              <Image
-                src={service.gallery[0].src}
-                alt={service.gallery[0].title ?? `${service.title} on site`}
-                width={1200}
-                height={900}
-                sizes="(min-width:1024px) 36rem, 100vw"
-                className="h-auto w-full"
-              />
-            </div>
-            {/* Caption column — fills the space with intent */}
-            <div>
-              <p className="eyebrow mb-3 text-brand-green">A closer look</p>
-              <h3 className="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
-                {service.gallery[0].title ?? service.shortTitle}
-              </h3>
-              {service.gallery[0].caption && (
-                <p className="mt-5 text-lg leading-relaxed text-gray-600">
-                  {service.gallery[0].caption}
-                </p>
-              )}
-              <div className="mt-6 h-1 w-16 rounded-full bg-brand-green" />
-            </div>
-          </div>
-        )}
-
-        {service.gallery && service.gallery.length > 1 && (
-          <div className="mt-20">
-            <p className="eyebrow mb-3 text-brand-green">A closer look</p>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {service.gallery.map((g, i) => (
-                <figure
+        {/* Gallery — each photo as its own feature row, image side alternating.
+            Handles any count and any aspect ratio without cropping. */}
+        {service.gallery && service.gallery.length > 0 && (
+          <div className="mt-20 space-y-14 lg:space-y-20">
+            {service.gallery.map((g, i) => {
+              const flip = i % 2 === 1;
+              return (
+                <div
                   key={g.src}
-                  className="mgs-card overflow-hidden"
-                  style={{ borderTopLeftRadius: "1.5rem" }}
+                  className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
                 >
-                  <Image
-                    src={g.src}
-                    alt={g.title ?? `${service.title} — facility photo ${i + 1}`}
-                    width={1200}
-                    height={900}
-                    sizes="(min-width:1024px) 33vw, 100vw"
-                    className="h-auto w-full"
-                  />
-                  {g.caption && (
-                    <figcaption className="px-4 py-3 text-sm text-gray-500">
-                      {g.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ))}
-            </div>
+                  <div
+                    className={`mgs-card overflow-hidden ${flip ? "lg:order-2" : ""}`}
+                    style={{ borderTopLeftRadius: "clamp(1.5rem, 3vw, 3rem)" }}
+                  >
+                    <Image
+                      src={g.src}
+                      alt={g.title ?? `${service.title} on site`}
+                      width={1200}
+                      height={900}
+                      sizes="(min-width:1024px) 36rem, 100vw"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                  <div className={flip ? "lg:order-1" : ""}>
+                    {i === 0 && (
+                      <p className="eyebrow mb-3 text-brand-green">A closer look</p>
+                    )}
+                    <h3 className="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+                      {g.title ?? service.shortTitle}
+                    </h3>
+                    {g.caption && (
+                      <p className="mt-5 text-lg leading-relaxed text-gray-600">
+                        {g.caption}
+                      </p>
+                    )}
+                    <div className="mt-6 h-1 w-16 rounded-full bg-brand-green" />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
 

@@ -129,6 +129,12 @@ export const services: Service[] = [
         caption:
           "Full PPE, a HEPA backpack vac, and a room-by-room protocol between cases — the way an OR has to be turned over to hold up to AORN and Joint Commission standards.",
       },
+      {
+        src: "/images/surgery-center-floor.jpg",
+        title: "Floors held to the same protocol",
+        caption:
+          "Auto-scrubbing a surgical suite during a deep clean. In this environment the floor answers to the same standard as every other surface — cleaned and documented, not just mopped.",
+      },
     ],
     features: ["Operating room terminal cleaning", "Pre-op and PACU cleaning", "Sterile processing area maintenance", "AORN guideline compliance", "ATP testing and documentation for compliance", "Air filtration system cleaning"],
     benefits: ["Surgical site infection prevention", "Accreditation compliance", "Complete facility sanitization services", "Alignment with accreditation standards for healthcare organizations"],
