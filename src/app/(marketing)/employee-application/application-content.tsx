@@ -102,11 +102,10 @@ export default function ApplicationContent() {
                     className="w-full rounded-none border border-gray-300 px-4 py-3 text-sm focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/20"
                   >
                     <option value="">Select position</option>
-                    <option value="janitorial-team-member">Janitorial Team Member</option>
-                    <option value="medical-specialist">Medical Facility Specialist</option>
-                    <option value="floor-care-tech">Floor Care Technician</option>
-                    <option value="team-lead">Team Lead</option>
-                    <option value="other">Other</option>
+                    <option value="floor-tech">Floor Tech</option>
+                    <option value="supervisor">Supervisor</option>
+                    <option value="day-maid">Day Maid</option>
+                    <option value="janitor">Janitor</option>
                   </select>
                   {errors.position && (
                     <p className="mt-1 text-xs text-red-500">{errors.position.message}</p>
