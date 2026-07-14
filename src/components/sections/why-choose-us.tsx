@@ -83,7 +83,6 @@ export function WhyChooseUs() {
       style={{
         paddingTop: 'clamp(5rem, 10vw, 10rem)',
         paddingBottom: 'clamp(5rem, 10vw, 10rem)',
-        borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)',
       }}
     >
 
