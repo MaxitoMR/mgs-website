@@ -5,6 +5,7 @@ import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { MotionWrapper } from "@/components/shared/motion-wrapper";
+import { SectionHeading } from "@/components/shared/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
 import { AWARD, COMPANY } from "@/lib/constants";
 import {
@@ -120,12 +121,10 @@ export default function AboutPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left — copy */}
           <MotionWrapper>
-            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
-              Who We Are
-            </span>
-            <h2 className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl">
-              A contractor built around one standard.
-            </h2>
+            <SectionHeading
+              eyebrow="Who We Are"
+              title="A contractor built around one standard."
+            />
             <div className="mt-6 space-y-4 text-gray-600">
               <p>
                 MGS Supply &amp; Services maintains commercial, medical, and
@@ -214,22 +213,19 @@ export default function AboutPage() {
           </MotionWrapper>
 
           <MotionWrapper delay={0.15}>
-            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
-              Recognition
-            </span>
-            <h2
-              className="mt-3 font-gothic text-gray-900"
-              style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
-            >
-              {AWARD.headline}
-            </h2>
-            <p className="mt-5 max-w-xl text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-              {AWARD.issuer} ranks janitorial contractors by locality from
-              aggregated Google Reviews — so it reflects what our clients wrote
-              publicly, not what we say about ourselves. {AWARD.claim},{" "}
-              {AWARD.month} {AWARD.year}.
-            </p>
-            <p className="mt-4 text-sm text-gray-600" style={{ fontWeight: 300 }}>
+            <SectionHeading
+              eyebrow="Recognition"
+              title={AWARD.headline}
+              lede={
+                <>
+                  {AWARD.issuer} ranks janitorial contractors by locality from
+                  aggregated Google Reviews — so it reflects what our clients
+                  wrote publicly, not what we say about ourselves. {AWARD.claim},{" "}
+                  {AWARD.month} {AWARD.year}.
+                </>
+              }
+            />
+            <p className="mt-5 text-sm text-gray-600" style={{ fontWeight: 300 }}>
               {AWARD.attribution}
             </p>
           </MotionWrapper>
@@ -244,41 +240,41 @@ export default function AboutPage() {
           unlikely. */}
       {TEAM.every((m) => m.name && m.role) && (
         <SectionWrapper id="leadership">
-          <div className="mb-10">
-            <p className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
-              The Team
-            </p>
-            <h2 className="mt-3 font-display text-2xl font-bold text-gray-900 sm:text-3xl">
-              The people who hold the standard.
-            </h2>
-            <p className="mt-4 max-w-2xl text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-              The office in Katy that scopes the work, schedules the crews, and
-              answers the phone when something needs fixing.
-            </p>
-          </div>
+          <SectionHeading
+            className="mb-12"
+            eyebrow="The Team"
+            title="The people who hold the standard."
+            lede="The office in Katy that scopes the work, schedules the crews, and answers the phone when something needs fixing."
+          />
 
-          <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+          <ul className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-5">
             {TEAM.map((m, i) => (
               <li key={m.image}>
                 <MotionWrapper delay={i * 0.08}>
+                  {/* aspect-[4/5] with a top-biased crop: the masters are tall
+                      2:3 frames, so uncropped they render as small, mostly-desk
+                      slivers. Cropping to the face gives every card the same
+                      height and puts the person first. */}
                   <div
-                    className="overflow-hidden"
+                    className="group relative aspect-[4/5] overflow-hidden bg-gray-100 shadow-premium transition-shadow duration-300 hover:shadow-premium-lg"
                     style={{ borderTopLeftRadius: "1.25rem" }}
                   >
                     <Image
                       src={m.image}
                       alt={`${m.name}, ${m.role} at ${COMPANY.name}`}
-                      width={1600}
-                      height={2400}
-                      sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 45vw"
+                      fill
+                      sizes="(min-width: 1024px) 19vw, (min-width: 640px) 31vw, 46vw"
                       quality={82}
-                      className="h-auto w-full object-cover"
+                      className="object-cover object-[50%_28%] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                   </div>
-                  <h3 className="mt-4 font-display text-base font-bold text-gray-900">
+                  <h3 className="mt-4 font-display text-base font-bold leading-snug text-gray-900">
                     {m.name}
                   </h3>
-                  <p className="mt-0.5 text-sm text-gray-600" style={{ fontWeight: 300 }}>
+                  <p
+                    className="mt-1 text-sm text-gray-600"
+                    style={{ fontWeight: 300 }}
+                  >
                     {m.role}
                   </p>
                 </MotionWrapper>
@@ -290,14 +286,11 @@ export default function AboutPage() {
 
       {/* Operating principles — moved here from the retired /leadership page. */}
       <SectionWrapper className="bg-[#F4F4F5]">
-        <div className="mb-10">
-          <p className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
-            How Leadership Operates
-          </p>
-          <h2 className="mt-3 font-display text-2xl font-bold text-gray-900 sm:text-3xl">
-            The principles behind the work.
-          </h2>
-        </div>
+        <SectionHeading
+          className="mb-12"
+          eyebrow="How Leadership Operates"
+          title="The principles behind the work."
+        />
         <div className="grid gap-5 md:grid-cols-3">
           {principles.map((p) => (
             <div
