@@ -8,12 +8,11 @@ import { cn } from "@/lib/utils";
 import { gsap } from "@/lib/gsap";
 import { getServiceBySlug } from "@/lib/services-data";
 
-/* Each sector carries two colors:
-   `color`     — the vibrant hue, for decorative use only (the rule, the
-                 hover wash, the top accent line). White text on any of
-                 these lands at 1.8-3.0:1 and fails even the 3:1 threshold.
-   `deepColor` — the AA variant used wherever the hue becomes a SURFACE
-                 behind white text (the active tab pill, the Featured badge). */
+/* `color` is decorative (the rule, hover wash, accent line); `deepColor` is
+   used where the hue becomes a SURFACE behind white text (active tab pill,
+   Featured badge). Both currently hold the full-strength hues by product
+   decision — see the brand color seam in globals.css. AA-compliant
+   deepColor set: #457617 / #116D96 / #9A5600 / #55700F. */
 const serviceCategories = [
   {
     id: "commercial",
@@ -23,7 +22,7 @@ const serviceCategories = [
     description:
       "Recurring janitorial programs for offices, retail, restaurants, and the commercial environments your operation depends on.",
     color: "#69AF23",
-    deepColor: "#457617",
+    deepColor: "#69AF23",
     services: [
       { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "/images/1_1751323808589.png" },
       { name: "Retail Spaces", link: "/services/retail-facilities", image: "/images/MGS_Supply_And_Services_Gallery-Commercial-10_1752003221911.jpg" },
@@ -40,7 +39,7 @@ const serviceCategories = [
     description:
       "Infection-control cleaning for surgical centers, laboratories, and clinics — executed to AORN and Joint Commission expectations.",
     color: "#19A0DB",
-    deepColor: "#116D96",
+    deepColor: "#19A0DB",
     services: [
       { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery-center.jpg" },
       { name: "Laboratories", link: "/services/laboratories", image: "/images/laboratories image_1752167124287.png" },
@@ -57,7 +56,7 @@ const serviceCategories = [
     description:
       "Heavy-duty cleaning for plants, warehouses, and processing facilities, scoped to the hazards of the environment.",
     color: "#FF8F00",
-    deepColor: "#9A5600",
+    deepColor: "#FF8F00",
     services: [
       { name: "Factory Plants", link: "/services/factory-plants", image: "/images/factory plant image_1752262345888.png" },
       { name: "Petrochemical Plants", link: "/services/petrochemical-plants", image: "/images/commercial-claning-housong-chemical-plants_1752268757986.jpeg" },
@@ -73,7 +72,7 @@ const serviceCategories = [
     description:
       "Project-based work — post-construction, terminal sanitization, window, and concrete-floor care — delivered to specification.",
     color: "#9FD01B",
-    deepColor: "#55700F",
+    deepColor: "#9FD01B",
     services: [
       { name: "Post-Construction", link: "/services/post-construction", image: "/images/post construction image_1752524176668.png" },
       { name: "Industrial Cleanup", link: "/services/industrial-cleanup", image: "/images/9_1752184097090.png" },

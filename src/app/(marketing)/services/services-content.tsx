@@ -15,10 +15,7 @@ const categoryIcons: Record<string, typeof Building2> = {
   additional: Sparkles,
 };
 
-/* Vibrant hues for decorative fills (tinted chips, the active underline)
-   and on the dark hero. They sit at 1.8-3.0:1 on white, so anywhere the
-   hue becomes text or a meaningful icon on a light surface it has to use
-   the AA-compliant variant below instead. */
+/* Decorative fills (tinted chips, the active underline, the dark hero). */
 const categoryColors: Record<string, string> = {
   commercial: "#69AF23",
   medical: "#19A0DB",
@@ -26,11 +23,14 @@ const categoryColors: Record<string, string> = {
   additional: "#9FD01B",
 };
 
+/* Used where the hue becomes text or a meaningful icon. Currently the same
+   full-strength hues by product decision — see the brand color seam in
+   globals.css. AA-compliant set: #457617 / #116D96 / #9A5600 / #55700F. */
 const categoryTextColors: Record<string, string> = {
-  commercial: "#457617",
-  medical: "#116D96",
-  industrial: "#9A5600",
-  additional: "#55700F",
+  commercial: "#69AF23",
+  medical: "#19A0DB",
+  industrial: "#FF8F00",
+  additional: "#9FD01B",
 };
 
 export default function ServicesContent() {

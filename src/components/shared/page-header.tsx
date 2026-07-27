@@ -32,9 +32,7 @@ export function PageHeader({
     >
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {breadcrumbs && (
-          /* white/90 is the lowest opacity that clears 4.5:1 on the deep
-             green (white/80 lands at 4.15 and fails for 14px text). */
-          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-white/90">
+          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-white/80">
             {breadcrumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-2">
                 {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-white/70" aria-hidden="true" />}
@@ -65,7 +63,7 @@ export function PageHeader({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-5 max-w-2xl font-clinical font-thin text-lg leading-relaxed text-white/90"
+            className="mt-5 max-w-2xl font-clinical font-thin text-lg leading-relaxed text-white/80"
           >
             {subtitle}
           </motion.p>

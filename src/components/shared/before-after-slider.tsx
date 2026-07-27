@@ -80,11 +80,9 @@ export function BeforeAfterSlider({ before, after, label }: BeforeAfterSliderPro
         >
           {/* Handle */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center">
-            {/* #457617, not #69AF23: this arrow is a control affordance and
-                must clear 3:1 against the white handle (the brand green is 2.71). */}
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M7 4L3 10L7 16" stroke="#457617" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M13 4L17 10L13 16" stroke="#457617" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M7 4L3 10L7 16" stroke="#69AF23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M13 4L17 10L13 16" stroke="#69AF23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>

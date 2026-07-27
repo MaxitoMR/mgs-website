@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: "/about", priority: 0.8, changeFrequency: "monthly" as const },
     { route: "/leadership", priority: 0.6, changeFrequency: "monthly" as const },
     { route: "/services", priority: 0.9, changeFrequency: "weekly" as const },
+    // Local landing page — high priority, it targets the home-market query.
+    { route: "/katy", priority: 0.9, changeFrequency: "monthly" as const },
     { route: "/gallery", priority: 0.7, changeFrequency: "monthly" as const },
     { route: "/faq", priority: 0.7, changeFrequency: "monthly" as const },
     { route: "/careers", priority: 0.7, changeFrequency: "monthly" as const },

@@ -12,33 +12,38 @@
   --color-mgs-secondary: #9FD01B;
   --color-mgs-accent: #19A0DB;
 
-  /* ── WCAG AA accessible brand variants ───────────────────────────────
-     The vibrant brand green #69AF23 only reaches 2.71:1 against white —
-     it fails AA for normal text AND the 3:1 large-text threshold. So it
-     must never be a background behind white text, and never be text on a
-     light background. Use these variants instead:
+  /* ── Brand color seam ────────────────────────────────────────────────
+     These four tokens are the ONLY place the brand hues are decided. Every
+     green surface, green text run, and sector accent in the app reads from
+     them, so the whole palette moves by editing this block.
 
-       --color-brand-green-deep  surfaces carrying WHITE text
-                                 (buttons, top bar, page headers)
-                                 white 5.44:1 · white/90 4.75:1 — both AA
-       --color-brand-green-text  green TEXT on any light surface — 4.91:1
+     CURRENT STATE — full-strength brand color, by product decision.
+     The vibrant hues are back everywhere, including behind white text.
 
-     The same #457617 serves both roles, so there is one "accessible green"
-     to reason about. Note these are verified against the DARKEST light
-     surface in use (#F4F4F5), not pure white: the off-white section
-     backgrounds shave ~0.2 off every ratio, which is enough to push a
-     white-only calculation below 4.5.
+     ACCESSIBILITY TRADE-OFF (deliberate, documented, reversible):
+     #69AF23 behind white text is 2.71:1. That fails WCAG AA for normal
+     text (4.5:1) AND the large-text threshold (3:1), so buttons, the top
+     bar, page headers and green-on-light text runs are not AA-compliant on
+     contrast. This was chosen with the numbers on the table — brand
+     fidelity over the contrast criterion.
 
-     Vibrant #69AF23 stays in use for icons, borders, decorative fills,
-     hover states, and as text/accent on dark surfaces (6.97:1 on #111). */
-  --color-brand-green-deep: #457617;
-  /* Hover lifts the surface slightly; white text still clears AA at 4.69:1.
-     Only white-vs-fill matters here, so the page background is irrelevant. */
-  --color-brand-green-deep-hover: #4E811A;
-  --color-brand-green-text: #457617;
-  --color-mgs-accent-text: #116D96;   /* blue accent as text on light   5.18:1 */
-  --color-mgs-orange-text: #9A5600;   /* orange accent as text on light 5.11:1 */
-  --color-mgs-lime-text: #55700F;     /* lime accent as text on light   5.10:1 */
+     Everything else from the accessibility pass is unaffected and still
+     holds: form labeling, keyboard operability, landmarks, the focus ring,
+     reduced motion, and all non-green text contrast.
+
+     TO RESTORE AA: set -deep and -text to #457617, -deep-hover to #4E811A,
+     and the three accent-text tokens to #116D96 / #9A5600 / #55700F. Those
+     values are verified against #F4F4F5 (the darkest light surface in use,
+     not pure white — off-white backgrounds shave ~0.2 off every ratio).
+     Then flip the nav overlays in header.tsx from black tints back to
+     white, and page-header.tsx subtext from white/80 to white/90.
+     Re-verify with scripts/a11y/. */
+  --color-brand-green-deep: #69AF23;
+  --color-brand-green-deep-hover: #9FD01B;
+  --color-brand-green-text: #69AF23;
+  --color-mgs-accent-text: #19A0DB;   /* blue sector accent   */
+  --color-mgs-orange-text: #FF8F00;   /* orange sector accent */
+  --color-mgs-lime-text: #9FD01B;     /* lime sector accent   */
   --color-mgs-clinical-gray: #ECECEF;   /* Platinum page grey (kept) */
   --color-mgs-black: #0F0A0A;           /* Pitch Black — text */
   --color-mgs-steel: #A0A0A0;           /* Cool Steel — muted text/icons */

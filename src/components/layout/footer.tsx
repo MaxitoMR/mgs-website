@@ -32,6 +32,9 @@ const services = [
 
 const resources = [
   { label: "About Us", href: "/about" },
+  // Internal link to the local landing page — sitewide, so every page passes
+  // signal to it. Local pages rank on internal linking as much as content.
+  { label: "Janitorial Services in Katy", href: "/katy" },
   { label: "Leadership", href: "/leadership" },
   { label: "Careers", href: "/careers" },
   { label: "Gallery", href: "/gallery" },

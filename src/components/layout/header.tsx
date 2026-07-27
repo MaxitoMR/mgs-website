@@ -19,13 +19,11 @@ import { SearchBar } from "./search-bar";
 import { useScrollNav } from "@/components/providers/scroll-nav-provider";
 
 /* ─────── Category metadata for mega menu ─────── */
-/* Each category carries two colors:
-   `color`     — the vibrant brand hue, for decorative fills only (the 3px
-                 accent bar, tinted icon chips). Never used for text/icons.
-   `textColor` — the AA-compliant variant (>=4.5:1 on white) used whenever
-                 the hue becomes text or a meaningful icon. The vibrant hues
-                 sit at 1.8-3.0:1 on white and fail both the 4.5:1 text and
-                 3:1 non-text thresholds. */
+/* `color` is the decorative fill (accent bar, tinted icon chips) and
+   `textColor` is used where the hue becomes text or a meaningful icon.
+   Both currently hold the full-strength brand hues by product decision —
+   see the brand color seam in globals.css. The AA-compliant textColor set
+   is #457617 / #116D96 / #9A5600 / #55700F if contrast is restored. */
 const categoryMeta: Record<string, {
   icon: typeof Building2;
   color: string;
@@ -36,28 +34,28 @@ const categoryMeta: Record<string, {
   Commercial: {
     icon: Building2,
     color: "#69AF23",
-    textColor: "#457617",
+    textColor: "#69AF23",
     description: "Professional cleaning solutions for offices, retail, restaurants, and business environments.",
     image: "/images/1_1751323808589.png",
   },
   Medical: {
     icon: Stethoscope,
     color: "#19A0DB",
-    textColor: "#116D96",
+    textColor: "#19A0DB",
     description: "Infection-control-grade protocols for surgical centers, labs, imaging facilities, and clinics.",
     image: "/images/imaging center image_1752168794610.png",
   },
   Industrial: {
     icon: Factory,
     color: "#FF8F00",
-    textColor: "#9A5600",
+    textColor: "#FF8F00",
     description: "Heavy-duty cleaning for factories, petrochemical plants, warehouses, and power facilities.",
     image: "/images/IMG_1741_1751917994935.JPG",
   },
   Specialized: {
     icon: Wrench,
     color: "#9FD01B",
-    textColor: "#55700F",
+    textColor: "#9FD01B",
     description: "Advanced solutions for post-construction, concrete, windows, power washing, and more.",
     image: "/images/7_1752264862114.png",
   },
@@ -105,7 +103,7 @@ function MegaMenu({
                       borderTopLeftRadius: '0.75rem',
                     }}
                   >
-                    <Icon className="h-5 w-5" style={{ color: meta?.textColor || '#457617' }} aria-hidden="true" />
+                    <Icon className="h-5 w-5" style={{ color: meta?.textColor || '#69AF23' }} aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 text-base">{category.label} Services</h3>
@@ -257,14 +255,11 @@ function DesktopNav() {
                 onClick={() =>
                   setOpenMenu(openMenu === category.label ? null : category.label)
                 }
-                /* Black tints, not white: a white overlay LIGHTENS the green
-                   (white/10 -> #58842e) and drops white text to 4.41:1.
-                   Darkening keeps every state at or above the base 5.44:1. */
                 className={cn(
                   "flex items-center gap-1 px-3 h-full text-white font-light transition-all duration-200",
                   openMenu === category.label
-                    ? "bg-black/15"
-                    : "hover:bg-black/10"
+                    ? "bg-white/15"
+                    : "hover:bg-white/10"
                 )}
                 style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
               >
@@ -281,7 +276,7 @@ function DesktopNav() {
           ))}
           <Link
             href="/diffusers"
-            className="flex items-center px-3 text-white hover:bg-black/10 h-full font-light transition-all duration-200"
+            className="flex items-center px-3 text-white hover:bg-white/10 h-full font-light transition-all duration-200"
             style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
           >
             Diffusers
@@ -294,7 +289,7 @@ function DesktopNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center px-3 h-full text-white hover:bg-black/10 font-light transition-all duration-200"
+              className="flex items-center px-3 h-full text-white hover:bg-white/10 font-light transition-all duration-200"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               {item.label}
@@ -311,7 +306,7 @@ function DesktopNav() {
               aria-expanded={portalsOpen}
               aria-haspopup="true"
               onClick={() => setPortalsOpen((open) => !open)}
-              className="flex items-center gap-1 px-3 py-1 bg-black/10 text-white hover:bg-black/20 font-light transition-all duration-200"
+              className="flex items-center gap-1 px-3 py-1 bg-white/10 text-white hover:bg-white/15 font-light transition-all duration-200"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               Portals

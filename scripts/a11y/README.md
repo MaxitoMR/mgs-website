@@ -39,6 +39,15 @@ worst impact first.
 3. **Keyboard.** Skip link is the first tab stop, `#main-content` exists, and
    the mega menu opens on Enter / closes on Escape.
 
+## Expected baseline
+
+`color-contrast` is a **known, accepted failure** — the full-strength brand
+green (`#69AF23`, 2.71:1 behind white text) was restored by product decision.
+Expect ~35 nodes per page from it.
+
+**Any other violation type is a real regression.** Judge a run by whether
+anything besides `color-contrast` appears, not by the total count.
+
 ## Two traps that produce false failures
 
 Both of these bit us; the scripts already work around them.
