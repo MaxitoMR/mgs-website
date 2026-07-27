@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     { route: "", priority: 1, changeFrequency: "weekly" as const },
     { route: "/about", priority: 0.8, changeFrequency: "monthly" as const },
-    { route: "/leadership", priority: 0.6, changeFrequency: "monthly" as const },
     { route: "/services", priority: 0.9, changeFrequency: "weekly" as const },
     // Local landing page — high priority, it targets the home-market query.
     { route: "/katy", priority: 0.9, changeFrequency: "monthly" as const },

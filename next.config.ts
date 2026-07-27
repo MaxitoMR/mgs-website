@@ -56,6 +56,14 @@ const nextConfig: NextConfig = {
         destination: "/services/sports-rehabilitation",
         permanent: true,
       },
+      {
+        // /leadership was folded into /about. Permanent (308) so the indexed
+        // URL passes its ranking signal on instead of 404ing; the fragment
+        // drops visitors on the team section they were looking for.
+        source: "/leadership",
+        destination: "/about#leadership",
+        permanent: true,
+      },
     ];
   },
 };

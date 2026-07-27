@@ -5,7 +5,8 @@ import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { MotionWrapper } from "@/components/shared/motion-wrapper";
-import { AWARD } from "@/lib/constants";
+import { JsonLd } from "@/components/seo/json-ld";
+import { AWARD, COMPANY } from "@/lib/constants";
 import {
   Users,
   Phone,
@@ -16,8 +17,38 @@ import {
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "MGS Supply & Services is a Katy, Texas janitorial contractor serving commercial, medical, and industrial facilities across greater Houston since 2006.",
+    "MGS Supply & Services is a Katy, Texas janitorial contractor serving commercial, medical, and industrial facilities across greater Houston since 2006. Meet the team and the standard they hold.",
+  alternates: { canonical: `${COMPANY.url}/about` },
 };
+
+/* Office team portraits from the July 2026 shoot. Names and roles were
+   supplied by the owner — do NOT edit them from a photo alone. */
+const TEAM = [
+  { image: "/images/team-01.jpg", name: "Barbara Perez-Puebla", role: "Sales" },
+  { image: "/images/team-02.jpg", name: "Rhonda Pitts", role: "Receptionist" },
+  { image: "/images/team-03.jpg", name: "Edgar Nunez", role: "Accountant" },
+  { image: "/images/team-04.jpg", name: "Saul Reyes", role: "Operations Manager" },
+  { image: "/images/team-05.jpg", name: "Gisella Islas", role: "Chief Executive Officer" },
+];
+
+/* Moved here with the /leadership consolidation. */
+const principles = [
+  {
+    icon: ClipboardCheck,
+    title: "Verifiable, not assumed",
+    body: "Cleaning is only as good as it can be measured. Every site is scored against a documented QA protocol and reported back to the client.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Accountable by design",
+    body: "A dedicated crew is assigned to each facility and answerable for the result — no rotating subcontractors, no handoffs.",
+  },
+  {
+    icon: Users,
+    title: "People first",
+    body: "The standard lives with the crews who execute it. They are vetted, trained to protocol, and supported to hold the line.",
+  },
+];
 
 const values = [
   {
@@ -50,6 +81,32 @@ const values = [
 export default function AboutPage() {
   return (
     <>
+      {/* Gisella still has a Person entity — she appears in the team grid —
+          but it now points at /about, since /leadership is retired. */}
+      <JsonLd
+        type="Person"
+        data={{
+          name: "Gisella Islas",
+          jobTitle: "Chief Executive Officer",
+          image: `${COMPANY.url}/images/team-05.jpg`,
+          url: `${COMPANY.url}/about`,
+          worksFor: {
+            "@type": "Organization",
+            name: COMPANY.name,
+            url: COMPANY.url,
+          },
+        }}
+      />
+      <JsonLd
+        type="BreadcrumbList"
+        data={{
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: COMPANY.url },
+            { "@type": "ListItem", position: 2, name: "About Us", item: `${COMPANY.url}/about` },
+          ],
+        }}
+      />
+
       <PageHeader
         title="About Us"
         subtitle="A Katy, Texas janitorial contractor serving commercial, medical, and industrial facilities across greater Houston since 2006."
@@ -176,6 +233,92 @@ export default function AboutPage() {
               {AWARD.attribution}
             </p>
           </MotionWrapper>
+        </div>
+      </SectionWrapper>
+
+      {/* The team. `id` is the redirect target for the retired /leadership
+          route, so an old link still lands on the people it promised.
+          Renders only when every member has both a name and a role — these
+          are identifiable people, and a guessed name against a real face
+          misrepresents someone. The gate makes that impossible, not just
+          unlikely. */}
+      {TEAM.every((m) => m.name && m.role) && (
+        <SectionWrapper id="leadership">
+          <div className="mb-10">
+            <p className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+              The Team
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+              The people who hold the standard.
+            </h2>
+            <p className="mt-4 max-w-2xl text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
+              The office in Katy that scopes the work, schedules the crews, and
+              answers the phone when something needs fixing.
+            </p>
+          </div>
+
+          <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+            {TEAM.map((m, i) => (
+              <li key={m.image}>
+                <MotionWrapper delay={i * 0.08}>
+                  <div
+                    className="overflow-hidden"
+                    style={{ borderTopLeftRadius: "1.25rem" }}
+                  >
+                    <Image
+                      src={m.image}
+                      alt={`${m.name}, ${m.role} at ${COMPANY.name}`}
+                      width={1600}
+                      height={2400}
+                      sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 45vw"
+                      quality={82}
+                      className="h-auto w-full object-cover"
+                    />
+                  </div>
+                  <h3 className="mt-4 font-display text-base font-bold text-gray-900">
+                    {m.name}
+                  </h3>
+                  <p className="mt-0.5 text-sm text-gray-600" style={{ fontWeight: 300 }}>
+                    {m.role}
+                  </p>
+                </MotionWrapper>
+              </li>
+            ))}
+          </ul>
+        </SectionWrapper>
+      )}
+
+      {/* Operating principles — moved here from the retired /leadership page. */}
+      <SectionWrapper className="bg-[#F4F4F5]">
+        <div className="mb-10">
+          <p className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+            How Leadership Operates
+          </p>
+          <h2 className="mt-3 font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+            The principles behind the work.
+          </h2>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {principles.map((p) => (
+            <div
+              key={p.title}
+              className="mgs-card p-7"
+              style={{ borderTopLeftRadius: "1.25rem" }}
+            >
+              <div
+                className="mb-5 flex h-11 w-11 items-center justify-center"
+                style={{ background: "#69AF2315", borderTopLeftRadius: "0.7rem" }}
+              >
+                <p.icon className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
+              </div>
+              <h3 className="font-display text-lg font-bold text-gray-900">
+                {p.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                {p.body}
+              </p>
+            </div>
+          ))}
         </div>
       </SectionWrapper>
 

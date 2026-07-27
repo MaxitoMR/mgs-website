@@ -25,12 +25,24 @@ Hero → ServicesGrid (dark bento "What we do") → WhyChooseUs → CrewBand →
 - **Upload constraint:** that Supabase project caps uploads at **50 MB (free-tier hard limit)**. Masters were ~170 MB `.m4v`; transcoded to 720p and squeezed under 50 MB. To add more videos: compress under 50 MB, or move to Supabase Pro / the hero-videos project (higher cap). Masters remain in the owner's OneDrive.
 - Passcode is **client-side only** (visible in JS) — casual gating, not hard security. Offer signed URLs + server check if real protection is ever needed.
 
-## Leadership — `/leadership`
-CEO **Gisella Islas** feature (portrait + bio + pull quote) + operating-principles row. Bio is grounded/accurate but **generic** — swap in real facts (tenure, background, a real quote) when available. Has `Person` + `BreadcrumbList` JSON-LD.
+## About — `/about` (absorbed `/leadership`, 2026-07-27)
+
+One page now carries the company story, the award, the people, and the operating principles. Section order and backgrounds:
+
+1. **Who We Are** — white
+2. **Recognition** (award plaque) — `#F4F4F5`
+3. **The Team** — white, `id="leadership"`
+4. **The principles behind the work** — `#F4F4F5`
+5. `WhyChooseUs` — `#111111`, then `CtaBanner backdrop="#111111"`
+
+- **`/leadership` is retired** with a permanent **308 → `/about#leadership`** in `next.config.ts`. It was an indexed URL, so it redirects rather than 404s; the fragment lands visitors on the team section they were after. Nav entries removed from `mobile-nav.tsx` and the sitemap; the footer link became "Our Team" → `/about#leadership`.
+- **The CEO hero block was removed** (portrait + bio + pull quote). Gisella now appears in the team row like everyone else. Her `Person` JSON-LD survives on `/about`, pointing at `team-05.jpg`. The old bio and the "We don't ask clients to take our word for it" pull quote are gone — recover them from git history (`7a90bc5^`) if they're ever wanted back.
+- `public/images/gisella-islas.jpg` is now **unreferenced** — kept on disk, safe to delete.
+- **The team array is gated:** the section renders only when every member has both a name and a role. These are identifiable people and a guessed name against a real face misrepresents someone; the gate makes that impossible rather than merely unlikely. Names/roles come from the owner — never infer them from a photo.
 
 ## SEO / structured data
 - Every **service page** rewritten (unique `description` = meta + `longDescription` = body). Category copy + services/gallery/FAQ intros retoned.
-- JSON-LD: `LocalBusiness` (home), `FAQPage` (FAQ), enriched `Service` + `BreadcrumbList` (each service page), `Person` + `BreadcrumbList` (leadership). Component: `src/components/seo/json-ld.tsx`.
+- JSON-LD: `LocalBusiness` (home), `FAQPage` (FAQ + `/katy`), enriched `Service` + `BreadcrumbList` (each service page), `Person` + `BreadcrumbList` (About), `Service` + `BreadcrumbList` (`/katy`). Component: `src/components/seo/json-ld.tsx`.
 
 ## Other facts
 - **Phone:** canonical call number is **(281) 829-5357** (`COMPANY.phone.primary/display`). 5358 is stored as `secondary`, not shown. (Bug fixed: site was dialing 5358 everywhere except the desktop top bar.)
@@ -88,7 +100,7 @@ First local landing page (`src/app/(marketing)/katy/page.tsx`). Targets the home
 3. **Hero video** autoplays 5 Supabase MP4s — heavy on mobile; consider poster + one Cloudflare-Stream clip.
 4. ~~**Axe/WCAG pass** not run site-wide~~ — **done** across 18 routes, with `color-contrast` since re-accepted as a known failure (see the Accessibility section). Still open: manual screen-reader passes (NVDA/VoiceOver) and `/newsletter/subscribers`.
 5. Substantiate the **99.8% QA** and **100+ facilities** claims, or soften.
-6. Leadership bio + training-video set may need real specifics.
+6. **Training-video set** may need real specifics. (The leadership half of this is closed — the generic CEO bio was removed with the `/about` consolidation, and the team section now carries real named people.)
 7. **Google Business Profile reviews link** — the single highest-value small addition. Add the GBP review URL to `AWARD` and link the award from it; that turns the ranking from a specific *assertion* into a *verifiable* one, which is the entire reason it earns space next to the self-asserted trust badges. Get it from Google Maps → the business → Reviews → Share. Two-minute change.
 8. **Review velocity** — the award is a lagging indicator of Google review volume/rating, and that same signal drives the local map pack where janitorial leads actually originate. A systematic post-service review request compounds; a plaque does not. Bigger lever than anything else currently open.
 

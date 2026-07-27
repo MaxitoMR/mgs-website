@@ -16,7 +16,6 @@ interface MobileNavProps {
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
-  { label: "Leadership", href: "/leadership" },
   { label: "Gallery", href: "/gallery" },
   { label: "Careers", href: "/careers" },
   { label: "Diffusers", href: "/diffusers" },
