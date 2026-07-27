@@ -5,6 +5,7 @@ import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { MotionWrapper } from "@/components/shared/motion-wrapper";
+import { AWARD } from "@/lib/constants";
 import {
   Users,
   Phone,
@@ -134,6 +135,47 @@ export default function AboutPage() {
                 ))}
               </div>
             </div>
+          </MotionWrapper>
+        </div>
+      </SectionWrapper>
+
+      {/* Recognition — the plaque itself. A photographed physical artifact
+          reads as real in a way a re-drawn badge does not, which is the
+          whole point of putting it here rather than in the hero. */}
+      <SectionWrapper className="bg-[#F4F4F5]">
+        <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-16">
+          <MotionWrapper>
+            <Image
+              src={AWARD.image}
+              alt={`${AWARD.issuer} plaque: Ranked #${AWARD.rank}, ${AWARD.category}, ${AWARD.locality}, ${AWARD.month} ${AWARD.year}`}
+              width={1200}
+              height={1502}
+              sizes="(min-width: 1024px) 22rem, 60vw"
+              quality={84}
+              className="mx-auto h-auto w-56 shadow-premium sm:w-64 lg:w-80"
+            />
+          </MotionWrapper>
+
+          <MotionWrapper delay={0.15}>
+            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+              Recognition
+            </span>
+            <h2
+              className="mt-3 font-gothic text-gray-900"
+              style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            >
+              {AWARD.headline}
+            </h2>
+            <p className="mt-5 max-w-xl text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
+              {AWARD.issuer} ranks janitorial contractors by locality using
+              aggregated {AWARD.basis.replace("Powered by ", "")} — so this
+              reflects what our clients wrote publicly, not what we say about
+              ourselves. It covers {AWARD.category.toLowerCase()} providers in{" "}
+              {AWARD.locality} for {AWARD.month} {AWARD.year}.
+            </p>
+            <p className="mt-4 text-sm text-gray-600" style={{ fontWeight: 300 }}>
+              {AWARD.attribution}
+            </p>
           </MotionWrapper>
         </div>
       </SectionWrapper>

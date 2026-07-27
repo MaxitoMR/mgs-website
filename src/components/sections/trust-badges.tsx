@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Shield, Leaf, Award, ShieldCheck, UserCheck, Clock } from "lucide-react";
+import Link from "next/link";
+import { Shield, Leaf, Award, ShieldCheck, UserCheck, Clock, Trophy } from "lucide-react";
 import { gsap } from "@/lib/gsap";
+import { AWARD } from "@/lib/constants";
 
 const certifications = [
   {
@@ -114,6 +116,48 @@ export function TrustBadges() {
           >
             The standard every crew is held to.
           </h2>
+        </div>
+
+        {/* Third-party recognition — deliberately OUTSIDE the grid below.
+            Those six cards are all claims we make about ourselves; this is
+            the one item a reader can verify independently, so it gets its
+            own strip rather than becoming a seventh look-alike card (which
+            would also orphan a row in the 3-across grid). Kept small: the
+            audience here buys on compliance and references, not badges. */}
+        {/* tb-header, not tb-card: this sits ABOVE the grid, and the card
+            animation is triggered by .tb-grid entering the viewport — it
+            would already be on screen by then. Both classes are covered by
+            the reduced-motion and mobile opacity fallbacks in globals.css. */}
+        {/* The accent bar is an inline style, NOT `border-l-4`: .mgs-card sets
+            a `border` shorthand in unlayered CSS, which beats Tailwind's
+            @layer utilities and silently flattens the left border away. */}
+        <div
+          className="tb-header mgs-card mb-8 flex flex-col gap-4 rounded-sm p-5 opacity-0 sm:flex-row sm:items-center sm:gap-6 sm:p-6"
+          style={{ borderLeft: "4px solid var(--color-brand-green-deep)" }}
+        >
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center"
+            style={{ background: "rgba(105, 175, 35, 0.1)", borderRadius: "0.5rem" }}
+          >
+            <Trophy className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[0.95rem] font-semibold text-gray-900">
+              {AWARD.headline}
+            </h3>
+            <p
+              className="mt-1.5 text-sm text-gray-600"
+              style={{ fontWeight: 300, lineHeight: 1.65 }}
+            >
+              {AWARD.attribution}
+            </p>
+          </div>
+          <Link
+            href="/about"
+            className="shrink-0 text-sm font-medium text-brand-green-text underline underline-offset-4 hover:text-brand-green-deep"
+          >
+            See the award
+          </Link>
         </div>
 
         {/* Grid */}

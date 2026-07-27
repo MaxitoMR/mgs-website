@@ -1,4 +1,4 @@
-import { COMPANY } from "@/lib/constants";
+import { AWARD, COMPANY } from "@/lib/constants";
 
 interface JsonLdProps {
   type:
@@ -56,6 +56,15 @@ export function JsonLd({ type, data }: JsonLdProps) {
     ],
     image: `${COMPANY.url}/og-image.png`,
     priceRange: "$$",
+    /* schema.org/award — free text, and the correct place for third-party
+       recognition.
+
+       Deliberately NOT adding `aggregateRating` here: Google treats
+       review/rating markup a business puts on its own site about itself as
+       self-serving, and it is ineligible for rich results (and risks a
+       structured-data manual action). The ratings behind this award live on
+       our Google Business Profile, which is where Google reads them from. */
+    award: `Ranked #${AWARD.rank} ${AWARD.category} in ${AWARD.locality} — ${AWARD.issuer}, ${AWARD.month} ${AWARD.year} (${AWARD.basis})`,
     ...data,
   };
 

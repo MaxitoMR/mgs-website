@@ -26,6 +26,28 @@ export const COMPANY = {
   },
 } as const;
 
+/* Third-party recognition. Single source of truth for the trust strip, the
+   About page, and the LocalBusiness JSON-LD `award` property.
+
+   Stated precisely on purpose — the category, city, month, and issuing
+   source are what make it checkable, and a checkable claim is the whole
+   reason this carries weight next to our self-asserted trust badges.
+   Do NOT soften it into "award-winning": that's the version a facility
+   manager discounts. */
+export const AWARD = {
+  rank: 3,
+  issuer: "BusinessRate",
+  category: "Janitorial Service",
+  locality: "Katy, Texas",
+  month: "June",
+  year: 2026,
+  basis: "Powered by Google Reviews",
+  // Headline + attribution, kept apart so the source is never dropped.
+  headline: "Ranked #3 Janitorial Service in Katy, Texas",
+  attribution: "BusinessRate, June 2026 · Powered by Google Reviews",
+  image: "/images/businessrate-award-2026.jpg",
+} as const;
+
 export const BRAND = {
   green: "#69AF23",
   lime: "#9FD01B",
