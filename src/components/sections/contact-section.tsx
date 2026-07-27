@@ -9,6 +9,13 @@ import { COMPANY } from "@/lib/constants";
 import { contactSchema, type ContactFormData } from "@/types/forms";
 import { api } from "@/lib/api";
 
+// gray-600, not gray-400: #99a1af sits at ~2.5:1 on this near-white card
+// and fails AA for the small uppercase eyebrow labels.
+const LABEL = "mb-1.5 block eyebrow text-gray-600";
+const FIELD =
+  "w-full border border-gray-200 bg-white px-4 py-3.5 font-light text-gray-700 placeholder:text-gray-500 focus:border-brand-green-deep focus:outline-none focus:ring-2 focus:ring-brand-green-deep/10";
+const ERROR = "mt-1 text-xs text-red-600";
+
 export function ContactSection() {
   const {
     register,
@@ -44,7 +51,7 @@ export function ContactSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="eyebrow text-[#69AF23] mb-4"
+              className="eyebrow text-brand-green-text mb-4"
             >
 Get In Touch
             </motion.p>
@@ -57,7 +64,7 @@ Get In Touch
               style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
             >
               Let&apos;s scope your{' '}
-              <span className="text-[#69AF23]">facility requirements.</span>
+              <span className="text-brand-green-text">facility requirements.</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -112,16 +119,16 @@ Get In Touch
                       borderTopLeftRadius: '0.75rem',
                     }}
                   >
-                    <Icon className="h-5 w-5 text-[#69AF23]" />
+                    <Icon className="h-5 w-5 text-brand-green-text" />
                   </div>
                   <div>
-                    <p className="eyebrow text-gray-400 mb-1">{label}</p>
+                    <p className="eyebrow text-gray-600 mb-1">{label}</p>
                     {href ? (
                       <a
                         href={href}
                         target={href.startsWith("http") ? "_blank" : undefined}
                         rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="font-medium text-gray-900 transition-colors hover:text-[#69AF23]"
+                        className="font-medium text-gray-900 transition-colors hover:text-brand-green-text"
                         style={{ fontSize: 'var(--font-body-base)' }}
                       >
                         {value}
@@ -149,7 +156,7 @@ Get In Touch
                     className="mx-auto mb-5 flex h-20 w-20 items-center justify-center"
                     style={{ background: '#69AF2315', borderTopLeftRadius: '1.5rem' }}
                   >
-                    <Send className="h-9 w-9 text-[#69AF23]" />
+                    <Send className="h-9 w-9 text-brand-green-text" />
                   </div>
                   <h3 className="font-gothic text-gray-900" style={{ fontSize: 'var(--font-h3)', fontWeight: 400 }}>
                     Message Sent!
@@ -176,44 +183,56 @@ Get In Touch
 
                 <div className="space-y-5">
                   <div>
-                    <label className="mb-1.5 block eyebrow text-gray-400">
+                    <label htmlFor="contact-name" className={LABEL}>
                       Name
                     </label>
                     <input
                       {...register("name")}
-                      className="w-full border border-gray-200 bg-white px-4 py-3.5 font-light text-gray-700 placeholder:text-gray-400 focus:border-[#69AF23] focus:outline-none focus:ring-2 focus:ring-[#69AF23]/10"
+                      id="contact-name"
+                      autoComplete="name"
+                      aria-required="true"
+                      aria-invalid={errors.name ? "true" : undefined}
+                      aria-describedby={errors.name ? "contact-name-error" : undefined}
+                      className={FIELD}
                       style={{ fontSize: 'var(--font-caption)', borderTopLeftRadius: '0.75rem' }}
                       placeholder="Your full name"
                     />
                     {errors.name && (
-                      <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>
+                      <p id="contact-name-error" role="alert" className={ERROR}>{errors.name.message}</p>
                     )}
                   </div>
 
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div>
-                      <label className="mb-1.5 block eyebrow text-gray-400">
+                      <label htmlFor="contact-email" className={LABEL}>
                         Email
                       </label>
                       <input
                         {...register("email")}
+                        id="contact-email"
                         type="email"
-                        className="w-full border border-gray-200 bg-white px-4 py-3.5 font-light text-gray-700 placeholder:text-gray-400 focus:border-[#69AF23] focus:outline-none focus:ring-2 focus:ring-[#69AF23]/10"
+                        autoComplete="email"
+                        aria-required="true"
+                        aria-invalid={errors.email ? "true" : undefined}
+                        aria-describedby={errors.email ? "contact-email-error" : undefined}
+                        className={FIELD}
                         style={{ fontSize: 'var(--font-caption)', borderTopLeftRadius: '0.75rem' }}
                         placeholder="your@email.com"
                       />
                       {errors.email && (
-                        <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
+                        <p id="contact-email-error" role="alert" className={ERROR}>{errors.email.message}</p>
                       )}
                     </div>
                     <div>
-                      <label className="mb-1.5 block eyebrow text-gray-400">
+                      <label htmlFor="contact-phone" className={LABEL}>
                         Phone
                       </label>
                       <input
                         {...register("phone")}
+                        id="contact-phone"
                         type="tel"
-                        className="w-full border border-gray-200 bg-white px-4 py-3.5 font-light text-gray-700 placeholder:text-gray-400 focus:border-[#69AF23] focus:outline-none focus:ring-2 focus:ring-[#69AF23]/10"
+                        autoComplete="tel"
+                        className={FIELD}
                         style={{ fontSize: 'var(--font-caption)', borderTopLeftRadius: '0.75rem' }}
                         placeholder="(555) 123-4567"
                       />
@@ -221,25 +240,29 @@ Get In Touch
                   </div>
 
                   <div>
-                    <label className="mb-1.5 block eyebrow text-gray-400">
+                    <label htmlFor="contact-message" className={LABEL}>
                       Message
                     </label>
                     <textarea
                       {...register("message")}
+                      id="contact-message"
                       rows={4}
-                      className="w-full border border-gray-200 bg-white px-4 py-3.5 font-light text-gray-700 placeholder:text-gray-400 focus:border-[#69AF23] focus:outline-none focus:ring-2 focus:ring-[#69AF23]/10"
+                      aria-required="true"
+                      aria-invalid={errors.message ? "true" : undefined}
+                      aria-describedby={errors.message ? "contact-message-error" : undefined}
+                      className={FIELD}
                       style={{ fontSize: 'var(--font-caption)', borderTopLeftRadius: '0.75rem' }}
                       placeholder="How can we help?"
                     />
                     {errors.message && (
-                      <p className="mt-1 text-xs text-red-500">{errors.message.message}</p>
+                      <p id="contact-message-error" role="alert" className={ERROR}>{errors.message.message}</p>
                     )}
                   </div>
 
                   <button
                     type="submit"
                     disabled={mutation.isPending}
-                    className="flex w-full items-center justify-center gap-2 bg-[#69AF23] px-8 py-4 font-medium text-white shadow-lg transition-all hover:bg-[#5a9a1e] disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex w-full items-center justify-center gap-2 bg-brand-green-deep px-8 py-4 font-medium text-white shadow-lg transition-all hover:bg-brand-green-deep-hover disabled:cursor-not-allowed disabled:opacity-50"
                     style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
                   >
                     {mutation.isPending ? (

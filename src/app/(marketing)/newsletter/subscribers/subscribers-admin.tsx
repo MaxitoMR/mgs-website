@@ -99,7 +99,7 @@ export function SubscribersAdmin() {
         <button
           type="submit"
           disabled={loading || !key.trim()}
-          className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-6 py-3.5 font-medium text-white transition-all hover:bg-[#5a9a1e] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-6 py-3.5 font-medium text-white transition-all hover:bg-brand-green-deep-hover disabled:cursor-not-allowed disabled:opacity-50"
           style={{ borderTopLeftRadius: "0.75rem" }}
         >
           {loading ? (
@@ -127,10 +127,10 @@ export function SubscribersAdmin() {
               <button
                 onClick={copyEmails}
                 disabled={emails.length === 0}
-                className="inline-flex items-center gap-2 border border-gray-200 px-4 py-2 text-sm text-gray-700 transition-colors hover:border-[#69AF23] hover:text-[#69AF23] disabled:opacity-40"
+                className="inline-flex items-center gap-2 border border-gray-200 px-4 py-2 text-sm text-gray-700 transition-colors hover:border-[#69AF23] hover:text-brand-green-text disabled:opacity-40"
               >
                 {copied ? (
-                  <Check className="h-4 w-4 text-[#69AF23]" />
+                  <Check className="h-4 w-4 text-brand-green-text" />
                 ) : (
                   <Copy className="h-4 w-4" />
                 )}
@@ -139,7 +139,7 @@ export function SubscribersAdmin() {
               <button
                 onClick={downloadCsv}
                 disabled={emails.length === 0}
-                className="inline-flex items-center gap-2 border border-gray-200 px-4 py-2 text-sm text-gray-700 transition-colors hover:border-[#69AF23] hover:text-[#69AF23] disabled:opacity-40"
+                className="inline-flex items-center gap-2 border border-gray-200 px-4 py-2 text-sm text-gray-700 transition-colors hover:border-[#69AF23] hover:text-brand-green-text disabled:opacity-40"
               >
                 <Download className="h-4 w-4" />
                 CSV
@@ -169,7 +169,7 @@ export function SubscribersAdmin() {
                       <td className="px-4 py-3 text-gray-800">
                         <a
                           href={`mailto:${s.email}`}
-                          className="hover:text-[#69AF23]"
+                          className="hover:text-brand-green-text"
                         >
                           {s.email}
                         </a>

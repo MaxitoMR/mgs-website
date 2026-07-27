@@ -169,7 +169,8 @@ export function Footer() {
                 priority={false}
               />
             </Link>
-            <p className="mb-6 text-sm leading-relaxed text-gray-500">
+            {/* gray-400, not gray-500: #6a7282 is only 3.9:1 on #111111. */}
+            <p className="mb-6 text-sm leading-relaxed text-gray-400">
               Commercial, medical, and industrial janitorial services across
               greater Houston — operating to a documented standard since 2006.
             </p>
@@ -180,8 +181,8 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-700 text-gray-400 transition-all hover:border-[#69AF23] hover:bg-[#69AF23] hover:text-white"
+                  aria-label={`MGS on ${social.label} (opens in a new tab)`}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-700 text-gray-400 transition-all hover:border-brand-green-deep hover:bg-brand-green-deep hover:text-white"
                 >
                   <social.icon className="h-4 w-4" />
                 </a>
@@ -278,20 +279,20 @@ export function Footer() {
         style={{ paddingBottom: "calc(4rem + env(safe-area-inset-bottom))" }}
       >
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-400">
             &copy; 2026 {COMPANY.legalName}. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-sm">
             <Link
               href="/privacy-policy"
-              className="text-gray-500 transition-colors hover:text-[#69AF23]"
+              className="text-gray-400 transition-colors hover:text-[#69AF23]"
             >
               Privacy Policy
             </Link>
-            <span className="text-gray-700">|</span>
+            <span className="text-gray-600" aria-hidden="true">|</span>
             <Link
               href="/terms"
-              className="text-gray-500 transition-colors hover:text-[#69AF23]"
+              className="text-gray-400 transition-colors hover:text-[#69AF23]"
             >
               Terms of Service
             </Link>

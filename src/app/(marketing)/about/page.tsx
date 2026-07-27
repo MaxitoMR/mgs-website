@@ -62,7 +62,7 @@ export default function AboutPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left — copy */}
           <MotionWrapper>
-            <span className="text-sm font-bold uppercase tracking-widest text-brand-green">
+            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
               Who We Are
             </span>
             <h2 className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl">
@@ -122,7 +122,7 @@ export default function AboutPage() {
                         borderTopLeftRadius: "0.6rem",
                       }}
                     >
-                      <value.icon className="h-4 w-4 text-brand-green" />
+                      <value.icon className="h-4 w-4 text-brand-green-text" />
                     </div>
                     <h3 className="font-display text-sm font-bold text-gray-900">
                       {value.title}

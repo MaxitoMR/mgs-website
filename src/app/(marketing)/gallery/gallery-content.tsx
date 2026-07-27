@@ -112,9 +112,9 @@ export default function GalleryContent() {
       {/* Photo Gallery */}
       <SectionWrapper>
         <div className="text-center mb-10">
-          <p className="eyebrow text-[#69AF23] mb-3">Photo Gallery</p>
+          <p className="eyebrow text-brand-green-text mb-3">Photo Gallery</p>
           <h2 className="font-gothic text-gray-900" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>
-            Our work in <span className="text-[#69AF23]">action.</span>
+            Our work in <span className="text-brand-green-text">action.</span>
           </h2>
         </div>
 
@@ -127,7 +127,7 @@ export default function GalleryContent() {
               className={cn(
                 "px-5 py-2 text-sm font-medium transition-all",
                 activeCategory === cat
-                  ? "bg-[#69AF23] text-white shadow-md"
+                  ? "bg-brand-green-deep text-white shadow-md"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               )}
               style={{ borderTopLeftRadius: '0.75rem' }}

@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
           <p>
             You have the right to access, correct, or delete your personal
             information. To exercise these rights, please contact us at{" "}
-            <a href={`mailto:${COMPANY.email}`} className="text-brand-green">
+            <a href={`mailto:${COMPANY.email}`} className="text-brand-green-text underline underline-offset-2">
               {COMPANY.email}
             </a>
             .
@@ -94,13 +94,13 @@ export default function PrivacyPolicyPage() {
           <ul>
             <li>
               Email:{" "}
-              <a href={`mailto:${COMPANY.email}`} className="text-brand-green">
+              <a href={`mailto:${COMPANY.email}`} className="text-brand-green-text underline underline-offset-2">
                 {COMPANY.email}
               </a>
             </li>
             <li>
               Phone:{" "}
-              <a href={`tel:${COMPANY.phone.primary}`} className="text-brand-green">
+              <a href={`tel:${COMPANY.phone.primary}`} className="text-brand-green-text underline underline-offset-2">
                 {COMPANY.phone.display}
               </a>
             </li>

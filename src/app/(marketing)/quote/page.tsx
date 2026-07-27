@@ -30,7 +30,7 @@ export default function QuotePage() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-none bg-brand-green p-6 text-white shadow-lg">
+            <div className="rounded-none bg-brand-green-deep p-6 text-white shadow-lg">
               <h3 className="font-display text-xl font-bold">
                 Need Immediate Help?
               </h3>
@@ -70,7 +70,7 @@ export default function QuotePage() {
                   },
                 ].map(({ icon: Icon, title, text }) => (
                   <li key={title} className="flex gap-3">
-                    <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-green" />
+                    <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-green-text" />
                     <div>
                       <p className="text-sm font-semibold text-gray-900">
                         {title}

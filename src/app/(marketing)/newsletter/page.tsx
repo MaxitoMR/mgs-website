@@ -83,7 +83,7 @@ export default function NewsletterPage() {
         <div className="mt-16 border-t border-gray-100 pt-6 text-right">
           <Link
             href="/newsletter/subscribers"
-            className="text-xs text-gray-400 transition-colors hover:text-[#69AF23]"
+            className="text-xs text-gray-600 transition-colors hover:text-brand-green-text"
           >
             Admin · View subscribers →
           </Link>

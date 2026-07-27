@@ -31,7 +31,7 @@ export default function WalkthroughPage() {
 
           <div className="space-y-6">
             {/* CTA Card */}
-            <div className="bg-brand-green p-6 text-white shadow-lg">
+            <div className="bg-brand-green-deep p-6 text-white shadow-lg">
               <h3 className="font-display text-xl font-bold">
                 Prefer to Call?
               </h3>
@@ -76,7 +76,7 @@ export default function WalkthroughPage() {
                   },
                 ].map(({ icon: Icon, title, text }) => (
                   <li key={title} className="flex gap-3">
-                    <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-green" />
+                    <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-green-text" />
                     <div>
                       <p className="text-sm font-semibold text-gray-900">{title}</p>
                       <p className="text-xs text-gray-500">{text}</p>
@@ -100,7 +100,7 @@ export default function WalkthroughPage() {
                 {["100% Free", "No Obligation", "Same-Week Available", "Bilingual Team"].map((tag) => (
                   <span
                     key={tag}
-                    className="inline-block px-3 py-1 text-xs font-medium text-brand-green bg-brand-green/8 border border-brand-green/15"
+                    className="inline-block px-3 py-1 text-xs font-medium text-brand-green-text bg-brand-green/8 border border-brand-green/15"
                   >
                     {tag}
                   </span>

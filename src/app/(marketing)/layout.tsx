@@ -15,9 +15,15 @@ export default function MarketingLayout({
     <QueryProvider>
       {/* One scroll listener feeds both the header and the floating CTAs. */}
       <ScrollNavProvider>
+        {/* First tab stop: lets keyboard/AT users jump the nav. Styles and
+            the reveal-on-focus behaviour live in globals.css. */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <ScrollProgress />
         <Header />
-        <main>{children}</main>
+        {/* tabIndex={-1} so the skip link can move focus here, not just scroll. */}
+        <main id="main-content" tabIndex={-1}>{children}</main>
         <Footer />
         <FloatingActionButtons />
         <ScrollToTop />

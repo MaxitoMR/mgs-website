@@ -31,7 +31,10 @@ export function ServiceCard({ service, index = 0 }: ServiceCardProps) {
           >
             <Image
               src={service.image}
-              alt={service.title}
+              /* Decorative: the visible <h3> below already names the card,
+                 and the link takes its accessible name from that heading.
+                 A duplicate alt would make AT announce the title twice. */
+              alt=""
               fill
               className="object-cover"
               sizes="(max-width: 768px) 50vw, 33vw"

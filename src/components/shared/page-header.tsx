@@ -26,16 +26,18 @@ export function PageHeader({
   return (
     <div
       className={cn(
-        "relative overflow-hidden bg-[#69AF23] py-24 md:py-32 lg:py-40",
+        "relative overflow-hidden bg-brand-green-deep py-24 md:py-32 lg:py-40",
         className
       )}
     >
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {breadcrumbs && (
-          <nav className="mb-8 flex items-center gap-2 text-sm text-white/70">
+          /* white/90 is the lowest opacity that clears 4.5:1 on the deep
+             green (white/80 lands at 4.15 and fails for 14px text). */
+          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-white/90">
             {breadcrumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-2">
-                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-white/50" />}
+                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-white/70" aria-hidden="true" />}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
@@ -63,7 +65,7 @@ export function PageHeader({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-5 max-w-2xl font-clinical font-thin text-lg leading-relaxed text-white/80"
+            className="mt-5 max-w-2xl font-clinical font-thin text-lg leading-relaxed text-white/90"
           >
             {subtitle}
           </motion.p>

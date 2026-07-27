@@ -30,10 +30,32 @@ export function BeforeAfterSlider({ before, after, label }: BeforeAfterSliderPro
     updatePosition(e.touches[0].clientX);
   };
 
+  // Dragging is pointer-only, which leaves the comparison unusable by
+  // keyboard. Arrow/Home/End give the same control without a mouse.
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const step = e.shiftKey ? 10 : 2;
+    let next: number | null = null;
+    if (e.key === "ArrowLeft" || e.key === "ArrowDown") next = position - step;
+    else if (e.key === "ArrowRight" || e.key === "ArrowUp") next = position + step;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = 100;
+    if (next === null) return;
+    e.preventDefault();
+    setPosition(Math.max(0, Math.min(100, next)));
+  };
+
   return (
     <div className="group">
       <div
         ref={containerRef}
+        role="slider"
+        tabIndex={0}
+        aria-label={`${label}: reveal before and after`}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(position)}
+        aria-valuetext={`${Math.round(position)}% before, ${100 - Math.round(position)}% after`}
+        onKeyDown={handleKeyDown}
         className="relative aspect-[4/3] overflow-hidden cursor-col-resize select-none bg-gray-100"
         style={{ borderTopLeftRadius: '1.5rem' }}
         onMouseDown={handleMouseDown}
@@ -58,9 +80,11 @@ export function BeforeAfterSlider({ before, after, label }: BeforeAfterSliderPro
         >
           {/* Handle */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M7 4L3 10L7 16" stroke="#69AF23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M13 4L17 10L13 16" stroke="#69AF23" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            {/* #457617, not #69AF23: this arrow is a control affordance and
+                must clear 3:1 against the white handle (the brand green is 2.71). */}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M7 4L3 10L7 16" stroke="#457617" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M13 4L17 10L13 16" stroke="#457617" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
@@ -69,11 +93,13 @@ export function BeforeAfterSlider({ before, after, label }: BeforeAfterSliderPro
         <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/60 text-white text-[10px] font-bold tracking-wider uppercase z-10">
           Before
         </div>
-        <div className="absolute top-3 right-3 px-2.5 py-1 bg-[#69AF23]/90 text-white text-[10px] font-bold tracking-wider uppercase z-10">
+        <div className="absolute top-3 right-3 px-2.5 py-1 bg-brand-green-deep/95 text-white text-[10px] font-bold tracking-wider uppercase z-10">
           After
         </div>
       </div>
-      <p className="text-sm font-medium text-gray-700 mt-3">{label}</p>
+      {/* This slider only renders inside the dark gallery band, where
+          gray-700 sat at 1.83:1. */}
+      <p className="text-sm font-medium text-gray-200 mt-3">{label}</p>
     </div>
   );
 }

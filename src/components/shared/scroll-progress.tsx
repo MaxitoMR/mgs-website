@@ -24,7 +24,8 @@ export function ScrollProgress() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 z-[9999] h-[3px] w-full pointer-events-none">
+    /* Purely decorative: scroll position is already conveyed natively. */
+    <div aria-hidden="true" className="fixed top-0 left-0 z-[9999] h-[3px] w-full pointer-events-none">
       <div
         ref={barRef}
         className="h-full w-0 transition-[width] duration-150 ease-out"

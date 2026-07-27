@@ -28,8 +28,9 @@ export function ClosingCta() {
           </div>
 
           {/* The ask */}
-          <div className="flex flex-col justify-center bg-[#69AF23] p-8 sm:p-12 lg:p-14">
-            <p className="eyebrow text-white/80">The team that shows up</p>
+          <div className="flex flex-col justify-center bg-brand-green-deep p-8 sm:p-12 lg:p-14">
+            {/* white/90 is the floor for 4.5:1 on the deep green. */}
+            <p className="eyebrow text-white/90">The team that shows up</p>
             <h2
               className="mt-3 font-gothic text-white"
               style={{ fontSize: "clamp(1.75rem, 3vw, 2.75rem)", fontWeight: 300, lineHeight: 1.1 }}
@@ -43,7 +44,7 @@ export function ClosingCta() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/quote"
-                className="inline-flex items-center justify-center gap-2 bg-white px-7 py-3.5 font-medium text-[#69AF23] transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-white px-7 py-3.5 font-medium text-brand-green-text transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
                 style={{ borderTopLeftRadius: "1rem" }}
               >
                 Schedule Free Assessment

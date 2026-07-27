@@ -40,11 +40,30 @@ CEO **Gisella Islas** feature (portrait + bio + pull quote) + operating-principl
 - **Photos placed** from the on-site shoot: homepage crew band (`mgs-crew.jpg`) + team closing (`mgs-team.jpg`); Surgery Centers (HEPA vac + auto-scrubber floor); Sports & Rehab (SciFit); Clinics (rotary floor scrub); About (Katy home base). Service galleries render each photo as an **alternating feature row** (image + caption, sides flip) — handles any count/aspect without cropping.
 - **Logo:** a new droplet logo was trialed then reverted — header/footer use the original `/attached_assets/MGS LOGOOOOOOO_1750105578653.png`. Unused `public/mgs-logo.png` remains.
 
+## Accessibility (WCAG 2.1 AA) — audited & fixed
+
+Audited with **axe-core** (Chrome headless, wcag2a/2aa/21a/21aa + best-practice) across 12 routes × desktop + mobile. Went from **8 violation types / 412 contrast nodes → 0**. Re-run any time with the harness pattern below.
+
+- **The brand green cannot carry white text.** `#69AF23` on white is **2.71:1** — it fails AA for normal text *and* the 3:1 large-text threshold, so there was no "keep it for headings" exemption. Two tokens in `globals.css` resolve it:
+  - `--color-brand-green-deep: #457617` — any green **surface behind white text** (top bar, buttons, page headers, badges). White 5.44:1, white/90 4.75:1.
+  - `--color-brand-green-text: #457617` — the green as **text on a light surface**, 4.91:1.
+  - Vibrant `#69AF23` is still correct for icons, borders, decorative fills, hover washes, and as text on the dark spine (6.97:1 on `#111`).
+- **Verify accent colors against `#F4F4F5`, not white.** The off-white section backgrounds shave ~0.2 off every ratio — enough that white-only math (4.69) shipped values that still failed (4.26). Same trap for the sector accents; the AA set is blue `#116D96`, orange `#9A5600`, lime `#55700F`.
+- **Overlays on the green nav must be black, not white.** `bg-white/10` *lightens* `#457617` to `#58842e` and drops white text to 4.41:1. Hover/active states use `bg-black/10` and `bg-black/15` so every state stays at or above the base ratio.
+- **Two-color data pattern.** `categoryMeta` (header), `categoryTextColors` (services), and `deepColor` (services-grid) each keep the vibrant hue for decoration and a separate AA variant for text/surfaces. Add both when adding a sector.
+- **Forms:** every control now has a real `htmlFor`/`id` pair (placeholders were standing in as labels — 10 `<select>`s and the date input had *no* accessible name at all), plus `aria-required`, `aria-invalid`, `aria-describedby` → `role="alert"` errors, `autoComplete`, and `fieldset`/`legend` for the services checkbox group. Error text is `red-600`; `red-500` is only 3.76:1.
+- **Keyboard:** the mega menu and Portals dropdown were hover-only — they now toggle on click/Enter with `aria-expanded` and close on Escape. The before/after gallery slider was pointer-only and is now a real `role="slider"` (arrows / Shift+arrows / Home / End).
+- **Landmarks:** added a skip link + `<main id="main-content">`; the header is wrapped in `<header>` (the sticky green nav stays a *sibling* — wrapping it would break `position: sticky`, see the note in `header.tsx`), the mobile row is `<nav aria-label="Mobile">` rather than a second banner, and the floating CTAs are `role="complementary"`.
+- **Reduced motion:** `globals.css` honors `prefers-reduced-motion` (collapses durations to ~0 rather than removing animations, so anything that animates *into* view still ends up visible). Verified: 0 elements stranded at `opacity: 0`.
+- **Focus:** `:focus-visible` ring (green + white halo, inverted on dark) — there was no visible focus indicator anywhere before.
+
+**Re-running the audit:** `npx next build && npx next start -p 3111`, then drive axe-core via `puppeteer-core` against the system Chrome (no Playwright/Puppeteer in this repo; install into a scratch dir, not `package.json`). Scan pristine pages *and* submit each form empty to catch validation-error states — axe never sees those otherwise. Emulate `prefers-reduced-motion` with a **staged** scroll; an instant jump to the bottom skips IntersectionObserver and produces false "stranded content" hits in both modes.
+
 ## Open follow-ups (from the "what would you change" review)
 1. **Social proof** — testimonials are hidden (placeholder quotes); no client logos/case studies/capability-statement PDF. Needs real content from owner. Biggest conversion gap.
 2. **Local service-area pages** (Katy / Sugar Land / Cypress …) for local SEO — not built.
 3. **Hero video** autoplays 5 Supabase MP4s — heavy on mobile; consider poster + one Cloudflare-Stream clip.
-4. **Axe/WCAG pass** not run site-wide (light-gray body text may fail AA contrast in places).
+4. ~~**Axe/WCAG pass** not run site-wide~~ — **done**, see the Accessibility section above (0 axe violations). Not yet covered: manual screen-reader passes (NVDA/VoiceOver), the `/staff-portal` and `/newsletter/subscribers` gated pages, and `/diffusers`/`/terms`/`/privacy-policy`, which are outside the 12 audited routes.
 5. Substantiate the **99.8% QA** and **100+ facilities** claims, or soften.
 6. Leadership bio + training-video set may need real specifics.
 

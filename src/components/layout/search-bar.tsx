@@ -87,7 +87,7 @@ export function SearchBar({ className, onNavigate }: SearchBarProps) {
           ? "border-[#69AF23] bg-white shadow-sm"
           : "border-gray-200 bg-gray-50/80 hover:border-gray-300"
       )} style={{ borderTopLeftRadius: '0.75rem' }}>
-        <Search className={cn("h-4 w-4 flex-shrink-0 transition-colors", hasQuery ? "text-[#69AF23]" : "text-gray-400")} />
+        <Search className={cn("h-4 w-4 flex-shrink-0 transition-colors", hasQuery ? "text-brand-green-text" : "text-gray-400")} />
         <input
           type="text"
           placeholder="Search services..."
@@ -122,7 +122,7 @@ export function SearchBar({ className, onNavigate }: SearchBarProps) {
               key={item.href}
               href={item.href}
               onClick={choose}
-              className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 transition-colors hover:bg-[#69AF23]/5 hover:text-[#69AF23] border-b border-gray-50 last:border-0"
+              className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 transition-colors hover:bg-[#69AF23]/5 hover:text-brand-green-text border-b border-gray-50 last:border-0"
             >
               <div className="flex items-center gap-2.5">
                 <ChevronRight className="h-3 w-3 text-gray-300" />
@@ -142,7 +142,7 @@ export function SearchBar({ className, onNavigate }: SearchBarProps) {
           style={{ borderBottomLeftRadius: '1rem' }}
         >
           <p className="text-sm text-gray-400">No services found for &ldquo;{query}&rdquo;</p>
-          <Link href="/quote" onClick={choose} className="text-xs text-[#69AF23] font-medium mt-1 inline-block hover:underline">
+          <Link href="/quote" onClick={choose} className="text-xs text-brand-green-text font-medium mt-1 inline-block hover:underline">
             Request a custom quote instead
           </Link>
         </div>

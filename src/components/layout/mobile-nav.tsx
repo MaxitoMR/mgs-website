@@ -176,7 +176,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                             key={item.href}
                             href={item.href}
                             onClick={onClose}
-                            className="block border-l-2 border-gray-100 py-2 pl-4 text-[12px] text-gray-500 transition-colors hover:border-[#69AF23] hover:text-[#69AF23]"
+                            className="block border-l-2 border-gray-100 py-2 pl-4 text-[12px] text-gray-500 transition-colors hover:border-[#69AF23] hover:text-brand-green-text"
                           >
                             {item.label}
                           </Link>
@@ -197,7 +197,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   key={item.href}
                   href={item.href}
                   onClick={onClose}
-                  className="flex min-h-11 items-center border-b border-gray-50 text-[13px] font-medium text-gray-700 transition-colors hover:text-[#69AF23]"
+                  className="flex min-h-11 items-center border-b border-gray-50 text-[13px] font-medium text-gray-700 transition-colors hover:text-brand-green-text"
                 >
                   {item.label}
                 </Link>
@@ -217,7 +217,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                     item.external ? `${item.label} (opens in new tab)` : undefined
                   }
                   onClick={onClose}
-                  className="flex min-h-11 items-center justify-between border-b border-gray-50 text-[13px] font-medium text-gray-700 transition-colors hover:text-[#69AF23]"
+                  className="flex min-h-11 items-center justify-between border-b border-gray-50 text-[13px] font-medium text-gray-700 transition-colors hover:text-brand-green-text"
                 >
                   {item.label}
                   {item.external && <ExternalLink className="h-3 w-3 text-gray-400" />}
@@ -229,14 +229,14 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 <Link
                   href="/quote"
                   onClick={onClose}
-                  className="flex min-h-11 w-full items-center justify-center bg-[#69AF23] py-3 text-[13px] font-semibold text-white transition-all hover:bg-[#5a9e1d]"
+                  className="flex min-h-11 w-full items-center justify-center bg-brand-green-deep py-3 text-[13px] font-semibold text-white transition-all hover:bg-brand-green-deep-hover"
                 >
                   Get Free Quote
                 </Link>
                 <Link
                   href="/walkthrough"
                   onClick={onClose}
-                  className="flex min-h-11 w-full items-center justify-center border-2 border-[#69AF23] py-3 text-[13px] font-semibold text-[#69AF23]"
+                  className="flex min-h-11 w-full items-center justify-center border-2 border-brand-green-deep py-3 text-[13px] font-semibold text-brand-green-text"
                 >
                   Schedule Walkthrough
                 </Link>
@@ -246,14 +246,14 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               <div className="mt-6 space-y-3 border-t border-gray-100 pt-5">
                 <a
                   href={`tel:${COMPANY.phone.primary}`}
-                  className="flex items-center gap-2.5 text-[12px] text-gray-500 hover:text-[#69AF23]"
+                  className="flex items-center gap-2.5 text-[12px] text-gray-500 hover:text-brand-green-text"
                 >
                   <Phone className="h-3.5 w-3.5" />
                   {COMPANY.phone.display}
                 </a>
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="flex items-center gap-2.5 text-[12px] text-gray-500 hover:text-[#69AF23]"
+                  className="flex items-center gap-2.5 text-[12px] text-gray-500 hover:text-brand-green-text"
                 >
                   <Mail className="h-3.5 w-3.5" />
                   {COMPANY.email}

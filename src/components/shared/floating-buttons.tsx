@@ -49,6 +49,10 @@ export function FloatingActionButtons() {
       initial={false}
       animate={animate}
       transition={transition}
+      /* A labelled landmark so these persistent CTAs are reachable by
+         landmark navigation instead of floating outside the page structure. */
+      role="complementary"
+      aria-label="Quick actions"
       style={{
         pointerEvents: hidden ? "none" : "auto",
         // safe-area inset so it clears the home indicator on notched phones
@@ -61,7 +65,7 @@ export function FloatingActionButtons() {
           href="/quote"
           aria-label="Request a quote"
           style={{ boxShadow: liftShadow }}
-          className={cn(btn, "bg-[#69AF23] text-white hover:bg-[#9FD01B]")}
+          className={cn(btn, "bg-brand-green-deep text-white hover:bg-brand-green-deep-hover")}
         >
           <FileText className="h-4 w-4 shrink-0" />
           <span className={label}>Request Quote</span>
@@ -74,7 +78,7 @@ export function FloatingActionButtons() {
           style={{ boxShadow: liftShadow }}
           className={cn(
             btn,
-            "border-2 border-[#69AF23] bg-white text-[#69AF23] hover:bg-[#69AF23] hover:text-white",
+            "border-2 border-brand-green-deep bg-white text-brand-green-text hover:bg-brand-green-deep hover:text-white",
           )}
         >
           <CalendarCheck className="h-4 w-4 shrink-0" />

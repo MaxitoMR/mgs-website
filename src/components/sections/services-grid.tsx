@@ -8,6 +8,12 @@ import { cn } from "@/lib/utils";
 import { gsap } from "@/lib/gsap";
 import { getServiceBySlug } from "@/lib/services-data";
 
+/* Each sector carries two colors:
+   `color`     — the vibrant hue, for decorative use only (the rule, the
+                 hover wash, the top accent line). White text on any of
+                 these lands at 1.8-3.0:1 and fails even the 3:1 threshold.
+   `deepColor` — the AA variant used wherever the hue becomes a SURFACE
+                 behind white text (the active tab pill, the Featured badge). */
 const serviceCategories = [
   {
     id: "commercial",
@@ -17,6 +23,7 @@ const serviceCategories = [
     description:
       "Recurring janitorial programs for offices, retail, restaurants, and the commercial environments your operation depends on.",
     color: "#69AF23",
+    deepColor: "#457617",
     services: [
       { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "/images/1_1751323808589.png" },
       { name: "Retail Spaces", link: "/services/retail-facilities", image: "/images/MGS_Supply_And_Services_Gallery-Commercial-10_1752003221911.jpg" },
@@ -33,6 +40,7 @@ const serviceCategories = [
     description:
       "Infection-control cleaning for surgical centers, laboratories, and clinics — executed to AORN and Joint Commission expectations.",
     color: "#19A0DB",
+    deepColor: "#116D96",
     services: [
       { name: "Surgical Centers", link: "/services/surgery-centers", image: "/images/surgery-center.jpg" },
       { name: "Laboratories", link: "/services/laboratories", image: "/images/laboratories image_1752167124287.png" },
@@ -49,6 +57,7 @@ const serviceCategories = [
     description:
       "Heavy-duty cleaning for plants, warehouses, and processing facilities, scoped to the hazards of the environment.",
     color: "#FF8F00",
+    deepColor: "#9A5600",
     services: [
       { name: "Factory Plants", link: "/services/factory-plants", image: "/images/factory plant image_1752262345888.png" },
       { name: "Petrochemical Plants", link: "/services/petrochemical-plants", image: "/images/commercial-claning-housong-chemical-plants_1752268757986.jpeg" },
@@ -64,6 +73,7 @@ const serviceCategories = [
     description:
       "Project-based work — post-construction, terminal sanitization, window, and concrete-floor care — delivered to specification.",
     color: "#9FD01B",
+    deepColor: "#55700F",
     services: [
       { name: "Post-Construction", link: "/services/post-construction", image: "/images/post construction image_1752524176668.png" },
       { name: "Industrial Cleanup", link: "/services/industrial-cleanup", image: "/images/9_1752184097090.png" },
@@ -179,10 +189,10 @@ export function ServicesGrid() {
                     borderBottomRightRadius: "0.2rem",
                     borderTopRightRadius: "0.2rem",
                     borderBottomLeftRadius: "0.2rem",
-                    ...(isActive ? { backgroundColor: cat.color } : {}),
+                    ...(isActive ? { backgroundColor: cat.deepColor } : {}),
                   }}
                 >
-                  <Icon className={cn("h-4 w-4", isActive ? "text-white" : "text-gray-400 group-hover:text-white")} />
+                  <Icon className={cn("h-4 w-4", isActive ? "text-white" : "text-gray-300 group-hover:text-white")} aria-hidden="true" />
                   {cat.shortTitle}
                 </button>
               );
@@ -225,7 +235,9 @@ export function ServicesGrid() {
               >
                 <Image
                   src={service.image}
-                  alt={service.name}
+                  /* Decorative: the tile's visible name is rendered below and
+                     already names the link, so a matching alt just doubles it. */
+                  alt=""
                   fill
                   className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.07]"
                   sizes={isBig ? "(max-width:1024px) 100vw, 46vw" : "(max-width:640px) 50vw, 23vw"}
@@ -257,7 +269,7 @@ export function ServicesGrid() {
                   {isBig && (
                     <span
                       className="mb-2 inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white"
-                      style={{ backgroundColor: active.color }}
+                      style={{ backgroundColor: active.deepColor }}
                     >
                       Featured
                     </span>

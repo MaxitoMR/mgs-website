@@ -15,7 +15,7 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
     >
       {/* Green inner with curved top-left, sitting on the dark backdrop */}
       <div
-        className="relative w-full bg-[#69AF23]"
+        className="relative w-full bg-brand-green-deep"
         style={{ borderTopLeftRadius: 'clamp(2.5rem, 5vw, 8rem)' }}
       >
 
@@ -50,7 +50,7 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
         >
           <Link
             href="/quote"
-            className="inline-flex items-center gap-3 bg-white px-8 py-4 font-medium text-[#69AF23] transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
+            className="inline-flex items-center gap-3 bg-white px-8 py-4 font-medium text-brand-green-text transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
             style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
           >
             Schedule Free Assessment

@@ -94,7 +94,7 @@ export default function LeadershipPage() {
 
           {/* Bio */}
           <MotionWrapper delay={0.15}>
-            <span className="text-sm font-bold uppercase tracking-widest text-brand-green">
+            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
               Chief Executive Officer
             </span>
             <h2 className="mt-3 font-display text-4xl font-bold text-gray-900 sm:text-5xl">
@@ -135,7 +135,7 @@ export default function LeadershipPage() {
       {/* Operating principles */}
       <SectionWrapper className="bg-[#F4F4F5]">
         <div className="mb-10">
-          <p className="text-sm font-bold uppercase tracking-widest text-brand-green">
+          <p className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
             How Leadership Operates
           </p>
           <h2 className="mt-3 font-display text-2xl font-bold text-gray-900 sm:text-3xl">
@@ -153,7 +153,7 @@ export default function LeadershipPage() {
                 className="mb-5 flex h-11 w-11 items-center justify-center"
                 style={{ background: "#69AF2315", borderTopLeftRadius: "0.7rem" }}
               >
-                <p.icon className="h-5 w-5 text-brand-green" />
+                <p.icon className="h-5 w-5 text-brand-green-text" />
               </div>
               <h3 className="font-display text-lg font-bold text-gray-900">
                 {p.title}

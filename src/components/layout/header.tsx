@@ -19,33 +19,45 @@ import { SearchBar } from "./search-bar";
 import { useScrollNav } from "@/components/providers/scroll-nav-provider";
 
 /* ─────── Category metadata for mega menu ─────── */
+/* Each category carries two colors:
+   `color`     — the vibrant brand hue, for decorative fills only (the 3px
+                 accent bar, tinted icon chips). Never used for text/icons.
+   `textColor` — the AA-compliant variant (>=4.5:1 on white) used whenever
+                 the hue becomes text or a meaningful icon. The vibrant hues
+                 sit at 1.8-3.0:1 on white and fail both the 4.5:1 text and
+                 3:1 non-text thresholds. */
 const categoryMeta: Record<string, {
   icon: typeof Building2;
   color: string;
+  textColor: string;
   description: string;
   image: string;
 }> = {
   Commercial: {
     icon: Building2,
     color: "#69AF23",
+    textColor: "#457617",
     description: "Professional cleaning solutions for offices, retail, restaurants, and business environments.",
     image: "/images/1_1751323808589.png",
   },
   Medical: {
     icon: Stethoscope,
     color: "#19A0DB",
+    textColor: "#116D96",
     description: "Infection-control-grade protocols for surgical centers, labs, imaging facilities, and clinics.",
     image: "/images/imaging center image_1752168794610.png",
   },
   Industrial: {
     icon: Factory,
     color: "#FF8F00",
+    textColor: "#9A5600",
     description: "Heavy-duty cleaning for factories, petrochemical plants, warehouses, and power facilities.",
     image: "/images/IMG_1741_1751917994935.JPG",
   },
   Specialized: {
     icon: Wrench,
     color: "#9FD01B",
+    textColor: "#55700F",
     description: "Advanced solutions for post-construction, concrete, windows, power washing, and more.",
     image: "/images/7_1752264862114.png",
   },
@@ -93,7 +105,7 @@ function MegaMenu({
                       borderTopLeftRadius: '0.75rem',
                     }}
                   >
-                    <Icon className="h-5 w-5" style={{ color: meta?.color || '#69AF23' }} />
+                    <Icon className="h-5 w-5" style={{ color: meta?.textColor || '#457617' }} aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 text-base">{category.label} Services</h3>
@@ -113,11 +125,12 @@ function MegaMenu({
                       key={item.href}
                       href={item.href}
                       onClick={onClose}
-                      className="group flex items-center gap-2 px-3 py-2.5 text-sm text-gray-600 transition-all duration-200 hover:bg-[#69AF23]/5 hover:text-[#69AF23]"
+                      className="group flex items-center gap-2 px-3 py-2.5 text-sm text-gray-600 transition-all duration-200 hover:bg-[#69AF23]/5 hover:text-brand-green-text"
                       style={{ borderTopLeftRadius: '0.5rem' }}
                     >
                       <ChevronRight
-                        className="h-3.5 w-3.5 text-gray-300 transition-all duration-200 group-hover:text-[#69AF23] group-hover:translate-x-0.5"
+                        className="h-3.5 w-3.5 text-gray-300 transition-all duration-200 group-hover:text-brand-green-text group-hover:translate-x-0.5"
+                        aria-hidden="true"
                       />
                       <span className="font-light">{item.label}</span>
                     </Link>
@@ -129,7 +142,7 @@ function MegaMenu({
                   <Link
                     href="/quote"
                     onClick={onClose}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-[#69AF23] hover:text-[#5a9a1e] transition-colors"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-brand-green-text hover:text-brand-green-deep transition-colors"
                   >
                     Need a custom solution? Get a free assessment
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -161,7 +174,7 @@ function MegaMenu({
                     <Link
                       href="/quote"
                       onClick={onClose}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-[#69AF23] text-white text-sm font-medium transition-all hover:bg-[#5a9a1e]"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-brand-green-deep text-white text-sm font-medium transition-all hover:bg-brand-green-deep-hover"
                       style={{ borderTopLeftRadius: '0.75rem' }}
                     >
                       Request Quote
@@ -169,7 +182,7 @@ function MegaMenu({
                     </Link>
                     <a
                       href={`tel:${COMPANY.phone.primary}`}
-                      className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-gray-700 text-sm font-light transition-all hover:border-[#69AF23] hover:text-[#69AF23]"
+                      className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-gray-700 text-sm font-light transition-all hover:border-brand-green-deep hover:text-brand-green-text"
                       style={{ borderTopLeftRadius: '0.75rem' }}
                     >
                       <Phone className="h-3.5 w-3.5" />
@@ -211,8 +224,22 @@ function DesktopNav() {
     };
   }, []);
 
+  // The mega menu opens on hover, so keyboard users need an explicit way
+  // back out once it has been opened via the toggle button.
+  useEffect(() => {
+    if (!openMenu && !portalsOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpenMenu(null);
+        setPortalsOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [openMenu, portalsOpen]);
+
   return (
-    <nav className="bg-[#69AF23] relative z-[1000]" style={{ height: 'clamp(3rem, 3.5vw, 3.5rem)' }}>
+    <nav aria-label="Primary" className="bg-brand-green-deep relative z-[1000]" style={{ height: 'clamp(3rem, 3.5vw, 3.5rem)' }}>
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: Service dropdowns + Diffusers */}
         <div className="flex h-full items-center" style={{ gap: 'clamp(0.25rem, 0.5vw, 0.5rem)' }}>
@@ -224,16 +251,26 @@ function DesktopNav() {
               onMouseLeave={handleMouseLeave}
             >
               <button
+                type="button"
+                aria-expanded={openMenu === category.label}
+                aria-haspopup="true"
+                onClick={() =>
+                  setOpenMenu(openMenu === category.label ? null : category.label)
+                }
+                /* Black tints, not white: a white overlay LIGHTENS the green
+                   (white/10 -> #58842e) and drops white text to 4.41:1.
+                   Darkening keeps every state at or above the base 5.44:1. */
                 className={cn(
                   "flex items-center gap-1 px-3 h-full text-white font-light transition-all duration-200",
                   openMenu === category.label
-                    ? "bg-white/15"
-                    : "hover:bg-white/10"
+                    ? "bg-black/15"
+                    : "hover:bg-black/10"
                 )}
                 style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
               >
                 {category.label}
                 <ChevronDown
+                  aria-hidden="true"
                   className={cn(
                     "h-3.5 w-3.5 transition-transform duration-200",
                     openMenu === category.label && "rotate-180"
@@ -244,7 +281,7 @@ function DesktopNav() {
           ))}
           <Link
             href="/diffusers"
-            className="flex items-center px-3 text-white hover:bg-white/10 h-full font-light transition-all duration-200"
+            className="flex items-center px-3 text-white hover:bg-black/10 h-full font-light transition-all duration-200"
             style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
           >
             Diffusers
@@ -257,7 +294,7 @@ function DesktopNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center px-3 h-full text-white hover:bg-white/10 font-light transition-all duration-200"
+              className="flex items-center px-3 h-full text-white hover:bg-black/10 font-light transition-all duration-200"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               {item.label}
@@ -270,11 +307,15 @@ function DesktopNav() {
             onMouseLeave={() => setPortalsOpen(false)}
           >
             <button
-              className="flex items-center gap-1 px-3 py-1 bg-white/10 text-white hover:bg-white/15 font-light transition-all duration-200"
+              type="button"
+              aria-expanded={portalsOpen}
+              aria-haspopup="true"
+              onClick={() => setPortalsOpen((open) => !open)}
+              className="flex items-center gap-1 px-3 py-1 bg-black/10 text-white hover:bg-black/20 font-light transition-all duration-200"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               Portals
-              <ChevronDown className="h-3.5 w-3.5" />
+              <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
             </button>
             <AnimatePresence>
               {portalsOpen && (
@@ -294,9 +335,9 @@ function DesktopNav() {
                       href={item.href}
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-2 px-5 py-3 text-sm font-light text-gray-700 hover:bg-[#69AF23]/5 hover:text-[#69AF23] transition-colors"
+                      className="flex items-center gap-2 px-5 py-3 text-sm font-light text-gray-700 hover:bg-[#69AF23]/5 hover:text-brand-green-text transition-colors"
                     >
-                      <ChevronRight className="h-3 w-3 text-gray-300" />
+                      <ChevronRight className="h-3 w-3 text-gray-300" aria-hidden="true" />
                       {item.label}
                     </Link>
                     );
@@ -393,12 +434,15 @@ export function Header() {
       {/* Rendered as siblings (NOT wrapped in one div) so the sticky nav's
           containing block is the full page, not a short header-height box — a
           sticky element can only stick within its parent's bounds. Top bar +
-          logo scroll away in normal flow; only the green nav sticks. */}
-      {/* 1. Top Bar - Contact info */}
-      <TopBar />
+          logo scroll away in normal flow; only the green nav sticks.
+          The <header> below therefore covers ONLY the non-sticky rows; the
+          green nav is its own <nav aria-label="Primary"> landmark. */}
+      <header>
+        {/* 1. Top Bar - Contact info */}
+        <TopBar />
 
-      {/* 2. Main Header Row - Logo + Search + Social */}
-      <div className="hidden lg:block bg-white py-4">
+        {/* 2. Main Header Row - Logo + Search + Social */}
+        <div className="hidden lg:block bg-white py-4">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0" style={{ marginLeft: 'clamp(-0.75rem, -0.75vw, -0.5rem)' }}>
@@ -417,19 +461,22 @@ export function Header() {
             <div className="flex items-center gap-6">
               <SearchBar className="w-[clamp(20rem,30vw,30rem)]" />
               <div className="flex items-center gap-3">
-                <a href={COMPANY.social.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-500 transition-colors hover:text-[#69AF23]">
-                  <Facebook className="h-5 w-5" />
+                {/* Icon-only links need an accessible name; the icons
+                    themselves are decorative to assistive tech. */}
+                <a href={COMPANY.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="MGS on Facebook (opens in a new tab)" className="text-gray-600 transition-colors hover:text-brand-green-text">
+                  <Facebook className="h-5 w-5" aria-hidden="true" />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-500 transition-colors hover:text-[#69AF23]">
-                  <Twitter className="h-5 w-5" />
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="MGS on X (Twitter) (opens in a new tab)" className="text-gray-600 transition-colors hover:text-brand-green-text">
+                  <Twitter className="h-5 w-5" aria-hidden="true" />
                 </a>
-                <a href={COMPANY.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 transition-colors hover:text-[#69AF23]">
-                  <Linkedin className="h-5 w-5" />
+                <a href={COMPANY.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="MGS on LinkedIn (opens in a new tab)" className="text-gray-600 transition-colors hover:text-brand-green-text">
+                  <Linkedin className="h-5 w-5" aria-hidden="true" />
                 </a>
               </div>
             </div>
           </div>
         </div>
+      </header>
 
       {/* Sentinel: marks where the sticky nav engages, for the stuck shadow. */}
       <div ref={sentinelRef} aria-hidden className="hidden lg:block h-px -mb-px" />
@@ -458,8 +505,11 @@ export function Header() {
         animate={mobileMotion.animate}
         transition={mobileMotion.transition}
       >
-        {/* Mobile main row — safe-area padding keeps it clear of a notch. */}
-        <div
+        {/* Mobile main row — safe-area padding keeps it clear of a notch.
+            A labelled <nav> rather than a second <header>: only one banner
+            landmark is allowed per document, and the desktop rows own it. */}
+        <nav
+          aria-label="Mobile"
           className="flex items-center justify-between bg-white px-4 py-2 border-b border-gray-100"
           style={{ paddingTop: "calc(0.5rem + env(safe-area-inset-top))" }}
         >
@@ -477,14 +527,14 @@ export function Header() {
             <a
               href={`tel:${COMPANY.phone.primary}`}
               aria-label="Call MGS"
-              className="flex h-11 w-11 items-center justify-center text-gray-500 hover:text-[#69AF23]"
+              className="flex h-11 w-11 items-center justify-center text-gray-600 hover:text-brand-green-text"
             >
-              <Phone className="h-4 w-4" />
+              <Phone className="h-4 w-4" aria-hidden="true" />
             </a>
             <Link
               href="/quote"
               aria-label="Request a quote"
-              className="flex min-h-11 items-center bg-[#69AF23] px-3 text-[12px] font-semibold text-white"
+              className="flex min-h-11 items-center bg-brand-green-deep px-3 text-[12px] font-semibold text-white"
             >
               Quote
             </Link>
@@ -496,10 +546,10 @@ export function Header() {
               aria-expanded={mobileOpen}
               aria-controls="mobile-drawer"
             >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
             </button>
           </div>
-        </div>
+        </nav>
       </motion.div>
 
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />

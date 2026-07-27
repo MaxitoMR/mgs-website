@@ -11,6 +11,34 @@
   --color-mgs-primary: #69AF23;
   --color-mgs-secondary: #9FD01B;
   --color-mgs-accent: #19A0DB;
+
+  /* ── WCAG AA accessible brand variants ───────────────────────────────
+     The vibrant brand green #69AF23 only reaches 2.71:1 against white —
+     it fails AA for normal text AND the 3:1 large-text threshold. So it
+     must never be a background behind white text, and never be text on a
+     light background. Use these variants instead:
+
+       --color-brand-green-deep  surfaces carrying WHITE text
+                                 (buttons, top bar, page headers)
+                                 white 5.44:1 · white/90 4.75:1 — both AA
+       --color-brand-green-text  green TEXT on any light surface — 4.91:1
+
+     The same #457617 serves both roles, so there is one "accessible green"
+     to reason about. Note these are verified against the DARKEST light
+     surface in use (#F4F4F5), not pure white: the off-white section
+     backgrounds shave ~0.2 off every ratio, which is enough to push a
+     white-only calculation below 4.5.
+
+     Vibrant #69AF23 stays in use for icons, borders, decorative fills,
+     hover states, and as text/accent on dark surfaces (6.97:1 on #111). */
+  --color-brand-green-deep: #457617;
+  /* Hover lifts the surface slightly; white text still clears AA at 4.69:1.
+     Only white-vs-fill matters here, so the page background is irrelevant. */
+  --color-brand-green-deep-hover: #4E811A;
+  --color-brand-green-text: #457617;
+  --color-mgs-accent-text: #116D96;   /* blue accent as text on light   5.18:1 */
+  --color-mgs-orange-text: #9A5600;   /* orange accent as text on light 5.11:1 */
+  --color-mgs-lime-text: #55700F;     /* lime accent as text on light   5.10:1 */
   --color-mgs-clinical-gray: #ECECEF;   /* Platinum page grey (kept) */
   --color-mgs-black: #0F0A0A;           /* Pitch Black — text */
   --color-mgs-steel: #A0A0A0;           /* Cool Steel — muted text/icons */
@@ -435,4 +463,93 @@ h1, h2, h3, h4, h5, h6 {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ═══════════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════════ */
+
+/* Visible keyboard focus. `:focus-visible` only paints for keyboard/AT
+   users, so mouse clicks stay clean. Two-tone ring (dark core + white
+   halo) so it stays visible on both the dark spine and light sections. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-brand-green-deep);
+  outline-offset: 2px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.9);
+}
+/* On dark surfaces the white halo would glare — invert it to a dark halo. */
+.bg-brand-dark :where(a, button, input, select, textarea, [tabindex]):focus-visible,
+.bg-brand-dark-deeper :where(a, button, input, select, textarea, [tabindex]):focus-visible,
+[class*="bg-[#111"] :where(a, button, input, select, textarea, [tabindex]):focus-visible,
+[class*="bg-[#19"] :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline-color: var(--color-brand-lime);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.75);
+}
+
+/* Skip link — first tab stop, visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -120%);
+  z-index: 1100;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-brand-green-deep);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: translate(-50%, 0);
+}
+
+/* Screen-reader-only text that stays in the accessibility tree. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Respect the OS "reduce motion" setting (WCAG 2.3.3 / 2.2.2).
+   The site leans on GSAP reveals, framer-motion, smooth scroll, and
+   infinite float/glow loops — all of which are vestibular triggers.
+   Animations are collapsed to ~0 rather than removed so anything that
+   animates *into* view still ends up visible instead of stuck at
+   opacity:0. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* GSAP/framer set inline opacity:0 + transforms before revealing;
+     force the resting state so nothing stays invisible. */
+  .section-reveal,
+  .wcu-header, .wcu-card, .wcu-accent,
+  .tb-header, .tb-card,
+  .svc-header-el, .svc-card, .svc-tile,
+  .stat-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Purely decorative ambient motion has no resting state to preserve. */
+  .animated-gradient-bg {
+    animation: none !important;
+  }
 }

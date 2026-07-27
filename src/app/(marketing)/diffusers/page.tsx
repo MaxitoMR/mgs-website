@@ -63,7 +63,7 @@ export default function DiffusersPage() {
       <SectionWrapper>
         <div className="grid gap-12 lg:grid-cols-2">
           <MotionWrapper>
-            <span className="text-sm font-bold uppercase tracking-widest text-brand-green">
+            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
               Premium Scenting
             </span>
             <h2 className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl">
@@ -78,7 +78,7 @@ export default function DiffusersPage() {
             <div className="mt-8 space-y-6">
               {features.map((feature) => (
                 <div key={feature.title} className="flex gap-4">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-none bg-brand-green/10 text-brand-green">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-none bg-brand-green/10 text-brand-green-text">
                     <feature.icon className="h-6 w-6" />
                   </div>
                   <div>
@@ -107,7 +107,7 @@ export default function DiffusersPage() {
               </ul>
               <Link
                 href="/quote"
-                className="mt-8 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3 font-semibold text-brand-green transition-all hover:bg-gray-50"
+                className="mt-8 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3 font-semibold text-brand-green-text transition-all hover:bg-gray-50"
               >
                 Request a Consultation
                 <ArrowRight className="h-5 w-5" />

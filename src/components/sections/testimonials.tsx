@@ -68,7 +68,7 @@ export function Testimonials() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="eyebrow text-[#69AF23] mb-4"
+              className="eyebrow text-brand-green-text mb-4"
             >
 Testimonials
             </motion.p>
@@ -81,14 +81,14 @@ Testimonials
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
             >
               What our clients{' '}
-              <span className="text-[#69AF23]">say.</span>
+              <span className="text-brand-green-text">say.</span>
             </motion.h2>
           </div>
           <div className="flex items-end">
             <div className="flex items-center gap-4 lg:ml-auto">
               <button
                 onClick={scrollPrev}
-                className="flex h-12 w-12 items-center justify-center border border-gray-300 text-gray-500 transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
+                className="flex h-12 w-12 items-center justify-center border border-gray-300 text-gray-500 transition-all duration-300 hover:border-[#69AF23] hover:text-brand-green-text"
                 style={{ borderTopLeftRadius: '0.75rem' }}
                 aria-label="Previous testimonial"
               >
@@ -96,7 +96,7 @@ Testimonials
               </button>
               <button
                 onClick={scrollNext}
-                className="flex h-12 w-12 items-center justify-center border border-gray-300 text-gray-500 transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
+                className="flex h-12 w-12 items-center justify-center border border-gray-300 text-gray-500 transition-all duration-300 hover:border-[#69AF23] hover:text-brand-green-text"
                 style={{ borderTopLeftRadius: '0.75rem' }}
                 aria-label="Next testimonial"
               >
@@ -118,7 +118,7 @@ Testimonials
                   className="group relative h-full overflow-hidden bg-white p-8 shadow-premium transition-all duration-500 hover:shadow-premium-lg hover:-translate-y-1"
                   style={{ borderTopLeftRadius: '2rem' }}
                 >
-                  <Quote className="mb-5 h-10 w-10 text-[#69AF23]/10" />
+                  <Quote className="mb-5 h-10 w-10 text-brand-green-text/10" />
 
                   <div className="mb-5 flex gap-1">
                     {Array.from({ length: testimonial.rating }).map((_, j) => (
@@ -132,7 +132,7 @@ Testimonials
 
                   <div className="mt-8 flex items-center gap-4 border-t border-gray-100 pt-6">
                     <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-[#69AF23] text-sm font-medium text-white"
+                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-brand-green-deep text-sm font-medium text-white"
                       style={{ borderTopLeftRadius: '0.75rem' }}
                     >
                       {testimonial.initials}

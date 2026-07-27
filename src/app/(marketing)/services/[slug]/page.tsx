@@ -136,7 +136,7 @@ export default async function ServicePage({
               <ul className="mt-4 space-y-3">
                 {service.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-green" />
+                    <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-green-text" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
@@ -146,14 +146,14 @@ export default async function ServicePage({
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/quote"
-                className="group inline-flex items-center justify-center gap-2 rounded-none bg-brand-green px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:bg-brand-lime hover:shadow-lg"
+                className="group inline-flex items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:bg-brand-green-deep-hover hover:shadow-lg"
               >
                 Get a Quote
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="inline-flex items-center justify-center gap-2 rounded-none border-2 border-brand-green px-8 py-3.5 font-semibold text-brand-green transition-all hover:bg-brand-green hover:text-white"
+                className="inline-flex items-center justify-center gap-2 rounded-none border-2 border-brand-green-deep px-8 py-3.5 font-semibold text-brand-green-text transition-all hover:bg-brand-green-deep hover:text-white"
               >
                 <Phone className="h-5 w-5" />
                 {COMPANY.phone.display}
@@ -188,7 +188,7 @@ export default async function ServicePage({
                   </div>
                   <div className={flip ? "lg:order-1" : ""}>
                     {i === 0 && (
-                      <p className="eyebrow mb-3 text-brand-green">A closer look</p>
+                      <p className="eyebrow mb-3 text-brand-green-text">A closer look</p>
                     )}
                     <h3 className="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
                       {g.title ?? service.shortTitle}
@@ -217,7 +217,7 @@ export default async function ServicePage({
                 key={benefit}
                 className="flex items-center gap-3 rounded-none bg-white p-4 shadow-sm"
               >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-none bg-brand-green text-white">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-none bg-brand-green-deep text-white">
                   <CheckCircle className="h-4 w-4" />
                 </div>
                 <span className="text-sm font-medium text-gray-800">

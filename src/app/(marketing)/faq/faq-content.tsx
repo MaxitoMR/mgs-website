@@ -53,7 +53,7 @@ export default function FAQContent() {
             className="font-gothic text-white"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, lineHeight: 1.1 }}
           >
-            Frequently Asked <span className="text-[#69AF23]">Questions</span>
+            Frequently Asked <span className="text-brand-green-text">Questions</span>
           </h1>
           <p className="text-gray-400 mt-4 max-w-xl" style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}>
 Coverage, compliance, scheduling, and pricing — the details procurement and facility teams ask before engaging MGS Supply &amp; Services.
@@ -90,7 +90,7 @@ Coverage, compliance, scheduling, and pricing — the details procurement and fa
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href={`tel:${COMPANY.phone.primary}`}
-              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-6 py-3 text-white text-sm font-medium hover:bg-[#5a9a1e] transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-6 py-3 text-white text-sm font-medium hover:bg-brand-green-deep-hover transition-all"
               style={{ borderTopLeftRadius: '1rem' }}
             >
               <Phone className="h-4 w-4" />
@@ -98,7 +98,7 @@ Coverage, compliance, scheduling, and pricing — the details procurement and fa
             </a>
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center gap-2 border border-gray-300 px-6 py-3 text-gray-700 text-sm font-medium hover:border-[#69AF23] hover:text-[#69AF23] transition-all"
+              className="inline-flex items-center justify-center gap-2 border border-gray-300 px-6 py-3 text-gray-700 text-sm font-medium hover:border-[#69AF23] hover:text-brand-green-text transition-all"
               style={{ borderTopLeftRadius: '1rem' }}
             >
               Get a Quote <ArrowRight className="h-3.5 w-3.5" />

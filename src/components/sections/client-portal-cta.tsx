@@ -26,7 +26,7 @@ export function ClientPortalCta() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="eyebrow text-[#69AF23] mb-5"
+              className="eyebrow text-brand-green-text mb-5"
             >
               Client Portal
             </motion.p>
@@ -46,7 +46,7 @@ export function ClientPortalCta() {
             >
               Your facility,
               <br />
-              <span className="text-[#69AF23]">in full view.</span>
+              <span className="text-brand-green-text">in full view.</span>
             </motion.h2>
 
             <motion.p
@@ -73,7 +73,7 @@ export function ClientPortalCta() {
                 const Icon = f.icon;
                 return (
                   <div key={f.label} className="flex items-center gap-2">
-                    <Icon className="h-3.5 w-3.5 text-[#69AF23] flex-shrink-0" />
+                    <Icon className="h-3.5 w-3.5 text-brand-green-text flex-shrink-0" />
                     <span className="text-[13px] text-gray-700" style={{ fontWeight: 400 }}>{f.label}</span>
                   </div>
                 );
@@ -91,7 +91,7 @@ export function ClientPortalCta() {
                 href="https://www.mgsclientportal.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 bg-[#69AF23] px-6 py-3 text-white text-sm font-medium transition-all duration-300 hover:bg-[#5a9a1e] hover:shadow-lg"
+                className="inline-flex items-center gap-2.5 bg-brand-green-deep px-6 py-3 text-white text-sm font-medium transition-all duration-300 hover:bg-brand-green-deep-hover hover:shadow-lg"
                 style={{ borderTopLeftRadius: '1rem' }}
               >
                 Go to Portal
@@ -101,7 +101,7 @@ export function ClientPortalCta() {
                 href="https://www.mgsclientportal.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 border border-gray-300 px-6 py-3 text-gray-700 text-sm font-light transition-all duration-300 hover:border-[#69AF23] hover:text-[#69AF23]"
+                className="inline-flex items-center gap-2.5 border border-gray-300 px-6 py-3 text-gray-700 text-sm font-light transition-all duration-300 hover:border-[#69AF23] hover:text-brand-green-text"
                 style={{ borderTopLeftRadius: '1rem' }}
               >
                 Sign In

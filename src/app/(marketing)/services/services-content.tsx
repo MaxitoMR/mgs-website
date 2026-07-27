@@ -15,11 +15,22 @@ const categoryIcons: Record<string, typeof Building2> = {
   additional: Sparkles,
 };
 
+/* Vibrant hues for decorative fills (tinted chips, the active underline)
+   and on the dark hero. They sit at 1.8-3.0:1 on white, so anywhere the
+   hue becomes text or a meaningful icon on a light surface it has to use
+   the AA-compliant variant below instead. */
 const categoryColors: Record<string, string> = {
   commercial: "#69AF23",
   medical: "#19A0DB",
   industrial: "#FF8F00",
   additional: "#9FD01B",
+};
+
+const categoryTextColors: Record<string, string> = {
+  commercial: "#457617",
+  medical: "#116D96",
+  industrial: "#9A5600",
+  additional: "#55700F",
 };
 
 export default function ServicesContent() {
@@ -56,7 +67,7 @@ export default function ServicesContent() {
             className="font-gothic text-white"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, lineHeight: 1.1 }}
           >
-            Our <span className="text-[#69AF23]">Services</span>
+            Our <span className="text-brand-green-text">Services</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -95,6 +106,7 @@ export default function ServicesContent() {
             {serviceCategories.map((cat) => {
               const Icon = categoryIcons[cat.id] || Sparkles;
               const color = categoryColors[cat.id];
+              const textColor = categoryTextColors[cat.id];
               const isActive = activeCategory === cat.id;
               return (
                 <a
@@ -102,10 +114,11 @@ export default function ServicesContent() {
                   href={`#cat-${cat.id}`}
                   className={cn(
                     "relative flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all",
-                    isActive ? "text-gray-900" : "text-gray-400 hover:text-gray-700"
+                    /* gray-600, not gray-400: #99a1af is 2.6:1 on this white bar. */
+                    isActive ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
                   )}
                 >
-                  <Icon className="h-4 w-4" style={{ color: isActive ? color : undefined }} />
+                  <Icon className="h-4 w-4" style={{ color: isActive ? textColor : undefined }} aria-hidden="true" />
                   {cat.name.replace(" Services", "")}
                   {isActive && (
                     <motion.div
@@ -119,7 +132,7 @@ export default function ServicesContent() {
             })}
             <Link
               href="/quote"
-              className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-[#69AF23] text-white text-sm font-medium hover:bg-[#5a9a1e] transition-colors"
+              className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-brand-green-deep text-white text-sm font-medium hover:bg-brand-green-deep-hover transition-colors"
               style={{ borderTopLeftRadius: '0.75rem' }}
             >
               Get a Quote
@@ -134,6 +147,7 @@ export default function ServicesContent() {
         const categoryServices = getServicesByCategory(category.id);
         const Icon = categoryIcons[category.id] || Sparkles;
         const color = categoryColors[category.id];
+        const textColor = categoryTextColors[category.id];
         const bgColor = catIndex % 2 === 0 ? "bg-white" : "bg-[#FBFBFE]";
 
         return (
@@ -149,10 +163,10 @@ export default function ServicesContent() {
                   className="flex h-12 w-12 items-center justify-center flex-shrink-0"
                   style={{ background: `${color}12`, borderTopLeftRadius: '0.75rem' }}
                 >
-                  <Icon className="h-6 w-6" style={{ color }} />
+                  <Icon className="h-6 w-6" style={{ color: textColor }} aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="eyebrow mb-1" style={{ color }}>{category.name.toUpperCase()}</p>
+                  <p className="eyebrow mb-1" style={{ color: textColor }}>{category.name.toUpperCase()}</p>
                   <h2
                     className="font-gothic text-gray-900"
                     style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', fontWeight: 300 }}
@@ -192,13 +206,13 @@ export default function ServicesContent() {
                       </div>
 
                       <div className="p-5">
-                        <h3 className="text-[15px] font-semibold text-gray-900 group-hover:text-[#69AF23] transition-colors">
+                        <h3 className="text-[15px] font-semibold text-gray-900 group-hover:text-brand-green-text transition-colors">
                           {service.shortTitle}
                         </h3>
                         <p className="text-xs text-gray-500 mt-1.5 line-clamp-2" style={{ fontWeight: 300, lineHeight: 1.6 }}>
                           {service.description}
                         </p>
-                        <div className="flex items-center gap-1 mt-3 text-xs font-medium text-[#69AF23] opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-1 mt-3 text-xs font-medium text-brand-green-text opacity-0 group-hover:opacity-100 transition-opacity">
                           Learn more <ArrowRight className="h-3 w-3" />
                         </div>
                       </div>
@@ -223,7 +237,7 @@ export default function ServicesContent() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center gap-2 bg-[#69AF23] px-7 py-3.5 text-white font-medium hover:bg-[#5a9a1e] transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-7 py-3.5 text-white font-medium hover:bg-brand-green-deep-hover transition-all"
               style={{ borderTopLeftRadius: '1.25rem' }}
             >
               Get a Custom Quote <ArrowRight className="h-4 w-4" />

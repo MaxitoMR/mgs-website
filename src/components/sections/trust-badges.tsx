@@ -101,7 +101,7 @@ export function TrustBadges() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
         {/* Header */}
         <div className="mb-14 text-center">
-          <p className="tb-header eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#69AF23] opacity-0">
+          <p className="tb-header eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-green-text opacity-0">
             How We Operate
           </p>
           <h2
@@ -133,7 +133,7 @@ export function TrustBadges() {
                     borderRadius: "0.5rem",
                   }}
                 >
-                  <Icon className="h-5 w-5 text-[#69AF23]" />
+                  <Icon className="h-5 w-5 text-brand-green-text" />
                 </div>
 
                 {/* Text */}
