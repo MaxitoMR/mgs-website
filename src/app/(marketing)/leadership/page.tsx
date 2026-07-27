@@ -14,6 +14,18 @@ export const metadata: Metadata = {
     "Meet the leadership of MGS Supply & Services. Gisella Islas, Chief Executive Officer, leads the company's commercial, medical, and industrial janitorial operations across greater Houston.",
 };
 
+/* Office team portraits from the July 2026 shoot. Names and roles were
+   supplied by the owner — do NOT edit them from a photo alone. The section
+   renders only when every entry has both fields, so an incomplete addition
+   can never ship a face without an identity attached. */
+const TEAM = [
+  { image: "/images/team-01.jpg", name: "Barbara Perez-Puebla", role: "Sales" },
+  { image: "/images/team-02.jpg", name: "Rhonda Pitts", role: "Receptionist" },
+  { image: "/images/team-03.jpg", name: "Edgar Nunez", role: "Accountant" },
+  { image: "/images/team-04.jpg", name: "Saul Reyes", role: "Operations Manager" },
+  { image: "/images/team-05.jpg", name: "Gisella Islas", role: "Chief Executive Officer" },
+];
+
 const principles = [
   {
     icon: ClipboardCheck,
@@ -131,6 +143,55 @@ export default function LeadershipPage() {
           </MotionWrapper>
         </div>
       </SectionWrapper>
+
+      {/* The team behind the standard.
+          Renders nothing until every member has a real name and role — see
+          the TEAM comment. Never ship a guessed name against a real face. */}
+      {TEAM.every((m) => m.name && m.role) && (
+        <SectionWrapper className="bg-[#FBFBFE]">
+          <div className="mb-10">
+            <p className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+              The Team
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+              The people who hold the standard.
+            </h2>
+            <p className="mt-4 max-w-2xl text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
+              The office in Katy that scopes the work, schedules the crews, and
+              answers the phone when something needs fixing.
+            </p>
+          </div>
+
+          <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+            {TEAM.map((m, i) => (
+              <li key={m.image}>
+                <MotionWrapper delay={i * 0.08}>
+                  <div
+                    className="overflow-hidden"
+                    style={{ borderTopLeftRadius: "1.25rem" }}
+                  >
+                    <Image
+                      src={m.image}
+                      alt={`${m.name}, ${m.role} at ${COMPANY.name}`}
+                      width={1600}
+                      height={2400}
+                      sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 45vw"
+                      quality={82}
+                      className="h-auto w-full object-cover"
+                    />
+                  </div>
+                  <h3 className="mt-4 font-display text-base font-bold text-gray-900">
+                    {m.name}
+                  </h3>
+                  <p className="mt-0.5 text-sm text-gray-600" style={{ fontWeight: 300 }}>
+                    {m.role}
+                  </p>
+                </MotionWrapper>
+              </li>
+            ))}
+          </ul>
+        </SectionWrapper>
+      )}
 
       {/* Operating principles */}
       <SectionWrapper className="bg-[#F4F4F5]">
