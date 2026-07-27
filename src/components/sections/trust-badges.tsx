@@ -149,7 +149,7 @@ export function TrustBadges() {
               className="mt-1.5 text-sm text-gray-600"
               style={{ fontWeight: 300, lineHeight: 1.65 }}
             >
-              {AWARD.attribution}
+              {AWARD.claim} · {AWARD.attribution}
             </p>
           </div>
           <Link

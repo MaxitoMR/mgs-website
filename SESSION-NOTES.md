@@ -60,6 +60,16 @@ The green lives behind four tokens in `globals.css` — the "brand color seam". 
 
 **Re-running the audit:** `npx next build && npx next start -p 3111`, then drive axe-core via `puppeteer-core` against the system Chrome (no Playwright/Puppeteer in this repo; install into a scratch dir, not `package.json`). Scan pristine pages *and* submit each form empty to catch validation-error states — axe never sees those otherwise. Emulate `prefers-reduced-motion` with a **staged** scroll; an instant jump to the bottom skips IntersectionObserver and produces false "stranded content" hits in both modes.
 
+## The BusinessRate award — how it's framed
+
+All copy comes from the `AWARD` constant in `constants.ts`, so the homepage strip, About, `/katy`, and the JSON-LD can't drift.
+
+- **Lead with the substance, not the rank.** `headline` is "Top-3 rated janitorial service in Katy"; `claim` carries "Ranked #3 …" immediately underneath. "Ranked #3" as the *headline* invites "so who are #1 and #2?" and breaks the moment the position moves — while the underlying fact (Katy clients rated the work highly on Google) stays true. Nothing is softened: the exact rank is always adjacent, and the JSON-LD keeps the precise phrasing because machines want the literal fact.
+- **The plaque photo is on `/about` only.** Its dominant elements are BusinessRate's logo, gold shield, and a purple "MOMENTUM" bar — at display size it advertises the awarding body more than MGS, and on mobile the MGS name is the smallest legible text. As a photographed artifact on About it reads as authentic; as a lead visual it hands away the best position. `/katy` leads typographically instead.
+- **Placement is deliberate and modest:** homepage trust strip (set apart from the six self-asserted badges), `/about`, `/katy`. Not the hero. Facility managers and procurement buy on compliance and references; an oversized directory badge cheapens the engineering-grade tone.
+- **It is specific but not yet *checkable*.** There's no link to the Google Business Profile reviews, so a skeptical reader can't verify it — which weakens the "third-party proof" argument that justifies featuring it at all. See follow-up #7.
+- **Shelf life:** stamped June 2026, will read stale by roughly mid-2027. Refresh with a newer ranking or drop the month and keep the standing claim.
+
 ## Local SEO — `/katy`
 
 First local landing page (`src/app/(marketing)/katy/page.tsx`). Targets the home-market query rather than the generic greater-Houston framing the rest of the site uses.
@@ -70,15 +80,17 @@ First local landing page (`src/app/(marketing)/katy/page.tsx`). Targets the home
 - **JSON-LD:** `Service` + `BreadcrumbList` + `FAQPage`. Deliberately **not** a second `LocalBusiness` — the home page already declares that entity, and duplicating it under a different URL splits the organization into two nodes. The business appears as the Service's `provider` instead.
 - Linked sitewide from the footer Resources column (local pages rank on internal linking as much as content) and added to `sitemap.ts` at 0.9.
 
-**If more city pages follow** (Sugar Land, Cypress …): copy the structure but *write genuinely different copy*. Near-duplicate city pages with the town name swapped are doorway pages under Google's spam policy and can be demoted. Each needs real local specifics — actual neighborhoods, actual sites worked, honest response-time claims.
+**Katy is the only city page — decided 2026-07-27.** No Sugar Land / Cypress / Fulshear variants. This is the right call: Katy is the one market where the page is *true* (headquarters, warehouse, crews, and a local ranking all actually here), so it isn't a template. Cloning it for towns MGS only drives to would produce near-duplicate doorway pages under Google's spam policy, which risks demoting this one too. If a second city ever earns a page, it needs its own genuine specifics — real sites worked, honest response times — not a find-and-replace.
 
 ## Open follow-ups (from the "what would you change" review)
 1. **Social proof** — testimonials are hidden (placeholder quotes); no client logos/case studies/capability-statement PDF. Needs real content from owner. Biggest conversion gap.
-2. **Local service-area pages** — `/katy` is **built** (see above). Sugar Land / Cypress / Fulshear not yet; read the doorway-page warning first.
+2. ~~**Local service-area pages**~~ — `/katy` is built and is **the only one**; other cities were considered and declined (see above). Closed.
 3. **Hero video** autoplays 5 Supabase MP4s — heavy on mobile; consider poster + one Cloudflare-Stream clip.
 4. ~~**Axe/WCAG pass** not run site-wide~~ — **done** across 18 routes, with `color-contrast` since re-accepted as a known failure (see the Accessibility section). Still open: manual screen-reader passes (NVDA/VoiceOver) and `/newsletter/subscribers`.
 5. Substantiate the **99.8% QA** and **100+ facilities** claims, or soften.
 6. Leadership bio + training-video set may need real specifics.
+7. **Google Business Profile reviews link** — the single highest-value small addition. Add the GBP review URL to `AWARD` and link the award from it; that turns the ranking from a specific *assertion* into a *verifiable* one, which is the entire reason it earns space next to the self-asserted trust badges. Get it from Google Maps → the business → Reviews → Share. Two-minute change.
+8. **Review velocity** — the award is a lagging indicator of Google review volume/rating, and that same signal drives the local map pack where janitorial leads actually originate. A systematic post-service review request compounds; a plaque does not. Bigger lever than anything else currently open.
 
 ## Untracked local assets
 ~194 MB of loose images/exports under `public/images/` etc. are intentionally **left untracked** (unused by the build) to keep the repo lean.

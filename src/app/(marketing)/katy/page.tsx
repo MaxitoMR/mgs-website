@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   MapPin,
@@ -21,7 +20,7 @@ import { AWARD, COMPANY } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Janitorial Services in Katy, TX",
   description:
-    "Commercial, medical, and industrial janitorial services in Katy, Texas. Headquartered on 10th Street since 2006 — insured, bonded, and ranked #3 janitorial service in Katy by BusinessRate.",
+    "Commercial, medical, and industrial janitorial services in Katy, Texas. Headquartered on 10th Street since 2006 — insured, bonded, and a top-3 rated janitorial service in Katy on BusinessRate.",
   alternates: { canonical: `${COMPANY.url}/katy` },
   openGraph: {
     title: `Janitorial Services in Katy, TX | ${COMPANY.name}`,
@@ -161,41 +160,37 @@ export default function KatyPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Katy, TX" }]}
       />
 
-      {/* Lead credential — the award is the strongest local proof we have, so
-          it opens the page rather than sitting in a footer strip. */}
+      {/* Lead credential. Typographic, not the plaque photo: the plaque's
+          dominant elements are BusinessRate's logo and shield, so reproducing
+          it here would hand the page's strongest position to the awarding
+          body's branding. The plaque lives on /about as the artifact. */}
       <SectionWrapper className="bg-[#F4F4F5]">
-        <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-14">
-          <MotionWrapper>
-            <Image
-              src={AWARD.image}
-              alt={`${AWARD.issuer} plaque: Ranked #${AWARD.rank}, ${AWARD.category}, ${AWARD.locality}, ${AWARD.month} ${AWARD.year}`}
-              width={1200}
-              height={1502}
-              sizes="(min-width: 1024px) 18rem, 50vw"
-              quality={84}
-              className="mx-auto h-auto w-44 shadow-premium sm:w-52 lg:w-64"
-            />
-          </MotionWrapper>
-          <MotionWrapper delay={0.15}>
+        <MotionWrapper>
+          <div className="mx-auto max-w-3xl text-center">
             <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
-              Recognized locally
+              What Katy clients say
             </span>
-            <h2
-              className="mt-3 font-gothic text-gray-900"
-              style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            <p
+              className="mt-4 font-gothic text-gray-900"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 300, lineHeight: 1.1 }}
             >
               {AWARD.headline}
-            </h2>
-            <p className="mt-5 max-w-xl text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-              {AWARD.issuer} ranks janitorial contractors by locality from
-              aggregated Google Reviews — so the ranking reflects what Katy
-              clients wrote publicly, not what we say about ourselves.
             </p>
-            <p className="mt-4 text-sm text-gray-600" style={{ fontWeight: 300 }}>
+            <div
+              className="mx-auto mt-7 h-[3px] w-20"
+              style={{ background: "var(--color-brand-green)" }}
+              aria-hidden="true"
+            />
+            <p className="mt-7 text-gray-600" style={{ fontWeight: 300, lineHeight: 1.75 }}>
+              {AWARD.issuer} ranks janitorial contractors by locality from
+              aggregated Google Reviews. {AWARD.claim} — a reflection of what
+              Katy clients wrote publicly, not what we say about ourselves.
+            </p>
+            <p className="mt-5 text-sm text-gray-600" style={{ fontWeight: 300 }}>
               {AWARD.attribution}
             </p>
-          </MotionWrapper>
-        </div>
+          </div>
+        </MotionWrapper>
       </SectionWrapper>
 
       {/* Why a local contractor */}

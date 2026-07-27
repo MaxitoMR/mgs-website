@@ -167,11 +167,10 @@ export default function AboutPage() {
               {AWARD.headline}
             </h2>
             <p className="mt-5 max-w-xl text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-              {AWARD.issuer} ranks janitorial contractors by locality using
-              aggregated {AWARD.basis.replace("Powered by ", "")} — so this
-              reflects what our clients wrote publicly, not what we say about
-              ourselves. It covers {AWARD.category.toLowerCase()} providers in{" "}
-              {AWARD.locality} for {AWARD.month} {AWARD.year}.
+              {AWARD.issuer} ranks janitorial contractors by locality from
+              aggregated Google Reviews — so it reflects what our clients wrote
+              publicly, not what we say about ourselves. {AWARD.claim},{" "}
+              {AWARD.month} {AWARD.year}.
             </p>
             <p className="mt-4 text-sm text-gray-600" style={{ fontWeight: 300 }}>
               {AWARD.attribution}

@@ -42,10 +42,29 @@ export const AWARD = {
   month: "June",
   year: 2026,
   basis: "Powered by Google Reviews",
-  // Headline + attribution, kept apart so the source is never dropped.
-  headline: "Ranked #3 Janitorial Service in Katy, Texas",
-  attribution: "BusinessRate, June 2026 · Powered by Google Reviews",
+
+  /* `headline` leads with the SUBSTANCE, not the rank number. "Ranked #3"
+     as a headline invites "so who are #1 and #2?", and it decays the moment
+     the position moves. What a buyer actually cares about — and what stays
+     true — is that Katy clients rated the work highly on Google.
+     `claim` carries the exact position immediately underneath, so nothing
+     is hidden or softened; the precision is what makes it credible. */
+  headline: "Top-3 rated janitorial service in Katy",
+  claim: "Ranked #3 of janitorial services in Katy, Texas",
+  attribution: "BusinessRate, June 2026 · from aggregated Google Reviews",
+
+  /* Plaque photo. Used on /about ONLY, as evidence of a physical artifact.
+     Deliberately not the lead visual anywhere else: the plaque's dominant
+     elements are BusinessRate's logo and shield, so at display size it
+     advertises the awarding body more than MGS. */
   image: "/images/businessrate-award-2026.jpg",
+
+  /* SHELF LIFE: this is stamped June 2026 and will read as stale roughly a
+     year out. Either refresh it when a newer ranking lands, or drop the
+     month and keep the standing claim. Revisit mid-2027.
+     TODO: no reviews link yet — see SESSION-NOTES. A Google Business
+     Profile review URL here would make the claim checkable rather than
+     merely specific, which is the difference between proof and assertion. */
 } as const;
 
 export const BRAND = {
