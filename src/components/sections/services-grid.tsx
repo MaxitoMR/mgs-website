@@ -108,6 +108,31 @@ export function ServicesGrid() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
+  /* Tab-strip overflow state. The scrollbar is hidden for looks, which on a
+     phone leaves no clue that the row scrolls — the fades are the affordance
+     that replaces it. Tracked per-edge so a fade never sits over a tab once
+     you have reached that end of the track. */
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [tabEdges, setTabEdges] = useState({ left: false, right: false });
+
+  const updateTabEdges = useCallback(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    // 4px tolerance: sub-pixel widths otherwise leave a fade stuck on at rest.
+    setTabEdges({ left: el.scrollLeft > 4, right: el.scrollLeft < max - 4 });
+  }, []);
+
+  useEffect(() => {
+    updateTabEdges();
+    const el = tabsRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    // Re-measure on resize AND on content change (font swap shifts tab widths).
+    const ro = new ResizeObserver(updateTabEdges);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [updateTabEdges]);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -170,9 +195,19 @@ export function ServicesGrid() {
             </h2>
           </div>
 
-          {/* Category tabs */}
-          <div className="svc-header-el flex gap-2 overflow-x-auto pb-1 opacity-0 scrollbar-hide">
-            {serviceCategories.map((cat, i) => {
+          {/* Category tabs.
+              `p-1`, not `pb-1`: the buttons carry `ring-1`, which paints
+              OUTSIDE the border box, and the active one carries `shadow-lg`.
+              With zero top padding the scroll container clipped the top of
+              every ring — that was the "cut off" top border. Padding on all
+              sides gives the ring and shadow room to render. */}
+          <div className="svc-header-el relative opacity-0">
+            <div
+              ref={tabsRef}
+              onScroll={updateTabEdges}
+              className="flex gap-2 overflow-x-auto p-1 scrollbar-hide"
+            >
+              {serviceCategories.map((cat, i) => {
               const Icon = cat.icon;
               const isActive = i === activeIndex;
               return (
@@ -194,8 +229,31 @@ export function ServicesGrid() {
                   <Icon className={cn("h-4 w-4", isActive ? "text-white" : "text-gray-300 group-hover:text-white")} aria-hidden="true" />
                   {cat.shortTitle}
                 </button>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            {/* Edge fades. Two jobs: they signal "there is more this way" on
+                narrow screens where the row overflows, and they stop tabs
+                being chopped off mid-glyph at the edge. Each only appears
+                when there is actually something to scroll to, so neither
+                ever covers a tab at the ends of the track.
+                The gradient resolves to #111111 — the section background —
+                so the falloff is invisible rather than a grey smear. */}
+            <div
+              aria-hidden="true"
+              className={cn(
+                "pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#111111] to-transparent transition-opacity duration-300",
+                tabEdges.left ? "opacity-100" : "opacity-0",
+              )}
+            />
+            <div
+              aria-hidden="true"
+              className={cn(
+                "pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#111111] to-transparent transition-opacity duration-300",
+                tabEdges.right ? "opacity-100" : "opacity-0",
+              )}
+            />
           </div>
         </div>
 
