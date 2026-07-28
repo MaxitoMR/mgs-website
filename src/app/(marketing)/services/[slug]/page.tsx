@@ -20,6 +20,13 @@ export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
 }
 
+/* The service list is fully enumerable, so anything outside it is genuinely
+   not a page. Without this, Next renders unknown slugs on demand and caches
+   them, and `/services/anything` answered 200 with a "Service Not Found"
+   body — a soft 404. Google treats those as thin pages: crawl budget spent,
+   and they can get indexed. `false` makes unmatched slugs a real 404. */
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {
@@ -80,21 +87,7 @@ export default async function ServicePage({
           areaServed: { "@type": "City", name: "Houston" },
         }}
       />
-      <JsonLd
-        type="BreadcrumbList"
-        data={{
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: COMPANY.url },
-            { "@type": "ListItem", position: 2, name: "Services", item: `${COMPANY.url}/services` },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: service.shortTitle,
-              item: `${COMPANY.url}/services/${service.slug}`,
-            },
-          ],
-        }}
-      />
+      {/* BreadcrumbList comes from PageHeader's `breadcrumbs` prop. */}
 
       <PageHeader
         title={service.title}

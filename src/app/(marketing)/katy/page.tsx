@@ -101,15 +101,7 @@ const FAQS = [
 export default function KatyPage() {
   return (
     <>
-      <JsonLd
-        type="BreadcrumbList"
-        data={{
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: COMPANY.url },
-            { "@type": "ListItem", position: 2, name: "Katy, TX", item: `${COMPANY.url}/katy` },
-          ],
-        }}
-      />
+      {/* BreadcrumbList comes from PageHeader's `breadcrumbs` prop. */}
       {/* Service (not a second LocalBusiness): the home page already declares
           the business entity. Duplicating it here under a different URL would
           split the same organization into two nodes. */}

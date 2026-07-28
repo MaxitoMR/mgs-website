@@ -99,15 +99,8 @@ export default function AboutPage() {
           },
         }}
       />
-      <JsonLd
-        type="BreadcrumbList"
-        data={{
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: COMPANY.url },
-            { "@type": "ListItem", position: 2, name: "About Us", item: `${COMPANY.url}/about` },
-          ],
-        }}
-      />
+      {/* BreadcrumbList is emitted by PageHeader from its `breadcrumbs` prop —
+          see page-header.tsx. Declaring it again here would duplicate it. */}
 
       <PageHeader
         title="About Us"

@@ -4,10 +4,36 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { COMPANY } from "@/lib/constants";
 
 interface Breadcrumb {
   label: string;
   href?: string;
+}
+
+/**
+ * BreadcrumbList JSON-LD, derived from the SAME array that draws the visible
+ * trail below. Emitting it here rather than per-page means every page using
+ * PageHeader gets valid breadcrumb markup automatically, and the structured
+ * data can never drift out of sync with what the user actually sees — which
+ * is exactly what Google penalises.
+ *
+ * `item` is absolute (schema.org requires it) and omitted on the final crumb,
+ * which represents the current page and has no href.
+ */
+function breadcrumbSchema(crumbs: Breadcrumb[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.label,
+      ...(crumb.href
+        ? { item: `${COMPANY.url}${crumb.href === "/" ? "" : crumb.href}` }
+        : {}),
+    })),
+  };
 }
 
 interface PageHeaderProps {
@@ -30,6 +56,14 @@ export function PageHeader({
         className
       )}
     >
+      {breadcrumbs && breadcrumbs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbSchema(breadcrumbs)),
+          }}
+        />
+      )}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {breadcrumbs && (
           <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-white/80">

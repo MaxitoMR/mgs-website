@@ -32,15 +32,22 @@ export function JsonLd({ type, data }: JsonLdProps) {
       postalCode: COMPANY.address.zip,
       addressCountry: "US",
     },
-    areaServed: {
-      "@type": "GeoCircle",
-      geoMidpoint: {
-        "@type": "GeoCoordinates",
-        latitude: 29.7858,
-        longitude: -95.8244,
+    /* Named places alongside the radius. A bare GeoCircle with an unitless
+       `geoRadius` is ambiguous to parsers; naming the actual cities is what
+       ties the business to the local queries it wants to rank for. */
+    areaServed: [
+      { "@type": "City", name: "Katy", containedInPlace: { "@type": "State", name: "Texas" } },
+      { "@type": "City", name: "Houston", containedInPlace: { "@type": "State", name: "Texas" } },
+      {
+        "@type": "GeoCircle",
+        geoMidpoint: {
+          "@type": "GeoCoordinates",
+          latitude: 29.7858,
+          longitude: -95.8244,
+        },
+        geoRadius: "100000", // metres — schema.org default unit
       },
-      geoRadius: "100",
-    },
+    ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: [
