@@ -29,6 +29,7 @@ const TEAM = [
   { image: "/images/team-02.jpg", name: "Rhonda Pitts", role: "Receptionist" },
   { image: "/images/team-03.jpg", name: "Edgar Nunez", role: "Accountant" },
   { image: "/images/team-04.jpg", name: "Saul Reyes", role: "Operations Manager" },
+  { image: "/images/team-06.jpg", name: "Maximiliano Reyes", role: "Brand & Digital Manager" },
   { image: "/images/team-05.jpg", name: "Gisella Islas", role: "Chief Executive Officer" },
 ];
 
@@ -247,7 +248,10 @@ export default function AboutPage() {
             lede="The office in Katy that scopes the work, schedules the crews, and answers the phone when something needs fixing."
           />
 
-          <ul className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-5">
+          {/* Three across from `sm` up: six people in a five-column row left an
+              orphan, and 6-across shrank every face. Two rows of three keeps
+              the grid full and makes each portrait considerably larger. */}
+          <ul className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3">
             {TEAM.map((m, i) => (
               <li key={m.image}>
                 <MotionWrapper delay={i * 0.08}>
@@ -263,7 +267,7 @@ export default function AboutPage() {
                       src={m.image}
                       alt={`${m.name}, ${m.role} at ${COMPANY.name}`}
                       fill
-                      sizes="(min-width: 1024px) 19vw, (min-width: 640px) 31vw, 46vw"
+                      sizes="(min-width: 640px) 32vw, 46vw"
                       quality={82}
                       className="object-cover object-[50%_28%] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
