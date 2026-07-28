@@ -237,7 +237,11 @@ function DesktopNav() {
   }, [openMenu, portalsOpen]);
 
   return (
-    <nav aria-label="Primary" className="bg-brand-green-deep relative z-[1000]" style={{ height: 'clamp(3rem, 3.5vw, 3.5rem)' }}>
+    /* Charcoal nav. Reuses the EXISTING --color-brand-dark-deeper token
+       (#111111) that the services grid and gallery band already use, rather
+       than introducing a second name for the same value. Green is not gone
+       from the nav — it moved to the hover/active underline below. */
+    <nav aria-label="Primary" className="bg-brand-dark-deeper relative z-[1000]" style={{ height: 'clamp(3rem, 3.5vw, 3.5rem)' }}>
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: Service dropdowns + Diffusers */}
         <div className="flex h-full items-center" style={{ gap: 'clamp(0.25rem, 0.5vw, 0.5rem)' }}>
@@ -255,11 +259,14 @@ function DesktopNav() {
                 onClick={() =>
                   setOpenMenu(openMenu === category.label ? null : category.label)
                 }
+                /* Inset shadow rather than border-bottom: the items are
+                   full-height flex children, so a real border would change
+                   their box height and shift the row on hover. */
                 className={cn(
-                  "flex items-center gap-1 px-3 h-full text-white font-light transition-all duration-200",
+                  "flex items-center gap-1 px-3 h-full font-light transition-colors duration-200",
                   openMenu === category.label
-                    ? "bg-white/15"
-                    : "hover:bg-white/10"
+                    ? "text-[#69AF23] shadow-[inset_0_-3px_0_0_#69AF23]"
+                    : "text-[#F0F0F0] hover:text-[#69AF23] hover:shadow-[inset_0_-3px_0_0_#69AF23]"
                 )}
                 style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
               >
@@ -276,7 +283,7 @@ function DesktopNav() {
           ))}
           <Link
             href="/diffusers"
-            className="flex items-center px-3 text-white hover:bg-white/10 h-full font-light transition-all duration-200"
+            className="flex items-center px-3 h-full font-light text-[#F0F0F0] transition-colors duration-200 hover:text-[#69AF23] hover:shadow-[inset_0_-3px_0_0_#69AF23]"
             style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
           >
             Diffusers
@@ -289,7 +296,7 @@ function DesktopNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center px-3 h-full text-white hover:bg-white/10 font-light transition-all duration-200"
+              className="flex items-center px-3 h-full font-light text-[#F0F0F0] transition-colors duration-200 hover:text-[#69AF23] hover:shadow-[inset_0_-3px_0_0_#69AF23]"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               {item.label}
@@ -306,7 +313,9 @@ function DesktopNav() {
               aria-expanded={portalsOpen}
               aria-haspopup="true"
               onClick={() => setPortalsOpen((open) => !open)}
-              className="flex items-center gap-1 px-3 py-1 bg-white/10 text-white hover:bg-white/15 font-light transition-all duration-200"
+              /* Chip, not a full-height item, so it keeps a fill instead of
+                 the underline treatment. */
+              className="flex items-center gap-1 px-3 py-1 bg-white/10 font-light text-[#F0F0F0] transition-colors duration-200 hover:bg-white/[0.16] hover:text-[#69AF23]"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               Portals
