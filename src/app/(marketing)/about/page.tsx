@@ -255,10 +255,11 @@ export default function AboutPage() {
             {TEAM.map((m, i) => (
               <li key={m.image}>
                 <MotionWrapper delay={i * 0.08}>
-                  {/* aspect-[4/5] with a top-biased crop: the masters are tall
-                      2:3 frames, so uncropped they render as small, mostly-desk
-                      slivers. Cropping to the face gives every card the same
-                      height and puts the person first. */}
+                  {/* The portraits are pre-cropped to 4:5 from the masters with
+                      a common eye line and a normalised head size, so they need
+                      no object-position here — the image already matches the
+                      box exactly. See scripts/a11y/../shoot notes in
+                      SESSION-NOTES for how to regenerate them. */}
                   <div
                     className="group relative aspect-[4/5] overflow-hidden bg-gray-100 shadow-premium transition-shadow duration-300 hover:shadow-premium-lg"
                     style={{ borderTopLeftRadius: "1.25rem" }}
@@ -269,7 +270,7 @@ export default function AboutPage() {
                       fill
                       sizes="(min-width: 640px) 32vw, 46vw"
                       quality={82}
-                      className="object-cover object-[50%_28%] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                   </div>
                   <h3 className="mt-4 font-display text-base font-bold leading-snug text-gray-900">
