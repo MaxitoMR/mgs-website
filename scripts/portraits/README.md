@@ -17,8 +17,27 @@ alignment is baked into the images instead.
 ```bash
 node scripts/portraits/measure-grid.cjs    # 1. contact sheet with 5% gridlines
 node scripts/portraits/align.cjs           # 2. crop + resize from the masters
-node scripts/portraits/check-alignment.cjs # 3. contact sheet with the eye line drawn
+node scripts/portraits/measure-band.cjs    # 3. MAGNIFIED eye-band check  <- the one that matters
+node scripts/portraits/check-alignment.cjs #    (quick whole-frame sanity check)
 ```
+
+### Expect to iterate — cut, measure the OUTPUT, correct, cut again
+
+Estimating the eye line off a full master is unreliable; the first pass here
+was wrong by up to 6% of frame height on three of six people, which is
+obvious in a row. `measure-band.cjs` crops the 18–46% slice of each **output**
+and blows it up with the target line drawn through, so error is read directly
+instead of guessed.
+
+To correct someone, back-solve their true eye position from the render:
+
+```
+trueEyeY = (top + observedEyeFraction * cropH) / masterHeight
+```
+
+`top` and `cropH` are printed by `align.cjs`; `observedEyeFraction` comes off
+the band image. Put `trueEyeY` in the table and re-run. One correction round
+is normally enough; a second is only needed for sub-2% nudges.
 
 Paths at the top of each file point at the masters; update them for a new
 shoot. `align.cjs` always crops from the **full-resolution masters**, never

@@ -23,7 +23,7 @@ const OUT = 'C:/Users/sag19/mgs-website/public/images';
 
 const OUT_W = 1000;
 const OUT_H = 1250;          // 4:5, matches the card aspect exactly
-const EYE_TARGET = 0.31;     // eye line, as a fraction of output height
+const EYE_TARGET = 0.30;     // eye line, as a fraction of output height
 /* Head height as a fraction of output. 0.30 produced tight headshots that
    aligned perfectly but cropped away the desks and the branded polo — the
    environmental context is what makes these read as real people at work
@@ -31,13 +31,18 @@ const EYE_TARGET = 0.31;     // eye line, as a fraction of output height
    head scale across the six. */
 const HEAD_TARGET = 0.24;
 
+/* `eyeY` values are BACK-SOLVED from a magnified measurement of a previous
+   render (band.cjs), not estimated off the master by eye. First-pass
+   estimates were off by up to 6% of frame height on Barbara, Rhonda and
+   Gisella, which is plainly visible in a row of six. If you re-shoot, do the
+   same loop: cut once, measure the output, correct, cut again. */
 const PEOPLE = [
-  { out: 'team-01.jpg', src: '1-_DSC0294.jpg', eyeY: 0.305, headH: 0.140, faceX: 0.38 },
-  { out: 'team-02.jpg', src: '2-_DSC0296.jpg', eyeY: 0.420, headH: 0.180, faceX: 0.47 },
-  { out: 'team-03.jpg', src: '3-_DSC0297.jpg', eyeY: 0.335, headH: 0.170, faceX: 0.52 },
-  { out: 'team-04.jpg', src: '4-_DSC0301.jpg', eyeY: 0.375, headH: 0.170, faceX: 0.48 },
-  { out: 'team-05.jpg', src: '5-_DSC0302.jpg', eyeY: 0.340, headH: 0.180, faceX: 0.55 },
-  { out: 'team-06.jpg', src: 'C:/Users/sag19/Downloads/_DSC0311.jpg', eyeY: 0.300, headH: 0.190, faceX: 0.47 },
+  { out: 'team-01.jpg', src: '1-_DSC0294.jpg', eyeY: 0.342, headH: 0.140, faceX: 0.38 },
+  { out: 'team-02.jpg', src: '2-_DSC0296.jpg', eyeY: 0.446, headH: 0.180, faceX: 0.47 },
+  { out: 'team-03.jpg', src: '3-_DSC0297.jpg', eyeY: 0.312, headH: 0.170, faceX: 0.52 },
+  { out: 'team-04.jpg', src: '4-_DSC0301.jpg', eyeY: 0.355, headH: 0.170, faceX: 0.48 },
+  { out: 'team-05.jpg', src: '5-_DSC0302.jpg', eyeY: 0.344, headH: 0.180, faceX: 0.55 },
+  { out: 'team-06.jpg', src: 'C:/Users/sag19/Downloads/_DSC0311.jpg', eyeY: 0.266, headH: 0.190, faceX: 0.47 },
 ];
 
 (async () => {
