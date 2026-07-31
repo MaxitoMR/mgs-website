@@ -30,7 +30,7 @@ export default function QuotePage() {
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-none bg-brand-green-deep p-6 text-white shadow-lg">
+            <div className="rounded-none bg-brand-green-deep p-6 text-brand-on-green shadow-lg">
               <h3 className="font-display text-xl font-bold">
                 Need Immediate Help?
               </h3>

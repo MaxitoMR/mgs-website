@@ -347,7 +347,7 @@ export default function KatyPage() {
         <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href="/walkthrough"
-            className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-7 py-3.5 font-medium text-white transition-all duration-300 hover:bg-brand-green-deep-hover hover:shadow-lg"
+            className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-7 py-3.5 font-medium text-brand-on-green transition-all duration-300 hover:bg-brand-green-deep-hover hover:shadow-lg"
             style={{ borderTopLeftRadius: "1.25rem" }}
           >
             Schedule a Katy walkthrough
@@ -355,7 +355,7 @@ export default function KatyPage() {
           </Link>
           <a
             href={`tel:${COMPANY.phone.primary}`}
-            className="inline-flex items-center justify-center gap-2 border-2 border-brand-green-deep px-7 py-3.5 font-medium text-brand-green-text transition-all duration-300 hover:bg-brand-green-deep hover:text-white"
+            className="inline-flex items-center justify-center gap-2 border-2 border-brand-green-deep px-7 py-3.5 font-medium text-brand-green-text transition-all duration-300 hover:bg-brand-green-deep hover:text-brand-on-green"
             style={{ borderTopLeftRadius: "1.25rem" }}
           >
             <Phone className="h-4 w-4" aria-hidden="true" />

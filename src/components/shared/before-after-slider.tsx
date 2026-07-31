@@ -91,7 +91,7 @@ export function BeforeAfterSlider({ before, after, label }: BeforeAfterSliderPro
         <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/60 text-white text-[10px] font-bold tracking-wider uppercase z-10">
           Before
         </div>
-        <div className="absolute top-3 right-3 px-2.5 py-1 bg-brand-green-deep/95 text-white text-[10px] font-bold tracking-wider uppercase z-10">
+        <div className="absolute top-3 right-3 px-2.5 py-1 bg-brand-green-deep/95 text-brand-on-green text-[10px] font-bold tracking-wider uppercase z-10">
           After
         </div>
       </div>

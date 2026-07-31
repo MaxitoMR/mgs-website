@@ -99,7 +99,7 @@ export function SubscribersAdmin() {
         <button
           type="submit"
           disabled={loading || !key.trim()}
-          className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-6 py-3.5 font-medium text-white transition-all hover:bg-brand-green-deep-hover disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-6 py-3.5 font-medium text-brand-on-green transition-all hover:bg-brand-green-deep-hover disabled:cursor-not-allowed disabled:opacity-50"
           style={{ borderTopLeftRadius: "0.75rem" }}
         >
           {loading ? (

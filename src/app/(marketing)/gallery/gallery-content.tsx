@@ -127,7 +127,7 @@ export default function GalleryContent() {
               className={cn(
                 "px-5 py-2 text-sm font-medium transition-all",
                 activeCategory === cat
-                  ? "bg-brand-green-deep text-white shadow-md"
+                  ? "bg-brand-green-deep text-brand-on-green shadow-md"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               )}
               style={{ borderTopLeftRadius: '0.75rem' }}

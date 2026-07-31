@@ -65,7 +65,7 @@ export function FloatingActionButtons() {
           href="/quote"
           aria-label="Request a quote"
           style={{ boxShadow: liftShadow }}
-          className={cn(btn, "bg-brand-green-deep text-white hover:bg-brand-green-deep-hover")}
+          className={cn(btn, "bg-brand-green-deep text-brand-on-green hover:bg-brand-green-deep-hover")}
         >
           <FileText className="h-4 w-4 shrink-0" />
           <span className={label}>Request Quote</span>
@@ -78,7 +78,7 @@ export function FloatingActionButtons() {
           style={{ boxShadow: liftShadow }}
           className={cn(
             btn,
-            "border-2 border-brand-green-deep bg-white text-brand-green-text hover:bg-brand-green-deep hover:text-white",
+            "border-2 border-brand-green-deep bg-white text-brand-green-text hover:bg-brand-green-deep hover:text-brand-on-green",
           )}
         >
           <CalendarCheck className="h-4 w-4 shrink-0" />

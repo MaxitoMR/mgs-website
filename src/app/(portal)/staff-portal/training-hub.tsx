@@ -108,7 +108,7 @@ export function TrainingHub() {
             )}
             <button
               type="submit"
-              className="mt-4 flex w-full items-center justify-center bg-brand-green-deep py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-green-deep-hover"
+              className="mt-4 flex w-full items-center justify-center bg-brand-green-deep py-3 text-sm font-semibold text-brand-on-green transition-colors hover:bg-brand-green-deep-hover"
             >
               Enter
             </button>
@@ -218,7 +218,7 @@ export function TrainingHub() {
                       <span
                         className={cn(
                           "mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full",
-                          isActive ? "bg-brand-green-deep text-white" : "bg-white/10 text-white/60",
+                          isActive ? "bg-brand-green-deep text-brand-on-green" : "bg-white/10 text-white/60",
                         )}
                       >
                         {isActive ? <Play className="h-3.5 w-3.5" /> : <CheckCircle2 className="h-4 w-4" />}

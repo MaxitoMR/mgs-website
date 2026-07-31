@@ -132,7 +132,7 @@ Testimonials
 
                   <div className="mt-8 flex items-center gap-4 border-t border-gray-100 pt-6">
                     <div
-                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-brand-green-deep text-sm font-medium text-white"
+                      className="flex h-12 w-12 flex-shrink-0 items-center justify-center bg-brand-green-deep text-sm font-medium text-brand-on-green"
                       style={{ borderTopLeftRadius: '0.75rem' }}
                     >
                       {testimonial.initials}

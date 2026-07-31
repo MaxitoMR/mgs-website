@@ -4,28 +4,37 @@ import { useEffect, useRef } from "react";
 import { Shield, Microscope, Award, Clock } from "lucide-react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
+/* `color` is the decorative fill (the icon chip tint, the progress rule) and
+   keeps the full-strength hue. `iconColor` draws the glyph itself, which is a
+   graphical object owing 3:1 — the vibrant hues manage only 2.71 / 2.96 /
+   1.82 / 2.29 on the near-white chip, so it uses the darker AA set. See the
+   brand color seam in globals.css. */
 const features = [
   {
     icon: Shield,
     color: "#69AF23",
+    iconColor: "#457617",
     title: "Compliant by Design",
     description: "Every product carries EPA registration; every crew operates to OSHA standards. In regulated environments — surgical suites, laboratories, food-adjacent spaces — compliance is documented, not assumed.",
   },
   {
     icon: Microscope,
     color: "#19A0DB",
+    iconColor: "#116D96",
     title: "Verified, Not Assumed",
     description: "ATP bioluminescence testing confirms a surface is clean at the microbial level, not merely to the eye. A failed reading triggers re-cleaning before sign-off. UV-C and electrostatic disinfection are deployed where the risk profile warrants.",
   },
   {
     icon: Award,
     color: "#9FD01B",
+    iconColor: "#55700F",
     title: "A Measured Track Record",
     description: "100-plus facilities maintained across commercial, medical, and industrial portfolios — each scored against recurring QA audits and reported back to the client.",
   },
   {
     icon: Clock,
     color: "#FF8F00",
+    iconColor: "#9A5600",
     title: "Response, Around the Clock",
     description: "A line staffed 24/7 for spill, flood, and biohazard events. Facility risk does not observe business hours, and neither does our response.",
   },
@@ -129,7 +138,7 @@ export function WhyChooseUs() {
                   className="flex h-14 w-14 items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
                   style={{ background: `${feature.color}15`, borderTopLeftRadius: '1rem' }}
                 >
-                  <Icon className="h-6 w-6" style={{ color: feature.color }} />
+                  <Icon className="h-6 w-6" style={{ color: feature.iconColor }} />
                 </div>
 
                 <h3 className="text-white mb-3 text-lg font-medium">{feature.title}</h3>

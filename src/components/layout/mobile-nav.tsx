@@ -228,7 +228,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 <Link
                   href="/quote"
                   onClick={onClose}
-                  className="flex min-h-11 w-full items-center justify-center bg-brand-green-deep py-3 text-[13px] font-semibold text-white transition-all hover:bg-brand-green-deep-hover"
+                  className="flex min-h-11 w-full items-center justify-center bg-brand-green-deep py-3 text-[13px] font-semibold text-brand-on-green transition-all hover:bg-brand-green-deep-hover"
                 >
                   Get Free Quote
                 </Link>

@@ -125,7 +125,7 @@ export function NewsletterForm({
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="inline-flex items-center justify-center gap-2 rounded-none bg-brand-green-deep px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-brand-green-deep-hover disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-none bg-brand-green-deep px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
           >
             {mutation.isPending ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -211,7 +211,7 @@ export function NewsletterForm({
       <button
         type="submit"
         disabled={mutation.isPending}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-brand-green-deep-hover disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-6 py-3 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
       >
         {mutation.isPending ? (
           <>

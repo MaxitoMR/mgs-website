@@ -23,14 +23,16 @@ const categoryColors: Record<string, string> = {
   additional: "#9FD01B",
 };
 
-/* Used where the hue becomes text or a meaningful icon. Currently the same
-   full-strength hues by product decision — see the brand color seam in
-   globals.css. AA-compliant set: #457617 / #116D96 / #9A5600 / #55700F. */
+/* Used where the hue becomes text or a meaningful icon. These are the
+   AA-compliant set, darker than the decorative fills above on purpose — see
+   the brand color seam in globals.css. The full-strength hues
+   (#69AF23 / #19A0DB / #FF8F00 / #9FD01B) are 2.71 / 2.96 / 2.29 / 1.82 on
+   white and belong on surfaces, not in lettering. */
 const categoryTextColors: Record<string, string> = {
-  commercial: "#69AF23",
-  medical: "#19A0DB",
-  industrial: "#FF8F00",
-  additional: "#9FD01B",
+  commercial: "#457617",
+  medical: "#116D96",
+  industrial: "#9A5600",
+  additional: "#55700F",
 };
 
 export default function ServicesContent() {
@@ -132,7 +134,7 @@ export default function ServicesContent() {
             })}
             <Link
               href="/quote"
-              className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-brand-green-deep text-white text-sm font-medium hover:bg-brand-green-deep-hover transition-colors"
+              className="ml-auto flex items-center gap-1.5 px-4 py-2 bg-brand-green-deep text-brand-on-green text-sm font-medium hover:bg-brand-green-deep-hover transition-colors"
               style={{ borderTopLeftRadius: '0.75rem' }}
             >
               Get a Quote
@@ -237,7 +239,7 @@ export default function ServicesContent() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/quote"
-              className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-7 py-3.5 text-white font-medium hover:bg-brand-green-deep-hover transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-brand-green-deep px-7 py-3.5 text-brand-on-green font-medium hover:bg-brand-green-deep-hover transition-all"
               style={{ borderTopLeftRadius: '1.25rem' }}
             >
               Get a Custom Quote <ArrowRight className="h-4 w-4" />

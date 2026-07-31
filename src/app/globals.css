@@ -17,45 +17,60 @@
      green surface, green text run, and sector accent in the app reads from
      them, so the whole palette moves by editing this block.
 
-     CURRENT STATE — full-strength brand color, by product decision.
-     The vibrant hues are back everywhere, including behind white text.
+     CURRENT STATE — full-strength brand color AND AA contrast, resolved by
+     splitting the palette along a line the earlier passes did not draw:
+     green as a SURFACE and green as TEXT are now separate problems with
+     separate fixes.
 
-     ACCESSIBILITY TRADE-OFF (deliberate, documented, reversible):
-     #69AF23 behind white text is 2.71:1. That fails WCAG AA for normal
-     text (4.5:1) AND the large-text threshold (3:1), so buttons, the top
-     bar, page headers and green-on-light text runs are not AA-compliant on
-     contrast. This was chosen with the numbers on the table — brand
-     fidelity over the contrast criterion.
+     GREEN AS A SURFACE — hue unchanged, fixed from the text side.
+     -deep stays #69AF23 and -deep-hover stays the lime #9FD01B, so every
+     green panel, bar and button is exactly the brand color it was. What
+     changed is what sits on top: white (2.71:1 on the green, and a much
+     worse 1.82:1 on the lime hover) gave way to --color-brand-on-green,
+     which is 5.68:1 and 8.43:1 on those same two surfaces. Overlays on
+     green went from white tints to black ones to match.
 
-     EXCEPT the desktop nav, which is now compliant without moving the
-     brand hue: instead of darkening the bar, its text moved from white to
-     --color-brand-on-green (5.68:1). Green buttons and green-on-light text
-     runs are still on the trade-off above.
-
-     Everything else from the accessibility pass is unaffected and still
-     holds: form labeling, keyboard operability, landmarks, the focus ring,
-     reduced motion, and all non-green text contrast.
-
-     TO RESTORE AA: set -deep and -text to #457617, -deep-hover to #4E811A,
-     and the three accent-text tokens to #116D96 / #9A5600 / #55700F. Those
-     values are verified against #F4F4F5 (the darkest light surface in use,
+     GREEN AS TEXT — hue darkened, because there is no text side to fix.
+     -text and the three sector accents are the one case the trick above
+     cannot reach: the green IS the glyph, so the only lever is the hue.
+     Those four are set to the AA values worked out in the earlier pass.
+     They are verified against #F4F4F5 (the darkest light surface in use,
      not pure white — off-white backgrounds shave ~0.2 off every ratio).
-     Then flip the nav overlays in header.tsx from black tints back to
-     white, and page-header.tsx subtext from white/80 to white/90.
+
+     Net effect: no green surface moved, so the brand reads as before; only
+     green lettering on light backgrounds is perceptibly darker.
+
+     Everything else from the accessibility pass still holds: form
+     labeling, keyboard operability, landmarks, the focus ring, reduced
+     motion, and all non-green text contrast.
+
+     TO GO BACK to full-strength green text, set -text to #69AF23 and the
+     accents to #19A0DB / #FF8F00 / #9FD01B; that reinstates the documented
+     brand-over-contrast trade-off without touching any surface.
      Re-verify with scripts/a11y/. */
   --color-brand-green-deep: #69AF23;
   --color-brand-green-deep-hover: #9FD01B;
-  --color-brand-green-text: #69AF23;
+  --color-brand-green-text: #457617;
 
   /* Text/icon color for content sitting ON a brand-green surface. Deep
      forest: same hue family as the bar, so it reads as a considered near-
-     black rather than a generic one, at 5.68:1 against #69AF23 — clears AA
-     for normal text. Used by the desktop nav; available to any other green
-     surface that wants out of the white-on-green contrast failure. */
+     black rather than a generic one. 5.68:1 on #69AF23 and 8.43:1 on the
+     #9FD01B hover — both clear AA for normal text. This is the default for
+     ANY content on a green surface; reach for white only where something
+     is genuinely decorative and exempt.
+
+     It also happens to clear AA on all three non-green sector fills —
+     5.19:1 on #19A0DB, 6.72:1 on #FF8F00, 8.43:1 on #9FD01B — which is why
+     the sector chips and badges in services-grid use it too, even though
+     the name says green. One dark ink for every brand surface.
+
+     Translucent use has a floor: /90 is 4.84:1 and still passes, /80 drops
+     to 4.01 and only clears the large-text threshold. Do not go below /80,
+     and only there for text at 24px+ or 19px+ bold. */
   --color-brand-on-green: #0F2A1A;
-  --color-mgs-accent-text: #19A0DB;   /* blue sector accent   */
-  --color-mgs-orange-text: #FF8F00;   /* orange sector accent */
-  --color-mgs-lime-text: #9FD01B;     /* lime sector accent   */
+  --color-mgs-accent-text: #116D96;   /* blue sector accent   */
+  --color-mgs-orange-text: #9A5600;   /* orange sector accent */
+  --color-mgs-lime-text: #55700F;     /* lime sector accent   */
   --color-mgs-clinical-gray: #ECECEF;   /* Platinum page grey (kept) */
   --color-mgs-black: #0F0A0A;           /* Pitch Black — text */
   --color-mgs-steel: #A0A0A0;           /* Cool Steel — muted text/icons */
@@ -339,7 +354,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Selection */
 ::selection {
   background: var(--color-brand-green);
-  color: white;
+  color: var(--color-brand-on-green);
 }
 
 /* Subtitle / Eyebrow — Pfizer-style */
@@ -513,7 +528,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1100;
   padding: 0.75rem 1.5rem;
   background: var(--color-brand-green-deep);
-  color: #ffffff;
+  color: var(--color-brand-on-green);
   font-size: 0.9375rem;
   font-weight: 600;
   border-bottom-left-radius: 0.5rem;

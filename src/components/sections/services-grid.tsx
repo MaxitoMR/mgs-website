@@ -216,7 +216,7 @@ export function ServicesGrid() {
                   onClick={() => handleTabClick(i)}
                   className={cn(
                     "group flex flex-shrink-0 items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-all duration-300",
-                    isActive ? "text-white shadow-lg" : "bg-white/[0.06] text-gray-300 ring-1 ring-white/15 hover:bg-white/[0.1] hover:text-white",
+                    isActive ? "text-brand-on-green shadow-lg" : "bg-white/[0.06] text-gray-300 ring-1 ring-white/15 hover:bg-white/[0.1] hover:text-white",
                   )}
                   style={{
                     borderTopLeftRadius: "1rem",
@@ -226,7 +226,7 @@ export function ServicesGrid() {
                     ...(isActive ? { backgroundColor: cat.deepColor } : {}),
                   }}
                 >
-                  <Icon className={cn("h-4 w-4", isActive ? "text-white" : "text-gray-300 group-hover:text-white")} aria-hidden="true" />
+                  <Icon className={cn("h-4 w-4", isActive ? "text-brand-on-green" : "text-gray-300 group-hover:text-white")} aria-hidden="true" />
                   {cat.shortTitle}
                 </button>
                 );
@@ -325,7 +325,7 @@ export function ServicesGrid() {
                 <div className={cn("absolute inset-x-0 bottom-0 flex flex-col", isBig ? "p-6 lg:p-8" : "p-4")}>
                   {isBig && (
                     <span
-                      className="mb-2 inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white"
+                      className="mb-2 inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.15em] text-brand-on-green"
                       style={{ backgroundColor: active.deepColor }}
                     >
                       Featured

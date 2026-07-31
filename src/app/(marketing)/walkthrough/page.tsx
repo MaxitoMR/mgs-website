@@ -31,7 +31,7 @@ export default function WalkthroughPage() {
 
           <div className="space-y-6">
             {/* CTA Card */}
-            <div className="bg-brand-green-deep p-6 text-white shadow-lg">
+            <div className="bg-brand-green-deep p-6 text-brand-on-green shadow-lg">
               <h3 className="font-display text-xl font-bold">
                 Prefer to Call?
               </h3>

@@ -91,7 +91,7 @@ export function ClientPortalCta() {
                 href="https://www.mgsclientportal.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 bg-brand-green-deep px-6 py-3 text-white text-sm font-medium transition-all duration-300 hover:bg-brand-green-deep-hover hover:shadow-lg"
+                className="inline-flex items-center gap-2.5 bg-brand-green-deep px-6 py-3 text-brand-on-green text-sm font-medium transition-all duration-300 hover:bg-brand-green-deep-hover hover:shadow-lg"
                 style={{ borderTopLeftRadius: '1rem' }}
               >
                 Go to Portal

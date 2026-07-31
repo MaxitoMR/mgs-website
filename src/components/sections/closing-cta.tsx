@@ -29,15 +29,15 @@ export function ClosingCta() {
 
           {/* The ask */}
           <div className="flex flex-col justify-center bg-brand-green-deep p-8 sm:p-12 lg:p-14">
-            {/* white/90 is the floor for 4.5:1 on the deep green. */}
-            <p className="eyebrow text-white/90">The team that shows up</p>
+            {/* /90 is the floor for 4.5:1 on this green — see globals.css. */}
+            <p className="eyebrow text-brand-on-green/90">The team that shows up</p>
             <h2
-              className="mt-3 font-gothic text-white"
+              className="mt-3 font-gothic text-brand-on-green"
               style={{ fontSize: "clamp(1.75rem, 3vw, 2.75rem)", fontWeight: 300, lineHeight: 1.1 }}
             >
               Request a site assessment.
             </h2>
-            <p className="mt-4 max-w-md text-white/90" style={{ fontWeight: 300, lineHeight: 1.7 }}>
+            <p className="mt-4 max-w-md text-brand-on-green/90" style={{ fontWeight: 300, lineHeight: 1.7 }}>
               We will walk your facility, scope the work against your
               requirements, and return a detailed proposal. No obligation.
             </p>
@@ -52,7 +52,7 @@ export function ClosingCta() {
               </Link>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="inline-flex items-center justify-center gap-2 border-2 border-white/60 px-7 py-3.5 font-light text-white transition-all duration-300 hover:border-white hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-2 border-2 border-brand-on-green/50 px-7 py-3.5 font-light text-brand-on-green transition-all duration-300 hover:border-brand-on-green hover:bg-black/[0.08]"
                 style={{ borderTopLeftRadius: "1rem" }}
               >
                 <Phone className="h-4 w-4" />

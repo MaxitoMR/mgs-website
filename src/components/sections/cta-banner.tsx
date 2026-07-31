@@ -25,7 +25,7 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="font-gothic text-white"
+          className="font-gothic text-brand-on-green"
           style={{ fontSize: 'var(--font-h2)', fontWeight: 300 }}
         >
           Request a site assessment.
@@ -35,7 +35,7 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-white/90 mt-6 mb-12 max-w-2xl mx-auto"
+          className="text-brand-on-green/90 mt-6 mb-12 max-w-2xl mx-auto"
           style={{ fontSize: 'var(--font-body-large)', fontWeight: 300, lineHeight: 1.7 }}
         >
           We will walk your facility, scope the work against your requirements, and
@@ -58,7 +58,7 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
           </Link>
           <a
             href="tel:+12818295357"
-            className="inline-flex items-center gap-3 border-2 border-white/50 px-8 py-4 font-light text-white transition-all duration-300 hover:border-white hover:bg-white/10"
+            className="inline-flex items-center gap-3 border-2 border-brand-on-green/50 px-8 py-4 font-light text-brand-on-green transition-all duration-300 hover:border-brand-on-green hover:bg-black/[0.08]"
             style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
           >
             <Phone className="h-4 w-4" />

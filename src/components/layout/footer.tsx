@@ -185,7 +185,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`MGS on ${social.label} (opens in a new tab)`}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-700 text-gray-400 transition-all hover:border-brand-green-deep hover:bg-brand-green-deep hover:text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-700 text-gray-400 transition-all hover:border-brand-green-deep hover:bg-brand-green-deep hover:text-brand-on-green"
                 >
                   <social.icon className="h-4 w-4" />
                 </a>

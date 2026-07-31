@@ -279,7 +279,7 @@ export function QuoteForm() {
               <div
                 className={`flex h-5 w-5 items-center justify-center rounded-none border ${
                   selectedServices.includes(service)
-                    ? "border-brand-green-deep bg-brand-green-deep text-white"
+                    ? "border-brand-green-deep bg-brand-green-deep text-brand-on-green"
                     : "border-gray-300"
                 }`}
               >
@@ -310,7 +310,7 @@ export function QuoteForm() {
       <button
         type="submit"
         disabled={mutation.isPending}
-        className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-brand-green-deep-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-4 text-lg font-semibold text-brand-on-green shadow-lg transition-all hover:bg-brand-green-deep-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
       >
         {mutation.isPending ? (
           <Loader2 className="h-5 w-5 animate-spin" />

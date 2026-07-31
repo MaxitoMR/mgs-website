@@ -19,11 +19,12 @@ import { SearchBar } from "./search-bar";
 import { useScrollNav } from "@/components/providers/scroll-nav-provider";
 
 /* ─────── Category metadata for mega menu ─────── */
-/* `color` is the decorative fill (accent bar, tinted icon chips) and
-   `textColor` is used where the hue becomes text or a meaningful icon.
-   Both currently hold the full-strength brand hues by product decision —
-   see the brand color seam in globals.css. The AA-compliant textColor set
-   is #457617 / #116D96 / #9A5600 / #55700F if contrast is restored. */
+/* `color` is the decorative fill (accent bar, tinted icon chips) and keeps
+   the full-strength brand hues. `textColor` is used where the hue becomes
+   text or a meaningful icon, so it holds the AA-compliant, darker set — see
+   the brand color seam in globals.css. The two intentionally differ: the
+   vibrant hues are 2.71 / 2.96 / 2.29 / 1.82 on white and cannot carry
+   lettering. */
 const categoryMeta: Record<string, {
   icon: typeof Building2;
   color: string;
@@ -34,28 +35,28 @@ const categoryMeta: Record<string, {
   Commercial: {
     icon: Building2,
     color: "#69AF23",
-    textColor: "#69AF23",
+    textColor: "#457617",
     description: "Professional cleaning solutions for offices, retail, restaurants, and business environments.",
     image: "/images/1_1751323808589.png",
   },
   Medical: {
     icon: Stethoscope,
     color: "#19A0DB",
-    textColor: "#19A0DB",
+    textColor: "#116D96",
     description: "Infection-control-grade protocols for surgical centers, labs, imaging facilities, and clinics.",
     image: "/images/imaging center image_1752168794610.png",
   },
   Industrial: {
     icon: Factory,
     color: "#FF8F00",
-    textColor: "#FF8F00",
+    textColor: "#9A5600",
     description: "Heavy-duty cleaning for factories, petrochemical plants, warehouses, and power facilities.",
     image: "/images/IMG_1741_1751917994935.JPG",
   },
   Specialized: {
     icon: Wrench,
     color: "#9FD01B",
-    textColor: "#9FD01B",
+    textColor: "#55700F",
     description: "Advanced solutions for post-construction, concrete, windows, power washing, and more.",
     image: "/images/7_1752264862114.png",
   },
@@ -172,7 +173,7 @@ function MegaMenu({
                     <Link
                       href="/quote"
                       onClick={onClose}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-brand-green-deep text-white text-sm font-medium transition-all hover:bg-brand-green-deep-hover"
+                      className="flex items-center gap-2 px-4 py-2.5 bg-brand-green-deep text-brand-on-green text-sm font-medium transition-all hover:bg-brand-green-deep-hover"
                       style={{ borderTopLeftRadius: '0.75rem' }}
                     >
                       Request Quote
@@ -535,7 +536,7 @@ export function Header() {
             <Link
               href="/quote"
               aria-label="Request a quote"
-              className="flex min-h-11 items-center bg-brand-green-deep px-3 text-[12px] font-semibold text-white"
+              className="flex min-h-11 items-center bg-brand-green-deep px-3 text-[12px] font-semibold text-brand-on-green"
             >
               Quote
             </Link>

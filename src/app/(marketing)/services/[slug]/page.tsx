@@ -139,14 +139,14 @@ export default async function ServicePage({
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/quote"
-                className="group inline-flex items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:bg-brand-green-deep-hover hover:shadow-lg"
+                className="group inline-flex items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-3.5 font-semibold text-brand-on-green shadow-md transition-all hover:bg-brand-green-deep-hover hover:shadow-lg"
               >
                 Get a Quote
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="inline-flex items-center justify-center gap-2 rounded-none border-2 border-brand-green-deep px-8 py-3.5 font-semibold text-brand-green-text transition-all hover:bg-brand-green-deep hover:text-white"
+                className="inline-flex items-center justify-center gap-2 rounded-none border-2 border-brand-green-deep px-8 py-3.5 font-semibold text-brand-green-text transition-all hover:bg-brand-green-deep hover:text-brand-on-green"
               >
                 <Phone className="h-5 w-5" />
                 {COMPANY.phone.display}
@@ -210,7 +210,7 @@ export default async function ServicePage({
                 key={benefit}
                 className="flex items-center gap-3 rounded-none bg-white p-4 shadow-sm"
               >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-none bg-brand-green-deep text-white">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-none bg-brand-green-deep text-brand-on-green">
                   <CheckCircle className="h-4 w-4" />
                 </div>
                 <span className="text-sm font-medium text-gray-800">

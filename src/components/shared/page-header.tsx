@@ -65,20 +65,23 @@ export function PageHeader({
         />
       )}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* /90 is the floor for 4.5:1 on this green — see the on-green token
+            note in globals.css. The chevron may sit lower because it is
+            decorative and only owes the 3:1 non-text threshold. */}
         {breadcrumbs && (
-          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-white/80">
+          <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-sm text-brand-on-green/90">
             {breadcrumbs.map((crumb, i) => (
               <span key={i} className="flex items-center gap-2">
-                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-white/70" aria-hidden="true" />}
+                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-brand-on-green/70" aria-hidden="true" />}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
-                    className="transition-colors duration-300 hover:text-white"
+                    className="transition-colors duration-300 hover:text-brand-on-green"
                   >
                     {crumb.label}
                   </Link>
                 ) : (
-                  <span className="font-light text-white">{crumb.label}</span>
+                  <span className="font-light text-brand-on-green">{crumb.label}</span>
                 )}
               </span>
             ))}
@@ -88,7 +91,7 @@ export function PageHeader({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="font-gothic font-ultra-light text-5xl leading-tight text-white md:text-6xl lg:text-7xl"
+          className="font-gothic font-ultra-light text-5xl leading-tight text-brand-on-green md:text-6xl lg:text-7xl"
         >
           {title}
         </motion.h1>
@@ -97,7 +100,7 @@ export function PageHeader({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-5 max-w-2xl font-clinical font-thin text-lg leading-relaxed text-white/80"
+            className="mt-5 max-w-2xl font-clinical font-thin text-lg leading-relaxed text-brand-on-green/90"
           >
             {subtitle}
           </motion.p>
