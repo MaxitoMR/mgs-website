@@ -73,9 +73,9 @@ export function HeroSection() {
     >
       {/* Real crew, real medical corridor. `priority` because this is the
           LCP element — without it Next lazy-loads and the hero flashes empty.
-          object-position favours the right so the worker and the doorway
-          survive the crop on narrow viewports, where centre-cropping would
-          push the subject off-screen. */}
+          object-position sits at 35% because phones only see ~34% of the
+          width: the worker is at 30-47% of the frame and the floor machine at
+          5-30%, so anything further right crops the machine out entirely. */}
       <Image
         src="/images/hero-medical-floor-care.jpg"
         alt="An MGS technician running a floor machine in a medical facility corridor"
@@ -83,7 +83,7 @@ export function HeroSection() {
         priority
         sizes="100vw"
         className="object-cover"
-        style={{ objectPosition: '62% center' }}
+        style={{ objectPosition: '35% center' }}
       />
 
       {/* Two scrims doing different jobs. The horizontal one buys legibility
@@ -100,9 +100,9 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative z-50 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20">
+      <div className="relative z-50 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 sm:py-14">
         <div className="max-w-5xl">
-          <p ref={eyebrowRef} className="eyebrow text-[#9FD01B] mb-5 opacity-0">
+          <p ref={eyebrowRef} className="eyebrow text-brand-lime mb-5 opacity-0">
             Est. 2006
           </p>
 
@@ -110,7 +110,7 @@ export function HeroSection() {
             ref={headingRef}
             className="font-gothic text-[#FBFBFE] hero-text-shadow"
             style={{
-              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontSize: 'clamp(2.125rem, 4.1vw, 3.625rem)',
               fontWeight: 300,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
@@ -119,14 +119,14 @@ export function HeroSection() {
           >
             <span className="hero-line inline-block opacity-0">Janitorial services,</span>
             <br />
-            <span className="hero-line inline-block opacity-0 text-[#69AF23]">engineered to</span>
+            <span className="hero-line inline-block opacity-0 text-brand-green-deep">engineered to</span>
             <br />
             <span className="hero-line inline-block opacity-0">a measurable standard.</span>
           </h1>
 
           <p
             ref={subtitleRef}
-            className="text-gray-300 mt-7 mb-10 max-w-xl opacity-0"
+            className="text-gray-300 mt-5 mb-8 max-w-xl opacity-0"
             style={{
               fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
               fontWeight: 300,
@@ -142,13 +142,13 @@ export function HeroSection() {
               the call-to-action, so the hero closes on proof instead. */}
           <div
             ref={ctaRef}
-            className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/15 pt-8 sm:flex sm:flex-wrap sm:gap-x-12 lg:gap-x-16"
+            className="grid grid-cols-2 gap-x-8 gap-y-5 border-t border-white/15 pt-6 sm:flex sm:flex-wrap sm:gap-x-12 lg:gap-x-16"
           >
             {heroStats.map((s) => (
               <div key={s.label} className="hero-stat opacity-0">
                 <div
-                  className="font-gothic text-[#9FD01B]"
-                  style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 300, lineHeight: 1 }}
+                  className="font-gothic text-brand-lime"
+                  style={{ fontSize: "clamp(1.625rem, 2.6vw, 2.25rem)", fontWeight: 300, lineHeight: 1 }}
                 >
                   {s.value}
                 </div>
