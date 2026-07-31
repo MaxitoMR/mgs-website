@@ -29,7 +29,7 @@ const categoryColors: Record<string, string> = {
    (#69AF23 / #19A0DB / #FF8F00 / #9FD01B) are 2.71 / 2.96 / 2.29 / 1.82 on
    white and belong on surfaces, not in lettering. */
 const categoryTextColors: Record<string, string> = {
-  commercial: "#457617",
+  commercial: "#54760F",
   medical: "#116D96",
   industrial: "#9A5600",
   additional: "#55700F",
@@ -150,7 +150,7 @@ export default function ServicesContent() {
         const Icon = categoryIcons[category.id] || Sparkles;
         const color = categoryColors[category.id];
         const textColor = categoryTextColors[category.id];
-        const bgColor = catIndex % 2 === 0 ? "bg-white" : "bg-[#FBFBFE]";
+        const bgColor = catIndex % 2 === 0 ? "bg-white" : "bg-paper";
 
         return (
           <section

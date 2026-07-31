@@ -13,7 +13,7 @@ const features = [
   {
     icon: Shield,
     color: "#69AF23",
-    iconColor: "#457617",
+    iconColor: "#54760F",
     title: "Compliant by Design",
     description: "Every product carries EPA registration; every crew operates to OSHA standards. In regulated environments — surgical suites, laboratories, food-adjacent spaces — compliance is documented, not assumed.",
   },

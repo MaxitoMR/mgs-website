@@ -7,7 +7,7 @@ import { COMPANY } from "@/lib/constants";
 export function ClosingCta() {
   return (
     <section
-      className="w-full bg-[#F4F4F5]"
+      className="w-full bg-paper-alt"
       style={{ paddingTop: "clamp(3.5rem, 7vw, 6rem)", paddingBottom: "clamp(3.5rem, 7vw, 6rem)" }}
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
@@ -44,7 +44,7 @@ export function ClosingCta() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/quote"
-                className="inline-flex items-center justify-center gap-2 bg-white px-7 py-3.5 font-medium text-brand-green-text transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-white px-7 py-3.5 font-medium text-brand-green-text transition-all duration-300 hover:bg-paper hover:shadow-lg"
                 style={{ borderTopLeftRadius: "1rem" }}
               >
                 Schedule Free Assessment

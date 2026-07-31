@@ -85,7 +85,7 @@ export function SearchBar({ className, onNavigate }: SearchBarProps) {
         "flex items-center gap-2 px-4 py-2.5 border transition-all duration-200",
         hasQuery
           ? "border-[#69AF23] bg-white shadow-sm"
-          : "border-gray-200 bg-gray-50/80 hover:border-gray-300"
+          : "border-gray-200 bg-paper/80 hover:border-gray-300"
       )} style={{ borderTopLeftRadius: '0.75rem' }}>
         <Search className={cn("h-4 w-4 flex-shrink-0 transition-colors", hasQuery ? "text-brand-green-text" : "text-gray-400")} />
         <input

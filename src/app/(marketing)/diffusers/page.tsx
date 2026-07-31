@@ -107,7 +107,7 @@ export default function DiffusersPage() {
               </ul>
               <Link
                 href="/quote"
-                className="mt-8 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3 font-semibold text-brand-green-text transition-all hover:bg-gray-50"
+                className="mt-8 inline-flex items-center gap-2 rounded-none bg-white px-6 py-3 font-semibold text-brand-green-text transition-all hover:bg-paper"
               >
                 Request a Consultation
                 <ArrowRight className="h-5 w-5" />

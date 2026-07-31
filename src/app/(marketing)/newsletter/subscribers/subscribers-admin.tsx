@@ -152,7 +152,7 @@ export function SubscribersAdmin() {
           ) : (
             <div className="mt-6 overflow-hidden border border-gray-100">
               <table className="w-full text-left text-sm">
-                <thead className="bg-gray-50 text-xs uppercase tracking-wider text-gray-400">
+                <thead className="bg-paper text-xs uppercase tracking-wider text-gray-400">
                   <tr>
                     <th className="px-4 py-3 font-semibold">Email</th>
                     <th className="hidden px-4 py-3 font-semibold sm:table-cell">
@@ -165,7 +165,7 @@ export function SubscribersAdmin() {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {subscribers.map((s) => (
-                    <tr key={s.email} className="hover:bg-gray-50/60">
+                    <tr key={s.email} className="hover:bg-paper/60">
                       <td className="px-4 py-3 text-gray-800">
                         <a
                           href={`mailto:${s.email}`}

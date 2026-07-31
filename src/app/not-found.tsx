@@ -3,7 +3,7 @@ import { Home, FileText } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#FBFBFE] px-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-paper px-4">
       <div className="text-center max-w-lg">
         {/* Large 404 */}
         <h1

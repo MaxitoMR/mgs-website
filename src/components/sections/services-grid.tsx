@@ -12,7 +12,7 @@ import { getServiceBySlug } from "@/lib/services-data";
    used where the hue becomes a SURFACE behind white text (active tab pill,
    Featured badge). Both currently hold the full-strength hues by product
    decision — see the brand color seam in globals.css. AA-compliant
-   deepColor set: #457617 / #116D96 / #9A5600 / #55700F. */
+   deepColor set: #54760F / #116D96 / #9A5600 / #55700F. */
 const serviceCategories = [
   {
     id: "commercial",

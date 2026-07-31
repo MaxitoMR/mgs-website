@@ -35,7 +35,7 @@ const categoryMeta: Record<string, {
   Commercial: {
     icon: Building2,
     color: "#69AF23",
-    textColor: "#457617",
+    textColor: "#54760F",
     description: "Professional cleaning solutions for offices, retail, restaurants, and business environments.",
     image: "/images/1_1751323808589.png",
   },

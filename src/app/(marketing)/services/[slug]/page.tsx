@@ -224,7 +224,7 @@ export default async function ServicePage({
 
       {/* Related Services */}
       {related.length > 0 && (
-        <SectionWrapper className="bg-gray-50">
+        <SectionWrapper className="bg-paper">
           <h2 className="mb-8 font-display text-2xl font-bold text-gray-900">
             Related Services
           </h2>

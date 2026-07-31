@@ -192,7 +192,7 @@ export default function AboutPage() {
       {/* Recognition — the plaque itself. A photographed physical artifact
           reads as real in a way a re-drawn badge does not, which is the
           whole point of putting it here rather than in the hero. */}
-      <SectionWrapper className="bg-[#F4F4F5]">
+      <SectionWrapper className="bg-paper-alt">
         <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-16">
           <MotionWrapper>
             <Image
@@ -283,7 +283,7 @@ export default function AboutPage() {
       )}
 
       {/* Operating principles — moved here from the retired /leadership page. */}
-      <SectionWrapper className="bg-[#F4F4F5]">
+      <SectionWrapper className="bg-paper-alt">
         <SectionHeading
           className="mb-12"
           eyebrow="How Leadership Operates"

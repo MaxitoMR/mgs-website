@@ -50,7 +50,7 @@ export function CtaBanner({ backdrop = "#191919" }: { backdrop?: string }) {
         >
           <Link
             href="/quote"
-            className="inline-flex items-center gap-3 bg-white px-8 py-4 font-medium text-brand-green-text transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
+            className="inline-flex items-center gap-3 bg-white px-8 py-4 font-medium text-brand-green-text transition-all duration-300 hover:bg-paper hover:shadow-lg"
             style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
           >
             Schedule Free Assessment

@@ -48,26 +48,47 @@
      accents to #19A0DB / #FF8F00 / #9FD01B; that reinstates the documented
      brand-over-contrast trade-off without touching any surface.
      Re-verify with scripts/a11y/. */
-  --color-brand-green-deep: #69AF23;
+  --color-brand-green-deep: #80B515;
   --color-brand-green-deep-hover: #9FD01B;
-  --color-brand-green-text: #457617;
+  --color-brand-green-text: #54760F;
 
-  /* Text/icon color for content sitting ON a brand-green surface. Deep
-     forest: same hue family as the bar, so it reads as a considered near-
-     black rather than a generic one. 5.68:1 on #69AF23 and 8.43:1 on the
-     #9FD01B hover — both clear AA for normal text. This is the default for
-     ANY content on a green surface; reach for white only where something
-     is genuinely decorative and exempt.
+  /* Text/icon color for content sitting ON a brand-green surface.
+     Leaf-black: a near-black at the LOGO'S OWN HUE (H80), so it reads as
+     the green turned down rather than a foreign color set on top of it.
+     6.51:1 on #80B515 and 8.78:1 on the #9FD01B hover.
 
-     It also happens to clear AA on all three non-green sector fills —
-     5.19:1 on #19A0DB, 6.72:1 on #FF8F00, 8.43:1 on #9FD01B — which is why
-     the sector chips and badges in services-grid use it too, even though
-     the name says green. One dark ink for every brand surface.
+     It was #0F2A1A (deep forest) until the green was corrected. Forest
+     measures H144 — an emerald, 64° off the leaf — which only looked
+     plausible against the drifted #69AF23. Against the real green it reads
+     as a different color family. Do not go back to it.
+
+     It also clears AA on the non-green sector fills — 5.41:1 on #19A0DB,
+     4.95:1 on #F95A10-class oranges, 8.78:1 on #9FD01B — which is why the
+     sector chips and badges in services-grid use it too, even though the
+     name says green. One dark ink for every brand surface. The exception is
+     saturated red (#FF0A2B is 4.06), which needs its own treatment.
 
      Translucent use has a floor: /90 is 4.84:1 and still passes, /80 drops
      to 4.01 and only clears the large-text threshold. Do not go below /80,
      and only there for text at 24px+ or 19px+ bold. */
-  --color-brand-on-green: #0F2A1A;
+  --color-brand-on-green: #1D240F;
+
+  /* ── Grounds ──────────────────────────────────────────────────────────
+     The page ground is the largest area on the site, so it gets chosen
+     rather than defaulted. These are warm — pulled toward the leaf's
+     yellow-green — so the page never goes cold between green blocks, which
+     is what the previous cool #FBFBFE did.
+
+     Both were picked to hold the LIGHTNESS of the greys they replace, so
+     warming the palette moved no contrast ratio materially: body text is
+     13.93:1 on paper (was 14.21 on #FBFBFE) and every text token that
+     passed before still passes.
+
+     Known, pre-existing and unchanged: gray-500 on the alt band is 4.38:1.
+     It was 4.40 before this change — parity, not a regression introduced
+     here. Use gray-600 or darker for body copy on that band. */
+  --color-paper: #FAF9F4;       /* page ground — replaces #FBFBFE      */
+  --color-paper-alt: #F5F4EC;   /* alternating band — replaces #F4F4F5 */
   --color-mgs-accent-text: #116D96;   /* blue sector accent   */
   --color-mgs-orange-text: #9A5600;   /* orange sector accent */
   --color-mgs-lime-text: #55700F;     /* lime sector accent   */
@@ -163,7 +184,7 @@ html, body {
 body {
   font-family: var(--font-sans);
   color: #1f2937;
-  background-color: #FBFBFE;
+  background-color: var(--color-paper);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

@@ -156,7 +156,7 @@ export default function KatyPage() {
           dominant elements are BusinessRate's logo and shield, so reproducing
           it here would hand the page's strongest position to the awarding
           body's branding. The plaque lives on /about as the artifact. */}
-      <SectionWrapper className="bg-[#F4F4F5]">
+      <SectionWrapper className="bg-paper-alt">
         <MotionWrapper>
           <div className="mx-auto max-w-3xl text-center">
             <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
@@ -244,7 +244,7 @@ export default function KatyPage() {
       </SectionWrapper>
 
       {/* What we clean in Katy */}
-      <SectionWrapper className="bg-[#FBFBFE]">
+      <SectionWrapper className="bg-paper">
         <div className="max-w-3xl">
           <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
             What we clean in Katy
@@ -321,7 +321,7 @@ export default function KatyPage() {
       </SectionWrapper>
 
       {/* Local FAQ */}
-      <SectionWrapper className="bg-[#F4F4F5]">
+      <SectionWrapper className="bg-paper-alt">
         <div className="max-w-3xl">
           <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
             Questions
@@ -364,8 +364,10 @@ export default function KatyPage() {
         </div>
       </SectionWrapper>
 
-      {/* The FAQ band above is #F4F4F5, so the CTA backdrop must match it. */}
-      <CtaBanner backdrop="#F4F4F5" />
+      {/* The FAQ band above is the alt paper ground, so the CTA backdrop must
+          match it. Kept as a literal because it is a prop, not a class — if
+          --color-paper-alt moves, this has to move with it. */}
+      <CtaBanner backdrop="#F5F4EC" />
     </>
   );
 }

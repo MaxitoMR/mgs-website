@@ -100,7 +100,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-screen bg-[#FBFBFE] text-gray-800 antialiased font-light">
+      <body className="min-h-screen bg-paper text-gray-800 antialiased font-light">
         {children}
         <Analytics />
         <SpeedInsights />
