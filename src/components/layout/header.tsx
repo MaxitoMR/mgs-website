@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { MobileNav } from "./mobile-nav";
 import { TopBar } from "./top-bar";
-import { BrandLockup } from "./brand-lockup";
 import { SearchBar } from "./search-bar";
 import { useScrollNav } from "@/components/providers/scroll-nav-provider";
 
@@ -445,15 +444,17 @@ export function Header() {
         <TopBar />
 
         {/* 2. Main Header Row - Logo + Search + Social */}
-        <div className="hidden lg:block bg-white py-3">
+        <div className="hidden lg:block bg-white py-4">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-            {/* Logo — typeset lockup, not the print PNG. See brand-lockup.tsx:
-                the raster tagline forced a 96–128px logo and a ~234px header. */}
-            <Link href="/" aria-label={`${COMPANY.name} home`} className="flex-shrink-0">
-              <BrandLockup
-                markHeight="clamp(2.5rem, 3.2vw, 3rem)"
-                titleSize="clamp(1rem, 1.25vw, 1.1875rem)"
-                taglineSize="clamp(0.5625rem, 0.68vw, 0.6875rem)"
+            {/* Logo */}
+            <Link href="/" className="flex-shrink-0" style={{ marginLeft: 'clamp(-0.75rem, -0.75vw, -0.5rem)' }}>
+              <Image
+                src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
+                alt={COMPANY.name}
+                width={320}
+                height={100}
+                className="w-auto transition-none"
+                style={{ height: 'clamp(6rem, 8vw, 8rem)' }}
                 priority
               />
             </Link>
@@ -515,7 +516,14 @@ export function Header() {
           style={{ paddingTop: "calc(0.5rem + env(safe-area-inset-top))" }}
         >
           <Link href="/" aria-label="MGS home" className="flex items-center">
-            <BrandLockup markHeight="2.1rem" titleSize="0.875rem" showTagline={false} priority />
+            <Image
+              src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
+              alt={COMPANY.name}
+              width={140}
+              height={42}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
           <div className="flex items-center gap-1">
             <a
