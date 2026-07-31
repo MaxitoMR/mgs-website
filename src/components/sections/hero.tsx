@@ -143,15 +143,9 @@ export function HeroSection() {
     >
       <HeroVideo />
 
-      <div
-        className="absolute inset-0 z-20"
-        style={{
-          backgroundImage: "url('/images/imaging_1751323808587.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.4,
-        }}
-      />
+      {/* No texture layer between the video and the scrim — the imaging
+          still that used to sit here at 40% was muting the footage. The
+          scrim below is now the only thing over the video. */}
 
       <div
         className="absolute inset-0 z-[21]"
