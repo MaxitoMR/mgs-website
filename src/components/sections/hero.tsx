@@ -1,78 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "@/lib/gsap";
-
-const SUPABASE_PROJECT_REF = 'uuvspvqebodievfkwwss';
-const heroVideos = [
-  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-1.mp4`,
-  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-2.mp4`,
-  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-3.mp4`,
-  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-4.mp4`,
-  `https://${SUPABASE_PROJECT_REF}.supabase.co/storage/v1/object/public/hero-videos/mgs-hero-vid-5.mp4`,
-];
-
-function HeroVideo() {
-  const videoRef1 = useRef<HTMLVideoElement>(null);
-  const videoRef2 = useRef<HTMLVideoElement>(null);
-  const [activePlayer, setActivePlayer] = useState(0);
-  const currentIndexRef = useRef(0);
-  const activePlayerRef = useRef(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const video1 = videoRef1.current;
-    if (video1) {
-      video1.src = heroVideos[0];
-      video1.playbackRate = 0.6;
-      video1.play().catch(() => {});
-      setIsLoaded(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = (currentIndexRef.current + 1) % heroVideos.length;
-      const nextVideo = activePlayerRef.current === 0 ? videoRef2.current : videoRef1.current;
-      if (nextVideo) {
-        nextVideo.src = heroVideos[nextIndex];
-        nextVideo.playbackRate = 0.6;
-        nextVideo.play().catch(() => {});
-      }
-      activePlayerRef.current = activePlayerRef.current === 0 ? 1 : 0;
-      currentIndexRef.current = nextIndex;
-      setActivePlayer(activePlayerRef.current);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 z-10">
-      {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
-          <p className="text-gray-400 font-light">Loading videos...</p>
-        </div>
-      )}
-      <video
-        ref={videoRef1}
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
-        style={{ opacity: activePlayer === 0 ? 1 : 0 }}
-      />
-      <video
-        ref={videoRef2}
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
-        style={{ opacity: activePlayer === 1 ? 1 : 0 }}
-      />
-    </div>
-  );
-}
 
 // Stats moved up from the old standalone bar into the hero.
 const heroStats = [
@@ -141,16 +71,32 @@ export function HeroSection() {
       className="relative w-full flex items-center overflow-hidden"
       style={{ minHeight: 'clamp(28rem, 70vh, 48rem)' }}
     >
-      <HeroVideo />
+      {/* Real crew, real medical corridor. `priority` because this is the
+          LCP element — without it Next lazy-loads and the hero flashes empty.
+          object-position favours the right so the worker and the doorway
+          survive the crop on narrow viewports, where centre-cropping would
+          push the subject off-screen. */}
+      <Image
+        src="/images/hero-medical-floor-care.jpg"
+        alt="An MGS technician running a floor machine in a medical facility corridor"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+        style={{ objectPosition: '62% center' }}
+      />
 
-      {/* No texture layer between the video and the scrim — the imaging
-          still that used to sit here at 40% was muting the footage. The
-          scrim below is now the only thing over the video. */}
-
+      {/* Two scrims doing different jobs. The horizontal one buys legibility
+          for the headline, which sits left — so it is heavy at the left edge
+          and clears by the right, leaving the worker and the corridor visible
+          rather than flattening the whole photo. The vertical one only darkens
+          the top and bottom edges, for the nav above and the CTAs below. */}
       <div
         className="absolute inset-0 z-[21]"
         style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%)',
+          background:
+            'linear-gradient(90deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.72) 28%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.18) 78%, rgba(0,0,0,0.10) 100%),' +
+            'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.42) 100%)',
         }}
       />
 
