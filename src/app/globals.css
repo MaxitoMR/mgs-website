@@ -27,6 +27,11 @@
      contrast. This was chosen with the numbers on the table — brand
      fidelity over the contrast criterion.
 
+     EXCEPT the desktop nav, which is now compliant without moving the
+     brand hue: instead of darkening the bar, its text moved from white to
+     --color-brand-on-green (5.68:1). Green buttons and green-on-light text
+     runs are still on the trade-off above.
+
      Everything else from the accessibility pass is unaffected and still
      holds: form labeling, keyboard operability, landmarks, the focus ring,
      reduced motion, and all non-green text contrast.
@@ -41,6 +46,13 @@
   --color-brand-green-deep: #69AF23;
   --color-brand-green-deep-hover: #9FD01B;
   --color-brand-green-text: #69AF23;
+
+  /* Text/icon color for content sitting ON a brand-green surface. Deep
+     forest: same hue family as the bar, so it reads as a considered near-
+     black rather than a generic one, at 5.68:1 against #69AF23 — clears AA
+     for normal text. Used by the desktop nav; available to any other green
+     surface that wants out of the white-on-green contrast failure. */
+  --color-brand-on-green: #0F2A1A;
   --color-mgs-accent-text: #19A0DB;   /* blue sector accent   */
   --color-mgs-orange-text: #FF8F00;   /* orange sector accent */
   --color-mgs-lime-text: #9FD01B;     /* lime sector accent   */

@@ -255,11 +255,17 @@ function DesktopNav() {
                 onClick={() =>
                   setOpenMenu(openMenu === category.label ? null : category.label)
                 }
+                /* Deep-forest text on the green bar, not white: white-on-
+                   #69AF23 is 2.71:1 and fails AA, this is 5.68:1. Overlays
+                   are black tints for the same reason — a white wash barely
+                   registers under dark type. Weight is 400, not the 300 used
+                   elsewhere, because dark type on a bright ground reads
+                   thinner than light type at the same weight. */
                 className={cn(
-                  "flex items-center gap-1 px-3 h-full text-white font-light transition-all duration-200",
+                  "flex items-center gap-1 px-3 h-full text-brand-on-green font-normal transition-all duration-200",
                   openMenu === category.label
-                    ? "bg-white/15"
-                    : "hover:bg-white/10"
+                    ? "bg-black/[0.16]"
+                    : "hover:bg-black/[0.09]"
                 )}
                 style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
               >
@@ -276,7 +282,7 @@ function DesktopNav() {
           ))}
           <Link
             href="/diffusers"
-            className="flex items-center px-3 text-white hover:bg-white/10 h-full font-light transition-all duration-200"
+            className="flex items-center px-3 text-brand-on-green hover:bg-black/[0.09] h-full font-normal transition-all duration-200"
             style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
           >
             Diffusers
@@ -289,7 +295,7 @@ function DesktopNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center px-3 h-full text-white hover:bg-white/10 font-light transition-all duration-200"
+              className="flex items-center px-3 h-full text-brand-on-green hover:bg-black/[0.09] font-normal transition-all duration-200"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               {item.label}
@@ -306,7 +312,7 @@ function DesktopNav() {
               aria-expanded={portalsOpen}
               aria-haspopup="true"
               onClick={() => setPortalsOpen((open) => !open)}
-              className="flex items-center gap-1 px-3 py-1 bg-white/10 text-white hover:bg-white/15 font-light transition-all duration-200"
+              className="flex items-center gap-1 px-3 py-1 bg-black/10 text-brand-on-green hover:bg-black/[0.17] font-normal transition-all duration-200"
               style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
             >
               Portals
