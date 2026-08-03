@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    // Next 16 only generates the quality levels declared here — any `quality`
+    // prop outside this list is dropped with a build-time warning. Keep this in
+    // sync when a component asks for something other than the 75 default.
+    qualities: [75, 82, 84, 100],
     remotePatterns: [
       {
         protocol: "https",
