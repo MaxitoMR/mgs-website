@@ -194,104 +194,63 @@ export function AppShowcase() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
-        {/* ── Beat 1 — the claim ───────────────────────────────────────── */}
+        {/* ── Beats 1+2 — the claim and the product, one row ────────────────
+            Deliberately a single row rather than a headline block stacked over
+            a phone row. Split across two rows, the copy column was ~380px of
+            content facing a 590px phone, which left both a vertical imbalance
+            and roughly 700px of dead centre between them. Stacking everything
+            — eyebrow, headline, intro, features, badges, CTA — into one column
+            makes the left side about as tall as the phone, so the two halves
+            carry equal weight and the gap between them reads as breathing room
+            instead of a hole. */}
         <div
-          className="max-w-3xl"
-          style={{ paddingTop: "clamp(5rem, 10vw, 8.5rem)" }}
+          className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14"
+          style={{
+            paddingTop: "clamp(5rem, 10vw, 8.5rem)",
+          }}
         >
-          <p data-reveal className="eyebrow mb-5 text-brand-lime">
-            Mobile App
-          </p>
-          <h2
-            data-reveal
-            className="font-gothic text-white"
-            style={{
-              fontSize: "clamp(2rem, 4.4vw, 3.75rem)",
-              fontWeight: 300,
-              lineHeight: 1.06,
-              letterSpacing: "-0.025em",
-            }}
-          >
-            Field operations,
-            <br />
-            <span className="text-brand-green-deep">instrumented.</span>
-          </h2>
-          <p
-            data-reveal
-            className="mt-6 max-w-xl text-gray-300"
-            style={{
-              fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
-              fontWeight: 300,
-              lineHeight: 1.7,
-            }}
-          >
-            We built the software that runs our field operations: GPS-verified
-            clock-ins, digital QA checklists, shift documentation, and supply
-            requisitions. Clients log in to see activity at their site in real
-            time.
-          </p>
-        </div>
+          {/* Copy comes FIRST in source order, not just visually first via
+              `order`. The headline lives in this column, so source order is
+              what mobile reads — swapping with `order` would lead the phone
+              on a phone, with no context above it. Capped at max-w-xl:
+              allowed to fill 7/12 of a max-w-7xl, the feature rows drift
+              apart into a scatter. */}
+          <div className="lg:col-span-7 lg:max-w-xl">
+            <p data-reveal className="eyebrow mb-5 text-brand-lime">
+              Mobile App
+            </p>
+            <h2
+              data-reveal
+              className="font-gothic text-white"
+              style={{
+                fontSize: "clamp(2rem, 4.4vw, 3.75rem)",
+                fontWeight: 300,
+                lineHeight: 1.06,
+                letterSpacing: "-0.025em",
+              }}
+            >
+              Field operations,
+              <br />
+              <span className="text-brand-green-deep">instrumented.</span>
+            </h2>
+            <p
+              data-reveal
+              className="mt-6 text-gray-300"
+              style={{
+                fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
+                fontWeight: 300,
+                lineHeight: 1.7,
+              }}
+            >
+              We built the software that runs our field operations: GPS-verified
+              clock-ins, digital QA checklists, shift documentation, and supply
+              requisitions. Clients log in to see activity at their site in real
+              time.
+            </p>
 
-        {/* ── Beat 2 — the product ─────────────────────────────────────── */}
-        <div
-          className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16"
-          style={{ paddingTop: "clamp(3.5rem, 7vw, 6rem)" }}
-        >
-          {/* Phone pushed toward the centre line rather than centred in its own
-              column — at this column ratio a 272px phone floating in a 580px
-              box reads as a gap, not as composition. */}
-          <div className="flex justify-center lg:col-span-5 lg:justify-end lg:pr-4">
-            <div data-phone className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 opacity-30 blur-[80px]"
-                style={{
-                  background:
-                    "radial-gradient(circle, var(--color-brand-green) 0%, transparent 70%)",
-                }}
-              />
-              <div
-                className="relative mx-auto w-[248px] sm:w-[272px]"
-                style={{
-                  background:
-                    "linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)",
-                  borderRadius: "36px",
-                  padding: "10px",
-                  boxShadow:
-                    "0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
-                }}
-              >
-                <div
-                  aria-hidden="true"
-                  className="absolute left-1/2 top-[10px] z-20 h-[24px] w-[90px] -translate-x-1/2 bg-black"
-                  style={{ borderRadius: "20px" }}
-                />
-                <div
-                  className="relative overflow-hidden bg-white"
-                  style={{ borderRadius: "28px", aspectRatio: "9/19.5" }}
-                >
-                  <Image
-                    src="/images/app-screenshots/active-shift.png"
-                    alt="The MGS Management App showing a shift in progress, with the GPS clock-in timer, required shift photos, and supply request controls"
-                    fill
-                    className="object-cover object-top"
-                    sizes="272px"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Content capped well inside the column. Left to fill 7/12 of a
-              max-w-7xl the eight feature rows drift apart into a scatter. */}
-          <div className="lg:col-span-7 lg:max-w-sm">
-            {/* One tall column beside the phone on desktop. Two columns of
-                four came out ~190px against a ~590px phone, which left the
-                row visibly bottom-heavy on the image side; eight stacked rows
-                run to roughly the phone's height and the pair balances. */}
             <div
               data-reveal-group
-              className="grid grid-cols-2 gap-x-6 gap-y-4 lg:grid-cols-1 lg:gap-y-[1.15rem]"
+              className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4"
             >
               {features.map((f) => {
                 const Icon = f.icon;
@@ -347,6 +306,52 @@ export function AppShowcase() {
               <p className="mt-3 text-[11px] font-light text-white/40">
                 Free &middot; iOS 15.1+ &middot; iPhone, iPad &amp; Apple Vision
               </p>
+            </div>
+          </div>
+
+          {/* Phone holds the RIGHT edge — `justify-end`, not centred in its
+              column. Centred, it floats mid-column and the container's right
+              edge sits empty, which is the exact imbalance this layout went
+              through two revisions to fix. */}
+          <div className="flex justify-center lg:col-span-5 lg:justify-end">
+            <div data-phone className="relative">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-30 blur-[80px]"
+                style={{
+                  background:
+                    "radial-gradient(circle, var(--color-brand-green) 0%, transparent 70%)",
+                }}
+              />
+              <div
+                className="relative mx-auto w-[248px] sm:w-[272px]"
+                style={{
+                  background:
+                    "linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)",
+                  borderRadius: "36px",
+                  padding: "10px",
+                  boxShadow:
+                    "0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
+                }}
+              >
+                <div
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-[10px] z-20 h-[24px] w-[90px] -translate-x-1/2 bg-black"
+                  style={{ borderRadius: "20px" }}
+                />
+                <div
+                  className="relative overflow-hidden bg-white"
+                  style={{ borderRadius: "28px", aspectRatio: "9/19.5" }}
+                >
+                  <Image
+                    src="/images/app-screenshots/active-shift.png"
+                    alt="The MGS Management App showing a shift in progress, with the GPS clock-in timer, required shift photos, and supply request controls"
+                    fill
+                    className="object-cover object-top"
+                    sizes="272px"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
