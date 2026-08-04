@@ -69,6 +69,7 @@ One page now carries the company story, the award, the people, and the operating
 - JSON-LD: `LocalBusiness` (home), `FAQPage` (FAQ + `/katy`), enriched `Service` + `BreadcrumbList` (each service page), `Person` + `BreadcrumbList` (About), `Service` + `BreadcrumbList` (`/katy`). Component: `src/components/seo/json-ld.tsx`.
 
 ## Other facts
+- **Route loader** (`src/app/loading.tsx`) is the logo over a thin green sweep — **not a spinner**. It was a `border-4 ... rounded-none animate-spin` div, i.e. a rotating *square*. Every other loading state on the site is a lucide `Loader2` inside a button; a full-screen spinner competing with those looks like a different product. The rail is deliberately narrower than the mark — wider overhangs it and reads as a misalignment. Uses the existing `animate-shimmer` keyframe, so under `prefers-reduced-motion` it lands on its final frame and rests as a plain grey line; nothing depends on a tween running to be visible.
 - **Phone:** canonical call number is **(281) 829-5357** (`COMPANY.phone.primary/display`). 5358 is stored as `secondary`, not shown. (Bug fixed: site was dialing 5358 everywhere except the desktop top bar.)
 - **Newsletter admin:** gated `/newsletter/subscribers` + `GET /api/newsletter-subscribers`, env `NEWSLETTER_ADMIN_KEY` = `mgs-news-e2e8dbbc95b8091582ba` (Vercel Prod+Dev). Signups write to mgs-manager Supabase `newsletter_subscribers`.
 - **Newsletter signup** has honeypot (`company_url`) + min-time (2s) spam gates; silently drops spam.
