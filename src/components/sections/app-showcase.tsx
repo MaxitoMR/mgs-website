@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Smartphone,
   MapPin,
@@ -14,8 +15,11 @@ import {
   PenLine,
   Clock3,
   Languages,
+  ArrowRight,
 } from "lucide-react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { PhoneFrame } from "@/components/shared/phone-frame";
+import { CaptureClip } from "@/components/shared/app-capture";
 
 /**
  * The app chapter — one continuous dark field, scrolled through in beats.
@@ -45,6 +49,15 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
  * they're set into the page rather than pasted onto it. `scale(1.14)` on the
  * inner image is the headroom the drift eats — reduce the drift if you reduce
  * the scale, or the crop will show its edges at the extremes.
+ *
+ * BEATS: claim → product → the turn → the refusal (clip) → the walk (photo) →
+ * the handoff (photo) → the terms → the evidence for the terms. The refusal
+ * sits between the turn and the photographs on purpose; the note on that block
+ * explains why, and moving it after the photos undoes the argument.
+ *
+ * The captures themselves are derived by `scripts/build-app-captures.mjs` from
+ * originals that live in Dropbox, not in the repo. Add a capture there, re-run
+ * it, don't hand-optimize files into `public/`.
  */
 
 const APP_STORE_URL =
@@ -314,44 +327,16 @@ export function AppShowcase() {
               edge sits empty, which is the exact imbalance this layout went
               through two revisions to fix. */}
           <div className="flex justify-center lg:col-span-5 lg:justify-end">
-            <div data-phone className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 opacity-30 blur-[80px]"
-                style={{
-                  background:
-                    "radial-gradient(circle, var(--color-brand-green) 0%, transparent 70%)",
-                }}
-              />
-              <div
-                className="relative mx-auto w-[248px] sm:w-[272px]"
-                style={{
-                  background:
-                    "linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)",
-                  borderRadius: "36px",
-                  padding: "10px",
-                  boxShadow:
-                    "0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
-                }}
-              >
-                <div
-                  aria-hidden="true"
-                  className="absolute left-1/2 top-[10px] z-20 h-[24px] w-[90px] -translate-x-1/2 bg-black"
-                  style={{ borderRadius: "20px" }}
+            <div data-phone>
+              <PhoneFrame glow>
+                <Image
+                  src="/images/app-screenshots/inspection-failed-item.webp"
+                  alt="The MGS Management App mid-inspection: a checklist item marked Fail at 4 out of 10, a required failure note reading &ldquo;There is still dust everywhere&rdquo;, an attached photo of the area, and the running site score showing 79 with one failure"
+                  fill
+                  className="object-cover object-top"
+                  sizes="272px"
                 />
-                <div
-                  className="relative overflow-hidden bg-white"
-                  style={{ borderRadius: "28px", aspectRatio: "9/19.5" }}
-                >
-                  <Image
-                    src="/images/app-screenshots/active-shift.png"
-                    alt="The MGS Management App showing a shift in progress, with the GPS clock-in timer, required shift photos, and supply request controls"
-                    fill
-                    className="object-cover object-top"
-                    sizes="272px"
-                  />
-                </div>
-              </div>
+              </PhoneFrame>
             </div>
           </div>
         </div>
@@ -382,6 +367,59 @@ export function AppShowcase() {
               This is the part that&apos;s harder to stage.
             </span>
           </p>
+        </div>
+
+        {/* ── Beat 3.5 — the refusal ───────────────────────────────────────
+            The turn above claims this part is harder to stage, and the
+            photographs that follow are the people half of that answer. This is
+            the software half, and it belongs first: a competitor CAN stage a
+            photograph of someone holding a phone. What they can't stage is the
+            app declining to accept the work. The clip is the same eight
+            seconds a supervisor lives when they try to file an incomplete
+            inspection — it names the count and refuses.
+
+            Deliberately placed before the photographs rather than after. The
+            claim is about software; answer it with software, then widen out to
+            the people. */}
+        <div
+          className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14"
+          style={{ paddingBottom: "clamp(4rem, 8vw, 6.5rem)" }}
+        >
+          <div data-reveal className="flex justify-center lg:col-span-5">
+            <CaptureClip
+              src="/videos/submit-blocked.mp4"
+              poster="/videos/submit-blocked-poster.webp"
+              alt="A supervisor tries to submit an inspection that has a failed item with no photo attached. The app blocks the submission and shows a dialog reading &ldquo;Photos required — 1 failed item(s) need at least one photo&rdquo;."
+            />
+          </div>
+          <div className="lg:col-span-7">
+            <p data-reveal className="eyebrow mb-5 text-brand-lime">
+              The Refusal
+            </p>
+            <h3
+              data-reveal
+              className="font-gothic text-white"
+              style={{
+                fontSize: "clamp(1.625rem, 2.9vw, 2.5rem)",
+                fontWeight: 300,
+                lineHeight: 1.12,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              A failed item without a photo{" "}
+              <span className="text-brand-green-deep">doesn&apos;t file.</span>
+            </h3>
+            <p
+              data-reveal
+              className="mt-5 max-w-xl text-gray-300"
+              style={{ fontWeight: 300, lineHeight: 1.7 }}
+            >
+              Not a warning the supervisor can dismiss — the submit is refused,
+              and the app names how many items are missing evidence. A QA
+              standard that can be skipped under time pressure isn&apos;t a
+              standard. This is what enforcing one actually looks like.
+            </p>
+          </div>
         </div>
 
         {/* ── Beat 4 — the walk ────────────────────────────────────────── */}
@@ -475,7 +513,6 @@ export function AppShowcase() {
           className="grid grid-cols-1 gap-x-10 gap-y-9 sm:grid-cols-3"
           style={{
             paddingTop: "clamp(4rem, 8vw, 6.5rem)",
-            paddingBottom: "clamp(5rem, 10vw, 8.5rem)",
           }}
         >
           {facts.map((f) => {
@@ -499,6 +536,85 @@ export function AppShowcase() {
               </div>
             );
           })}
+        </div>
+
+        {/* ── The evidence for the three claims above ──────────────────────
+            Each of those facts was text-only until now, which meant the
+            strongest thing in the section — that the acknowledgment is a real
+            artifact, not a policy we describe — was asserted rather than
+            shown.
+
+            The mapping is one-to-one and deliberate: the summary screen
+            carries BOTH the signature and the started/submitted timestamps, so
+            it stands under facts one and two. The bilingual claim is the only
+            one that needs two images to prove, because the proof IS the pair —
+            the identical screen, twice. */}
+        <div
+          data-reveal-group
+          className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-12 sm:grid-cols-3"
+          style={{ paddingTop: "clamp(3.5rem, 7vw, 5.5rem)" }}
+        >
+          {[
+            {
+              src: "/images/app-screenshots/inspection-summary-signed.webp",
+              alt: "A completed inspection summary in the MGS Management App scoring 78, listing what needs fixing, a timeline showing the inspection started at 5:28 PM and was submitted at 5:29 PM, supervisor comments, and the crew member's handwritten signature under Employee Acknowledgment",
+              label: "Signed, and timestamped",
+            },
+            {
+              src: "/images/app-screenshots/locations-health-en.webp",
+              alt: "The Locations screen of the MGS Management App in English, showing three sites with health scores and an average of 78",
+              label: "English",
+            },
+            {
+              src: "/images/app-screenshots/locations-health-es.webp",
+              alt: "The identical Locations screen of the MGS Management App in Spanish, headed Ubicaciones, showing the same three sites and the same average of 78",
+              label: "Español",
+            },
+          ].map((shot) => (
+            <figure key={shot.label} className="m-0">
+              <PhoneFrame size="sm">
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  fill
+                  className="object-cover object-top"
+                  sizes="216px"
+                />
+              </PhoneFrame>
+              <figcaption className="mt-4 text-center text-sm text-gray-400">
+                {shot.label}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <div
+          className="flex flex-col items-start gap-6"
+          style={{
+            paddingTop: "clamp(3.5rem, 7vw, 5rem)",
+            paddingBottom: "clamp(5rem, 10vw, 8.5rem)",
+          }}
+        >
+          <Link
+            data-reveal
+            href="/app"
+            className="group inline-flex items-center gap-2 border-b border-white/20 pb-1 text-sm text-white transition-colors hover:border-brand-lime hover:text-brand-lime"
+          >
+            See every screen in the app
+            <ArrowRight
+              aria-hidden="true"
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              strokeWidth={1.5}
+            />
+          </Link>
+
+          {/* Same register and weight as the "Free · iOS 15.1+" line above.
+              The sites, names and scores in every capture are seeded demo
+              data; saying so once is cheaper than being asked. */}
+          <p className="max-w-md text-[11px] font-light leading-relaxed text-white/40">
+            Screens captured from the MGS Management App. Sites, names and
+            scores are demonstration data.
+          </p>
         </div>
       </div>
     </section>

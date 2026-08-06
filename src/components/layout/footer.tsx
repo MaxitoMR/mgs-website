@@ -42,6 +42,10 @@ const resources = [
   { label: "Schedule Walkthrough", href: "/walkthrough" },
   { label: "Newsletter", href: "/newsletter" },
   { label: "Client Portal", href: "https://www.mgsclientportal.app/" },
+  // Sits above the App Store link on purpose: the tour is the page that
+  // explains the app, and it should catch the visitor who isn't ready to
+  // leave the site for a store listing yet.
+  { label: "The Mobile App", href: "/app" },
   { label: "Download App", href: "https://apps.apple.com/us/app/mgs-management-app/id6760367154" },
   { label: "FAQ", href: "/faq" },
   { label: "Privacy Policy", href: "/privacy-policy" },
