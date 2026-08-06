@@ -263,6 +263,45 @@ export function AppSequence() {
         end: "bottom bottom",
         scrub: 0.6,
         invalidateOnRefresh: true,
+        /**
+         * Come to rest on a whole panel. The run stays continuous while you are
+         * moving — that is the point of the sideways travel — but stopping
+         * anywhere lands the track on one claim instead of halfway between two,
+         * where you were reading the tail of one and the head of the next
+         * across a 24px gutter with both dimmed to 0.32.
+         *
+         * `snapTo` is 1/(n-1) because progress maps linearly onto panel index:
+         * the panel positions ARE the quarter points.
+         */
+        snap: {
+          snapTo: 1 / (SCREENS.length - 1),
+          duration: { min: 0.2, max: 0.5 },
+          delay: 0.06,
+          ease: "power2.inOut",
+          // Nearest panel, not "whichever way you were heading". A slight
+          // overshoot at the end of a flick should fall back to the panel you
+          // are looking at rather than advance past it.
+          directional: false,
+          // Snap from where the scroll ACTUALLY stopped, not from where its
+          // velocity predicts it would have gone. Left on (the default), a fast
+          // trackpad flick extrapolates the throw and lands several panels
+          // past the one you were looking at — measured jumping to 0.375
+          // progress and landing on panel 4. "Nearest" has to mean nearest.
+          inertia: false,
+        },
+        /**
+         * `scroll-behavior: smooth` is set globally on html/body, which makes
+         * the browser animate EVERY programmatic scroll — including the one the
+         * snap performs. The two animations fight and the snap lands short, so
+         * the sequence still comes to rest between panels. Neutralise it only
+         * while this section owns the scroll; the skip link keeps its smooth
+         * behaviour everywhere else on the page.
+         */
+        onToggle: (self) => {
+          document.documentElement.style.scrollBehavior = self.isActive
+            ? "auto"
+            : "";
+        },
         // A resize re-measures the track mid-page; re-read which panel that
         // leaves in the window rather than trusting the last known index.
         onRefresh: sync,
@@ -309,12 +348,36 @@ export function AppSequence() {
     };
     gsap.ticker.add(paintFill);
 
+    /**
+     * The first activate() has to be re-asserted a frame later. Called inline
+     * here it runs while React is still settling the freshly hydrated subtree,
+     * and every inline style it writes is discarded — measured: immediately
+     * after `gsap.set(screen, {zIndex: 2})` the style attribute was still just
+     * `opacity:1`. The section still LOOKED right, because the authored SSR
+     * state (screen 0 visible, panel 0 at full opacity) happens to match panel
+     * 0 being active — but the ticks never got their active state, so entering
+     * the sequence showed five dim ticks and no indication of where you were.
+     *
+     * Resetting `current` is what makes the second call do the work; without it
+     * activate() early-returns on the index it thinks it already applied.
+     */
+    const assertInitial = () => {
+      gsap.ticker.remove(assertInitial);
+      current = -1;
+      sync();
+    };
+    gsap.ticker.add(assertInitial);
+
     sync();
 
     return () => {
       gsap.ticker.remove(paintFill);
+      gsap.ticker.remove(assertInitial);
       io.disconnect();
       screens.forEach((_, i) => rewind(i));
+      // Unmounting mid-section would otherwise strand the page with smooth
+      // scrolling disabled.
+      document.documentElement.style.scrollBehavior = "";
       tween.scrollTrigger?.kill();
       tween.kill();
     };
