@@ -14,15 +14,29 @@
  * client-role screens, the desktop schedule) can be dropped in later and the
  * script re-run without edits.
  *
- * WHY THESE TOOLS: `sharp` is already a dependency. For video we use macOS's
- * built-in `avconvert` and `qlmanage` rather than ffmpeg, which is not
- * installed here — avconvert handles the H.264 re-encode AND the trim
- * (`--start` / `--duration`), and qlmanage pulls the poster frame. That keeps
- * the pipeline to tools that ship with the OS.
+ * REQUIRES FFMPEG: `brew install ffmpeg`.
  *
- * Note on privacy: avconvert strips privacy-sensitive source metadata by
- * default (we deliberately do NOT pass --disableMetadataFilter), so capture
- * device and location data do not survive into the committed files.
+ * The first version of this script used macOS's built-in `avconvert`, to avoid
+ * a dependency. Do not go back to it. The captures are screen recordings, which
+ * are variable-frame-rate, and avconvert carries that VFR timing straight into
+ * the output — producing duplicate, non-monotonic decode timestamps:
+ *
+ *     Application provided invalid, non monotonically increasing dts
+ *     ... r_frame_rate=60/1 but nb_frames=113 across 8.2s
+ *
+ * Those files look completely fine by every cheap check. H.264 High 4.0,
+ * yuv420p, `moov` before `mdat`, correct content-type, HTTP 206 on range
+ * requests. They also never play in Chrome: an isolated `<video preload=auto>`
+ * sits at readyState 0 / networkState 2 until it times out, because the
+ * demuxer will not accept the timestamp table. Safari plays them, which is
+ * exactly how they got shipped in the first place.
+ *
+ * `-vsync cfr` with an explicit `-r` rebuilds the timestamps monotonically,
+ * which is the whole fix. Verify with `ffmpeg -v error -i out.mp4 -f null -`;
+ * silence there means the file actually decodes.
+ *
+ * Privacy: `-map_metadata -1` drops all source metadata (capture device,
+ * location) rather than copying it into a public file.
  */
 
 import { execFile } from "node:child_process";
@@ -128,35 +142,41 @@ async function buildStills() {
 }
 
 /**
- * Pulls the OPENING frame of the CONVERTED clip, so the poster matches the
- * trim exactly — a poster taken from the original would show a frame the
- * visitor never sees.
+ * Pulls a frame out of the CONVERTED clip, so the poster matches the trim
+ * exactly — a poster taken from the original would show a frame the visitor
+ * never sees.
  *
- * The two-step dance is load-bearing. Running `qlmanage -t` straight at a
- * video returns QuickLook's *representative* frame, which it picks from
- * somewhere in the middle — for C-01 that was the failed end-state, i.e. a
- * poster that gave away the score drop the clip exists to show. Cutting a
- * 0.2s stub at the target timestamp first and thumbnailing THAT pins the frame
- * to where we actually want it.
+ * Takes the frame at `at` seconds into the finished file, which for every clip
+ * here is 0. That matters for C-01: its poster has to be the intact score of
+ * 80, because the drop to 78 is the thing the clip exists to reveal. Anything
+ * later gives away the ending on the play button.
  */
 async function buildPoster(mp4Path, posterPath, tmpDir, at = 0) {
-  const stub = path.join(tmpDir, "stub.mp4");
-  await run("avconvert", [
-    "--source", mp4Path,
-    "--preset", "Preset1920x1080",
-    "--start", String(at),
-    "--duration", "0.2",
-    "--output", stub,
-    "--replace",
+  const frame = path.join(tmpDir, "frame.png");
+  await run("ffmpeg", [
+    "-v", "error",
+    "-ss", String(at),
+    "-i", mp4Path,
+    "-frames:v", "1",
+    "-y", frame,
   ]);
-  await run("qlmanage", ["-t", "-s", "1080", "-o", tmpDir, stub]);
-  const produced = (await readdir(tmpDir)).find((f) => f.endsWith(".png"));
-  if (!produced) throw new Error(`qlmanage produced no frame for ${mp4Path}`);
-  await sharp(path.join(tmpDir, produced))
-    .webp({ quality: 82 })
-    .toFile(posterPath);
-  await rm(path.join(tmpDir, produced), { force: true });
-  await rm(stub, { force: true });
+  await sharp(frame).webp({ quality: 82 }).toFile(posterPath);
+  await rm(frame, { force: true });
+}
+
+/** Silence from a null-muxer decode is the only proof the file actually plays. */
+async function verifyDecodes(mp4Path) {
+  const { stderr } = await run("ffmpeg", [
+    "-v", "error",
+    "-i", mp4Path,
+    "-f", "null",
+    "-",
+  ]);
+  if (stderr.trim()) {
+    throw new Error(
+      `${path.basename(mp4Path)} does not decode cleanly:\n${stderr.trim()}`
+    );
+  }
 }
 
 async function buildClips() {
@@ -171,16 +191,33 @@ async function buildClips() {
       continue;
     }
     const dest = path.join(VIDEO_OUT, c.to);
-    const args = [
-      "--source", src,
-      "--preset", "Preset1920x1080",
-      "--output", dest,
-      "--replace",
-    ];
-    if (c.start != null) args.push("--start", String(c.start));
-    if (c.duration != null) args.push("--duration", String(c.duration));
+    const args = ["-v", "error"];
+    // -ss before -i seeks by keyframe before decoding: fast, and accurate
+    // enough here because every clip starts on a settled screen.
+    if (c.start != null) args.push("-ss", String(c.start));
+    args.push("-i", src);
+    if (c.duration != null) args.push("-t", String(c.duration));
+    args.push(
+      // 884px wide matches the old output; -2 keeps the height even, which
+      // H.264 requires.
+      "-vf", "scale=884:-2",
+      // The fix. Screen recordings are VFR; forcing CFR at 30 rebuilds the
+      // timestamps so Chrome's demuxer will accept the file.
+      "-r", "30",
+      "-vsync", "cfr",
+      "-c:v", "libx264",
+      "-profile:v", "high",
+      "-pix_fmt", "yuv420p",
+      "-crf", "24",
+      "-preset", "slow",
+      "-an",                      // no audio track — these are silent
+      "-map_metadata", "-1",      // drop capture device / location metadata
+      "-movflags", "+faststart",  // moov ahead of mdat, so it streams
+      "-y", dest
+    );
 
-    await run("avconvert", args);
+    await run("ffmpeg", args);
+    await verifyDecodes(dest);
 
     const poster = dest.replace(/\.mp4$/, "-poster.webp");
     await buildPoster(dest, poster, tmpDir, c.posterAt ?? 0);

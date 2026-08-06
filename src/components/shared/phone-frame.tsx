@@ -56,13 +56,13 @@ export function PhoneFrame({
             "0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.05)",
         }}
       >
-        {/* The notch sits above the screen content, so it has to out-stack
-            whatever the screen renders — a <video> included. */}
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-[10px] z-20 h-[24px] w-[90px] -translate-x-1/2 bg-black"
-          style={{ borderRadius: "20px" }}
-        />
+        {/* NO DRAWN NOTCH — deliberately. The frame used to paint a black pill
+            across the top, which made sense when the screen was a flat mockup.
+            Every capture we now use is a real iPhone 16 Pro screenshot or
+            screen recording, so the Dynamic Island is already IN the image,
+            complete with the 9:41 status bar around it. Drawing another one
+            stacked a fake notch on top of the real one and read as a rendering
+            fault. The bezel below is the whole device. */}
         <div
           className="relative overflow-hidden bg-white"
           style={{ borderRadius: "28px", aspectRatio: "9/19.5" }}

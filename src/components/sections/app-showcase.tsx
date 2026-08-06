@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { PhoneFrame } from "@/components/shared/phone-frame";
-import { CaptureClip } from "@/components/shared/app-capture";
+import { AppSequence } from "@/components/sections/app-sequence";
 
 /**
  * The app chapter — one continuous dark field, scrolled through in beats.
@@ -157,25 +157,9 @@ export function AppShowcase() {
         );
       });
 
-      // The phone drifts up against the copy beside it, so the two columns
-      // separate slightly in depth as they pass.
-      const phone = q("[data-phone]")[0];
-      if (phone) {
-        gsap.fromTo(
-          phone,
-          { y: 40 },
-          {
-            y: -40,
-            ease: "none",
-            scrollTrigger: {
-              trigger: phone,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
-      }
+      // (The old [data-phone] drift lived here. It moved a static product shot
+      // against the copy beside it; that shot is now the pinned sequence, which
+      // owns its own motion in app-sequence.tsx. Nothing to drift.)
 
       return () => {
         // matchMedia's own cleanup reverts the tweens; kill the triggers that
@@ -192,7 +176,13 @@ export function AppShowcase() {
   return (
     <section
       ref={rootRef}
-      className="relative w-full overflow-hidden bg-brand-dark-deeper"
+      // `overflow-x-clip`, NOT `overflow-hidden`. Hidden makes this element a
+      // scroll container, which silently disables `position: sticky` in every
+      // descendant — and the pinned sequence below is sticky. Clip contains the
+      // same horizontal overflow without that side effect. The two parallax
+      // frames further down carry their own `overflow-hidden`, so nothing
+      // escapes by dropping it here.
+      className="relative w-full overflow-x-clip bg-brand-dark-deeper"
     >
       {/* One faint grid across the entire field — a shared texture is part of
           what stops the beats reading as separate sections. */}
@@ -207,28 +197,17 @@ export function AppShowcase() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
-        {/* ── Beats 1+2 — the claim and the product, one row ────────────────
-            Deliberately a single row rather than a headline block stacked over
-            a phone row. Split across two rows, the copy column was ~380px of
-            content facing a 590px phone, which left both a vertical imbalance
-            and roughly 700px of dead centre between them. Stacking everything
-            — eyebrow, headline, intro, features, badges, CTA — into one column
-            makes the left side about as tall as the phone, so the two halves
-            carry equal weight and the gap between them reads as breathing room
-            instead of a hole. */}
+        {/* ── Beat 1 — the claim ───────────────────────────────────────────
+            The headline used to share a row with a static phone, and the note
+            that used to live here explained how to balance those two columns.
+            That problem is gone: the product is now the pinned sequence below,
+            which needs the full measure, so the claim opens the chapter on its
+            own. */}
         <div
-          className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14"
-          style={{
-            paddingTop: "clamp(5rem, 10vw, 8.5rem)",
-          }}
+          className="max-w-2xl"
+          style={{ paddingTop: "clamp(5rem, 10vw, 8.5rem)" }}
         >
-          {/* Copy comes FIRST in source order, not just visually first via
-              `order`. The headline lives in this column, so source order is
-              what mobile reads — swapping with `order` would lead the phone
-              on a phone, with no context above it. Capped at max-w-xl:
-              allowed to fill 7/12 of a max-w-7xl, the feature rows drift
-              apart into a scatter. */}
-          <div className="lg:col-span-7 lg:max-w-xl">
+          <div>
             <p data-reveal className="eyebrow mb-5 text-brand-lime">
               Mobile App
             </p>
@@ -261,9 +240,25 @@ export function AppShowcase() {
               time.
             </p>
 
+          </div>
+        </div>
+
+        {/* ── Beat 2 — the product, held ────────────────────────────────────
+            One device pinned while five claims walk past it, the screen
+            changing to whatever is being claimed. See app-sequence.tsx for why
+            the pin is CSS sticky and GSAP only decides which claim owns the
+            screen. The refusal clip lives inside this sequence rather than in a
+            beat of its own — it is one of the five things the phone shows. */}
+        <div style={{ paddingTop: "clamp(3rem, 6vw, 5rem)" }}>
+          <AppSequence />
+        </div>
+
+        {/* What the sequence releases into: the spec, then the download. */}
+        <div style={{ paddingTop: "clamp(3rem, 6vw, 4.5rem)" }}>
+          <div className="max-w-4xl">
             <div
               data-reveal-group
-              className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4"
+              className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4"
             >
               {features.map((f) => {
                 const Icon = f.icon;
@@ -321,24 +316,6 @@ export function AppShowcase() {
               </p>
             </div>
           </div>
-
-          {/* Phone holds the RIGHT edge — `justify-end`, not centred in its
-              column. Centred, it floats mid-column and the container's right
-              edge sits empty, which is the exact imbalance this layout went
-              through two revisions to fix. */}
-          <div className="flex justify-center lg:col-span-5 lg:justify-end">
-            <div data-phone>
-              <PhoneFrame glow>
-                <Image
-                  src="/images/app-screenshots/inspection-failed-item.webp"
-                  alt="The MGS Management App mid-inspection: a checklist item marked Fail at 4 out of 10, a required failure note reading &ldquo;There is still dust everywhere&rdquo;, an attached photo of the area, and the running site score showing 79 with one failure"
-                  fill
-                  className="object-cover object-top"
-                  sizes="272px"
-                />
-              </PhoneFrame>
-            </div>
-          </div>
         </div>
 
         {/* ── Beat 3 — the turn ────────────────────────────────────────────
@@ -367,59 +344,6 @@ export function AppShowcase() {
               This is the part that&apos;s harder to stage.
             </span>
           </p>
-        </div>
-
-        {/* ── Beat 3.5 — the refusal ───────────────────────────────────────
-            The turn above claims this part is harder to stage, and the
-            photographs that follow are the people half of that answer. This is
-            the software half, and it belongs first: a competitor CAN stage a
-            photograph of someone holding a phone. What they can't stage is the
-            app declining to accept the work. The clip is the same eight
-            seconds a supervisor lives when they try to file an incomplete
-            inspection — it names the count and refuses.
-
-            Deliberately placed before the photographs rather than after. The
-            claim is about software; answer it with software, then widen out to
-            the people. */}
-        <div
-          className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14"
-          style={{ paddingBottom: "clamp(4rem, 8vw, 6.5rem)" }}
-        >
-          <div data-reveal className="flex justify-center lg:col-span-5">
-            <CaptureClip
-              src="/videos/submit-blocked.mp4"
-              poster="/videos/submit-blocked-poster.webp"
-              alt="A supervisor tries to submit an inspection that has a failed item with no photo attached. The app blocks the submission and shows a dialog reading &ldquo;Photos required — 1 failed item(s) need at least one photo&rdquo;."
-            />
-          </div>
-          <div className="lg:col-span-7">
-            <p data-reveal className="eyebrow mb-5 text-brand-lime">
-              The Refusal
-            </p>
-            <h3
-              data-reveal
-              className="font-gothic text-white"
-              style={{
-                fontSize: "clamp(1.625rem, 2.9vw, 2.5rem)",
-                fontWeight: 300,
-                lineHeight: 1.12,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              A failed item without a photo{" "}
-              <span className="text-brand-green-deep">doesn&apos;t file.</span>
-            </h3>
-            <p
-              data-reveal
-              className="mt-5 max-w-xl text-gray-300"
-              style={{ fontWeight: 300, lineHeight: 1.7 }}
-            >
-              Not a warning the supervisor can dismiss — the submit is refused,
-              and the app names how many items are missing evidence. A QA
-              standard that can be skipped under time pressure isn&apos;t a
-              standard. This is what enforcing one actually looks like.
-            </p>
-          </div>
         </div>
 
         {/* ── Beat 4 — the walk ────────────────────────────────────────── */}
@@ -538,28 +462,18 @@ export function AppShowcase() {
           })}
         </div>
 
-        {/* ── The evidence for the three claims above ──────────────────────
-            Each of those facts was text-only until now, which meant the
-            strongest thing in the section — that the acknowledgment is a real
-            artifact, not a policy we describe — was asserted rather than
-            shown.
-
-            The mapping is one-to-one and deliberate: the summary screen
-            carries BOTH the signature and the started/submitted timestamps, so
-            it stands under facts one and two. The bilingual claim is the only
-            one that needs two images to prove, because the proof IS the pair —
-            the identical screen, twice. */}
+        {/* ── The evidence for the bilingual claim ─────────────────────────
+            Only two frames, not three. The signature and the timestamps are
+            already shown full-size in the pinned sequence above, so a third
+            frame here would be the same screen twice in one chapter. The
+            English/Spanish claim is the one that still needs showing, because
+            the proof IS the pair — the identical screen, rendered twice. */}
         <div
           data-reveal-group
-          className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-12 sm:grid-cols-3"
+          className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-12 sm:grid-cols-2"
           style={{ paddingTop: "clamp(3.5rem, 7vw, 5.5rem)" }}
         >
           {[
-            {
-              src: "/images/app-screenshots/inspection-summary-signed.webp",
-              alt: "A completed inspection summary in the MGS Management App scoring 78, listing what needs fixing, a timeline showing the inspection started at 5:28 PM and was submitted at 5:29 PM, supervisor comments, and the crew member's handwritten signature under Employee Acknowledgment",
-              label: "Signed, and timestamped",
-            },
             {
               src: "/images/app-screenshots/locations-health-en.webp",
               alt: "The Locations screen of the MGS Management App in English, showing three sites with health scores and an average of 78",

@@ -67,6 +67,29 @@ Why the refusal beat goes *before* the photos: the turn claims this part is hard
 
 **Still missing from the shot list:** B-03 and C-03 (client portal — the app's Client role has no captures at all), B-04 (deficiency still; C-04 covers the ground), B-13 (admin schedule, 3440×1440 — would be the only landscape asset and the natural full-width beat between *The shift* and *The record*; needs the web build pointed at demo).
 
+## The pinned device — `app-sequence.tsx` (2026-08-06)
+
+The homepage product beat is no longer a static phone beside a feature list. One device is held while five claims walk past it and the screen changes to whatever is being claimed: the checklist → the failure → **the refusal (the C-05 clip, playing in the frame)** → the handoff → the shift. The standalone refusal beat and the B-06 evidence frame were removed, since the sequence now covers both.
+
+Four things bit during the build. All four are cheap to reintroduce, so they're written down.
+
+- **`overflow-hidden` on the section silently kills `position: sticky` in every descendant.** The section wrapper carried it; the device simply scrolled away and the whole premise looked broken. It's `overflow-x-clip` now — same horizontal containment, no scroll container. The two parallax frames keep their own `overflow-hidden`, so nothing escapes.
+- **Derive the active claim from scroll position; do not accumulate it from enter/leave events.** The first version put a ScrollTrigger on each claim and switched on `onToggle`. During a fast scroll several toggle inside one frame and the last to fire wins regardless of where the viewport landed. Now a single trigger's `onUpdate` asks "which claim's centre is nearest the viewport centre" every frame. It cannot desynchronise.
+- **`gsap.set()` does not stop a running tween.** Clearing the outgoing screens with `set(opacity:0)` looked right and failed scrolling *up*, because the previous screen's fade-in was still animating and overwrote the set on its next tick — measured `2:55 4:96`, two live layers. `gsap.killTweensOf(el)` first, then set.
+- **Never let two of these screens be visible at once.** They're all white inspection UIs with near-identical furniture, so any blend is a double exposure — a 78 printed through an 80 — which reads as a rendering fault, not a transition. Exactly one layer is alive: outgoing cleared instantly, only the incoming tweened, rising from the phone's own white background. Verify by sampling opacities immediately after a fast scroll; anything other than one layer >2% is the bug back.
+
+**`PhoneFrame` no longer draws a notch.** It used to paint a black pill across the top, which suited a flat mockup. Every capture is a real iPhone 16 Pro screenshot, so the Dynamic Island and the 9:41 status bar are already in the image — the drawn one stacked a second fake notch on the real one.
+
+## Video encoding — ffmpeg is now required (2026-08-06)
+
+`brew install ffmpeg`. The clip half of `build-app-captures.mjs` no longer uses `avconvert`; don't put it back.
+
+The captures are screen recordings, which are variable-frame-rate, and avconvert carried that timing straight through — `ffmpeg -v error -i out.mp4 -f null -` reported *"Application provided invalid, non monotonically increasing dts"*, with `r_frame_rate=60/1` against 113 frames over 8.2s. `-r 30 -vsync cfr` rebuilds the timestamps. The script now runs that null-muxer decode on every clip and throws if it isn't silent, because container-level checks (H.264 High 4.0, yuv420p, `moov` before `mdat`, HTTP 206 on ranges) all passed on the malformed files and proved nothing.
+
+Side benefit, and it's large: **13.4 MB → 3.5 MB** across five clips including posters. C-01 alone went 7,125 KB → 1,221 KB.
+
+**Debugging caution — don't repeat this.** Chrome defers media loading in a hidden tab: `readyState` stays 0 and `networkState` stays 2 indefinitely, which looks exactly like a corrupt file. The browser-automation tab is *always* `visibilityState: "hidden"`, so **video playback cannot be verified through it** and any timeout measured there means nothing. Check `document.visibilityState` before concluding anything about media. Playback has to be confirmed by a human in a real window.
+
 ## Employee training portal — `/staff-portal`
 - Rebuilt from a fake login into a **training video library** (`training-hub.tsx`), **passcode-gated (5602)**, noindexed, nav labeled "Employee Training."
 - Four videos live in the **Supabase `training` bucket** on project **`ejivobojvlxrngsdcjjk`** (the mgs-manager/newsletter project — the one whose service key we have): `protective-equipment`, `bloodborne-pathogens`, `terminal-cleaning-or`, `terminal-cleaning-or-es`. Served via native `<video>` from the public bucket.
