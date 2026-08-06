@@ -142,15 +142,18 @@ export function AppBeats() {
                   // off it — so resizing the device cannot leave the chip
                   // anchored to where the device used to be.
                   //
-                  // 58% on phones, not 76%. At 76% of a 430pt viewport the
-                  // device was ~327pt wide — close enough to the real thing
+                  // 42% on phones, down from 76% in two passes. At 76% of a
+                  // 430pt viewport the device was ~327pt wide — close enough to
+                  // the real thing
                   // that a phone rendered inside a phone stopped reading as an
-                  // illustration and started reading as a glitch. Smaller
-                  // restores the separation. Everything else on this block
+                  // illustration and started reading as a glitch. At 42% it is
+                  // unambiguously an illustration: 181px, with dark field on
+                  // both sides, and the next beat reachable in the same
+                  // viewport. Everything else on this block
                   // steps down with it (type, padding, chip) so the beat scales
                   // as one thing rather than a shrunk device beside full-size
                   // copy. `sm:` and `lg:` are unchanged — desktop is untouched.
-                  "[--phone-w:58%] sm:[--phone-w:60%] lg:[--phone-w:54%]",
+                  "[--phone-w:42%] sm:[--phone-w:60%] lg:[--phone-w:54%]",
                   "-mx-6 sm:-mx-10 lg:mx-0",
                   "lg:row-start-1",
                   captureRight
@@ -242,7 +245,7 @@ export function AppBeats() {
               <div
                 className={[
                   "relative z-10 bg-[#F4F4F1] text-[#111111]",
-                  "-mt-10 mr-5 px-6 py-7 sm:-mt-12 sm:mr-10 sm:px-10 sm:py-12",
+                  "-mt-8 mr-5 px-5 py-6 sm:-mt-12 sm:mr-10 sm:px-10 sm:py-12",
                   "lg:row-start-1 lg:mx-0 lg:mt-0 lg:px-12 lg:py-14",
                   // The panel and the capture are ADJACENT columns; the overlap
                   // is this negative margin, not a shared grid column. Letting
@@ -260,7 +263,7 @@ export function AppBeats() {
                 <h3
                   className="font-gothic"
                   style={{
-                    fontSize: "clamp(1.375rem, 3vw, 2.75rem)",
+                    fontSize: "clamp(1.25rem, 3vw, 2.75rem)",
                     fontWeight: 300,
                     lineHeight: 1.1,
                     letterSpacing: "-0.025em",
