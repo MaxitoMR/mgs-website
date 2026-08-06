@@ -243,13 +243,12 @@ export function AppShowcase() {
           </div>
         </div>
 
-        {/* ── Beat 2 — the product, five compositions ───────────────────────
-            Five claims, each one capture with a panel breaking its edge. This
-            was a pinned horizontal run (app-sequence.tsx, still in the repo);
-            it was replaced because holding five claims inside one viewport
-            meant none of them was ever fully readable, and the device had to
-            shrink to 272px to fit — so the screen being argued about could not
-            be seen. These ship no JavaScript: the reveals come from the
+        {/* ── Beat 2 — the product, three compositions ──────────────────────
+            Three claims, each one capture with a panel breaking its edge.
+            Five of them told the reader three times over that the app verifies
+            things; failure+refusal merged into one, handoff+shift into another.
+            This was a pinned horizontal run (app-sequence.tsx, still in the
+            repo). These ship no JavaScript: the reveals come from the
             `data-reveal` pass above. */}
         <div style={{ paddingTop: "clamp(3rem, 6vw, 5rem)" }}>
           <AppBeats />
@@ -439,75 +438,95 @@ export function AppShowcase() {
           ))}
         </div>
 
+        {/* ── The close ─────────────────────────────────────────────────
+            One block, not two stacked ones. Previously the footnote row and
+            the spec row each carried their own vertical padding, which stacked
+            into a measured 240px of empty field between the disclaimer and the
+            feature grid — a hole in the middle of the section. The spec was
+            also boxed to `max-w-4xl` inside this `max-w-7xl` container, so it
+            hugged the left edge and left 741px of the row unused at 1999px.
+
+            Now: footnote row, rule, spec across the full measure, rule, then
+            the download. The hairline is the same device the three beats above
+            are built on, so the close reads as the last beat rather than as a
+            different component that happens to follow them. */}
         <div
-          className="flex flex-col items-start gap-6"
+          className="flex flex-col gap-10 lg:gap-12"
           style={{
             paddingTop: "clamp(3.5rem, 7vw, 5rem)",
             paddingBottom: "clamp(5rem, 10vw, 8.5rem)",
           }}
         >
-          <Link
-            data-reveal
-            href="/app"
-            className="group inline-flex items-center gap-2 border-b border-white/20 pb-1 text-sm text-white transition-colors hover:border-brand-lime hover:text-brand-lime"
-          >
-            See every screen in the app
-            <ArrowRight
-              aria-hidden="true"
-              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-              strokeWidth={1.5}
-            />
-          </Link>
-
-          {/* Same register and weight as the "Free · iOS 15.1+" line above.
-              The sites, names and scores in every capture are seeded demo
-              data; saying so once is cheaper than being asked. */}
-          <p className="max-w-md text-[11px] font-light leading-relaxed text-white/40">
-            Screens captured from the MGS Management App. Sites, names and
-            scores are demonstration data.
-          </p>
-        </div>
-
-        {/* The spec, then the download — the chapter closes on what the
-            reader can actually do. It used to sit directly under the beats,
-            which put a download button in front of someone who still had
-            five sections of argument to read. */}
-        <div style={{
-          paddingTop: "clamp(4rem, 8vw, 6.5rem)",
-          paddingBottom: "clamp(5rem, 10vw, 8.5rem)",
-        }}>
-          <div className="max-w-4xl">
-            <div
-              data-reveal-group
-              className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4"
+          {/* Footnote row — the secondary link and the capture disclaimer are
+              both asides about the captures, so they share a line instead of
+              each taking one. */}
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10">
+            <Link
+              data-reveal
+              href="/app"
+              className="group inline-flex shrink-0 items-center gap-2 self-start border-b border-white/20 pb-1 text-sm text-white transition-colors hover:border-brand-lime hover:text-brand-lime"
             >
-              {features.map((f) => {
-                const Icon = f.icon;
-                return (
-                  <div key={f.label} className="flex items-center gap-2.5">
-                    <Icon
-                      aria-hidden="true"
-                      className="h-4 w-4 flex-shrink-0 text-brand-green-deep"
-                      strokeWidth={1.5}
-                    />
-                    <span className="text-sm text-gray-300">{f.label}</span>
-                  </div>
-                );
-              })}
+              See every screen in the app
+              <ArrowRight
+                aria-hidden="true"
+                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                strokeWidth={1.5}
+              />
+            </Link>
+
+            {/* Same register and weight as the "Free · iOS 15.1+" line below.
+                The sites, names and scores in every capture are seeded demo
+                data; saying so once is cheaper than being asked. */}
+            <p className="max-w-md text-[11px] font-light leading-relaxed text-white/40 sm:text-right">
+              Screens captured from the MGS Management App. Sites, names and
+              scores are demonstration data.
+            </p>
+          </div>
+
+          <div className="h-px w-full bg-white/10" />
+
+          {/* ── Option A: spec left, download right ────────────────────────
+              One row across the full measure instead of a left-hugging stack.
+              The spec is the wider column because it is a list of eight things;
+              the download is the narrower one because it is a single action,
+              and giving it its own column is what stops it reading as the last
+              item in a pile. */}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-start lg:gap-16">
+            {/* Left — what the app does, and who it is for. */}
+            <div className="flex flex-col gap-9">
+              <div
+                data-reveal-group
+                className="grid grid-cols-2 gap-x-8 gap-y-5"
+              >
+                {features.map((f) => {
+                  const Icon = f.icon;
+                  return (
+                    <div key={f.label} className="flex items-center gap-2.5">
+                      <Icon
+                        aria-hidden="true"
+                        className="h-4 w-4 flex-shrink-0 text-brand-green-deep"
+                        strokeWidth={1.5}
+                      />
+                      <span className="text-sm text-gray-300">{f.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div data-reveal-group className="flex flex-wrap gap-2">
+                {["Admin", "Supervisor", "Employee", "Client"].map((role) => (
+                  <span
+                    key={role}
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70"
+                  >
+                    {role}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div data-reveal-group className="mt-9 flex flex-wrap gap-2">
-              {["Admin", "Supervisor", "Employee", "Client"].map((role) => (
-                <span
-                  key={role}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70"
-                >
-                  {role}
-                </span>
-              ))}
-            </div>
-
-            <div data-reveal className="mt-9">
+            {/* Right — the one action, and the two lines that qualify it. */}
+            <div data-reveal className="flex flex-col items-start gap-3">
               <a
                 href={APP_STORE_URL}
                 target="_blank"
@@ -532,7 +551,7 @@ export function AppShowcase() {
                   </span>
                 </div>
               </a>
-              <p className="mt-3 text-[11px] font-light text-white/40">
+              <p className="text-[11px] font-light text-white/40">
                 Free &middot; iOS 15.1+ &middot; iPhone, iPad &amp; Apple Vision
               </p>
             </div>
