@@ -27,6 +27,17 @@ import { cn } from "@/lib/utils";
  * ONE DEVICE, NOT FIVE. The phone sits outside the moving track and never
  * translates; only its screen changes. Five panels each carrying their own
  * device would read as five products.
+ *
+ * THE ACTIVE PANEL IS READ OFF THE TRACK, NOT OFF THE SCROLLBAR. `scrub` is a
+ * number, so the track's x is a SMOOTHED follower of scroll position, not
+ * scroll position itself. Deciding the active panel from `self.progress` (the
+ * raw scrollbar) therefore lit a panel that was still up to ~1.7 slides away
+ * from the window during a fast flick: the highlighted claim was off-screen
+ * while the visible ones sat dimmed at 0.32, which read as the pin coming
+ * loose. `panelIndexFromTrack()` measures the transform that is actually on
+ * screen, so the highlight cannot lead or lag the thing it is highlighting.
+ * If you ever change `scrub`, this stays correct; if you ever go back to
+ * reading `self.progress`, the drift comes back.
  */
 
 type Screen = {
@@ -39,6 +50,14 @@ type Screen = {
   accent: string;
   body: string;
 };
+
+/**
+ * One place decides whether a screen renders as a <video>. `ScreenStack` uses
+ * it to pick the element, and the progress ticks use it to pick between a
+ * playback-filled indicator and the plain on/off one — so the two can't
+ * disagree about what a given index is.
+ */
+const isClip = (s: Screen) => Boolean(s.poster);
 
 const SCREENS: Screen[] = [
   {
@@ -107,6 +126,33 @@ export function AppSequence() {
     const ticks = gsap.utils.toArray<HTMLElement>("[data-tick]", root);
     if (!screens.length || !panels.length) return;
 
+    // Indicator fills, keyed by the panel they belong to. Only clips have one.
+    const fills = new Map<number, HTMLElement>();
+    gsap.utils
+      .toArray<HTMLElement>("[data-tick-fill]", root)
+      .forEach((el) => fills.set(Number(el.dataset.tickFill), el));
+    fills.forEach((el) => gsap.set(el, { scaleX: 0, transformOrigin: "0% 50%" }));
+
+    const videoAt = (i: number) => screens[i]?.querySelector("video") ?? null;
+
+    /** Back to the resting state: stopped, rewound, and drained of fill. */
+    const rewind = (i: number) => {
+      const v = videoAt(i);
+      if (v) {
+        v.pause();
+        // Rewinding on the way out is what makes re-entering a panel replay the
+        // clip from the top instead of resuming halfway through an argument the
+        // visitor never saw the start of.
+        try {
+          v.currentTime = 0;
+        } catch {
+          /* not seekable yet — it starts at 0 anyway */
+        }
+      }
+      const f = fills.get(i);
+      if (f) gsap.set(f, { scaleX: 0 });
+    };
+
     let current = -1;
 
     /**
@@ -126,15 +172,18 @@ export function AppSequence() {
           gsap.killTweensOf(el);
           gsap.set(el, { opacity: 0, zIndex: 0 });
         }
-        const video = el.querySelector("video");
-        if (video) {
-          if (i === index) {
-            void video.play().catch(() => {
-              /* refused (low power, data saver) — the poster stands in */
-            });
-          } else {
-            video.pause();
-          }
+        if (i !== index) {
+          rewind(i);
+          return;
+        }
+        const video = videoAt(i);
+        if (video && !reduced) {
+          // Reset before playing so the fill and the clip start from the same
+          // zero, whichever direction the panel was entered from.
+          rewind(i);
+          void video.play().catch(() => {
+            /* refused (low power, data saver) — the poster stands in */
+          });
         }
       });
 
@@ -156,9 +205,16 @@ export function AppSequence() {
       });
 
       ticks.forEach((el, i) => {
+        // A clip's own track never turns lime: its fill is what carries the
+        // colour, and pre-filling the track would state the progress before the
+        // video has made any. It still thickens like the others, so the active
+        // indicator reads the same whichever kind of media it belongs to.
+        const carriesFill = fills.has(i);
         gsap.to(el, {
           backgroundColor:
-            i === index ? "var(--color-brand-lime)" : "rgba(255,255,255,0.15)",
+            i === index && !carriesFill
+              ? "var(--color-brand-lime)"
+              : "rgba(255,255,255,0.15)",
           scaleY: i === index ? 3 : 1,
           duration: reduced ? 0 : 0.3,
           ease: "power2.out",
@@ -178,31 +234,110 @@ export function AppSequence() {
 
     const distance = () => track.scrollWidth - track.offsetWidth;
 
+    /**
+     * Which panel is in the window RIGHT NOW, measured off the transform the
+     * browser is painting. One panel is exactly one window wide, so -x/width is
+     * the panel index in fractional form; rounding picks whichever is nearest,
+     * so the screen changes at the halfway point between two panels. Reading
+     * the live transform (rather than scroll position) is what keeps the
+     * highlight welded to the slide during a scrubbed, smoothed move — and it
+     * survives a resize for free, because both terms are re-measured together.
+     */
+    const panelIndexFromTrack = () => {
+      const width = track.offsetWidth || 1;
+      const x = (gsap.getProperty(track, "x") as number) || 0;
+      return gsap.utils.clamp(0, panels.length - 1, Math.round(-x / width));
+    };
+
+    const sync = () => activate(panelIndexFromTrack());
+
     const tween = gsap.to(track, {
       x: () => -distance(),
       ease: "none",
+      // On the tween, not on the ScrollTrigger: this fires as the SMOOTHED
+      // playhead renders, which is the motion actually on screen.
+      onUpdate: sync,
       scrollTrigger: {
         trigger: root,
         start: "top top",
         end: "bottom bottom",
         scrub: 0.6,
         invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          // Progress maps linearly onto panel index: at p=0 panel 0 is aligned,
-          // at p=1 the last one is. Rounding picks whichever is nearest, so the
-          // screen changes at the halfway point between two panels.
-          activate(Math.round(self.progress * (panels.length - 1)));
-        },
+        // A resize re-measures the track mid-page; re-read which panel that
+        // leaves in the window rather than trusting the last known index.
+        onRefresh: sync,
       },
     });
 
-    activate(0);
+    /**
+     * The fill is polled rather than driven off `timeupdate`, which fires only
+     * ~4x/sec and would visibly stair-step. `gsap.ticker` is the rAF loop the
+     * rest of the page is already on, so this costs no extra frame scheduling —
+     * and it idles to a single map lookup whenever the active panel has no clip
+     * or the section is off-screen.
+     */
+    let inView = true;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (!inView) {
+          const v = videoAt(current);
+          if (v) v.pause();
+        } else if (current >= 0) {
+          const v = videoAt(current);
+          if (v && !reduced) {
+            void v.play().catch(() => {});
+          }
+        }
+      },
+      { rootMargin: "0px" }
+    );
+    io.observe(root);
+
+    const paintFill = () => {
+      if (!inView) return;
+      const fill = fills.get(current);
+      if (!fill) return;
+      const v = videoAt(current);
+      if (!v) return;
+      const d = v.duration;
+      if (!d || !Number.isFinite(d)) return;
+      // A clip that ends without `loop` holds at full rather than snapping
+      // back; a looping one wraps to 0 on its own because currentTime does.
+      const p = v.ended && !v.loop ? 1 : gsap.utils.clamp(0, 1, v.currentTime / d);
+      gsap.set(fill, { scaleX: p });
+    };
+    gsap.ticker.add(paintFill);
+
+    sync();
 
     return () => {
+      gsap.ticker.remove(paintFill);
+      io.disconnect();
+      screens.forEach((_, i) => rewind(i));
       tween.scrollTrigger?.kill();
       tween.kill();
     };
   }, [reduced]);
+
+  /**
+   * Jump to a panel. This only moves the scrollbar — the same ScrollTrigger and
+   * the same scrub carry the track there and light the panel, so clicking a
+   * tick cannot introduce a second opinion about where the sequence is. The
+   * geometry mirrors the trigger's own range: `top top` → `bottom bottom` is
+   * exactly the spacer's height minus one viewport.
+   */
+  const goTo = (i: number) => {
+    const root = rootRef.current;
+    if (!root) return;
+    const pin = root.offsetHeight - window.innerHeight;
+    if (pin <= 0) return;
+    const top =
+      root.getBoundingClientRect().top +
+      window.scrollY +
+      (pin * i) / (SCREENS.length - 1);
+    window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
+  };
 
   return (
     <div
@@ -275,18 +410,40 @@ export function AppSequence() {
             ))}
           </div>
 
-          {/* Progress across the run — five ticks, the live one filled. */}
+          {/* Progress across the run. A clip's tick fills left-to-right with
+              its own playback; a still's tick is the plain on/off it has always
+              been. Both are now also the way to jump to a panel. */}
           {!reduced && (
-            <div
-              aria-hidden="true"
-              className="mt-10 flex gap-2 pl-5 lg:pl-6"
-            >
+            <div className="mt-10 flex gap-2 pl-5 lg:pl-6">
               {SCREENS.map((s, i) => (
-                <span
+                <button
                   key={s.title}
-                  data-tick={i}
-                  className="h-px w-10 bg-white/15"
-                />
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-label={`Go to slide ${i + 1} of ${SCREENS.length}: ${s.eyebrow}`}
+                  // The line itself is 1px tall — far too small to hit. The
+                  // button carries a 24px target around it without changing
+                  // what is drawn.
+                  className="group flex h-6 w-10 shrink-0 items-center rounded-sm focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-brand-lime)]"
+                >
+                  <span
+                    data-tick={i}
+                    className="relative block h-px w-full bg-white/15"
+                  >
+                    {isClip(s) && (
+                      <span
+                        data-tick-fill={i}
+                        aria-hidden="true"
+                        className="absolute inset-0 block"
+                        style={{
+                          background: "var(--color-brand-lime)",
+                          transform: "scaleX(0)",
+                          transformOrigin: "0% 50%",
+                        }}
+                      />
+                    )}
+                  </span>
+                </button>
               ))}
             </div>
           )}
@@ -311,7 +468,7 @@ function ScreenStack() {
           className="absolute inset-0"
           style={{ opacity: i === 0 ? 1 : 0 }}
         >
-          {s.poster ? (
+          {isClip(s) ? (
             <video
               src={s.src}
               poster={s.poster}
