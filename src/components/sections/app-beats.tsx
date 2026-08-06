@@ -126,8 +126,8 @@ export function AppBeats() {
               "relative",
               // The hairline is the section break. It belongs between beats, so
               // the first one does without.
-              i > 0 ? "border-t border-white/10 pt-20 lg:pt-32" : "",
-              i > 0 ? "mt-20 lg:mt-32" : "",
+              i > 0 ? "border-t border-white/10 pt-14 sm:pt-20 lg:pt-32" : "",
+              i > 0 ? "mt-14 sm:mt-20 lg:mt-32" : "",
             ].join(" ")}
           >
             <div className="lg:grid lg:grid-cols-12 lg:items-center">
@@ -141,7 +141,16 @@ export function AppBeats() {
                   // `beat` size reads it, and the callout below positions itself
                   // off it — so resizing the device cannot leave the chip
                   // anchored to where the device used to be.
-                  "[--phone-w:76%] sm:[--phone-w:60%] lg:[--phone-w:54%]",
+                  //
+                  // 58% on phones, not 76%. At 76% of a 430pt viewport the
+                  // device was ~327pt wide — close enough to the real thing
+                  // that a phone rendered inside a phone stopped reading as an
+                  // illustration and started reading as a glitch. Smaller
+                  // restores the separation. Everything else on this block
+                  // steps down with it (type, padding, chip) so the beat scales
+                  // as one thing rather than a shrunk device beside full-size
+                  // copy. `sm:` and `lg:` are unchanged — desktop is untouched.
+                  "[--phone-w:58%] sm:[--phone-w:60%] lg:[--phone-w:54%]",
                   "-mx-6 sm:-mx-10 lg:mx-0",
                   "lg:row-start-1",
                   captureRight
@@ -202,7 +211,7 @@ export function AppBeats() {
                     // pointing at is worse than no chip. The clock and the
                     // battery are the only pixels here nobody needs.
                     "absolute top-[4%] z-20 flex items-center gap-2.5",
-                    "bg-brand-lime px-4 py-3 text-[#111111] sm:px-5",
+                    "bg-brand-lime px-3 py-2 text-[#111111] sm:px-5 sm:py-3",
                     // The device is centred, so its edges sit at
                     // 50% ± --phone-w/2. Anchoring the chip there puts most of
                     // it out on the dark field and laps only ~56px onto the
@@ -216,10 +225,10 @@ export function AppBeats() {
                   ].join(" ")}
                 >
                   <beat.callout.icon
-                    className="h-4 w-4 flex-shrink-0"
+                    className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4"
                     strokeWidth={2}
                   />
-                  <span className="whitespace-nowrap text-[12px] font-semibold leading-none sm:text-[13px]">
+                  <span className="whitespace-nowrap text-[10.5px] font-semibold leading-none sm:text-[13px]">
                     {beat.callout.text}
                   </span>
                 </div>
@@ -233,7 +242,7 @@ export function AppBeats() {
               <div
                 className={[
                   "relative z-10 bg-[#F4F4F1] text-[#111111]",
-                  "-mt-12 mr-6 px-7 py-9 sm:mr-10 sm:px-10 sm:py-12",
+                  "-mt-10 mr-5 px-6 py-7 sm:-mt-12 sm:mr-10 sm:px-10 sm:py-12",
                   "lg:row-start-1 lg:mx-0 lg:mt-0 lg:px-12 lg:py-14",
                   // The panel and the capture are ADJACENT columns; the overlap
                   // is this negative margin, not a shared grid column. Letting
@@ -251,7 +260,7 @@ export function AppBeats() {
                 <h3
                   className="font-gothic"
                   style={{
-                    fontSize: "clamp(1.75rem, 3vw, 2.75rem)",
+                    fontSize: "clamp(1.375rem, 3vw, 2.75rem)",
                     fontWeight: 300,
                     lineHeight: 1.1,
                     letterSpacing: "-0.025em",
@@ -263,7 +272,7 @@ export function AppBeats() {
                 <p
                   className="mt-6 max-w-xl text-[#3F3F3A]"
                   style={{
-                    fontSize: "clamp(1rem, 1.15vw, 1.0625rem)",
+                    fontSize: "clamp(0.9375rem, 1.15vw, 1.0625rem)",
                     fontWeight: 300,
                     lineHeight: 1.75,
                   }}
