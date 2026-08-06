@@ -67,9 +67,17 @@ Why the refusal beat goes *before* the photos: the turn claims this part is hard
 
 **Still missing from the shot list:** B-03 and C-03 (client portal — the app's Client role has no captures at all), B-04 (deficiency still; C-04 covers the ground), B-13 (admin schedule, 3440×1440 — would be the only landscape asset and the natural full-width beat between *The shift* and *The record*; needs the web build pointed at demo).
 
-## The pinned device — `app-sequence.tsx` (2026-08-06)
+## The horizontal run — `app-sequence.tsx` (2026-08-06)
 
-The homepage product beat is no longer a static phone beside a feature list. One device is held while five claims walk past it and the screen changes to whatever is being claimed: the checklist → the failure → **the refusal (the C-05 clip, playing in the frame)** → the handoff → the shift. The standalone refusal beat and the B-06 evidence frame were removed, since the sequence now covers both.
+The homepage product beat is no longer a static phone beside a feature list. **The device is stationary and the claims travel sideways:** the section holds, and scrolling down carries five panels across it — the checklist → the failure → **the refusal (the C-05 clip, playing in the frame)** → the handoff → the shift. The standalone refusal beat and the B-06 evidence frame were removed, since the run covers both.
+
+Turned sideways deliberately. Vertically the claims competed with the page's own scroll — a column moving the same direction as everything above and below it reads as "more page", not as a held moment. Across, the page stops, the argument runs, the page resumes.
+
+- **No ScrollTrigger `pin`.** The hold is a tall spacer (`h-[420vh]`) with a `sticky top-0 h-screen` viewport inside it; GSAP only scrubs the track's `x`. GSAP's pin rewrites layout — wraps the element, hard-sets heights, needs refreshing whenever anything above it changes size, which here means every photograph that decodes late.
+- **The device sits outside the track and never translates**; only its screen changes. Five panels each carrying their own device would read as five products. Verified: the frame's `x` is identical at every sampled scroll position, desktop and mobile.
+- **`overflow-hidden` on the track window is fine** — it's a descendant of the sticky element, not an ancestor. Ancestor overflow is what breaks sticky (see the `overflow-x-clip` note on the section wrapper).
+- **The sideways motion must not leak into page scroll.** Measured `document.scrollWidth === innerWidth` and zero overflowing elements at 1440 and 390.
+- The tall spacer *is* the scroll budget. Shorten it and the run feels rushed; lengthen it and the page feels stuck.
 
 Four things bit during the build. All four are cheap to reintroduce, so they're written down.
 
@@ -98,13 +106,12 @@ The tell: capture `/terms` at 390 and at 500 and compare line breaks. They were 
 
 Use CDP instead. Launch with `--remote-debugging-port`, connect with Node's global `WebSocket`, and call `Emulation.setDeviceMetricsOverride {width, height, deviceScaleFactor: 2, mobile: true}`. That changes the layout viewport for real, and `Runtime.evaluate` in the same session gives scripted scrolling plus measurement — which the extension can't do either, since `window.scrollTo` is inert there (wheel events work, programmatic scrolling doesn't).
 
-### What the sequence actually needed for mobile
+### What the run needed for mobile
 
-- **`position: sticky` travels only within its containing block.** In the one-column mobile grid, the wrapper around the device was a row exactly as tall as the device: measured `travelRoom: 0`. The phone scrolled away at once and five claims followed with nothing beside them. The wrapper is `contents lg:block lg:col-span-5` now — below lg it generates no box, so the containing block becomes the tall parent holding the phone *and* the claims (`travelRoom: 2741`). At lg it is a grid column again.
-- **The reference line for "which claim is current" is not the viewport centre on mobile.** The pinned device covers the top ~40% of the screen, so the centre falls behind it and selects a claim the visitor can't see. It's `innerHeight * 0.72` below lg, `0.5` at lg and up.
-- **Device size is a mobile-specific decision.** At 196px wide the frame measured 401px — 47% of a 390×844 screen — and claim headlines slid underneath it. The `sequence` size is 168px below `sm`, which lands near 344px (41%) and clears the settled text.
+- **The device is sized per breakpoint.** At 196px the frame measured 401px — 47% of a 390×844 screen. The `sequence` size is 168px below `sm` (~41%), leaving room for the claim beneath it.
+- Below `lg` the layout stacks: device on top, the track running underneath it. Above `lg` they sit side by side.
 
-Verified at 390×844, 360×640 and 1440×900: the device stays pinned across all five claims, exactly one screen layer is live at each, and the lit screen index matches the claim index every time.
+Verified at 1440×900 and 390×844: the device's x never moves, the track travels its full width, exactly one screen layer is live at every sample, and the lit screen index advances with progress.
 
 ## Employee training portal — `/staff-portal`
 - Rebuilt from a fake login into a **training video library** (`training-hub.tsx`), **passcode-gated (5602)**, noindexed, nav labeled "Employee Training."

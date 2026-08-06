@@ -1,35 +1,32 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { PhoneFrame } from "@/components/shared/phone-frame";
+import { cn } from "@/lib/utils";
 
 /**
- * The pinned device — one phone held in place while the argument walks past it,
- * the screen changing to whatever the current claim is talking about.
+ * The app chapter as a horizontal run: the device holds still, and scrolling
+ * down carries the claims sideways past it, advancing rightward.
  *
- * WHY THIS SHAPE. The app chapter is one continuous argument, not a catalogue.
- * Laid out as alternating rows, five claims read as five separate features and
- * the visitor re-anchors on a new device five times. Held, they read as one
- * product answering five questions, and the screen change does the work a
- * caption otherwise has to.
+ * WHY SIDEWAYS. Vertically, the claims competed with the page's own scroll —
+ * you were reading a column that moved in the same direction as everything
+ * above and below it, so the sequence read as "more page" rather than as a
+ * held moment. Turning the travel 90° makes the section announce itself: the
+ * page stops, the argument runs across, the page resumes.
  *
- * THE PIN IS CSS `position: sticky`, NOT ScrollTrigger's `pin`. GSAP pinning
- * rewrites layout — it wraps the element, hard-sets heights, and has to be
- * refreshed whenever anything above it changes size (this page loads
- * photographs above this section, so that happens). Sticky costs nothing, never
- * desynchronises, and if JS fails the device simply stops following. GSAP is
- * doing the part only GSAP can do: reading scroll position to decide which
- * claim owns the screen.
+ * NO ScrollTrigger `pin`. The hold is a tall spacer with a `sticky` viewport
+ * inside it, and GSAP only scrubs the track's x. GSAP's pin rewrites layout —
+ * it wraps the element, hard-sets heights, and needs refreshing whenever
+ * anything above it changes size, which on this page means every photograph
+ * that decodes late. Sticky costs nothing and cannot desynchronise. (It does
+ * require that no ancestor carries `overflow-hidden`; the section wrapper uses
+ * `overflow-x-clip` for exactly this reason — see app-showcase.tsx.)
  *
- * MOTION CONTRACT. Screen 0 is visible in the authored DOM; the rest sit at
- * opacity 0 behind it. That is a deliberate exception to the section's usual
- * "nothing parked at opacity-0" rule and it is safe here for a specific reason:
- * with no JS at all you still get a phone showing a real screen beside all five
- * claims in full. The section degrades to a static product shot, which reads
- * completely — it cannot go blank the way `hero.tsx` does. Do not extend the
- * pattern to elements that have no visible sibling.
+ * ONE DEVICE, NOT FIVE. The phone sits outside the moving track and never
+ * translates; only its screen changes. Five panels each carrying their own
+ * device would read as five products.
  */
 
 type Screen = {
@@ -89,44 +86,36 @@ const SCREENS: Screen[] = [
 
 export function AppSequence() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root) return;
+    const track = trackRef.current;
+    if (!root || !track) return;
 
     const screens = gsap.utils.toArray<HTMLElement>("[data-screen]", root);
-    const claims = gsap.utils.toArray<HTMLElement>("[data-claim]", root);
-    if (!screens.length || !claims.length) return;
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // The swap is information, not decoration, so it still happens under
-    // reduced motion — it just happens instantly instead of crossfading.
-    const duration = reduced ? 0 : 0.3;
+    const panels = gsap.utils.toArray<HTMLElement>("[data-panel]", root);
+    const ticks = gsap.utils.toArray<HTMLElement>("[data-tick]", root);
+    if (!screens.length || !panels.length) return;
 
     let current = -1;
 
     /**
-     * EXACTLY ONE LAYER IS EVER ALIVE. Outgoing screens are cleared instantly
-     * with `set`; only the incoming one is tweened, rising from the phone's own
-     * white background.
-     *
-     * Two earlier versions of this were wrong, both for the same underlying
-     * reason — every one of these screens is a white inspection UI with nearly
-     * identical furniture, so any moment where two are simultaneously visible
-     * is a double exposure, not a transition:
-     *
-     *   1. Symmetrical crossfade (old 1→0, new 0→1) parks both at ~50% mid-way.
-     *      Measured: a 78 printed through an 80, two score rows overlapping.
-     *   2. Fading the incoming in on top, leaving the outgoing opaque
-     *      underneath, and tidying up in `onComplete`. That relies on the tween
-     *      finishing — and during a fast scroll it never does. Measured at
-     *      speed: `0:100/z0 1:63/z1 3:35/z2`, three live layers with a
-     *      translucent one on top showing straight through to a solid one below.
-     *
-     * Clearing instantly cannot desynchronise, because it doesn't depend on any
-     * tween completing. The only cost is a brief moment of the white screen
-     * background, which is invisible here — every screen in this sequence is
-     * itself near-white.
+     * EXACTLY ONE LAYER IS EVER ALIVE — outgoing screens are cleared instantly,
+     * only the incoming one is tweened, rising from the phone's own white
+     * background. These are all white inspection UIs with near-identical
+     * furniture, so any moment with two of them simultaneously visible is a
+     * double exposure rather than a transition. `killTweensOf` first, because
+     * `gsap.set` writes a value but does not stop a tween already animating it.
      */
     const activate = (index: number) => {
       if (index === current) return;
@@ -134,15 +123,9 @@ export function AppSequence() {
 
       screens.forEach((el, i) => {
         if (i !== index) {
-          // killTweensOf FIRST. `gsap.set` writes a value, it does not stop a
-          // tween already animating that property — the running fade-in simply
-          // overwrites the set on its next tick and the layer climbs back up.
-          // Measured scrolling back up through the sequence: `2:55 4:96`, the
-          // previous screen still fading in underneath the new one.
           gsap.killTweensOf(el);
           gsap.set(el, { opacity: 0, zIndex: 0 });
         }
-
         const video = el.querySelector("video");
         if (video) {
           if (i === index) {
@@ -158,147 +141,156 @@ export function AppSequence() {
       gsap.set(screens[index], { zIndex: 2 });
       gsap.to(screens[index], {
         opacity: 1,
-        duration,
+        duration: reduced ? 0 : 0.3,
         ease: "power2.out",
         overwrite: "auto",
       });
 
-      claims.forEach((el, i) => {
+      panels.forEach((el, i) => {
         gsap.to(el, {
-          opacity: i === index ? 1 : 0.34,
+          opacity: i === index ? 1 : 0.32,
           duration: reduced ? 0 : 0.35,
           ease: "power2.out",
           overwrite: "auto",
         });
-        const rule = el.querySelector("[data-rule]");
-        if (rule) {
-          gsap.to(rule, {
-            scaleY: i === index ? 1 : 0,
-            duration: reduced ? 0 : 0.4,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-        }
+      });
+
+      ticks.forEach((el, i) => {
+        gsap.to(el, {
+          backgroundColor:
+            i === index ? "var(--color-brand-lime)" : "rgba(255,255,255,0.15)",
+          scaleY: i === index ? 3 : 1,
+          duration: reduced ? 0 : 0.3,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
       });
     };
 
-    /**
-     * Which claim owns the screen is DERIVED from scroll position, not
-     * accumulated from enter/leave events.
-     *
-     * The first version put a trigger on each claim and activated on
-     * `onToggle`. That reads fine and is wrong: during a fast scroll several
-     * triggers toggle within a frame, the last one to fire wins regardless of
-     * where the viewport actually landed, and the crossfades strand each other
-     * part-way. Measured mid-flick it left three screens sitting at ~33%
-     * opacity — a phone showing a smear of three inspections at once.
-     *
-     * Nearest-centre wins. It cannot desynchronise, because it asks the same
-     * question every frame and the answer only depends on the current layout.
-     */
-    const wide = window.matchMedia("(min-width: 1024px)");
+    // Reduced motion: the panels are stacked in normal flow, so there is
+    // nothing to scrub. Show every screen's claim and leave the device on the
+    // first — no scroll-linked movement at all.
+    if (reduced) {
+      activate(0);
+      panels.forEach((el) => gsap.set(el, { opacity: 1 }));
+      return;
+    }
 
-    /**
-     * Where the "current" claim is judged from. On desktop the device sits
-     * beside the copy, so the viewport centre is right. On mobile the device is
-     * pinned across the top ~450px of an 844px screen, and the viewport centre
-     * falls BEHIND it — measuring from there picks whichever claim is hidden
-     * under the phone. 72% down puts the line in the free space below it.
-     */
-    const referenceLine = () =>
-      window.innerHeight * (wide.matches ? 0.5 : 0.72);
+    const distance = () => track.scrollWidth - track.offsetWidth;
 
-    const pick = () => {
-      const line = referenceLine();
-      let best = 0;
-      let bestDistance = Infinity;
-      claims.forEach((claim, i) => {
-        const rect = claim.getBoundingClientRect();
-        const distance = Math.abs(rect.top + rect.height / 2 - line);
-        if (distance < bestDistance) {
-          bestDistance = distance;
-          best = i;
-        }
-      });
-      activate(best);
-    };
-
-    const trigger = ScrollTrigger.create({
-      trigger: root,
-      start: "top bottom",
-      end: "bottom top",
-      onUpdate: pick,
-      onRefresh: pick,
+    const tween = gsap.to(track, {
+      x: () => -distance(),
+      ease: "none",
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.6,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          // Progress maps linearly onto panel index: at p=0 panel 0 is aligned,
+          // at p=1 the last one is. Rounding picks whichever is nearest, so the
+          // screen changes at the halfway point between two panels.
+          activate(Math.round(self.progress * (panels.length - 1)));
+        },
+      },
     });
 
-    pick();
+    activate(0);
 
-    return () => trigger.kill();
-  }, []);
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, [reduced]);
 
   return (
     <div
       ref={rootRef}
-      className="lg:grid lg:grid-cols-12 lg:gap-x-16"
+      className={cn("relative", !reduced && "h-[420vh]")}
+      // The tall spacer IS the scroll budget: 420vh of page scroll is spent
+      // travelling the track's width. Shorten it and the run feels rushed;
+      // lengthen it and the page feels stuck.
     >
-      {/* `contents` below lg is load-bearing, not tidiness.
-          `position: sticky` can only travel inside its containing block. When
-          this wrapper generated a box on mobile, the one-column grid made that
-          box exactly as tall as the phone inside it — measured travelRoom of
-          0px, so the device scrolled straight off and five claims followed
-          with no visual at all. `display: contents` removes the box below lg,
-          which promotes the sticky element's containing block to the tall
-          parent holding both the phone and the claims. At lg it becomes a real
-          grid column again, where the column itself provides the travel. */}
-      <div className="contents lg:block lg:col-span-5">
-        <div className="sticky top-3 z-10 mb-10 flex justify-center lg:top-[14vh] lg:mb-0 lg:justify-start">
-          {/* Exactly one frame, not one per breakpoint: the `sequence` size is
-              responsive, and a second stack would make [data-screen] resolve to
-              ten elements and break the index activate() is handed. */}
+      <div
+        className={cn(
+          "flex flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14",
+          !reduced && "sticky top-0 h-screen overflow-hidden"
+        )}
+      >
+        {/* The device — outside the track, so it never translates. */}
+        <div className="flex shrink-0 justify-center lg:justify-start">
           <PhoneFrame size="sequence" glow>
             <ScreenStack />
           </PhoneFrame>
         </div>
-      </div>
 
-      {/* The claims. */}
-      <div className="lg:col-span-7">
-        {SCREENS.map((s, i) => (
+        {/* The window the claims run through. `overflow-hidden` here is safe —
+            it is the sticky element's descendant, not its ancestor. */}
+        <div
+          className={cn(
+            "min-w-0 flex-1",
+            !reduced && "overflow-hidden"
+          )}
+        >
           <div
-            key={s.title}
-            data-claim
-            className="flex min-h-[64vh] flex-col justify-center py-8 lg:min-h-[78vh]"
-            style={{ opacity: i === 0 ? 1 : 0.34 }}
+            ref={trackRef}
+            className={cn(
+              "flex",
+              reduced ? "flex-col gap-14" : "will-change-transform"
+            )}
           >
-            <div className="relative pl-6">
-              <span
-                data-rule
-                aria-hidden="true"
-                className="absolute left-0 top-1 h-[calc(100%-0.5rem)] w-px origin-top bg-brand-green-deep"
-                style={{ transform: `scaleY(${i === 0 ? 1 : 0})` }}
-              />
-              <p className="eyebrow mb-4 text-brand-lime">{s.eyebrow}</p>
-              <h3
-                className="font-gothic text-white"
-                style={{
-                  fontSize: "clamp(1.5rem, 2.9vw, 2.5rem)",
-                  fontWeight: 300,
-                  lineHeight: 1.12,
-                  letterSpacing: "-0.02em",
-                }}
+            {SCREENS.map((s, i) => (
+              <div
+                key={s.title}
+                data-panel
+                className={cn(
+                  "w-full shrink-0",
+                  !reduced && "pr-6 lg:pr-12"
+                )}
+                style={{ opacity: i === 0 ? 1 : 0.32 }}
               >
-                {s.title}{" "}
-                <span className="text-brand-green-deep">{s.accent}</span>
-              </h3>
-              <p
-                className="mt-5 max-w-xl text-gray-300"
-                style={{ fontWeight: 300, lineHeight: 1.7 }}
-              >
-                {s.body}
-              </p>
-            </div>
+                <div className="border-l-2 border-brand-green-deep pl-5 lg:pl-6">
+                  <p className="eyebrow mb-4 text-brand-lime">{s.eyebrow}</p>
+                  <h3
+                    className="font-gothic text-white"
+                    style={{
+                      fontSize: "clamp(1.5rem, 2.9vw, 2.5rem)",
+                      fontWeight: 300,
+                      lineHeight: 1.12,
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {s.title}{" "}
+                    <span className="text-brand-green-deep">{s.accent}</span>
+                  </h3>
+                  <p
+                    className="mt-5 max-w-xl text-gray-300"
+                    style={{ fontWeight: 300, lineHeight: 1.7 }}
+                  >
+                    {s.body}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+
+          {/* Progress across the run — five ticks, the live one filled. */}
+          {!reduced && (
+            <div
+              aria-hidden="true"
+              className="mt-10 flex gap-2 pl-5 lg:pl-6"
+            >
+              {SCREENS.map((s, i) => (
+                <span
+                  key={s.title}
+                  data-tick={i}
+                  className="h-px w-10 bg-white/15"
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -328,9 +320,8 @@ function ScreenStack() {
               loop
               playsInline
               // "metadata", not "none": this clip is a beat inside a sequence
-              // rather than something the visitor chooses. With "none" the
-              // first play() starts from a cold fetch and the poster sits there
-              // through the whole claim — measured readyState 0 on arrival.
+              // rather than something the visitor chooses, so it should be
+              // ready when its panel arrives.
               preload="metadata"
               className="h-full w-full object-cover object-top"
             />
@@ -341,7 +332,7 @@ function ScreenStack() {
               fill
               priority={i === 0}
               className="object-cover object-top"
-              sizes="(max-width: 1024px) 216px, 272px"
+              sizes="(max-width: 640px) 168px, (max-width: 1024px) 240px, 272px"
             />
           )}
         </div>
