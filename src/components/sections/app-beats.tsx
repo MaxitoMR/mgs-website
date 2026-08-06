@@ -32,11 +32,12 @@ import { PhoneFrame } from "@/components/shared/phone-frame";
  * alternates so the eye has somewhere to go across five of them; nothing else
  * changes between beats, because the repetition is what makes it calm.
  *
- * THE DEVICE IS CROPPED. A 9:19.5 phone shown whole is either tall and thin or
- * too small to read — that is what made the pinned version shrink it to 272px.
- * Shown from the top and cut off by its container, it can be as wide as the
- * column allows and still read as a phone. The top is also where the argument
- * lives: the site header, the score, the first rows.
+ * THE DEVICE IS WHOLE. It went through both other states first: no frame at all
+ * (which made the captures read as flat rectangles) and a frame cropped by its
+ * container (which, once the device was sized down, shaved a sliver off the
+ * bottom bezel and looked like a bug rather than a crop). Shown entire it is a
+ * considered object, the 17 Pro geometry is actually visible, and the full
+ * screen — bottom bar included — is in frame.
  *
  * ONE CALLOUT PER BEAT. Without it the captures are just rectangles, and the
  * reader has to hunt the screen for whatever the headline is claiming. The chip
@@ -156,6 +157,11 @@ export function AppBeats() {
               <div
                 className={[
                   "relative",
+                  // ONE source of truth for the device's width. PhoneFrame's
+                  // `beat` size reads it, and the callout below positions itself
+                  // off it — so resizing the device cannot leave the chip
+                  // anchored to where the device used to be.
+                  "[--phone-w:76%] sm:[--phone-w:60%] lg:[--phone-w:54%]",
                   "-mx-6 sm:-mx-10 lg:mx-0",
                   "lg:row-start-1",
                   captureRight
@@ -163,11 +169,14 @@ export function AppBeats() {
                     : "lg:col-start-1 lg:col-end-8",
                 ].join(" ")}
               >
-                {/* 4:5 at every size, not square on desktop. Square showed only
-                    ~58% of the device, which cut the handoff's signature and the
-                    shift's geofence line out of frame — the two things their
-                    callouts point at. 4:5 reaches ~72% and brings both back. */}
-                <div className="relative aspect-[4/5] overflow-hidden">
+                {/* No crop box. At this size the device very nearly fits a 4:5
+                    frame, and "very nearly" reads as an accident — a sliver of
+                    the bottom bezel shaved off looks like a bug, not a
+                    composition. Shown whole it is a considered object, the
+                    hardware geometry is actually visible, and the whole screen
+                    including the bottom bar is in frame. The overlap is still
+                    there: the panel takes one edge, the callout the other. */}
+                <div className="relative">
                   <PhoneFrame size="beat">
                     {isClip(beat) ? (
                       <video
@@ -186,7 +195,7 @@ export function AppBeats() {
                         src={beat.src}
                         alt={beat.alt}
                         fill
-                        sizes="(max-width: 1024px) 92vw, 46vw"
+                        sizes="(max-width: 640px) 76vw, (max-width: 1024px) 60vw, 30vw"
                         className="object-cover object-top"
                       />
                     )}
@@ -214,16 +223,16 @@ export function AppBeats() {
                     // battery are the only pixels here nobody needs.
                     "absolute top-[4%] z-20 flex items-center gap-2.5",
                     "bg-brand-lime px-4 py-3 text-[#111111] sm:px-5",
-                    // The device sits at 80% width, centred, so its edges are at
-                    // 10% and 90% of this cell. Anchoring to `calc(90% - 64px)`
-                    // puts most of the chip out on the dark field and laps only
-                    // 64px onto the device — which is its bezel plus the app's
-                    // own side padding, not content. On phones the device is
-                    // 92% wide and there is no field to sit in, so it simply
-                    // hugs the edge.
+                    // The device is centred, so its edges sit at
+                    // 50% ± --phone-w/2. Anchoring the chip there puts most of
+                    // it out on the dark field and laps only ~56px onto the
+                    // device — its bezel plus the app's own side padding, not
+                    // content. Derived from the variable rather than a literal,
+                    // so it follows the device at every breakpoint. On phones
+                    // there is no field to sit in, so it hugs the edge instead.
                     captureRight
-                      ? "right-2 sm:right-4 lg:left-[calc(90%-64px)] lg:right-auto"
-                      : "left-2 sm:left-4 lg:right-[calc(90%-64px)] lg:left-auto",
+                      ? "right-2 sm:right-4 lg:left-[calc(50%+var(--phone-w)/2-56px)] lg:right-auto"
+                      : "left-2 sm:left-4 lg:right-[calc(50%+var(--phone-w)/2-56px)] lg:left-auto",
                   ].join(" ")}
                 >
                   <beat.callout.icon
