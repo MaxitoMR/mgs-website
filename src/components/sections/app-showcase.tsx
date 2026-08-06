@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { PhoneFrame } from "@/components/shared/phone-frame";
-import { AppSequence } from "@/components/sections/app-sequence";
+import { AppBeats } from "@/components/sections/app-beats";
 
 /**
  * The app chapter — one continuous dark field, scrolled through in beats.
@@ -243,14 +243,16 @@ export function AppShowcase() {
           </div>
         </div>
 
-        {/* ── Beat 2 — the product, held ────────────────────────────────────
-            One device pinned while five claims walk past it, the screen
-            changing to whatever is being claimed. See app-sequence.tsx for why
-            the pin is CSS sticky and GSAP only decides which claim owns the
-            screen. The refusal clip lives inside this sequence rather than in a
-            beat of its own — it is one of the five things the phone shows. */}
+        {/* ── Beat 2 — the product, five compositions ───────────────────────
+            Five claims, each one capture with a panel breaking its edge. This
+            was a pinned horizontal run (app-sequence.tsx, still in the repo);
+            it was replaced because holding five claims inside one viewport
+            meant none of them was ever fully readable, and the device had to
+            shrink to 272px to fit — so the screen being argued about could not
+            be seen. These ship no JavaScript: the reveals come from the
+            `data-reveal` pass above. */}
         <div style={{ paddingTop: "clamp(3rem, 6vw, 5rem)" }}>
-          <AppSequence />
+          <AppBeats />
         </div>
 
         {/* What the sequence releases into: the spec, then the download. */}
