@@ -278,7 +278,22 @@ export function AppSequence() {
          * `snapTo` is 1/(n-1) because progress maps linearly onto panel index:
          * the panel positions ARE the quarter points.
          */
-        snap: {
+        /**
+         * Pointer devices only. `ScrollTrigger.isTouch === 1` is a touch-ONLY
+         * device — phone or tablet, no mouse.
+         *
+         * Snapping works by setting scroll position programmatically. On a
+         * trackpad or wheel that is fine: input has stopped by the time it
+         * fires. Under a finger it is not — iOS keeps running its own momentum
+         * scroll on the compositor after you lift, and a scroll position being
+         * written underneath that fights it, which is the shaking. The tighter
+         * delay (0.03) made it worse by firing into the middle of the throw.
+         *
+         * Touch keeps the continuous scrub, which is what a swipe already gives
+         * you: momentum lands where you threw it, and the active panel is still
+         * measured off the painted transform, so nothing desyncs.
+         */
+        snap: ScrollTrigger.isTouch === 1 ? undefined : {
           snapTo: 1 / (SCREENS.length - 1),
           // Settle, don't glide. Half a second of travel after the scroll has
           // already stopped is read as the section still moving on its own.
@@ -412,15 +427,24 @@ export function AppSequence() {
   return (
     <div
       ref={rootRef}
-      className={cn("relative", !reduced && "h-[420vh]")}
-      // The tall spacer IS the scroll budget: 420vh of page scroll is spent
-      // travelling the track's width. Shorten it and the run feels rushed;
-      // lengthen it and the page feels stuck.
+      className={cn("relative", !reduced && "h-[420svh]")}
+      // The tall spacer IS the scroll budget: 420 viewport-heights of page
+      // scroll are spent travelling the track's width. Shorten it and the run
+      // feels rushed; lengthen it and the page feels stuck.
+      //
+      // `svh`, NOT `vh`. `vh` follows the mobile URL bar, and this box is 4.2
+      // viewport-heights tall, so it amplifies every one of those changes by
+      // 4.2x — a 100px URL-bar collapse moved this spacer 420px mid-swipe and
+      // shook the whole page. `svh` is the SMALL viewport height: fixed at the
+      // chrome-visible size, so it does not move while you scroll. It must stay
+      // the same unit as the sticky row below or the pin range stops matching
+      // the scrub range.
     >
       <div
         className={cn(
           "flex flex-col justify-center gap-8 lg:flex-row lg:items-center lg:gap-14",
-          !reduced && "sticky top-0 h-screen overflow-hidden"
+          // h-[100svh] to match the spacer's unit — see the note there.
+          !reduced && "sticky top-0 h-[100svh] overflow-hidden"
         )}
       >
         {/* The device — outside the track, so it never translates. */}
