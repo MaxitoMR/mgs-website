@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
  * (1206x2622). Feeding it anything else will letterbox or crop.
  */
 
-type PhoneFrameSize = "sm" | "md" | "lg" | "sequence";
+type PhoneFrameSize = "sm" | "md" | "lg" | "sequence" | "beat";
 
 const WIDTHS: Record<PhoneFrameSize, string> = {
   sm: "w-[200px] sm:w-[216px]",
@@ -25,6 +25,14 @@ const WIDTHS: Record<PhoneFrameSize, string> = {
   // sliding underneath it. 168px lands around 344px (41%), which clears the
   // settled claim text.
   sequence: "w-[168px] sm:w-[240px] lg:w-[272px]",
+  // For the app beats, where the device is deliberately CROPPED by its
+  // container rather than shown whole. A 9:19.5 device shown entire is either
+  // tall and thin or too small to read; cropped to its top half it can be as
+  // wide as the column allows. Percentages, not fixed px, because the beat is
+  // full-bleed on phones and column-width on desktop — 92% there leaves just
+  // enough dark field either side to read as a device sitting on the page
+  // rather than a screenshot pasted onto it.
+  beat: "w-[92%] sm:w-[86%] lg:w-[80%]",
 };
 
 export function PhoneFrame({

@@ -1,4 +1,13 @@
 import Image from "next/image";
+import {
+  ClipboardCheck,
+  Camera,
+  ShieldAlert,
+  PenLine,
+  MapPin,
+  type LucideIcon,
+} from "lucide-react";
+import { PhoneFrame } from "@/components/shared/phone-frame";
 
 /**
  * The app chapter's product argument, told as static overlapping compositions.
@@ -23,11 +32,18 @@ import Image from "next/image";
  * alternates so the eye has somewhere to go across five of them; nothing else
  * changes between beats, because the repetition is what makes it calm.
  *
- * NO DEVICE FRAME. The captures used to sit in a phone bezel. Rendering a phone
- * inside a phone is absurd at 390px, and the bezel was eating the width that
- * made the screen legible. The captures are cropped to portrait from the top
- * instead — the header and the first rows are where the argument actually is,
- * and at this size you can read them.
+ * THE DEVICE IS CROPPED. A 9:19.5 phone shown whole is either tall and thin or
+ * too small to read — that is what made the pinned version shrink it to 272px.
+ * Shown from the top and cut off by its container, it can be as wide as the
+ * column allows and still read as a phone. The top is also where the argument
+ * lives: the site header, the score, the first rows.
+ *
+ * ONE CALLOUT PER BEAT. Without it the captures are just rectangles, and the
+ * reader has to hunt the screen for whatever the headline is claiming. The chip
+ * names the single fact that proves the beat and sets it against the field, so
+ * the composition points instead of merely showing. It is `aria-hidden` — every
+ * one of these facts is already in the capture's alt text and the body copy, so
+ * announcing it a third time would only pad the screen reader.
  */
 
 type Beat = {
@@ -38,6 +54,13 @@ type Beat = {
   title: string;
   accent: string;
   body: string;
+  /**
+   * The one fact on the screen that proves the claim, lifted out onto a chip
+   * that breaks the device's edge. Every one of these is literally legible in
+   * its capture — the chip points, it does not add. If a beat's evidence isn't
+   * visible in its own screenshot, the screenshot is wrong, not the chip.
+   */
+  callout: { icon: LucideIcon; text: string };
 };
 
 /** Copy carried over verbatim from the pinned sequence — the argument is unchanged. */
@@ -46,6 +69,7 @@ const BEATS: Beat[] = [
     src: "/images/app-screenshots/inspection-medical-sections.webp",
     alt: "An inspection at Greenfield Medical Center with section tabs reading Reception / Waiting, Exam Rooms and Lab / Specimen",
     eyebrow: "The checklist",
+    callout: { icon: ClipboardCheck, text: "Section 1 of 6 · Score 80" },
     title: "It knows what kind of building",
     accent: "it's standing in.",
     body: "Sections are built per facility type. A medical site is walked as Reception, Exam Rooms and Lab / Specimen — not a generic list of areas — so the crew is measured against the standard that space actually carries.",
@@ -54,6 +78,7 @@ const BEATS: Beat[] = [
     src: "/images/app-screenshots/inspection-failed-item.webp",
     alt: "A checklist item marked Fail at 4 out of 10 with a required note reading “There is still dust everywhere”, an attached photograph, and the running score at 79 with one failure",
     eyebrow: "The failure",
+    callout: { icon: Camera, text: "Scored 4/10 · reason required" },
     title: "A problem has to be",
     accent: "specific.",
     body: "Marking an item down opens a required note and a camera, and the site score moves as you do it. A low number with no reason attached and nothing photographed is not something this app will carry forward.",
@@ -63,6 +88,7 @@ const BEATS: Beat[] = [
     poster: "/videos/submit-blocked-poster.webp",
     alt: "A supervisor tries to submit an inspection with a failed item that has no photo. The app blocks it and shows “Photos required — 1 failed item(s) need at least one photo”.",
     eyebrow: "The refusal",
+    callout: { icon: ShieldAlert, text: "Submit refused · 1 photo missing" },
     title: "And it won't file without",
     accent: "the evidence.",
     body: "Not a warning that can be dismissed when the shift is running late — the submit is refused, and the app names how many items are still missing a photograph. A standard that bends under time pressure isn't one.",
@@ -71,6 +97,11 @@ const BEATS: Beat[] = [
     src: "/images/app-screenshots/inspection-summary-signed.webp",
     alt: "A completed inspection scoring 78 with a timeline showing it started at 5:28 PM and was submitted at 5:29 PM, and a handwritten signature under Employee Acknowledgment",
     eyebrow: "The handoff",
+    // "Submitted", not "Signed" — SUBMITTED 5:29 PM is the line visible in the
+    // capture. The signature sits lower in the record, and app-showcase.tsx
+    // already warns against upgrading the handoff into a guarantee the app does
+    // not enforce. The headline can argue; the chip only reports.
+    callout: { icon: PenLine, text: "Submitted 5:29 PM" },
     title: "It closes with the crew,",
     accent: "signed.",
     body: "The supervisor hands the phone over at the end of the walk. The crew member reads the result and signs, and the acknowledgment is timestamped before the record is filed — so the file shows not just the score but that they saw it.",
@@ -79,6 +110,10 @@ const BEATS: Beat[] = [
     src: "/images/app-screenshots/shift-timeline-geofence.webp",
     alt: "A shift timeline showing the clock-in position on a map with coordinates and an event log reading “Clocked in inside geofence (18 m from site centre)”",
     eyebrow: "The shift",
+    // The coordinates, because they are what is on screen. "18 m from site
+    // centre" reads better but lives in the event log below the crop, and a
+    // chip pointing at something you cannot see is decoration.
+    callout: { icon: MapPin, text: "Clock-in 29.73820, −95.56100" },
     title: "And the attendance behind it",
     accent: "is verified too.",
     body: "Clock-in is checked against the site's coordinates and refused outside them. What's left is a timeline: where, when, and eighteen metres from site centre — the document behind any question about who was on site.",
@@ -110,21 +145,17 @@ export function AppBeats() {
           >
             <div className="lg:grid lg:grid-cols-12 lg:items-center">
               {/* ── The capture ──────────────────────────────────────────────
-                  Full-bleed to the viewport edge on phones: the whole point is
-                  that the screen is finally big enough to read. `object-top`
-                  because the header and the first rows carry the claim; the
-                  bottom of a phone screen is chrome. */}
+                  A real device, cropped. Showing a 9:19.5 phone WHOLE forces a
+                  choice between tall-and-thin and too-small-to-read; cropping
+                  it to its top half lets it be as wide as the column allows and
+                  still look like a phone. The container clips it — the device
+                  runs off the bottom on purpose.
+
+                  This outer cell does NOT clip, so the callout can break the
+                  device's edge. The clipping happens one level in. */}
               <div
                 className={[
-                  // Portrait on phones, where the capture is full-bleed and can
-                  // afford the height. Square on desktop: a 4:5 box beside a
-                  // panel that is only ever a few lines tall left a third of the
-                  // field empty under it. Squarer shows less of the screen, but
-                  // at the same scale — the crop loses rows, not legibility.
-                  "relative aspect-[4/5] overflow-hidden bg-black lg:aspect-square",
-                  // Negative margins rather than `w-screen`: a block element
-                  // widened by its own margins is exactly full-bleed, and does
-                  // not overshoot by the width of a scrollbar.
+                  "relative",
                   "-mx-6 sm:-mx-10 lg:mx-0",
                   "lg:row-start-1",
                   captureRight
@@ -132,27 +163,77 @@ export function AppBeats() {
                     : "lg:col-start-1 lg:col-end-8",
                 ].join(" ")}
               >
-                {isClip(beat) ? (
-                  <video
-                    src={beat.src}
-                    poster={beat.poster}
-                    aria-label={beat.alt}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="h-full w-full object-cover object-top"
+                {/* 4:5 at every size, not square on desktop. Square showed only
+                    ~58% of the device, which cut the handoff's signature and the
+                    shift's geofence line out of frame — the two things their
+                    callouts point at. 4:5 reaches ~72% and brings both back. */}
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <PhoneFrame size="beat">
+                    {isClip(beat) ? (
+                      <video
+                        src={beat.src}
+                        poster={beat.poster}
+                        aria-label={beat.alt}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        className="h-full w-full object-cover object-top"
+                      />
+                    ) : (
+                      <Image
+                        src={beat.src}
+                        alt={beat.alt}
+                        fill
+                        sizes="(max-width: 1024px) 92vw, 46vw"
+                        className="object-cover object-top"
+                      />
+                    )}
+                  </PhoneFrame>
+                </div>
+
+                {/* ── The callout ──────────────────────────────────────────
+                    One fact, lifted off the screen and set against the field so
+                    the eye is told where to look. It sits on the capture's
+                    OUTER side — away from the panel — so the two things that
+                    break the device's edge do it from opposite directions
+                    instead of crowding the same corner.
+
+                    Lime, because it has to stay legible against both the white
+                    phone screen it half-covers and the near-black field it
+                    half-sits on; an off-white chip would vanish into the screen
+                    and a dark one into the field. */}
+                <div
+                  aria-hidden="true"
+                  className={[
+                    // Vertically over the status-bar band. Everything lower on
+                    // these screens is evidence — the site name, the score, the
+                    // failed row — and a chip that covers the thing it is
+                    // pointing at is worse than no chip. The clock and the
+                    // battery are the only pixels here nobody needs.
+                    "absolute top-[4%] z-20 flex items-center gap-2.5",
+                    "bg-brand-lime px-4 py-3 text-[#111111] sm:px-5",
+                    // The device sits at 80% width, centred, so its edges are at
+                    // 10% and 90% of this cell. Anchoring to `calc(90% - 64px)`
+                    // puts most of the chip out on the dark field and laps only
+                    // 64px onto the device — which is its bezel plus the app's
+                    // own side padding, not content. On phones the device is
+                    // 92% wide and there is no field to sit in, so it simply
+                    // hugs the edge.
+                    captureRight
+                      ? "right-2 sm:right-4 lg:left-[calc(90%-64px)] lg:right-auto"
+                      : "left-2 sm:left-4 lg:right-[calc(90%-64px)] lg:left-auto",
+                  ].join(" ")}
+                >
+                  <beat.callout.icon
+                    className="h-4 w-4 flex-shrink-0"
+                    strokeWidth={2}
                   />
-                ) : (
-                  <Image
-                    src={beat.src}
-                    alt={beat.alt}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 58vw"
-                    className="object-cover object-top"
-                  />
-                )}
+                  <span className="whitespace-nowrap text-[12px] font-semibold leading-none sm:text-[13px]">
+                    {beat.callout.text}
+                  </span>
+                </div>
               </div>
 
               {/* ── The panel ────────────────────────────────────────────────
