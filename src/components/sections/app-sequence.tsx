@@ -261,7 +261,12 @@ export function AppSequence() {
         trigger: root,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.6,
+        // 0.25, not 0.6. Six tenths of a second of smoothing is most of what
+        // made the run feel loose — the track visibly trailed the scroll, so
+        // the panel you were dragging toward kept sliding after you stopped.
+        // Low enough to feel attached to the input, high enough that a
+        // wheel-notch does not read as a jump cut.
+        scrub: 0.25,
         invalidateOnRefresh: true,
         /**
          * Come to rest on a whole panel. The run stays continuous while you are
@@ -275,9 +280,11 @@ export function AppSequence() {
          */
         snap: {
           snapTo: 1 / (SCREENS.length - 1),
-          duration: { min: 0.2, max: 0.5 },
-          delay: 0.06,
-          ease: "power2.inOut",
+          // Settle, don't glide. Half a second of travel after the scroll has
+          // already stopped is read as the section still moving on its own.
+          duration: { min: 0.12, max: 0.28 },
+          delay: 0.03,
+          ease: "power3.out",
           // Nearest panel, not "whichever way you were heading". A slight
           // overshoot at the end of a flick should fall back to the panel you
           // are looking at rather than advance past it.
