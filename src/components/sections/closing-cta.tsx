@@ -1,6 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 
 // Homepage closing: the team photo paired with the assessment ask in one unit.
@@ -41,15 +40,14 @@ export function ClosingCta() {
               We will walk your facility, scope the work against your
               requirements, and return a detailed proposal. No obligation.
             </p>
+            {/* DEMOTED, not deleted. This used to lead with a "Schedule Free
+                Assessment" button pointing at /quote — the same destination the
+                sticky bar offers permanently, on this very screen, under a
+                different name. Two buttons competing for one action is the
+                clutter; the photograph and the ask are not. What is left is the
+                phone number, which is the one action neither the sticky bar nor
+                the contact form directly below provides. */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/quote"
-                className="inline-flex items-center justify-center gap-2 bg-white px-7 py-3.5 font-medium text-brand-green-text transition-all duration-300 hover:bg-paper hover:shadow-lg"
-                style={{ borderTopLeftRadius: "1rem" }}
-              >
-                Schedule Free Assessment
-                <ArrowRight className="h-4 w-4" />
-              </Link>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
                 className="inline-flex items-center justify-center gap-2 border-2 border-brand-on-green/50 px-7 py-3.5 font-light text-brand-on-green transition-all duration-300 hover:border-brand-on-green hover:bg-black/[0.08]"

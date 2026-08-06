@@ -14,42 +14,56 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { COMPANY } from "@/lib/constants";
+import { serviceNav, portalItems } from "@/lib/navigation";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 
 const MONTH_LABEL = new Date()
   .toLocaleDateString("en-US", { month: "long", year: "numeric" })
   .toUpperCase();
 
-const services = [
-  { label: "Commercial Cleaning", href: "/services/multi-tenant-offices" },
-  { label: "Medical Facilities", href: "/services/surgery-centers" },
-  { label: "Industrial Cleaning", href: "/services/factory-plants" },
-  { label: "Specialized Services", href: "/services/specialized" },
-  { label: "Post-Construction", href: "/services/post-construction" },
-  { label: "Window Cleaning", href: "/services/windows" },
-  { label: "Concrete Floors", href: "/services/concrete-floors" },
-];
+/**
+ * The footer's groups mirror the hamburger menu exactly — Services, Company,
+ * Portals — because a visitor who opens the menu and then scrolls to the footer
+ * was previously shown two different taxonomies of the same site. The footer
+ * used to run "Services" (four categories mixed with three individual service
+ * pages) and "Resources" (company pages, two CTAs, one portal, and a legal
+ * link in one undifferentiated list).
+ *
+ * `serviceNav` is the shared source the menu and the mega-menu already use, so
+ * the category labels here cannot drift from theirs.
+ */
+const services = serviceNav.map((category) => ({
+  label: category.label,
+  // The footer needs one destination per category; the menu expands them.
+  // First item of each category, which is also its highest-volume page.
+  href: category.items[0].href,
+}));
 
-const resources = [
+const company = [
   { label: "About Us", href: "/about" },
+  { label: "Our Team", href: "/about#leadership" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Careers", href: "/careers" },
+  { label: "Diffusers", href: "/diffusers" },
   // Internal link to the local landing page — sitewide, so every page passes
   // signal to it. Local pages rank on internal linking as much as content.
   { label: "Janitorial Services in Katy", href: "/katy" },
-  { label: "Our Team", href: "/about#leadership" },
-  { label: "Careers", href: "/careers" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Get a Quote", href: "/quote" },
-  { label: "Schedule Walkthrough", href: "/walkthrough" },
-  { label: "Newsletter", href: "/newsletter" },
-  { label: "Client Portal", href: "https://www.mgsclientportal.app/" },
   // Sits above the App Store link on purpose: the tour is the page that
   // explains the app, and it should catch the visitor who isn't ready to
   // leave the site for a store listing yet.
   { label: "The Mobile App", href: "/app" },
   { label: "Download App", href: "https://apps.apple.com/us/app/mgs-management-app/id6760367154" },
+  { label: "Newsletter", href: "/newsletter" },
   { label: "FAQ", href: "/faq" },
+  // Both legal links live here now. They used to be split: Privacy Policy
+  // appeared in this list AND again in the copyright bar, while Terms only
+  // appeared in the bar.
   { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Service", href: "/terms" },
 ];
+
+/** Same three, same order, same labels as the hamburger's Portals group. */
+const portals = portalItems;
 
 const socialLinks = [
   { icon: Facebook, href: COMPANY.social.facebook, label: "Facebook" },
@@ -216,13 +230,15 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 - Resources */}
+          {/* Column 3 - Company + Portals. Two groups share this column so the
+              footer keeps its four-column grid while using the menu's three
+              group names. */}
           <div>
             <h3 className="mb-5 text-xs font-bold uppercase tracking-wider text-white">
-              Resources
+              Company
             </h3>
             <ul className="space-y-3">
-              {resources.map((link) => (
+              {company.map((link) => (
                 <li key={link.href + link.label}>
                   <Link
                     href={link.href}
@@ -232,6 +248,28 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+
+            <h3 className="mb-5 mt-8 text-xs font-bold uppercase tracking-wider text-white">
+              Portals
+            </h3>
+            <ul className="space-y-3">
+              {portals.map((link) => {
+                const external = link.href.startsWith("http");
+                return (
+                  <li key={link.href + link.label}>
+                    <Link
+                      href={link.href}
+                      {...(external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="text-sm text-gray-400 transition-colors hover:text-[#69AF23]"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -285,25 +323,14 @@ export function Footer() {
         className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8"
         style={{ paddingBottom: "calc(4rem + env(safe-area-inset-bottom))" }}
       >
+        {/* Copyright only. Privacy Policy used to appear here AND in the link
+            list above it — the same link twice in one footer. Terms of Service
+            was here and nowhere else. Both now sit together under Company, so
+            each legal link exists in exactly one place. */}
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-sm text-gray-400">
             &copy; 2026 {COMPANY.legalName}. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-sm">
-            <Link
-              href="/privacy-policy"
-              className="text-gray-400 transition-colors hover:text-[#69AF23]"
-            >
-              Privacy Policy
-            </Link>
-            <span className="text-gray-600" aria-hidden="true">|</span>
-            <Link
-              href="/terms"
-              className="text-gray-400 transition-colors hover:text-[#69AF23]"
-            >
-              Terms of Service
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

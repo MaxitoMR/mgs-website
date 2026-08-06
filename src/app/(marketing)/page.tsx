@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   },
 };
 import { ServicesGrid } from "@/components/sections/services-grid";
-import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { CrewBand } from "@/components/sections/crew-band";
 import { TrustBadges } from "@/components/sections/trust-badges";
 import { Testimonials } from "@/components/sections/testimonials";
@@ -28,8 +27,10 @@ export default function HomePage() {
       <JsonLd type="LocalBusiness" />
       <HeroSection />
       <ServicesGrid />
-      <WhyChooseUs />
       <CrewBand />
+      {/* One trust section, not three. TrustBadges absorbed the "Why facilities
+          standardize on us" card grid; the hero stat bar is the numeric
+          version of the same claims and is not repeated. */}
       <TrustBadges />
       {/* <Testimonials /> — hidden until real client reviews are collected */}
       <ClientPortalCta />

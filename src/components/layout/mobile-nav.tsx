@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { serviceNav } from "@/lib/navigation";
+import { serviceNav, portalItems } from "@/lib/navigation";
 import { COMPANY } from "@/lib/constants";
 import { ChevronDown, Phone, Mail, MapPin, ExternalLink, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -21,11 +21,17 @@ const companyLinks = [
   { label: "Diffusers", href: "/diffusers" },
 ];
 
-const portalLinks = [
-  { label: "MGS Manager", href: "https://mgsmanagement.app/", external: true },
-  { label: "Client Portal", href: "https://www.mgsclientportal.app/", external: true },
-  { label: "Employee Training", href: "/staff-portal", external: false },
-];
+/**
+ * Derived from the shared `portalItems`, not a second hand-kept copy. This list
+ * used to be declared here with its own order (Manager, Client, Training) while
+ * `portalItems` had another (Manager, Training, Client) — so the menu and the
+ * footer showed the same three portals in different sequences. `external` is
+ * computed rather than stored, which is one fewer field to get wrong.
+ */
+const portalLinks = portalItems.map((item) => ({
+  ...item,
+  external: item.href.startsWith("http"),
+}));
 
 export function MobileNav({ open, onClose }: MobileNavProps) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);

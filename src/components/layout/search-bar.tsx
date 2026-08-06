@@ -16,7 +16,7 @@ const searchData = [
   { title: "Window Cleaning", category: "Services", href: "/services/windows" },
   { title: "Power Washing", category: "Services", href: "/services/power-washing" },
   { title: "About Us", category: "Company", href: "/about" },
-  { title: "Request a Quote", category: "Services", href: "/quote" },
+  { title: "Get a Quote", category: "Services", href: "/quote" },
   { title: "Careers", category: "Careers", href: "/careers" },
   { title: "Concrete Floors", category: "Services", href: "/services/concrete-floors" },
 ];

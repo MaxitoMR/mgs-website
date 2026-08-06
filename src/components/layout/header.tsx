@@ -176,7 +176,7 @@ function MegaMenu({
                       className="flex items-center gap-2 px-4 py-2.5 bg-brand-green-deep text-brand-on-green text-sm font-medium transition-all hover:bg-brand-green-deep-hover"
                       style={{ borderTopLeftRadius: '0.75rem' }}
                     >
-                      Request Quote
+                      Get a Quote
                       <ArrowRight className="h-3.5 w-3.5 ml-auto" />
                     </Link>
                     <a
@@ -533,13 +533,14 @@ export function Header() {
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
             </a>
-            <Link
-              href="/quote"
-              aria-label="Request a quote"
-              className="flex min-h-11 items-center bg-brand-green-deep px-3 text-[12px] font-semibold text-brand-on-green"
-            >
-              Quote
-            </Link>
+            {/* The compact "Quote" button that used to sit here is gone. On a
+                phone it was on screen at the same moment as the sticky action
+                bar's "Get a Quote" — same destination, twice, under two
+                different names, competing inside a 390px row that also carries
+                the phone icon and the hamburger. The sticky bar is permanent
+                and its label is the canonical one, so this was the copy to
+                drop. Desktop keeps its own quote button in the utility row,
+                where there is room. */}
             <button
               ref={hamburgerRef}
               onClick={() => setMobileOpen(!mobileOpen)}

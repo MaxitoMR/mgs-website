@@ -63,12 +63,12 @@ export function FloatingActionButtons() {
       {!onQuote && (
         <Link
           href="/quote"
-          aria-label="Request a quote"
+          aria-label="Get a quote"
           style={{ boxShadow: liftShadow }}
           className={cn(btn, "bg-brand-green-deep text-brand-on-green hover:bg-brand-green-deep-hover")}
         >
           <FileText className="h-4 w-4 shrink-0" />
-          <span className={label}>Request Quote</span>
+          <span className={label}>Get a Quote</span>
         </Link>
       )}
       {!onWalkthrough && (

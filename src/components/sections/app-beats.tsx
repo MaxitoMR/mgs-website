@@ -1,10 +1,8 @@
 import Image from "next/image";
 import {
   ClipboardCheck,
-  Camera,
   ShieldAlert,
   PenLine,
-  MapPin,
   type LucideIcon,
 } from "lucide-react";
 import { PhoneFrame } from "@/components/shared/phone-frame";
@@ -12,7 +10,7 @@ import { PhoneFrame } from "@/components/shared/phone-frame";
 /**
  * The app chapter's product argument, told as static overlapping compositions.
  *
- * WHAT THIS REPLACES. The same five claims used to be a pinned horizontal run:
+ * WHAT THIS REPLACES. These claims used to be a pinned horizontal run:
  * a 420svh spacer, a sticky viewport, a scrubbed track, progress ticks and a
  * playback-filled indicator. It read as cluttered because it was — five claims
  * competing inside one viewport-height box, each one a third readable at any
@@ -29,7 +27,7 @@ import { PhoneFrame } from "@/components/shared/phone-frame";
  * THE COMPOSITION. One capture, one panel, and the panel breaks the capture's
  * edge. That overlap is the whole idea: it is what makes a beat read as a
  * composed thing rather than an image with a caption under it. The side
- * alternates so the eye has somewhere to go across five of them; nothing else
+ * alternates so the eye has somewhere to go across the three; nothing else
  * changes between beats, because the repetition is what makes it calm.
  *
  * THE DEVICE IS WHOLE. It went through both other states first: no frame at all
@@ -64,60 +62,48 @@ type Beat = {
   callout: { icon: LucideIcon; text: string };
 };
 
-/** Copy carried over verbatim from the pinned sequence — the argument is unchanged. */
+/**
+ * Three blocks, not five. The chapter used to run checklist → failure →
+ * refusal → handoff → shift, and by the third of them the reader had been told
+ * three separate times that the app verifies things. Failure and refusal are
+ * one idea — a problem has to be specific, and it does not get filed without
+ * the proof — so they are one block with the clip that shows it. Handoff and
+ * shift are also one idea: what the app leaves behind afterwards. The copy is
+ * the original copy, merged and trimmed where two blocks said the same thing;
+ * the word "verified" now appears in none of the three bodies, where it used to
+ * carry two of the five.
+ *
+ * The two captures this drops — the failed item and the shift timeline — are
+ * still shown in full on /app, so nothing is orphaned.
+ */
 const BEATS: Beat[] = [
   {
     src: "/images/app-screenshots/inspection-medical-sections.webp",
     alt: "An inspection at Greenfield Medical Center with section tabs reading Reception / Waiting, Exam Rooms and Lab / Specimen",
     eyebrow: "The checklist",
-    callout: { icon: ClipboardCheck, text: "Section 1 of 6 · Score 80" },
+    callout: { icon: ClipboardCheck, text: "Section 1 of 6 \u00b7 Score 80" },
     title: "It knows what kind of building",
     accent: "it's standing in.",
-    body: "Sections are built per facility type. A medical site is walked as Reception, Exam Rooms and Lab / Specimen — not a generic list of areas — so the crew is measured against the standard that space actually carries.",
-  },
-  {
-    src: "/images/app-screenshots/inspection-failed-item.webp",
-    alt: "A checklist item marked Fail at 4 out of 10 with a required note reading “There is still dust everywhere”, an attached photograph, and the running score at 79 with one failure",
-    eyebrow: "The failure",
-    callout: { icon: Camera, text: "Scored 4/10 · reason required" },
-    title: "A problem has to be",
-    accent: "specific.",
-    body: "Marking an item down opens a required note and a camera, and the site score moves as you do it. A low number with no reason attached and nothing photographed is not something this app will carry forward.",
+    body: "Sections are built per facility type. A medical site is walked as Reception, Exam Rooms and Lab / Specimen \u2014 not a generic list of areas \u2014 so the crew is measured against the standard that space actually carries.",
   },
   {
     src: "/videos/submit-blocked.mp4",
     poster: "/videos/submit-blocked-poster.webp",
-    alt: "A supervisor tries to submit an inspection with a failed item that has no photo. The app blocks it and shows “Photos required — 1 failed item(s) need at least one photo”.",
-    eyebrow: "The refusal",
-    callout: { icon: ShieldAlert, text: "Submit refused · 1 photo missing" },
-    title: "And it won't file without",
-    accent: "the evidence.",
-    body: "Not a warning that can be dismissed when the shift is running late — the submit is refused, and the app names how many items are still missing a photograph. A standard that bends under time pressure isn't one.",
+    alt: "A supervisor tries to submit an inspection with a failed item that has no photo. The app blocks it and shows \u201cPhotos required \u2014 1 failed item(s) need at least one photo\u201d.",
+    eyebrow: "The standard",
+    callout: { icon: ShieldAlert, text: "Submit refused \u00b7 1 photo missing" },
+    title: "A problem has to be specific,",
+    accent: "and photographed.",
+    body: "Marking an item down opens a required note and a camera, and the site score moves as you do it. If a failed item has no photograph the submit is refused outright \u2014 not a warning that can be dismissed when the shift is running late. A standard that bends under time pressure isn't one.",
   },
   {
     src: "/images/app-screenshots/inspection-summary-signed.webp",
     alt: "A completed inspection scoring 78 with a timeline showing it started at 5:28 PM and was submitted at 5:29 PM, and a handwritten signature under Employee Acknowledgment",
-    eyebrow: "The handoff",
-    // "Submitted", not "Signed" — SUBMITTED 5:29 PM is the line visible in the
-    // capture. The signature sits lower in the record, and app-showcase.tsx
-    // already warns against upgrading the handoff into a guarantee the app does
-    // not enforce. The headline can argue; the chip only reports.
+    eyebrow: "The record",
     callout: { icon: PenLine, text: "Submitted 5:29 PM" },
-    title: "It closes with the crew,",
-    accent: "signed.",
-    body: "The supervisor hands the phone over at the end of the walk. The crew member reads the result and signs, and the acknowledgment is timestamped before the record is filed — so the file shows not just the score but that they saw it.",
-  },
-  {
-    src: "/images/app-screenshots/shift-timeline-geofence.webp",
-    alt: "A shift timeline showing the clock-in position on a map with coordinates and an event log reading “Clocked in inside geofence (18 m from site centre)”",
-    eyebrow: "The shift",
-    // The coordinates, because they are what is on screen. "18 m from site
-    // centre" reads better but lives in the event log below the crop, and a
-    // chip pointing at something you cannot see is decoration.
-    callout: { icon: MapPin, text: "Clock-in 29.73820, −95.56100" },
-    title: "And the attendance behind it",
-    accent: "is verified too.",
-    body: "Clock-in is checked against the site's coordinates and refused outside them. What's left is a timeline: where, when, and eighteen metres from site centre — the document behind any question about who was on site.",
+    title: "What's left is a record",
+    accent: "nobody has to take on trust.",
+    body: "The supervisor hands the phone over at the end of the walk. The crew member reads the result and signs, and the acknowledgment is timestamped before the record is filed. Attendance is held to the same standard \u2014 clock-in is checked against the site's coordinates and refused outside them. Between the two, the file answers who was on site and what they saw.",
   },
 ];
 
@@ -146,14 +132,8 @@ export function AppBeats() {
           >
             <div className="lg:grid lg:grid-cols-12 lg:items-center">
               {/* ── The capture ──────────────────────────────────────────────
-                  A real device, cropped. Showing a 9:19.5 phone WHOLE forces a
-                  choice between tall-and-thin and too-small-to-read; cropping
-                  it to its top half lets it be as wide as the column allows and
-                  still look like a phone. The container clips it — the device
-                  runs off the bottom on purpose.
-
-                  This outer cell does NOT clip, so the callout can break the
-                  device's edge. The clipping happens one level in. */}
+                  The device, whole. This cell does not clip, so the callout can
+                  break the device's edge without being cut off. */}
               <div
                 className={[
                   "relative",

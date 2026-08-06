@@ -2,22 +2,46 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { Shield, Leaf, Award, ShieldCheck, UserCheck, Clock, Trophy } from "lucide-react";
+import { Shield, Microscope, Clock, Award, ShieldCheck, UserCheck, Trophy } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { AWARD } from "@/lib/constants";
 
+/**
+ * The page's single trust section.
+ *
+ * It used to be three. The hero stat bar, a "Why facilities standardize on us"
+ * card grid, and this badge list all made the same four claims — compliant,
+ * verified, experienced, available around the clock — in three formats within
+ * one scroll. This section absorbed the card grid; the hero stat bar stays as
+ * the numeric version and is not repeated here.
+ *
+ * What was dropped in the merge, and why:
+ *   · "A Measured Track Record" — restated the hero's "100+ Facilities" stat.
+ *   · "OSHA Compliant" and "EPA-Registered Products" — both are the substance
+ *     of "Compliant by Design", which names them explicitly.
+ *   · "24/7 Emergency Response" — duplicated "Response, Around the Clock".
+ *
+ * Six badges, two clean rows of three. The first three are what we do; the
+ * last three are what we hold. Adding a seventh orphans a row.
+ */
 const certifications = [
   {
     icon: Shield,
-    label: "OSHA Compliant",
+    label: "Compliant by Design",
     description:
-      "Crews operate to OSHA occupational-safety standards on every site — protecting our people and your occupants alike.",
+      "Every product carries EPA registration; every crew operates to OSHA standards. In regulated environments — surgical suites, laboratories, food-adjacent spaces — compliance is documented, not assumed.",
   },
   {
-    icon: Leaf,
-    label: "EPA-Registered Products",
+    icon: Microscope,
+    label: "Verified, Not Assumed",
     description:
-      "Cleaning and disinfection chemistry is EPA-registered, with Safety Data Sheets available on request.",
+      "ATP bioluminescence testing confirms a surface is clean at the microbial level, not merely to the eye. A failed reading triggers re-cleaning before sign-off.",
+  },
+  {
+    icon: Clock,
+    label: "Response, Around the Clock",
+    description:
+      "A line staffed 24/7 for spill, flood, and biohazard events. Facility risk does not observe business hours, and neither does our response.",
   },
   {
     icon: Award,
@@ -36,12 +60,6 @@ const certifications = [
     label: "Background-Checked Staff",
     description:
       "Every employee clears a criminal background check before their first shift. Without exception.",
-  },
-  {
-    icon: Clock,
-    label: "24/7 Emergency Response",
-    description:
-      "A staffed line for spill, flood, and urgent decontamination events — at any hour, not the next business day.",
   },
 ];
 
@@ -101,21 +119,38 @@ export function TrustBadges() {
       }}
     >
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
-        {/* Header */}
-        <div className="mb-14 text-center">
-          <p className="tb-header eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-green-text opacity-0">
-            How We Operate
-          </p>
-          <h2
-            className="tb-header font-gothic text-gray-900 opacity-0"
-            style={{
-              fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
-              fontWeight: 400,
-              lineHeight: 1.15,
-            }}
-          >
-            The standard every crew is held to.
-          </h2>
+        {/* Header — the positioning copy from the absorbed card grid, which
+            said why any of this matters ("we assign a dedicated crew…"). The
+            old heading here, "The standard every crew is held to", named the
+            same idea with none of the reasoning, so the stronger one stayed. */}
+        <div className="mb-14 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <p className="tb-header eyebrow mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-green-text opacity-0">
+              Why MGS
+            </p>
+            <h2
+              className="tb-header font-gothic text-gray-900 opacity-0"
+              style={{
+                fontSize: "clamp(1.75rem, 3.5vw, 3rem)",
+                fontWeight: 400,
+                lineHeight: 1.1,
+              }}
+            >
+              Why facilities{" "}
+              <span className="text-brand-green-text">standardize on us.</span>
+            </h2>
+          </div>
+          <div className="flex items-end">
+            <p
+              className="tb-header text-base text-gray-600 opacity-0"
+              style={{ fontWeight: 300, lineHeight: 1.7 }}
+            >
+              Most contractors staff by availability. We assign a dedicated crew
+              to each site, accountable to the same documented protocol on every
+              visit — so performance stays consistent, and consistency stays
+              verifiable.
+            </p>
+          </div>
         </div>
 
         {/* Third-party recognition — deliberately OUTSIDE the grid below.
