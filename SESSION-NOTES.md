@@ -90,6 +90,22 @@ Side benefit, and it's large: **13.4 MB → 3.5 MB** across five clips including
 
 **Debugging caution — don't repeat this.** Chrome defers media loading in a hidden tab: `readyState` stays 0 and `networkState` stays 2 indefinitely, which looks exactly like a corrupt file. The browser-automation tab is *always* `visibilityState: "hidden"`, so **video playback cannot be verified through it** and any timeout measured there means nothing. Check `document.visibilityState` before concluding anything about media. Playback has to be confirmed by a human in a real window.
 
+## Testing mobile — `--window-size` is a trap (2026-08-06)
+
+**`chrome --headless --window-size=390,…` does not give you a 390px layout.** Headless clamps the layout viewport at roughly 500px and then simply *crops* the screenshot to the width you asked for. The result looks like catastrophic horizontal overflow — body copy sliced mid-word — on every page of the site, including ones nobody has touched in months. It is entirely an artifact.
+
+The tell: capture `/terms` at 390 and at 500 and compare line breaks. They were **identical**, which is impossible if the layout had actually reflowed. Under real emulation the same page reports `scrollWidth: 390`, `overflowCount: 0` — no overflow anywhere.
+
+Use CDP instead. Launch with `--remote-debugging-port`, connect with Node's global `WebSocket`, and call `Emulation.setDeviceMetricsOverride {width, height, deviceScaleFactor: 2, mobile: true}`. That changes the layout viewport for real, and `Runtime.evaluate` in the same session gives scripted scrolling plus measurement — which the extension can't do either, since `window.scrollTo` is inert there (wheel events work, programmatic scrolling doesn't).
+
+### What the sequence actually needed for mobile
+
+- **`position: sticky` travels only within its containing block.** In the one-column mobile grid, the wrapper around the device was a row exactly as tall as the device: measured `travelRoom: 0`. The phone scrolled away at once and five claims followed with nothing beside them. The wrapper is `contents lg:block lg:col-span-5` now — below lg it generates no box, so the containing block becomes the tall parent holding the phone *and* the claims (`travelRoom: 2741`). At lg it is a grid column again.
+- **The reference line for "which claim is current" is not the viewport centre on mobile.** The pinned device covers the top ~40% of the screen, so the centre falls behind it and selects a claim the visitor can't see. It's `innerHeight * 0.72` below lg, `0.5` at lg and up.
+- **Device size is a mobile-specific decision.** At 196px wide the frame measured 401px — 47% of a 390×844 screen — and claim headlines slid underneath it. The `sequence` size is 168px below `sm`, which lands near 344px (41%) and clears the settled text.
+
+Verified at 390×844, 360×640 and 1440×900: the device stays pinned across all five claims, exactly one screen layer is live at each, and the lit screen index matches the claim index every time.
+
 ## Employee training portal — `/staff-portal`
 - Rebuilt from a fake login into a **training video library** (`training-hub.tsx`), **passcode-gated (5602)**, noindexed, nav labeled "Employee Training."
 - Four videos live in the **Supabase `training` bucket** on project **`ejivobojvlxrngsdcjjk`** (the mgs-manager/newsletter project — the one whose service key we have): `protective-equipment`, `bloodborne-pathogens`, `terminal-cleaning-or`, `terminal-cleaning-or-es`. Served via native `<video>` from the public bucket.

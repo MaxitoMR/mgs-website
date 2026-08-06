@@ -13,12 +13,18 @@ import { cn } from "@/lib/utils";
  * (1206x2622). Feeding it anything else will letterbox or crop.
  */
 
-type PhoneFrameSize = "sm" | "md" | "lg";
+type PhoneFrameSize = "sm" | "md" | "lg" | "sequence";
 
 const WIDTHS: Record<PhoneFrameSize, string> = {
   sm: "w-[200px] sm:w-[216px]",
   md: "w-[248px] sm:w-[272px]",
   lg: "w-[268px] sm:w-[300px] lg:w-[320px]",
+  // For the pinned sequence, where the device is stuck to the top of a phone
+  // viewport and has to leave room for the claim beneath it. 196px measured
+  // 401px tall — 47% of a 390x844 screen — and the claim headlines were still
+  // sliding underneath it. 168px lands around 344px (41%), which clears the
+  // settled claim text.
+  sequence: "w-[168px] sm:w-[240px] lg:w-[272px]",
 };
 
 export function PhoneFrame({

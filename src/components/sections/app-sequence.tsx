@@ -196,13 +196,25 @@ export function AppSequence() {
      * Nearest-centre wins. It cannot desynchronise, because it asks the same
      * question every frame and the answer only depends on the current layout.
      */
+    const wide = window.matchMedia("(min-width: 1024px)");
+
+    /**
+     * Where the "current" claim is judged from. On desktop the device sits
+     * beside the copy, so the viewport centre is right. On mobile the device is
+     * pinned across the top ~450px of an 844px screen, and the viewport centre
+     * falls BEHIND it — measuring from there picks whichever claim is hidden
+     * under the phone. 72% down puts the line in the free space below it.
+     */
+    const referenceLine = () =>
+      window.innerHeight * (wide.matches ? 0.5 : 0.72);
+
     const pick = () => {
-      const mid = window.innerHeight / 2;
+      const line = referenceLine();
       let best = 0;
       let bestDistance = Infinity;
       claims.forEach((claim, i) => {
         const rect = claim.getBoundingClientRect();
-        const distance = Math.abs(rect.top + rect.height / 2 - mid);
+        const distance = Math.abs(rect.top + rect.height / 2 - line);
         if (distance < bestDistance) {
           bestDistance = distance;
           best = i;
@@ -227,18 +239,23 @@ export function AppSequence() {
   return (
     <div
       ref={rootRef}
-      className="grid grid-cols-1 gap-y-10 lg:grid-cols-12 lg:gap-x-16"
+      className="lg:grid lg:grid-cols-12 lg:gap-x-16"
     >
-      {/* The device. Sticky at both breakpoints — on a phone it holds at the
-          top of the viewport while the claims pass beneath, which is the same
-          reading as the desktop layout in less width. */}
-      <div className="lg:col-span-5">
-        <div className="sticky top-6 z-10 flex justify-center lg:top-[14vh] lg:justify-start">
-          {/* Exactly one frame, not one per breakpoint: `md` is already
-              responsive (248px → 272px), and a second stack would make
-              [data-screen] resolve to ten elements and break the index the
-              scroll triggers hand to activate(). */}
-          <PhoneFrame glow>
+      {/* `contents` below lg is load-bearing, not tidiness.
+          `position: sticky` can only travel inside its containing block. When
+          this wrapper generated a box on mobile, the one-column grid made that
+          box exactly as tall as the phone inside it — measured travelRoom of
+          0px, so the device scrolled straight off and five claims followed
+          with no visual at all. `display: contents` removes the box below lg,
+          which promotes the sticky element's containing block to the tall
+          parent holding both the phone and the claims. At lg it becomes a real
+          grid column again, where the column itself provides the travel. */}
+      <div className="contents lg:block lg:col-span-5">
+        <div className="sticky top-3 z-10 mb-10 flex justify-center lg:top-[14vh] lg:mb-0 lg:justify-start">
+          {/* Exactly one frame, not one per breakpoint: the `sequence` size is
+              responsive, and a second stack would make [data-screen] resolve to
+              ten elements and break the index activate() is handed. */}
+          <PhoneFrame size="sequence" glow>
             <ScreenStack />
           </PhoneFrame>
         </div>
