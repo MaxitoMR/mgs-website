@@ -255,71 +255,6 @@ export function AppShowcase() {
           <AppBeats />
         </div>
 
-        {/* What the sequence releases into: the spec, then the download. */}
-        <div style={{ paddingTop: "clamp(3rem, 6vw, 4.5rem)" }}>
-          <div className="max-w-4xl">
-            <div
-              data-reveal-group
-              className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4"
-            >
-              {features.map((f) => {
-                const Icon = f.icon;
-                return (
-                  <div key={f.label} className="flex items-center gap-2.5">
-                    <Icon
-                      aria-hidden="true"
-                      className="h-4 w-4 flex-shrink-0 text-brand-green-deep"
-                      strokeWidth={1.5}
-                    />
-                    <span className="text-sm text-gray-300">{f.label}</span>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div data-reveal-group className="mt-9 flex flex-wrap gap-2">
-              {["Admin", "Supervisor", "Employee", "Client"].map((role) => (
-                <span
-                  key={role}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70"
-                >
-                  {role}
-                </span>
-              ))}
-            </div>
-
-            <div data-reveal className="mt-9">
-              <a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-white px-6 py-3.5 text-[#191919] transition-all duration-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-white/10"
-                style={{ borderTopLeftRadius: "1rem" }}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                </svg>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-light leading-none">
-                    Download on the
-                  </span>
-                  <span className="text-[16px] font-semibold leading-tight">
-                    App Store
-                  </span>
-                </div>
-              </a>
-              <p className="mt-3 text-[11px] font-light text-white/40">
-                Free &middot; iOS 15.1+ &middot; iPhone, iPad &amp; Apple Vision
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* ── Beat 3 — the turn ────────────────────────────────────────────
             The hinge of the whole chapter: it names what a screenshot can't
             prove, which is what earns the photographs that follow. Without
@@ -531,6 +466,77 @@ export function AppShowcase() {
             Screens captured from the MGS Management App. Sites, names and
             scores are demonstration data.
           </p>
+        </div>
+
+        {/* The spec, then the download — the chapter closes on what the
+            reader can actually do. It used to sit directly under the beats,
+            which put a download button in front of someone who still had
+            five sections of argument to read. */}
+        <div style={{
+          paddingTop: "clamp(4rem, 8vw, 6.5rem)",
+          paddingBottom: "clamp(5rem, 10vw, 8.5rem)",
+        }}>
+          <div className="max-w-4xl">
+            <div
+              data-reveal-group
+              className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4"
+            >
+              {features.map((f) => {
+                const Icon = f.icon;
+                return (
+                  <div key={f.label} className="flex items-center gap-2.5">
+                    <Icon
+                      aria-hidden="true"
+                      className="h-4 w-4 flex-shrink-0 text-brand-green-deep"
+                      strokeWidth={1.5}
+                    />
+                    <span className="text-sm text-gray-300">{f.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div data-reveal-group className="mt-9 flex flex-wrap gap-2">
+              {["Admin", "Supervisor", "Employee", "Client"].map((role) => (
+                <span
+                  key={role}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70"
+                >
+                  {role}
+                </span>
+              ))}
+            </div>
+
+            <div data-reveal className="mt-9">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-white px-6 py-3.5 text-[#191919] transition-all duration-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-white/10"
+                style={{ borderTopLeftRadius: "1rem" }}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                </svg>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-light leading-none">
+                    Download on the
+                  </span>
+                  <span className="text-[16px] font-semibold leading-tight">
+                    App Store
+                  </span>
+                </div>
+              </a>
+              <p className="mt-3 text-[11px] font-light text-white/40">
+                Free &middot; iOS 15.1+ &middot; iPhone, iPad &amp; Apple Vision
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
