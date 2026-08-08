@@ -24,7 +24,7 @@ const serviceCategories = [
     color: "#69AF23",
     deepColor: "#69AF23",
     services: [
-      { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "/images/1_1751323808589.png" },
+      { name: "Multi-Tenant Offices", link: "/services/multi-tenant-offices", image: "/images/office-desk-cleaning.jpg" },
       { name: "Retail Spaces", link: "/services/retail-facilities", image: "/images/MGS_Supply_And_Services_Gallery-Commercial-10_1752003221911.jpg" },
       { name: "Restaurants", link: "/services/restaurants", image: "/images/Official_About_Us_Background_1752010002961.png" },
       { name: "Gymnasiums", link: "/services/gymnasiums", image: "/images/school image_1752005095720.png" },

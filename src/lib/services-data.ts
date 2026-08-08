@@ -54,7 +54,7 @@ export const services: Service[] = [
     category: "commercial",
     description: "Recurring janitorial service for multi-tenant office buildings — common areas, suites, and restrooms held to a consistent standard across every tenant.",
     longDescription: "Multi-tenant buildings demand coordination: one standard applied across common areas and independent suites, on schedules that vary tenant to tenant. MGS handles lobbies, elevators, restrooms, individual offices, and parking structures under a single point of contact for building management — so presentation stays consistent for every tenant and managers field fewer complaints.",
-    image: "/attached_assets/Untitled design_1752001861995.png",
+    image: "/images/office-desk-cleaning.jpg",
     features: ["Common area maintenance", "Individual suite cleaning", "Lobby and elevator care", "Restroom servicing", "Parking structure cleaning", "Administrative office cleaning"],
     benefits: ["Consistent quality across all tenants", "Flexible scheduling per tenant", "Single point of contact for building management", "Professional appearance maintained"],
   },
