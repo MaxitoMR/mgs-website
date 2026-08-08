@@ -86,24 +86,6 @@ export function HeroSection() {
         style={{ objectPosition: '35% center' }}
       />
 
-      {/* Hero film — the five-shot loop from the 2026-08-07 shoot. Layered ON
-          TOP of the still rather than replacing it, so the photo stays the
-          fallback for the cases a video has no answer to: autoplay refused
-          (iOS Low Power Mode), decode unsupported, or the file still in
-          flight. `muted` + `playsInline` are what make mobile autoplay legal
-          at all — dropping either one leaves phones on the poster frame. */}
-      <video
-        className="absolute inset-0 z-[10] h-full w-full object-cover"
-        src="/videos/hero-mgs.mp4"
-        poster="/videos/hero-mgs-poster.jpg"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
-
       {/* Two scrims doing different jobs. The horizontal one buys legibility
           for the headline, which sits left — so it is heavy at the left edge
           and clears by the right, leaving the worker and the corridor visible
