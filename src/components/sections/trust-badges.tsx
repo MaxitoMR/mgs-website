@@ -114,8 +114,8 @@ export function TrustBadges() {
       className="relative w-full overflow-hidden"
       style={{
         background: "#f5f5f5",
-        paddingTop: "clamp(4rem, 8vw, 8rem)",
-        paddingBottom: "clamp(4rem, 8vw, 8rem)",
+        paddingTop: "clamp(2rem, 8vw, 8rem)",
+        paddingBottom: "clamp(2rem, 8vw, 8rem)",
       }}
     >
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
@@ -123,7 +123,7 @@ export function TrustBadges() {
             said why any of this matters ("we assign a dedicated crew…"). The
             old heading here, "The standard every crew is held to", named the
             same idea with none of the reasoning, so the stronger one stayed. */}
-        <div className="mb-14 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+        <div className="mb-8 grid grid-cols-1 gap-5 lg:mb-14 lg:grid-cols-2 lg:gap-16">
           <div>
             <p className="tb-header eyebrow mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-green-text opacity-0">
               Why MGS
@@ -167,7 +167,7 @@ export function TrustBadges() {
             a `border` shorthand in unlayered CSS, which beats Tailwind's
             @layer utilities and silently flattens the left border away. */}
         <div
-          className="tb-header mgs-card mb-8 flex flex-col gap-4 rounded-sm p-5 opacity-0 sm:flex-row sm:items-center sm:gap-6 sm:p-6"
+          className="tb-header mgs-card mb-5 flex flex-col gap-3 rounded-sm p-4 opacity-0 sm:mb-8 sm:flex-row sm:items-center sm:gap-6 sm:p-6"
           style={{ borderLeft: "4px solid var(--color-brand-green-deep)" }}
         >
           <div
@@ -187,22 +187,46 @@ export function TrustBadges() {
               {AWARD.claim} · {AWARD.attribution}
             </p>
           </div>
+          {/* Block-level padded target on touch — it was a 20px-tall text run
+              at the end of a paragraph, which is the hardest kind of link to
+              hit accurately. Inline again at `lg:`. */}
           <Link
             href="/about"
-            className="shrink-0 text-sm font-medium text-brand-green-text underline underline-offset-4 hover:text-brand-green-deep"
+            className="-mx-2 inline-flex min-h-11 shrink-0 items-center px-2 text-sm font-medium text-brand-green-text underline underline-offset-4 hover:text-brand-green-deep lg:mx-0 lg:min-h-0 lg:px-0"
           >
             See the award
           </Link>
         </div>
 
-        {/* Grid */}
-        <div className="tb-grid grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* ── Grid on desktop, one swipeable track below sm ────────────────
+            Six cards stacked measured 1,561px — nearly two screens for six
+            claims that are peers, not a sequence. Narrowing them into two
+            columns was the obvious fix and the wrong one: at 187px a column
+            these descriptions run about twenty characters to the line, which
+            is below the point where prose stops being readable.
+
+            Side by side at 82vw the measure is right, the whole set costs one
+            card's height, and the shape says what the content is — six
+            equivalent things, none of which ranks above the others. Nothing is
+            removed; the peek and the count say how many there are.
+
+            Same CSS scroll-snap as the app beats. The `.tb-card` GSAP stagger
+            still fires off `.tb-grid` entering the viewport, and globals.css
+            already forces these to `opacity: 1` under 1024px, so the track
+            cannot end up holding six invisible cards. */}
+        <div
+          className={[
+            "tb-grid -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-1 scrollbar-hide",
+            "sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0",
+            "lg:grid-cols-3",
+          ].join(" ")}
+        >
           {certifications.map((item) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.label}
-                className="tb-card mgs-card group flex items-start gap-4 rounded-sm p-5 opacity-0 sm:gap-5 sm:p-7"
+                className="tb-card mgs-card group flex w-[82vw] shrink-0 snap-center items-start gap-4 rounded-sm p-4 opacity-0 sm:w-auto sm:shrink sm:gap-5 sm:p-7"
               >
                 {/* Icon container */}
                 <div
@@ -212,7 +236,7 @@ export function TrustBadges() {
                     borderRadius: "0.5rem",
                   }}
                 >
-                  <Icon className="h-5 w-5 text-brand-green-text" />
+                  <Icon className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
                 </div>
 
                 {/* Text */}
@@ -221,7 +245,7 @@ export function TrustBadges() {
                     {item.label}
                   </h3>
                   <p
-                    className="mt-1.5 text-sm text-gray-500"
+                    className="mt-1.5 text-sm text-gray-600"
                     style={{ fontWeight: 300, lineHeight: 1.65 }}
                   >
                     {item.description}
@@ -231,6 +255,16 @@ export function TrustBadges() {
             );
           })}
         </div>
+
+        {/* Behind the peek, the same hint the app beats carry. */}
+        <p
+          aria-hidden="true"
+          className="mt-4 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-gray-600 sm:hidden"
+        >
+          <span>Swipe</span>
+          <span className="h-px w-6 bg-gray-300" />
+          <span>{certifications.length} reasons</span>
+        </p>
       </div>
     </section>
   );

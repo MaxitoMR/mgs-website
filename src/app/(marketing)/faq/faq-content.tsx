@@ -45,7 +45,7 @@ export default function FAQContent() {
       <div className="relative overflow-hidden bg-[#111111]" style={{ paddingTop: 'clamp(6rem, 12vw, 10rem)', paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
         <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
           <nav className="mb-6 flex items-center gap-2 text-sm text-white/50">
-            <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
+            <Link href="/" className="-mx-2 -my-3 px-2 py-3 transition-colors hover:text-white">Home</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/90">FAQ</span>
           </nav>

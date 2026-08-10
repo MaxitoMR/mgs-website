@@ -48,7 +48,7 @@ export default function NewsletterPage() {
       />
 
       <SectionWrapper>
-        <div className="grid gap-12 lg:grid-cols-5">
+        <div className="grid gap-7 lg:grid-cols-5 lg:gap-12">
           <div className="lg:col-span-3">
             <NewsletterForm
               source="website_newsletter_page"
@@ -80,10 +80,10 @@ export default function NewsletterPage() {
         </div>
 
         {/* Admin: gated subscriber list (access-key protected) */}
-        <div className="mt-16 border-t border-gray-100 pt-6 text-right">
+        <div className="mt-10 border-t border-gray-100 pt-4 text-right lg:mt-16 lg:pt-6">
           <Link
             href="/newsletter/subscribers"
-            className="text-xs text-gray-600 transition-colors hover:text-brand-green-text"
+            className="-my-3.5 inline-block py-3.5 text-xs text-gray-600 transition-colors hover:text-brand-green-text"
           >
             Admin · View subscribers →
           </Link>

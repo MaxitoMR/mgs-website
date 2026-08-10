@@ -35,12 +35,13 @@ export default function WalkthroughPage() {
               <h3 className="font-display text-xl font-bold">
                 Prefer to Call?
               </h3>
-              <p className="mt-2 text-white/90">
+              {/* on-green, not white — white/90 is 2.27:1 on #80B515. */}
+              <p className="mt-2 text-brand-on-green/90">
                 Speak directly with our team to schedule your walkthrough over the phone.
               </p>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="mt-4 flex items-center gap-2 text-lg font-bold"
+                className="mt-4 flex min-h-11 items-center gap-2 text-lg font-bold"
               >
                 <Phone className="h-5 w-5" />
                 {COMPANY.phone.display}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useStatusPanel } from "@/hooks/use-status-panel";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2, Send, CheckCircle, CalendarCheck } from "lucide-react";
@@ -42,6 +43,8 @@ export function WalkthroughForm() {
     formState: { errors },
   } = useForm<WalkthroughFormData>({
     resolver: zodResolver(walkthroughSchema),
+    // Moves focus to the first field that failed validation.
+    shouldFocusError: true,
   });
 
   const mutation = useMutation({
@@ -50,10 +53,11 @@ export function WalkthroughForm() {
   });
 
   const onSubmit = (data: WalkthroughFormData) => mutation.mutate(data);
+  const successRef = useStatusPanel<HTMLDivElement>(mutation.isSuccess);
 
   if (mutation.isSuccess) {
     return (
-      <div role="status" className="flex min-h-[400px] items-center justify-center bg-white p-12 shadow-sm">
+      <div ref={successRef} role="status" tabIndex={-1} className="flex min-h-[400px] items-center justify-center bg-white p-12 shadow-sm">
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center bg-brand-green/10">
             <CalendarCheck className="h-10 w-10 text-brand-green-text" />
@@ -97,7 +101,9 @@ export function WalkthroughForm() {
             <input
               {...register("name")}
               id="wt-name"
+              required
               autoComplete="name"
+              enterKeyHint="next"
               aria-required="true"
               aria-invalid={errors.name ? "true" : undefined}
               aria-describedby={errors.name ? "wt-name-error" : undefined}
@@ -112,6 +118,7 @@ export function WalkthroughForm() {
               {...register("company")}
               id="wt-company"
               autoComplete="organization"
+              enterKeyHint="next"
               className={FIELD}
               placeholder="Company name"
             />
@@ -124,7 +131,10 @@ export function WalkthroughForm() {
               {...register("email")}
               id="wt-email"
               type="email"
+              required
               autoComplete="email"
+              inputMode="email"
+              enterKeyHint="next"
               aria-required="true"
               aria-invalid={errors.email ? "true" : undefined}
               aria-describedby={errors.email ? "wt-email-error" : undefined}
@@ -141,7 +151,10 @@ export function WalkthroughForm() {
               {...register("phone")}
               id="wt-phone"
               type="tel"
+              required
               autoComplete="tel"
+              inputMode="tel"
+              enterKeyHint="next"
               aria-required="true"
               aria-invalid={errors.phone ? "true" : undefined}
               aria-describedby={errors.phone ? "wt-phone-error" : undefined}
@@ -166,7 +179,9 @@ export function WalkthroughForm() {
             <input
               {...register("address")}
               id="wt-address"
+              required
               autoComplete="street-address"
+              enterKeyHint="next"
               aria-required="true"
               aria-invalid={errors.address ? "true" : undefined}
               aria-describedby={errors.address ? "wt-address-error" : undefined}
@@ -182,6 +197,8 @@ export function WalkthroughForm() {
             <select
               {...register("facilityType")}
               id="wt-facility-type"
+              required
+              autoComplete="off"
               aria-required="true"
               aria-invalid={errors.facilityType ? "true" : undefined}
               aria-describedby={errors.facilityType ? "wt-facility-type-error" : undefined}
@@ -211,6 +228,8 @@ export function WalkthroughForm() {
               {...register("preferredDate")}
               id="wt-date"
               type="date"
+              required
+              autoComplete="off"
               min={new Date().toISOString().split("T")[0]}
               aria-required="true"
               aria-invalid={errors.preferredDate ? "true" : undefined}
@@ -224,6 +243,7 @@ export function WalkthroughForm() {
             <select
               {...register("preferredTime")}
               id="wt-time"
+              autoComplete="off"
               className={FIELD}
             >
               <option value="">Select time slot</option>
@@ -242,6 +262,8 @@ export function WalkthroughForm() {
           {...register("notes")}
           id="wt-notes"
           rows={4}
+          autoComplete="off"
+          enterKeyHint="done"
           className={FIELD}
           placeholder="Tell us about your facility, specific areas of concern, access requirements, etc."
         />
@@ -253,11 +275,14 @@ export function WalkthroughForm() {
         className="flex w-full items-center justify-center gap-2 bg-brand-green-deep px-8 py-4 text-lg font-semibold text-brand-on-green shadow-lg transition-all hover:bg-brand-green-deep-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
       >
         {mutation.isPending ? (
-          <Loader2 className="h-5 w-5 animate-spin" />
+          <>
+            <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+            Sending…
+          </>
         ) : (
           <>
             Schedule Walkthrough
-            <Send className="h-5 w-5" />
+            <Send className="h-5 w-5" aria-hidden="true" />
           </>
         )}
       </button>

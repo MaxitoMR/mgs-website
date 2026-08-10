@@ -55,8 +55,8 @@ export function Testimonials() {
     <section
       className="relative w-full overflow-hidden bg-[#f0f5e8]"
       style={{
-        paddingTop: 'clamp(4rem, 8vw, 8rem)',
-        paddingBottom: 'clamp(4rem, 8vw, 8rem)',
+        paddingTop: 'clamp(2rem, 8vw, 8rem)',
+        paddingBottom: 'clamp(2rem, 8vw, 8rem)',
         borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
       }}
     >

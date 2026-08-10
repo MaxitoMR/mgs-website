@@ -115,7 +115,19 @@ export function AppShowcase() {
 
       // Beat reveals. `from()` so the resting state is the authored DOM —
       // if any of this is skipped, the section still reads normally.
+      /* ABOVE THE FOLD IS NOT ANIMATED.
+         A ScrollTrigger with `start: "top 90%"` fires immediately for anything
+         already on screen, so the page's own h1 and subtitle were being faded
+         in from zero at load — an entry animation on the first thing the
+         visitor is trying to read, and a blank block for as long as it ran.
+         Measuring once at setup and skipping whatever is already visible fixes
+         the whole class rather than the two elements that happened to show it,
+         and it needs no per-element tagging that a future beat could forget. */
+      const belowFold = (el: Element) =>
+        el.getBoundingClientRect().top >= window.innerHeight;
+
       q("[data-reveal]").forEach((el) => {
+        if (!belowFold(el)) return;
         gsap.from(el, {
           opacity: 0,
           y: 34,
@@ -127,6 +139,7 @@ export function AppShowcase() {
 
       // Staggered children — feature rows, fact columns.
       q("[data-reveal-group]").forEach((group) => {
+        if (!belowFold(group)) return;
         gsap.from(group.children, {
           opacity: 0,
           y: 22,
@@ -205,7 +218,7 @@ export function AppShowcase() {
             own. */}
         <div
           className="max-w-2xl"
-          style={{ paddingTop: "clamp(5rem, 10vw, 8.5rem)" }}
+          style={{ paddingTop: "clamp(2.5rem, 10vw, 8.5rem)" }}
         >
           <div>
             <p data-reveal className="eyebrow mb-5 text-brand-lime">
@@ -250,7 +263,7 @@ export function AppShowcase() {
             This was a pinned horizontal run (app-sequence.tsx, still in the
             repo). These ship no JavaScript: the reveals come from the
             `data-reveal` pass above. */}
-        <div style={{ paddingTop: "clamp(3rem, 6vw, 5rem)" }}>
+        <div style={{ paddingTop: "clamp(1.5rem, 6vw, 5rem)" }}>
           <AppBeats />
         </div>
 
@@ -261,8 +274,8 @@ export function AppShowcase() {
         <div
           className="max-w-4xl"
           style={{
-            paddingTop: "clamp(6rem, 13vw, 11rem)",
-            paddingBottom: "clamp(2.5rem, 5vw, 4rem)",
+            paddingTop: "clamp(2.75rem, 13vw, 11rem)",
+            paddingBottom: "clamp(1.25rem, 5vw, 4rem)",
           }}
         >
           <p
@@ -282,8 +295,20 @@ export function AppShowcase() {
           </p>
         </div>
 
-        {/* ── Beat 4 — the walk ────────────────────────────────────────── */}
-        <div data-reveal className="relative">
+        {/* ── Beat 4 — the walk ──────────────────────────────────────────
+            Desktop only. The chapter carries two field photographs making the
+            same argument — that the app is used standing in the building, with
+            the crew — and on a phone the pair costs about two screens inside a
+            chapter that has to fit in two and a half. The handoff below is the
+            stronger of the two (it shows the signature being given, which is
+            the claim the copy actually makes), so it is the one that stays.
+            This frame is still on /app, which the close links to.
+
+            `hidden` rather than an unmounted branch: it keeps the markup and
+            its alt text in the document for crawlers, and because the image is
+            lazy it never enters the viewport on mobile, so nothing is fetched
+            either. Unmounting would cost the first and save nothing more. */}
+        <div data-reveal className="relative hidden lg:block">
           <div className="relative h-[clamp(17rem,52vw,34rem)] w-full overflow-hidden bg-black">
             <Image
               src="/images/app-inspection-walk.jpg"
@@ -313,7 +338,7 @@ export function AppShowcase() {
         {/* ── Beat 5 — the handoff ─────────────────────────────────────── */}
         <div
           className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14"
-          style={{ paddingTop: "clamp(4rem, 8vw, 7rem)" }}
+          style={{ paddingTop: "clamp(2rem, 8vw, 7rem)" }}
         >
           <div data-reveal className="lg:col-span-7">
             <div className="relative h-[clamp(17rem,44vw,30rem)] w-full overflow-hidden bg-black">
@@ -368,11 +393,14 @@ export function AppShowcase() {
         </div>
 
         {/* ── Beat 6 — the terms ───────────────────────────────────────── */}
+        {/* Desktop only — three prose columns restating what the beats and the
+            handoff have already shown. On /app each of these is a screen
+            rather than a paragraph, which is the version worth the scroll. */}
         <div
           data-reveal-group
-          className="grid grid-cols-1 gap-x-10 gap-y-9 sm:grid-cols-3"
+          className="hidden grid-cols-1 gap-x-10 gap-y-9 sm:grid-cols-3 lg:grid"
           style={{
-            paddingTop: "clamp(4rem, 8vw, 6.5rem)",
+            paddingTop: "clamp(2rem, 8vw, 6.5rem)",
           }}
         >
           {facts.map((f) => {
@@ -404,10 +432,15 @@ export function AppShowcase() {
             frame here would be the same screen twice in one chapter. The
             English/Spanish claim is the one that still needs showing, because
             the proof IS the pair — the identical screen, rendered twice. */}
+        {/* Desktop only. This pair is the evidence for the bilingual claim, and
+            the bilingual claim lives in the three columns above — which are
+            also desktop-only. They stand or fall together; keeping the proof
+            for an argument the mobile reader was never shown would be two
+            phone frames explaining nothing. Both are on /app. */}
         <div
           data-reveal-group
-          className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-12 sm:grid-cols-2"
-          style={{ paddingTop: "clamp(3.5rem, 7vw, 5.5rem)" }}
+          className="hidden grid-cols-1 justify-items-center gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid"
+          style={{ paddingTop: "clamp(1.75rem, 7vw, 5.5rem)" }}
         >
           {[
             {
@@ -453,18 +486,24 @@ export function AppShowcase() {
         <div
           className="flex flex-col gap-10 lg:gap-12"
           style={{
-            paddingTop: "clamp(3.5rem, 7vw, 5rem)",
-            paddingBottom: "clamp(5rem, 10vw, 8.5rem)",
+            paddingTop: "clamp(1.75rem, 7vw, 5rem)",
+            paddingBottom: "clamp(2.5rem, 10vw, 8.5rem)",
           }}
         >
           {/* Footnote row — the secondary link and the capture disclaimer are
               both asides about the captures, so they share a line instead of
               each taking one. */}
           <div className="flex flex-col gap-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10">
+            {/* On mobile this link carries more weight than it used to: the
+                walk photograph, the three terms and the bilingual pair are all
+                behind it now, so it is the route to the rest of the chapter
+                rather than a footnote. Hence the bordered 44px target instead
+                of an underlined text run — and hence the label change, which
+                is honest about what is on the other side. */}
             <Link
               data-reveal
               href="/app"
-              className="group inline-flex shrink-0 items-center gap-2 self-start border-b border-white/20 pb-1 text-sm text-white transition-colors hover:border-brand-lime hover:text-brand-lime"
+              className="group inline-flex min-h-11 shrink-0 items-center justify-center gap-2 self-start border border-white/25 px-5 text-sm text-white transition-colors hover:border-brand-lime hover:text-brand-lime lg:min-h-0 lg:border-0 lg:border-b lg:border-white/20 lg:px-0 lg:pb-1"
             >
               See every screen in the app
               <ArrowRight
@@ -476,8 +515,9 @@ export function AppShowcase() {
 
             {/* Same register and weight as the "Free · iOS 15.1+" line below.
                 The sites, names and scores in every capture are seeded demo
-                data; saying so once is cheaper than being asked. */}
-            <p className="max-w-md text-[11px] font-light leading-relaxed text-white/40 sm:text-right">
+                data; saying so once is cheaper than being asked.
+                12px floor: it was 11. */}
+            <p className="max-w-md text-xs font-light leading-relaxed text-white/50 sm:text-right">
               Screens captured from the MGS Management App. Sites, names and
               scores are demonstration data.
             </p>
@@ -492,8 +532,12 @@ export function AppShowcase() {
               and giving it its own column is what stops it reading as the last
               item in a pile. */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-start lg:gap-16">
-            {/* Left — what the app does, and who it is for. */}
-            <div className="flex flex-col gap-9">
+            {/* Left — what the app does, and who it is for. Desktop only: an
+                eight-item feature list and four role chips are a specification,
+                and a specification is what /app is for. On a phone they were
+                the last screen of a chapter the reader had already been given
+                the argument of. */}
+            <div className="hidden flex-col gap-9 lg:flex">
               <div
                 data-reveal-group
                 className="grid grid-cols-2 gap-x-8 gap-y-5"
@@ -517,7 +561,7 @@ export function AppShowcase() {
                 {["Admin", "Supervisor", "Employee", "Client"].map((role) => (
                   <span
                     key={role}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70"
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/70"
                   >
                     {role}
                   </span>
@@ -531,7 +575,7 @@ export function AppShowcase() {
                 href={APP_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-white px-6 py-3.5 text-[#191919] transition-all duration-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-white/10"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-3 bg-white px-6 py-3.5 text-[#191919] transition-all duration-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-white/10 sm:w-auto sm:justify-start"
                 style={{ borderTopLeftRadius: "1rem" }}
               >
                 <svg
@@ -543,7 +587,7 @@ export function AppShowcase() {
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                 </svg>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-light leading-none">
+                  <span className="text-xs font-light leading-none">
                     Download on the
                   </span>
                   <span className="text-[16px] font-semibold leading-tight">
@@ -551,7 +595,7 @@ export function AppShowcase() {
                   </span>
                 </div>
               </a>
-              <p className="text-[11px] font-light text-white/40">
+              <p className="text-xs font-light text-white/50">
                 Free &middot; iOS 15.1+ &middot; iPhone, iPad &amp; Apple Vision
               </p>
             </div>

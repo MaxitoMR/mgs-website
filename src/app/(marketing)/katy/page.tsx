@@ -313,7 +313,10 @@ export default function KatyPage() {
         </ul>
         <p className="mt-6 max-w-2xl text-sm text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
           Outside this list? We cover the greater Houston area —{" "}
-          <Link href="/quote" className="text-brand-green-text underline underline-offset-2">
+          <Link
+            href="/quote"
+            className="-my-3 inline-block py-3 text-brand-green-text underline underline-offset-2"
+          >
             send us the address
           </Link>{" "}
           and we will tell you honestly whether we are the right fit.

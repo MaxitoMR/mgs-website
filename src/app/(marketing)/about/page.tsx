@@ -112,7 +112,7 @@ export default function AboutPage() {
       />
 
       <SectionWrapper>
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-7 lg:grid-cols-2 lg:gap-16">
           {/* Left — copy */}
           <MotionWrapper>
             <SectionHeading
@@ -193,7 +193,7 @@ export default function AboutPage() {
           reads as real in a way a re-drawn badge does not, which is the
           whole point of putting it here rather than in the hero. */}
       <SectionWrapper className="bg-paper-alt">
-        <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-16">
+        <div className="grid items-center gap-6 lg:grid-cols-[auto_1fr] lg:gap-16">
           <MotionWrapper>
             <Image
               src={AWARD.image}
@@ -235,7 +235,7 @@ export default function AboutPage() {
       {TEAM.every((m) => m.name && m.role) && (
         <SectionWrapper id="leadership">
           <SectionHeading
-            className="mb-12"
+            className="mb-7 lg:mb-12"
             eyebrow="The Team"
             title="The people who hold the standard."
             lede="The office in Katy that scopes the work, schedules the crews, and answers the phone when something needs fixing."
@@ -285,7 +285,7 @@ export default function AboutPage() {
       {/* Operating principles — moved here from the retired /leadership page. */}
       <SectionWrapper className="bg-paper-alt">
         <SectionHeading
-          className="mb-12"
+          className="mb-7 lg:mb-12"
           eyebrow="How Leadership Operates"
           title="The principles behind the work."
         />

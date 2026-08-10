@@ -7,7 +7,7 @@ export function ClosingCta() {
   return (
     <section
       className="w-full bg-paper-alt"
-      style={{ paddingTop: "clamp(3.5rem, 7vw, 6rem)", paddingBottom: "clamp(3.5rem, 7vw, 6rem)" }}
+      style={{ paddingTop: "clamp(1.75rem, 7vw, 6rem)", paddingBottom: "clamp(1.75rem, 7vw, 6rem)" }}
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
         <div
@@ -27,7 +27,7 @@ export function ClosingCta() {
           </div>
 
           {/* The ask */}
-          <div className="flex flex-col justify-center bg-brand-green-deep p-8 sm:p-12 lg:p-14">
+          <div className="flex flex-col justify-center bg-brand-green-deep p-6 sm:p-12 lg:p-14">
             {/* /90 is the floor for 4.5:1 on this green — see globals.css. */}
             <p className="eyebrow text-brand-on-green/90">The team that shows up</p>
             <h2
@@ -47,7 +47,7 @@ export function ClosingCta() {
                 clutter; the photograph and the ask are not. What is left is the
                 phone number, which is the one action neither the sticky bar nor
                 the contact form directly below provides. */}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
               <a
                 href={`tel:${COMPANY.phone.primary}`}
                 className="inline-flex items-center justify-center gap-2 border-2 border-brand-on-green/50 px-7 py-3.5 font-light text-brand-on-green transition-all duration-300 hover:border-brand-on-green hover:bg-black/[0.08]"

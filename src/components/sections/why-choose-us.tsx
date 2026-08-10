@@ -90,8 +90,8 @@ export function WhyChooseUs() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#111111]"
       style={{
-        paddingTop: 'clamp(5rem, 10vw, 10rem)',
-        paddingBottom: 'clamp(5rem, 10vw, 10rem)',
+        paddingTop: 'clamp(2.5rem, 10vw, 10rem)',
+        paddingBottom: 'clamp(2.5rem, 10vw, 10rem)',
       }}
     >
 

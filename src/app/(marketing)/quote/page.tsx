@@ -34,13 +34,16 @@ export default function QuotePage() {
               <h3 className="font-display text-xl font-bold">
                 Need Immediate Help?
               </h3>
-              <p className="mt-2 text-white/90">
+              {/* on-green, not white: white/90 is 2.27:1 on #80B515. See the
+                  --color-brand-on-green note in globals.css — this token is
+                  what the surrounding card already uses. */}
+              <p className="mt-2 text-brand-on-green/90">
                 Call us directly for urgent requests or to speak with a
                 representative.
               </p>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="mt-4 flex items-center gap-2 text-lg font-bold"
+                className="mt-4 flex min-h-11 items-center gap-2 text-lg font-bold"
               >
                 <Phone className="h-5 w-5" />
                 {COMPANY.phone.display}

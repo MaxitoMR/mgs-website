@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Phone, Mail, MapPin, Clock, Send, Loader2 } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
+import { useStatusPanel } from "@/hooks/use-status-panel";
 import { contactSchema, type ContactFormData } from "@/types/forms";
 import { api } from "@/lib/api";
 
@@ -24,6 +25,8 @@ export function ContactSection() {
     reset,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    // Moves focus to the first field that failed validation.
+    shouldFocusError: true,
   });
 
   const mutation = useMutation({
@@ -32,19 +35,20 @@ export function ContactSection() {
   });
 
   const onSubmit = (data: ContactFormData) => mutation.mutate(data);
+  const successRef = useStatusPanel<HTMLDivElement>(mutation.isSuccess);
 
   return (
     <section
       id="contact"
       className="relative w-full bg-white overflow-hidden"
       style={{
-        paddingTop: 'clamp(4rem, 8vw, 8rem)',
-        paddingBottom: 'clamp(4rem, 8vw, 8rem)',
+        paddingTop: 'clamp(2rem, 8vw, 8rem)',
+        paddingBottom: 'clamp(2rem, 8vw, 8rem)',
         borderTopLeftRadius: 'clamp(2rem, 4vw, 4rem)',
       }}
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <div className="grid gap-16 lg:grid-cols-2">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           {/* Left: Contact Info */}
           <div>
             <motion.p
@@ -71,14 +75,14 @@ Get In Touch
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-gray-500 mb-12"
+              className="text-gray-600 mb-7 lg:mb-12"
               style={{ fontSize: 'var(--font-body-base)', fontWeight: 300, lineHeight: 1.7 }}
             >
               Send the details of your site and requirements. We respond within one
               business day to schedule a walkthrough and prepare a proposal.
             </motion.p>
 
-            <div className="space-y-6">
+            <div className="space-y-3 lg:space-y-6">
               {[
                 {
                   icon: Phone,
@@ -128,7 +132,7 @@ Get In Touch
                         href={href}
                         target={href.startsWith("http") ? "_blank" : undefined}
                         rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="font-medium text-gray-900 transition-colors hover:text-brand-green-text"
+                        className="-my-2.5 inline-flex min-h-11 items-center py-2.5 font-medium text-gray-900 transition-colors hover:text-brand-green-text lg:my-0 lg:min-h-0 lg:py-0"
                         style={{ fontSize: 'var(--font-body-base)' }}
                       >
                         {value}
@@ -148,6 +152,9 @@ Get In Touch
           <div>
             {mutation.isSuccess ? (
               <div
+                ref={successRef}
+                role="status"
+                tabIndex={-1}
                 className="flex h-full items-center justify-center bg-[#f0f5e8] p-12 shadow-premium"
                 style={{ borderTopLeftRadius: '3rem' }}
               >
@@ -169,7 +176,7 @@ Get In Touch
             ) : (
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="bg-[#f9faf7] p-8 shadow-premium md:p-10"
+                className="bg-[#f9faf7] p-5 shadow-premium sm:p-8 md:p-10"
                 style={{ borderTopLeftRadius: '3rem' }}
               >
                 <div className="mb-8">
@@ -189,7 +196,9 @@ Get In Touch
                     <input
                       {...register("name")}
                       id="contact-name"
+                      required
                       autoComplete="name"
+                      enterKeyHint="next"
                       aria-required="true"
                       aria-invalid={errors.name ? "true" : undefined}
                       aria-describedby={errors.name ? "contact-name-error" : undefined}
@@ -211,7 +220,10 @@ Get In Touch
                         {...register("email")}
                         id="contact-email"
                         type="email"
+                        required
                         autoComplete="email"
+                        inputMode="email"
+                        enterKeyHint="next"
                         aria-required="true"
                         aria-invalid={errors.email ? "true" : undefined}
                         aria-describedby={errors.email ? "contact-email-error" : undefined}
@@ -232,6 +244,8 @@ Get In Touch
                         id="contact-phone"
                         type="tel"
                         autoComplete="tel"
+                        inputMode="tel"
+                        enterKeyHint="next"
                         className={FIELD}
                         style={{ fontSize: 'var(--font-caption)', borderTopLeftRadius: '0.75rem' }}
                         placeholder="(555) 123-4567"
@@ -247,6 +261,9 @@ Get In Touch
                       {...register("message")}
                       id="contact-message"
                       rows={4}
+                      required
+                      autoComplete="off"
+                      enterKeyHint="send"
                       aria-required="true"
                       aria-invalid={errors.message ? "true" : undefined}
                       aria-describedby={errors.message ? "contact-message-error" : undefined}
@@ -266,11 +283,14 @@ Get In Touch
                     style={{ fontSize: 'var(--font-body-base)', borderTopLeftRadius: '1.5rem' }}
                   >
                     {mutation.isPending ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                        Sending…
+                      </>
                     ) : (
                       <>
                         Send Message
-                        <Send className="h-4 w-4" />
+                        <Send className="h-4 w-4" aria-hidden="true" />
                       </>
                     )}
                   </button>

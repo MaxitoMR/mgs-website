@@ -15,7 +15,11 @@ export function ClientPortalCta() {
   return (
     <section
       className="relative w-full overflow-hidden bg-[#f0f5e8]"
-      style={{ paddingTop: 'clamp(5rem, 10vw, 8rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}
+      /* clamp minimum halved. Below ~800px the vw term is smaller than the
+         floor, so the floor is what phones actually get — 80px top and bottom
+         was a sixth of a 715px screen spent on nothing. The max is untouched,
+         and the ramp between them is continuous, so desktop is unchanged. */
+      style={{ paddingTop: 'clamp(2.5rem, 10vw, 8rem)', paddingBottom: 'clamp(2.5rem, 10vw, 8rem)' }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -54,7 +58,7 @@ export function ClientPortalCta() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-gray-600 mt-5 mb-7"
+              className="text-gray-600 mt-4 mb-5 lg:mt-5 lg:mb-7"
               style={{ fontSize: 'clamp(0.85rem, 1.1vw, 1rem)', fontWeight: 300, lineHeight: 1.7 }}
             >
               A dedicated client portal: review QA inspection reports, settle invoices,
@@ -67,7 +71,7 @@ export function ClientPortalCta() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.25 }}
-              className="grid grid-cols-2 gap-x-4 gap-y-2 mb-8"
+              className="grid grid-cols-2 gap-x-4 gap-y-2 mb-6 lg:mb-8"
             >
               {features.map((f) => {
                 const Icon = f.icon;
@@ -148,15 +152,18 @@ export function ClientPortalCta() {
                   <div className="w-8" />
                 </div>
 
+                {/* Not `priority`: this sits well below the fold behind a
+                    `lg:` gate, so eager-loading it only ever competed with the
+                    hero for the first bytes on the wire. */}
                 <Image
                   src="/images/portal-dashboard.png"
-                  alt="MGS Client Portal Dashboard"
+                  alt="The MGS client portal dashboard, showing location health scores and recent QA reports"
                   width={3440}
                   height={1440}
+                  sizes="(min-width: 1024px) 60vw, 100vw"
                   className="w-full h-auto block"
                   quality={100}
                   unoptimized
-                  priority
                 />
               </div>
             </div>
@@ -168,7 +175,7 @@ export function ClientPortalCta() {
       </div>
 
       {/* Mobile screenshot fallback */}
-      <div className="lg:hidden mt-10 px-4 sm:px-8">
+      <div className="lg:hidden mt-6 px-4 sm:px-8">
         <div
           className="overflow-hidden bg-white"
           style={{
@@ -183,13 +190,16 @@ export function ClientPortalCta() {
               <div className="w-[6px] h-[6px] rounded-full bg-[#28c840]" />
             </div>
           </div>
+          {/* Optimized, unlike its desktop twin. `unoptimized` was shipping a
+              3440px-wide PNG into a ~360px box — roughly ten times the pixels
+              the phone can render, on the slowest connection of the two. */}
           <Image
             src="/images/portal-dashboard.png"
-            alt="MGS Client Portal Dashboard"
+            alt="The MGS client portal dashboard, showing location health scores and recent QA reports"
             width={3440}
             height={1440}
+            sizes="100vw"
             className="w-full h-auto block"
-            unoptimized
           />
         </div>
       </div>

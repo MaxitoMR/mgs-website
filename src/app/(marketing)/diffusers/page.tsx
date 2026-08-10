@@ -95,7 +95,11 @@ export default function DiffusersPage() {
           </MotionWrapper>
 
           <MotionWrapper delay={0.2}>
-            <div className="rounded-none bg-gradient-to-br from-brand-green to-brand-lime p-8 text-white">
+            {/* text-brand-on-green, not text-white. White measures 2.71:1
+                against the green end of this gradient and 1.82:1 against the
+                lime — the worst text/background pair on the site. The on-green
+                ink is 6.51 and 8.78 on the same two stops. */}
+            <div className="rounded-none bg-gradient-to-br from-brand-green to-brand-lime p-8 text-brand-on-green">
               <h3 className="font-display text-2xl font-bold">Key Benefits</h3>
               <ul className="mt-6 space-y-4">
                 {benefits.map((benefit) => (

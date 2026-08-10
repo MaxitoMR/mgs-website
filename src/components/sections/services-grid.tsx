@@ -180,11 +180,11 @@ export function ServicesGrid() {
     <section
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#111111]"
-      style={{ paddingTop: "clamp(3.5rem, 6vw, 6rem)", paddingBottom: "clamp(3.5rem, 6vw, 6rem)" }}
+      style={{ paddingTop: "clamp(1.75rem, 6vw, 6rem)", paddingBottom: "clamp(1.75rem, 6vw, 6rem)" }}
     >
       <div className="mx-auto max-w-[92rem] px-5 sm:px-8 lg:px-12">
         {/* Header + tabs on one baseline */}
-        <div className="mb-8 flex flex-col gap-6 lg:mb-10 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-5 flex flex-col gap-4 lg:mb-10 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
           <div>
             <p className="svc-header-el eyebrow mb-3 text-[#69AF23] opacity-0">Our Services</p>
             <h2
@@ -200,12 +200,22 @@ export function ServicesGrid() {
               OUTSIDE the border box, and the active one carries `shadow-lg`.
               With zero top padding the scroll container clipped the top of
               every ring — that was the "cut off" top border. Padding on all
-              sides gives the ring and shadow room to render. */}
+              sides gives the ring and shadow room to render.
+
+              THEY WRAP ON MOBILE, they do not scroll. At 390px the four chips
+              measure 523px against a 360px track, so "Industrial" was cut
+              mid-word and "Specialized" — a quarter of everything this section
+              offers — was entirely off-screen, behind a hidden scrollbar. Edge
+              fades were the affordance, and an affordance that says "there is
+              more" is a worse answer than showing it: four items fit in two
+              rows on the narrowest phone we support. The scroll behaviour and
+              its fades survive at `sm:` and up, where the row does fit and the
+              overflow case is real again (a fifth category, a longer label). */}
           <div className="svc-header-el relative opacity-0">
             <div
               ref={tabsRef}
               onScroll={updateTabEdges}
-              className="flex gap-2 overflow-x-auto p-1 scrollbar-hide"
+              className="flex flex-wrap gap-2 p-1 sm:flex-nowrap sm:overflow-x-auto scrollbar-hide"
             >
               {serviceCategories.map((cat, i) => {
               const Icon = cat.icon;
@@ -215,7 +225,7 @@ export function ServicesGrid() {
                   key={cat.id}
                   onClick={() => handleTabClick(i)}
                   className={cn(
-                    "group flex flex-shrink-0 items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-all duration-300",
+                    "group flex min-h-11 flex-shrink-0 items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-all duration-300",
                     isActive ? "text-brand-on-green shadow-lg" : "bg-white/[0.06] text-gray-300 ring-1 ring-white/15 hover:bg-white/[0.1] hover:text-white",
                   )}
                   style={{
@@ -258,7 +268,7 @@ export function ServicesGrid() {
         </div>
 
         {/* Sector line — colored rule + title + description */}
-        <div key={`${active.id}-head`} className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div key={`${active.id}-head`} className="mb-4 flex flex-col gap-2 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <span className="h-7 w-1.5 rounded-full" style={{ backgroundColor: active.color }} />
             <h3 className="font-gothic text-white" style={{ fontSize: "clamp(1.35rem, 2.2vw, 2rem)", fontWeight: 400 }}>
@@ -362,14 +372,15 @@ export function ServicesGrid() {
           })}
         </div>
 
-        {/* View all */}
-        <div className="mt-8 flex justify-center lg:mt-10">
+        {/* View all — a padded block target on touch, the same inline link on
+            desktop. It was 132×20: a real destination sized like a footnote. */}
+        <div className="mt-6 flex justify-center lg:mt-10">
           <Link
             href="/services"
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-[#69AF23]"
+            className="group inline-flex min-h-11 items-center gap-2 px-4 text-sm font-semibold text-white transition-colors hover:text-[#69AF23] lg:min-h-0 lg:px-0"
           >
             View all services
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </div>

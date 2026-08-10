@@ -85,7 +85,7 @@ export default function CareersPage() {
             </h2>
           </MotionWrapper>
         </div>
-        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-7 grid gap-5 sm:gap-8 md:grid-cols-2 lg:mt-12 lg:grid-cols-4">
           {benefits.map((benefit, i) => (
             <MotionWrapper key={benefit.title} delay={i * 0.1}>
               <div className="text-center">
@@ -122,7 +122,7 @@ export default function CareersPage() {
                 </div>
                 <Link
                   href="/employee-application"
-                  className="group inline-flex items-center gap-2 rounded-none bg-brand-green-deep px-6 py-2.5 text-sm font-semibold text-brand-on-green transition-all hover:bg-brand-green-deep-hover"
+                  className="group inline-flex min-h-12 items-center gap-2 rounded-none bg-brand-green-deep px-6 py-2.5 text-sm font-semibold text-brand-on-green transition-all hover:bg-brand-green-deep-hover"
                 >
                   Apply Now
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

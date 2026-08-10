@@ -78,7 +78,7 @@ function SectionIntro({
   return (
     <div
       className="max-w-3xl"
-      style={{ paddingTop: "clamp(5rem, 10vw, 8rem)" }}
+      style={{ paddingTop: "clamp(2.5rem, 10vw, 8rem)" }}
     >
       <p data-reveal className="eyebrow mb-5 text-brand-lime">
         {eyebrow}
@@ -129,7 +129,7 @@ function TourRow({
   return (
     <div
       className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16"
-      style={{ paddingTop: "clamp(3rem, 5.5vw, 4.5rem)" }}
+      style={{ paddingTop: "clamp(1.5rem, 5.5vw, 4.5rem)" }}
     >
       <div
         data-reveal
@@ -176,7 +176,7 @@ function TourPair({
   children: ReactNode;
 }) {
   return (
-    <div style={{ paddingTop: "clamp(3.5rem, 7vw, 6rem)" }}>
+    <div style={{ paddingTop: "clamp(1.75rem, 7vw, 6rem)" }}>
       <div className="max-w-2xl">
         <h3
           data-reveal
@@ -219,7 +219,19 @@ export function AppTour() {
       if (!root) return;
       const q = gsap.utils.selector(root);
 
+      /* ABOVE THE FOLD IS NOT ANIMATED.
+         A ScrollTrigger with `start: "top 90%"` fires immediately for anything
+         already on screen, so the page's own h1 and subtitle were being faded
+         in from zero at load — an entry animation on the first thing the
+         visitor is trying to read, and a blank block for as long as it ran.
+         Measuring once at setup and skipping whatever is already visible fixes
+         the whole class rather than the two elements that happened to show it,
+         and it needs no per-element tagging that a future beat could forget. */
+      const belowFold = (el: Element) =>
+        el.getBoundingClientRect().top >= window.innerHeight;
+
       q("[data-reveal]").forEach((el) => {
+        if (!belowFold(el)) return;
         gsap.from(el, {
           opacity: 0,
           y: 32,
@@ -230,6 +242,7 @@ export function AppTour() {
       });
 
       q("[data-reveal-group]").forEach((group) => {
+        if (!belowFold(group)) return;
         gsap.from(group.children, {
           opacity: 0,
           y: 24,
@@ -283,7 +296,7 @@ export function AppTour() {
         <header
           className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10"
           style={{
-            paddingTop: "clamp(6rem, 12vw, 9rem)",
+            paddingTop: "clamp(3rem, 12vw, 9rem)",
             paddingBottom: "clamp(1rem, 2vw, 2rem)",
           }}
         >
@@ -325,7 +338,7 @@ export function AppTour() {
 
           <div data-reveal className="mt-9">
             <AppStoreButton />
-            <p className="mt-3 text-[11px] font-light text-white/40">
+            <p className="mt-3 text-xs font-light text-white/60">
               Free &middot; iOS 15.1+ &middot; iPhone, iPad &amp; Apple Vision
             </p>
           </div>
@@ -427,7 +440,7 @@ export function AppTour() {
         {/* The centerpiece. Gets the middle of the page and its own width. */}
         <div
           className="flex flex-col items-center text-center"
-          style={{ paddingTop: "clamp(5rem, 10vw, 8rem)" }}
+          style={{ paddingTop: "clamp(2.5rem, 10vw, 8rem)" }}
         >
           <div className="max-w-2xl">
             <h3
@@ -637,8 +650,8 @@ export function AppTour() {
         <div
           className="max-w-2xl"
           style={{
-            paddingTop: "clamp(6rem, 12vw, 9rem)",
-            paddingBottom: "clamp(5rem, 10vw, 8rem)",
+            paddingTop: "clamp(3rem, 12vw, 9rem)",
+            paddingBottom: "clamp(2.5rem, 10vw, 8rem)",
           }}
         >
           <h2

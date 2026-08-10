@@ -87,23 +87,28 @@ export default function GalleryContent() {
 
       {/* Before & After Section */}
       <SectionWrapper className="bg-[#111111]" dark>
-        <div className="text-center mb-10">
-          <p className="eyebrow text-[#9FD01B] mb-3">Before & After</p>
+        <div className="text-center mb-6 sm:mb-10">
+          <p className="eyebrow text-[#9FD01B] mb-3">Before &amp; After</p>
           <h2 className="font-gothic text-white" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>
             The MGS <span className="text-[#69AF23]">difference.</span>
           </h2>
-          <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm" style={{ fontWeight: 300 }}>
-            Drag the slider to see the transformation. Every detail matters.
+          <p className="text-gray-300 mt-3 max-w-xl mx-auto text-sm" style={{ fontWeight: 300 }}>
+            Drag the divider to see the transformation — or tap Show before.
+            Every detail matters.
           </p>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {beforeAfterPairs.map((pair) => (
+          {beforeAfterPairs.map((pair, i) => (
             <BeforeAfterSlider
               key={pair.label}
               before={pair.before}
               after={pair.after}
               label={pair.label}
+              /* Only the first pair is above the fold on any viewport; the
+                 other ten images load on approach rather than all twelve
+                 racing on first paint. */
+              priority={i === 0}
             />
           ))}
         </div>
@@ -111,7 +116,7 @@ export default function GalleryContent() {
 
       {/* Photo Gallery */}
       <SectionWrapper>
-        <div className="text-center mb-10">
+        <div className="text-center mb-6 sm:mb-10">
           <p className="eyebrow text-brand-green-text mb-3">Photo Gallery</p>
           <h2 className="font-gothic text-gray-900" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>
             Our work in <span className="text-brand-green-text">action.</span>
@@ -119,13 +124,13 @@ export default function GalleryContent() {
         </div>
 
         {/* Filters */}
-        <div className="mb-10 flex flex-wrap justify-center gap-2">
+        <div className="mb-6 flex flex-wrap justify-center gap-2 sm:mb-10">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={cn(
-                "px-5 py-2 text-sm font-medium transition-all",
+                "flex min-h-11 items-center px-5 py-2 text-sm font-medium transition-all",
                 activeCategory === cat
                   ? "bg-brand-green-deep text-brand-on-green shadow-md"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -137,8 +142,11 @@ export default function GalleryContent() {
           ))}
         </div>
 
-        {/* Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Grid — two up on a phone. Eighteen 4:3 images in one column ran
+            to 5,404px, six and a half screens of thumbnails; the photographs
+            are establishing shots, not detail crops, so half-width still
+            reads. The lightbox is what full size is for. */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((image) => (
               <motion.div
@@ -158,6 +166,7 @@ export default function GalleryContent() {
                     alt={image.alt}
                     width={600}
                     height={450}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
@@ -178,7 +187,7 @@ export default function GalleryContent() {
             onClick={() => setLightboxImage(null)}
           >
             <button
-              className="absolute right-4 top-4 bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+              className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center bg-white/10 text-white transition-colors hover:bg-white/20"
               onClick={() => setLightboxImage(null)}
               aria-label="Close lightbox"
             >

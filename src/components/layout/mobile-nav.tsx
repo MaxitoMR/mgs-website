@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { serviceNav, portalItems } from "@/lib/navigation";
 import { COMPANY } from "@/lib/constants";
-import { ChevronDown, Phone, Mail, MapPin, ExternalLink, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Phone, Mail, MapPin, ExternalLink, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SearchBar } from "./search-bar";
 
@@ -32,6 +32,21 @@ const portalLinks = portalItems.map((item) => ({
   ...item,
   external: item.href.startsWith("http"),
 }));
+
+/**
+ * `serviceNav` labels → the section ids `/services` renders.
+ *
+ * The two vocabularies differ by one: the nav calls the fourth group
+ * "Specialized", `services-data` calls it "additional". Mapping it here rather
+ * than lowercasing the label means the odd one out is visible instead of
+ * producing a link to `#cat-specialized`, which exists on no page.
+ */
+const categoryAnchors: Record<string, string> = {
+  Commercial: "commercial",
+  Medical: "medical",
+  Industrial: "industrial",
+  Specialized: "additional",
+};
 
 export function MobileNav({ open, onClose }: MobileNavProps) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -116,19 +131,24 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
             animate={{ opacity: 1, x: "0%" }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="fixed right-0 top-0 bottom-0 z-[1001] overflow-y-auto bg-white shadow-2xl lg:hidden"
+            /* A column, not a scroll box: the scrolling now belongs to the
+               nav list in the middle, so the CTA footer below it can stay put
+               instead of living 1023px down a 715px viewport. */
+            className="fixed right-0 top-0 bottom-0 z-[1001] flex flex-col bg-white shadow-2xl lg:hidden"
             style={{
-              width: "min(320px, 85vw)",
+              /* 88vw / 380px, up from 85vw / 320px. At 320 the portal labels
+                 and "Janitorial Services in Katy" were wrapping inside a panel
+                 that had ~40px of unused screen beside it. */
+              width: "min(88vw, 380px)",
               paddingTop: "env(safe-area-inset-top)",
-              paddingBottom: "env(safe-area-inset-bottom)",
             }}
           >
-            <div className="p-5">
+            <div className="flex-1 overflow-y-auto overscroll-contain p-5">
               {/* Header row: title + close */}
               <div className="mb-5 flex items-center justify-between">
                 <div>
-                  <p className="text-[13px] font-bold tracking-[2px] text-gray-900">MGS</p>
-                  <p className="text-[8px] font-medium tracking-wider text-gray-400">MENU</p>
+                  <p className="text-sm font-bold tracking-[2px] text-gray-900">MGS</p>
+                  <p className="text-xs font-medium tracking-wider text-gray-500">MENU</p>
                 </div>
                 <button
                   ref={closeBtnRef}
@@ -146,7 +166,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               </div>
 
               {/* Services (accordion) */}
-              <p className="mb-2 text-[9px] font-bold uppercase tracking-[1.5px] text-gray-400">
+              <p className="mb-2 text-xs font-bold uppercase tracking-[1.5px] text-gray-500">
                 Services
               </p>
               {serviceNav.map((category) => (
@@ -158,7 +178,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                       )
                     }
                     aria-expanded={expandedCategory === category.label}
-                    className="flex min-h-11 w-full items-center justify-between py-3 text-[13px] font-medium text-gray-700"
+                    className="flex min-h-11 w-full items-center justify-between py-3 text-sm font-medium text-gray-700"
                   >
                     {category.label}
                     <ChevronDown
@@ -181,11 +201,24 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                             key={item.href}
                             href={item.href}
                             onClick={onClose}
-                            className="block border-l-2 border-gray-100 py-2 pl-4 text-[12px] text-gray-500 transition-colors hover:border-[#69AF23] hover:text-brand-green-text"
+                            className="flex min-h-11 items-center border-l-2 border-gray-100 pl-4 text-[13px] text-gray-600 transition-colors hover:border-[#69AF23] hover:text-brand-green-text"
                           >
                             {item.label}
                           </Link>
                         ))}
+                        {/* The category row itself is a toggle, not a link, so
+                            without this there was no route from the drawer to
+                            a category landing page at all — expanding
+                            "Commercial" gave you five leaf services and no way
+                            to see the category. */}
+                        <Link
+                          href={`/services#cat-${categoryAnchors[category.label] ?? ""}`}
+                          onClick={onClose}
+                          className="flex min-h-11 items-center gap-1.5 border-l-2 border-gray-100 pl-4 text-[13px] font-semibold text-brand-green-text transition-colors hover:border-[#69AF23]"
+                        >
+                          View all {category.label}
+                          <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        </Link>
                         <div className="h-2" />
                       </motion.div>
                     )}
@@ -194,7 +227,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               ))}
 
               {/* Company links */}
-              <p className="mb-2 mt-5 text-[9px] font-bold uppercase tracking-[1.5px] text-gray-400">
+              <p className="mb-2 mt-5 text-xs font-bold uppercase tracking-[1.5px] text-gray-500">
                 Company
               </p>
               {companyLinks.map((item) => (
@@ -202,14 +235,14 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   key={item.href}
                   href={item.href}
                   onClick={onClose}
-                  className="flex min-h-11 items-center border-b border-gray-50 text-[13px] font-medium text-gray-700 transition-colors hover:text-brand-green-text"
+                  className="flex min-h-11 items-center border-b border-gray-50 text-sm font-medium text-gray-700 transition-colors hover:text-brand-green-text"
                 >
                   {item.label}
                 </Link>
               ))}
 
               {/* Portals */}
-              <p className="mb-2 mt-5 text-[9px] font-bold uppercase tracking-[1.5px] text-gray-400">
+              <p className="mb-2 mt-5 text-xs font-bold uppercase tracking-[1.5px] text-gray-500">
                 Portals
               </p>
               {portalLinks.map((item) => (
@@ -222,22 +255,17 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                     item.external ? `${item.label} (opens in new tab)` : undefined
                   }
                   onClick={onClose}
-                  className="flex min-h-11 items-center justify-between border-b border-gray-50 text-[13px] font-medium text-gray-700 transition-colors hover:text-brand-green-text"
+                  className="flex min-h-11 items-center justify-between border-b border-gray-50 text-sm font-medium text-gray-700 transition-colors hover:text-brand-green-text"
                 >
                   {item.label}
                   {item.external && <ExternalLink className="h-3 w-3 text-gray-400" />}
                 </Link>
               ))}
 
-              {/* CTA Buttons */}
-              <div className="mt-6 space-y-2.5">
-                <Link
-                  href="/quote"
-                  onClick={onClose}
-                  className="flex min-h-11 w-full items-center justify-center bg-brand-green-deep py-3 text-[13px] font-semibold text-brand-on-green transition-all hover:bg-brand-green-deep-hover"
-                >
-                  Get Free Quote
-                </Link>
+              {/* Secondary CTA + the rest of the contact block stay in the
+                  scrolling region; the two things worth reaching without
+                  scrolling are pinned below. */}
+              <div className="mt-6 border-t border-gray-100 pt-5">
                 <Link
                   href="/walkthrough"
                   onClick={onClose}
@@ -248,25 +276,57 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               </div>
 
               {/* Contact info */}
-              <div className="mt-6 space-y-3 border-t border-gray-100 pt-5">
-                <a
-                  href={`tel:${COMPANY.phone.primary}`}
-                  className="flex items-center gap-2.5 text-[12px] text-gray-500 hover:text-brand-green-text"
-                >
-                  <Phone className="h-3.5 w-3.5" />
-                  {COMPANY.phone.display}
-                </a>
+              <div className="mt-5 space-y-1">
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="flex items-center gap-2.5 text-[12px] text-gray-500 hover:text-brand-green-text"
+                  className="flex min-h-11 items-center gap-2.5 break-all text-[13px] text-gray-600 hover:text-brand-green-text"
                 >
-                  <Mail className="h-3.5 w-3.5" />
+                  <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                   {COMPANY.email}
                 </a>
-                <div className="flex items-start gap-2.5 text-[12px] text-gray-500">
-                  <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
+                <a
+                  href={COMPANY.address.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-11 items-center gap-2.5 text-[13px] text-gray-600 hover:text-brand-green-text"
+                >
+                  <MapPin className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
                   {COMPANY.address.full}
-                </div>
+                </a>
+              </div>
+            </div>
+
+            {/* ── Pinned action footer ──────────────────────────────────────
+                The drawer's content runs to ~1023px against a 715px screen, so
+                both CTAs and the phone number sat below the fold — the two
+                highest-intent controls in the menu were reachable only by
+                scrolling a menu, which is not what a menu is for. Outside the
+                scrolling region they are always on screen, at the bottom of
+                the panel where a thumb already rests.
+
+                It carries the safe-area inset that used to be on the panel:
+                on the panel it padded the bottom of a scroll container, which
+                does nothing when the content overflows. */}
+            <div
+              className="shrink-0 border-t border-gray-200 bg-white p-4 shadow-[0_-8px_24px_rgba(0,0,0,0.06)]"
+              style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+            >
+              <div className="flex gap-2">
+                <a
+                  href={`tel:${COMPANY.phone.primary}`}
+                  aria-label={`Call MGS at ${COMPANY.phone.display}`}
+                  className="flex min-h-12 flex-1 items-center justify-center gap-2 border-2 border-brand-green-deep text-[13px] font-semibold text-brand-green-text transition-colors hover:bg-brand-green-deep hover:text-brand-on-green"
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  Call
+                </a>
+                <Link
+                  href="/quote"
+                  onClick={onClose}
+                  className="flex min-h-12 flex-[1.4] items-center justify-center bg-brand-green-deep text-[13px] font-semibold text-brand-on-green transition-all hover:bg-brand-green-deep-hover"
+                >
+                  Get Free Quote
+                </Link>
               </div>
             </div>
           </motion.div>

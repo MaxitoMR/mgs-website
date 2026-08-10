@@ -515,7 +515,7 @@ export function Header() {
           className="flex items-center justify-between bg-white px-4 py-2 border-b border-gray-100"
           style={{ paddingTop: "calc(0.5rem + env(safe-area-inset-top))" }}
         >
-          <Link href="/" aria-label="MGS home" className="flex items-center">
+          <Link href="/" aria-label="MGS home" className="flex min-h-11 items-center">
             <Image
               src="/attached_assets/MGS LOGOOOOOOO_1750105578653.png"
               alt={COMPANY.name}

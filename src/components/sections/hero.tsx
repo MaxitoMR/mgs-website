@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { gsap } from "@/lib/gsap";
 
 // Stats moved up from the old standalone bar into the hero.
 const heroStats = [
@@ -13,63 +11,28 @@ const heroStats = [
 ];
 
 export function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const eyebrowRef = useRef<HTMLParagraphElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      // Eyebrow — slide in from left with a line wipe
-      tl.fromTo(
-        eyebrowRef.current,
-        { opacity: 0, x: -30 },
-        { opacity: 1, x: 0, duration: 0.6 },
-        0.3
-      );
-
-      // Heading lines — each line clips up from below
-      const lines = headingRef.current?.querySelectorAll(".hero-line");
-      if (lines) {
-        tl.fromTo(
-          lines,
-          { opacity: 0, y: 60, rotateX: 15 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.8, stagger: 0.15 },
-          0.5
-        );
-      }
-
-      // Subtitle — fade up
-      tl.fromTo(
-        subtitleRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7 },
-        1.1
-      );
-
-      // Hero stats — stagger in from below
-      const statItems = ctaRef.current?.querySelectorAll(".hero-stat");
-      if (statItems) {
-        tl.fromTo(
-          statItems,
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-          1.3
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  /**
+   * NO ENTRY ANIMATION. This whole block is above the fold — it IS the first
+   * painted frame — so there is nothing for an entry to introduce.
+   *
+   * What was here: every element carried `opacity-0` in its className and was
+   * revealed by a `gsap.fromTo()` timeline on mount. Two problems, one of them
+   * severe. The severe one is that a class of `opacity-0` waiting on a tween
+   * that never runs is a permanently blank section: until hydration completed,
+   * the first thing anyone saw of this site was a photograph with nothing on
+   * it, and any hydration failure left it that way for good. The other is that
+   * even when it all worked, the last line of the headline did not arrive
+   * until 1.3s and the subtitle was still at zero at 150ms — a measurable
+   * delay on the only copy that has to be read before anything else.
+   *
+   * Rewriting it as `gsap.from()` would have fixed the first problem and not
+   * the second, so the timeline is gone rather than repaired. Reveals still
+   * run everywhere below the fold, where an element genuinely does arrive.
+   */
 
   return (
     <section
-      ref={sectionRef}
-      className="relative w-full flex items-center overflow-hidden"
-      style={{ minHeight: 'clamp(28rem, 70vh, 48rem)' }}
+      className="relative flex w-full items-center overflow-hidden min-h-[max(24rem,64vh)] lg:min-h-[clamp(24rem,70vh,48rem)]"
     >
       {/* Real crew, real medical corridor. `priority` because this is the
           LCP element — without it Next lazy-loads and the hero flashes empty.
@@ -90,9 +53,18 @@ export function HeroSection() {
           for the headline, which sits left — so it is heavy at the left edge
           and clears by the right, leaving the worker and the corridor visible
           rather than flattening the whole photo. The vertical one only darkens
-          the top and bottom edges, for the nav above and the CTAs below. */}
+          the top and bottom edges, for the nav above and the CTAs below.
+
+          DESKTOP ONLY, because the premise it is built on is a desktop premise.
+          The falloff assumes the text occupies the left ~55% of the frame and
+          the photograph gets the rest. On a phone the copy spans the full
+          width, so the subtitle's second half — "verified against a documented
+          QA protocol" — was running across the 0.18 and 0.10 stops, over a
+          lit floor and light trousers. Measured against the brightest pixels
+          actually behind that run rather than the frame's average, it was
+          about 2.4:1. */}
       <div
-        className="absolute inset-0 z-[21]"
+        className="absolute inset-0 z-[21] hidden lg:block"
         style={{
           background:
             'linear-gradient(90deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.72) 28%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.18) 78%, rgba(0,0,0,0.10) 100%),' +
@@ -100,33 +72,44 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative z-50 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 sm:py-14">
+      {/* Mobile scrim. Near-flat rather than a falloff: with the text running
+          edge to edge there is no "text side" to weight toward, so the job is
+          a uniform floor under the whole column. 0.72 at its lightest puts the
+          body copy above 7:1 against the brightest pixel it crosses, and the
+          photograph still reads through it — it is a scrim, not a fill. */}
+      <div
+        className="absolute inset-0 z-[21] lg:hidden"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.80) 45%, rgba(0,0,0,0.72) 100%),' +
+            'linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 34%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.40) 100%)',
+        }}
+      />
+
+      <div className="relative z-50 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-8 sm:py-14">
         <div className="max-w-5xl">
-          <p ref={eyebrowRef} className="eyebrow text-brand-lime mb-5 opacity-0">
+          <p className="eyebrow text-brand-lime mb-4 sm:mb-5">
             Est. 2006
           </p>
 
           <h1
-            ref={headingRef}
             className="font-gothic text-[#FBFBFE] hero-text-shadow"
             style={{
               fontSize: 'clamp(2.125rem, 4.1vw, 3.625rem)',
               fontWeight: 300,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
-              perspective: '600px',
             }}
           >
-            <span className="hero-line inline-block opacity-0">Janitorial services,</span>
+            <span className="hero-line inline-block">Janitorial services,</span>
             <br />
-            <span className="hero-line inline-block opacity-0 text-brand-green-deep">engineered to</span>
+            <span className="hero-line inline-block text-brand-green-deep">engineered to</span>
             <br />
-            <span className="hero-line inline-block opacity-0">a measurable standard.</span>
+            <span className="hero-line inline-block">a measurable standard.</span>
           </h1>
 
           <p
-            ref={subtitleRef}
-            className="text-gray-300 mt-5 mb-8 max-w-xl opacity-0"
+            className="text-gray-200 mt-4 mb-6 max-w-xl sm:mt-5 sm:mb-8"
             style={{
               fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
               fontWeight: 300,
@@ -141,11 +124,10 @@ export function HeroSection() {
           {/* Stats — pulled up from the old standalone bar. Floating CTAs cover
               the call-to-action, so the hero closes on proof instead. */}
           <div
-            ref={ctaRef}
-            className="grid grid-cols-2 gap-x-8 gap-y-5 border-t border-white/15 pt-6 sm:flex sm:flex-wrap sm:gap-x-12 lg:gap-x-16"
+            className="grid grid-cols-2 gap-x-8 gap-y-4 border-t border-white/15 pt-5 sm:flex sm:flex-wrap sm:gap-y-5 sm:gap-x-12 sm:pt-6 lg:gap-x-16"
           >
             {heroStats.map((s) => (
-              <div key={s.label} className="hero-stat opacity-0">
+              <div key={s.label} className="hero-stat">
                 <div
                   className="font-gothic text-brand-lime"
                   style={{ fontSize: "clamp(1.625rem, 2.6vw, 2.25rem)", fontWeight: 300, lineHeight: 1 }}
@@ -156,7 +138,7 @@ export function HeroSection() {
                 {/* Sub-caption hidden on phones to keep the hero uncluttered
                     (matches the old stats bar's mobile behavior). */}
                 <div
-                  className="mt-0.5 hidden max-w-[12rem] text-xs text-gray-300 sm:block"
+                  className="mt-0.5 hidden max-w-[12rem] text-xs text-gray-200 sm:block"
                   style={{ fontWeight: 300, lineHeight: 1.4 }}
                 >
                   {s.sub}

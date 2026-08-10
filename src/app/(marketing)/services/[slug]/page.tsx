@@ -102,12 +102,15 @@ export default async function ServicePage({
       <SectionWrapper>
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Image */}
+          {/* `sizes` so a phone isn't handed the 800px asset for a ~360px box.
+              `priority` stays: this is the LCP element on a service page. */}
           <div className="overflow-hidden rounded-none">
             <Image
               src={service.image}
               alt={service.title}
               width={800}
               height={600}
+              sizes="(min-width: 1024px) 36rem, 100vw"
               className="h-full w-full object-cover"
               priority
             />
@@ -136,22 +139,44 @@ export default async function ServicePage({
               </ul>
             </div>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            {/* ── One primary action per screen ─────────────────────────────
+                On a phone this pair sat inside the same viewport as the fixed
+                bar's Call and Get a Quote — four buttons offering two
+                destinations, twice each, under four labels. The fixed bar is
+                permanent and is the canonical version of both, so the in-page
+                pair is desktop-only, where the bar is a small pill in the
+                corner rather than half the bottom of the screen.
+
+                What stays on mobile is one line of text pointing at the bar,
+                so the page still closes on an ask rather than trailing off. */}
+            <div className="mt-8 hidden flex-col gap-4 sm:flex-row lg:flex">
               <Link
                 href="/quote"
                 className="group inline-flex items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-3.5 font-semibold text-brand-on-green shadow-md transition-all hover:bg-brand-green-deep-hover hover:shadow-lg"
               >
                 Get a Quote
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </Link>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
                 className="inline-flex items-center justify-center gap-2 rounded-none border-2 border-brand-green-deep px-8 py-3.5 font-semibold text-brand-green-text transition-all hover:bg-brand-green-deep hover:text-brand-on-green"
               >
-                <Phone className="h-5 w-5" />
+                <Phone className="h-5 w-5" aria-hidden="true" />
                 {COMPANY.phone.display}
               </a>
             </div>
+            <p className="mt-8 text-sm text-gray-600 lg:hidden">
+              Scoping this for your site? Use{" "}
+              <span className="font-semibold text-gray-900">Get a Quote</span>{" "}
+              below, or{" "}
+              <a
+                href={`tel:${COMPANY.phone.primary}`}
+                className="-my-3 inline-block py-3 font-semibold text-brand-green-text underline underline-offset-4"
+              >
+                call {COMPANY.phone.display}
+              </a>
+              .
+            </p>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -12,6 +12,24 @@ const manrope = Manrope({
   display: "swap",
   weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
+
+/**
+ * Next emits `width=device-width, initial-scale=1` from this by default, which
+ * is what we want and what stays. No `maximumScale` and no `userScalable: false`
+ * — those would stop iOS force-zooming an undersized input, but only by taking
+ * pinch-zoom away from everyone, which fails WCAG 1.4.4. The zoom problem is
+ * solved properly in globals.css by giving every control a 16px floor.
+ *
+ * `themeColor` paints the mobile address bar and the task-switcher card in the
+ * brand green instead of browser-default chrome — the page reads as an MGS
+ * surface from the first frame, before any of it has rendered.
+ */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#80B515" },
+    { media: "(prefers-color-scheme: dark)", color: "#111111" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(COMPANY.url),

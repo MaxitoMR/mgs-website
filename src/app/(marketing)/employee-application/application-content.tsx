@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2, Send, CheckCircle } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
+import { useStatusPanel } from "@/hooks/use-status-panel";
 import { SectionWrapper } from "@/components/shared/section-wrapper";
 import { applicationSchema, type ApplicationFormData } from "@/types/forms";
 import { api } from "@/lib/api";
@@ -22,6 +23,8 @@ export default function ApplicationContent() {
     formState: { errors },
   } = useForm<ApplicationFormData>({
     resolver: zodResolver(applicationSchema),
+    // Moves focus to the first field that failed validation.
+    shouldFocusError: true,
   });
 
   const mutation = useMutation({
@@ -29,6 +32,7 @@ export default function ApplicationContent() {
   });
 
   const onSubmit = (data: ApplicationFormData) => mutation.mutate(data);
+  const successRef = useStatusPanel<HTMLDivElement>(mutation.isSuccess);
 
   return (
     <>
@@ -44,7 +48,7 @@ export default function ApplicationContent() {
 
       <SectionWrapper>
         {mutation.isSuccess ? (
-          <div role="status" className="mx-auto flex max-w-md items-center justify-center rounded-none bg-white p-12 shadow-sm">
+          <div ref={successRef} role="status" tabIndex={-1} className="mx-auto flex max-w-md items-center justify-center rounded-none bg-white p-12 shadow-sm">
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-none bg-brand-green/10">
                 <CheckCircle className="h-10 w-10 text-brand-green-text" />
@@ -71,8 +75,8 @@ export default function ApplicationContent() {
                 {[
                   { name: "firstName" as const, label: "First Name", placeholder: "John", autoComplete: "given-name" },
                   { name: "lastName" as const, label: "Last Name", placeholder: "Smith", autoComplete: "family-name" },
-                  { name: "email" as const, label: "Email", placeholder: "john@email.com", type: "email", autoComplete: "email" },
-                  { name: "phone" as const, label: "Phone", placeholder: "(555) 123-4567", type: "tel", autoComplete: "tel" },
+                  { name: "email" as const, label: "Email", placeholder: "john@email.com", type: "email", autoComplete: "email", inputMode: "email" as const },
+                  { name: "phone" as const, label: "Phone", placeholder: "(555) 123-4567", type: "tel", autoComplete: "tel", inputMode: "tel" as const },
                 ].map((field) => (
                   <div key={field.name}>
                     <label htmlFor={`app-${field.name}`} className="mb-1.5 block text-sm font-medium text-gray-700">
@@ -82,7 +86,10 @@ export default function ApplicationContent() {
                       {...register(field.name)}
                       id={`app-${field.name}`}
                       type={field.type || "text"}
+                      required
                       autoComplete={field.autoComplete}
+                      inputMode={field.inputMode}
+                      enterKeyHint="next"
                       aria-required="true"
                       aria-invalid={errors[field.name] ? "true" : undefined}
                       aria-describedby={errors[field.name] ? `app-${field.name}-error` : undefined}
@@ -111,6 +118,8 @@ export default function ApplicationContent() {
                   <select
                     {...register("position")}
                     id="app-position"
+                    required
+                    autoComplete="off"
                     aria-required="true"
                     aria-invalid={errors.position ? "true" : undefined}
                     aria-describedby={errors.position ? "app-position-error" : undefined}
@@ -133,6 +142,7 @@ export default function ApplicationContent() {
                   <select
                     {...register("availability")}
                     id="app-availability"
+                    autoComplete="off"
                     className={FIELD}
                   >
                     <option value="">Select availability</option>
@@ -150,6 +160,8 @@ export default function ApplicationContent() {
                   {...register("experience")}
                   id="app-experience"
                   rows={3}
+                  autoComplete="off"
+                  enterKeyHint="next"
                   className={FIELD}
                   placeholder="Describe any relevant cleaning, maintenance, or facility management experience..."
                 />
@@ -162,6 +174,8 @@ export default function ApplicationContent() {
                   {...register("notes")}
                   id="app-notes"
                   rows={3}
+                  autoComplete="off"
+                  enterKeyHint="done"
                   className={FIELD}
                   placeholder="Anything else you'd like us to know..."
                 />
@@ -174,11 +188,14 @@ export default function ApplicationContent() {
               className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-4 text-lg font-semibold text-brand-on-green shadow-lg transition-all hover:bg-brand-green-deep-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {mutation.isPending ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                  Sending…
+                </>
               ) : (
                 <>
                   Submit Application
-                  <Send className="h-5 w-5" />
+                  <Send className="h-5 w-5" aria-hidden="true" />
                 </>
               )}
             </button>

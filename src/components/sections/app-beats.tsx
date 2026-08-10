@@ -112,6 +112,30 @@ const isClip = (b: Beat) => Boolean(b.poster);
 export function AppBeats() {
   return (
     <div className="relative">
+      {/* ── One swipeable track below lg, the stacked compositions above ─────
+          Three full-bleed beats stacked vertically measured about five phone
+          screens on their own, inside a chapter that ran to eight and a half.
+          The compositions are right on a wide screen and wrong on a narrow one:
+          a capture with a panel breaking its edge is a shape that needs width
+          to read, and without it the reader gets three tall boxes in a row.
+
+          Laid side by side they cost one screen instead of five, and the
+          gesture matches what the content is — three parallel claims, not a
+          sequence you have to descend through. The 86vw card leaves 14% of the
+          next one showing, which is the affordance that says so; a hidden
+          scrollbar with nothing peeking is what made the category chips
+          undiscoverable higher up this same page.
+
+          Still no JavaScript. CSS scroll-snap does the whole thing, so this
+          works before hydration, survives a failed one, and needs no library —
+          which is the property the note above is protecting. */}
+      <div
+        className={[
+          "-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-1 scrollbar-hide",
+          "sm:-mx-10 sm:px-10",
+          "lg:mx-0 lg:block lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0",
+        ].join(" ")}
+      >
       {BEATS.map((beat, i) => {
         // The capture takes the left half on even beats, the right on odd. Both
         // children sit in row 1 of the same grid, so they occupy the same band
@@ -123,11 +147,13 @@ export function AppBeats() {
             key={beat.title}
             data-reveal
             className={[
-              "relative",
-              // The hairline is the section break. It belongs between beats, so
-              // the first one does without.
-              i > 0 ? "border-t border-white/10 pt-14 sm:pt-20 lg:pt-32" : "",
-              i > 0 ? "mt-14 sm:mt-20 lg:mt-32" : "",
+              "relative w-[86vw] shrink-0 snap-center sm:w-[70vw]",
+              "lg:w-auto lg:shrink lg:snap-align-none",
+              // The hairline is the section break. It belongs between beats in
+              // the stacked layout; side by side, the gap already separates
+              // them and a rule would read as a border on a card.
+              i > 0 ? "lg:border-t lg:border-white/10 lg:pt-32" : "",
+              i > 0 ? "lg:mt-32" : "",
             ].join(" ")}
           >
             <div className="lg:grid lg:grid-cols-12 lg:items-center">
@@ -152,9 +178,14 @@ export function AppBeats() {
                   // viewport. Everything else on this block
                   // steps down with it (type, padding, chip) so the beat scales
                   // as one thing rather than a shrunk device beside full-size
-                  // copy. `sm:` and `lg:` are unchanged — desktop is untouched.
-                  "[--phone-w:42%] sm:[--phone-w:60%] lg:[--phone-w:54%]",
-                  "-mx-6 sm:-mx-10 lg:mx-0",
+                  // copy. `lg:` is unchanged — desktop is untouched.
+                  //
+                  // 40% of the 86vw card rather than 42% of the viewport: the
+                  // device is now inside a card instead of bleeding to both
+                  // edges, so it measures against the card. The full-bleed
+                  // negative margins went with it — a card that bleeds past
+                  // its own snap boundary is a card that scrolls wrong.
+                  "[--phone-w:40%] sm:[--phone-w:44%] lg:[--phone-w:54%]",
                   "lg:row-start-1",
                   captureRight
                     ? "lg:col-start-6 lg:col-end-13"
@@ -231,7 +262,8 @@ export function AppBeats() {
                     className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4"
                     strokeWidth={2}
                   />
-                  <span className="whitespace-nowrap text-[10.5px] font-semibold leading-none sm:text-[13px]">
+                  {/* 12px is the floor for a micro-label; 10.5 was below it. */}
+                  <span className="whitespace-nowrap text-xs font-semibold leading-none sm:text-[13px]">
                     {beat.callout.text}
                   </span>
                 </div>
@@ -245,7 +277,10 @@ export function AppBeats() {
               <div
                 className={[
                   "relative z-10 bg-[#F4F4F1] text-[#111111]",
-                  "-mt-8 mr-5 px-5 py-6 sm:-mt-12 sm:mr-10 sm:px-10 sm:py-12",
+                  // Inside a card the panel spans it rather than insetting from
+                  // one side; the overlap that gives the composition its depth
+                  // is the negative top margin, which survives.
+                  "-mt-6 px-5 py-6 sm:-mt-8 sm:px-8 sm:py-8",
                   "lg:row-start-1 lg:mx-0 lg:mt-0 lg:px-12 lg:py-14",
                   // The panel and the capture are ADJACENT columns; the overlap
                   // is this negative margin, not a shared grid column. Letting
@@ -259,7 +294,7 @@ export function AppBeats() {
                     : "lg:col-start-8 lg:col-end-13 lg:-ml-14",
                 ].join(" ")}
               >
-                <p className="eyebrow mb-5 text-[#54760F]">{beat.eyebrow}</p>
+                <p className="eyebrow mb-3 text-[#54760F] lg:mb-5">{beat.eyebrow}</p>
                 <h3
                   className="font-gothic"
                   style={{
@@ -273,11 +308,11 @@ export function AppBeats() {
                   <span className="text-[#54760F]">{beat.accent}</span>
                 </h3>
                 <p
-                  className="mt-6 max-w-xl text-[#3F3F3A]"
+                  className="mt-4 max-w-xl text-[#3F3F3A] lg:mt-6"
                   style={{
                     fontSize: "clamp(0.9375rem, 1.15vw, 1.0625rem)",
                     fontWeight: 300,
-                    lineHeight: 1.75,
+                    lineHeight: 1.65,
                   }}
                 >
                   {beat.body}
@@ -287,6 +322,21 @@ export function AppBeats() {
           </article>
         );
       })}
+      </div>
+
+      {/* Second affordance, behind the peek. Static rather than a live
+          position indicator: tracking the active card would mean state, state
+          means a client component, and this file's whole value is that it
+          ships none. The count is the useful half anyway — it says how much
+          there is, which the peek alone does not. */}
+      <p
+        aria-hidden="true"
+        className="mt-4 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-white/60 lg:hidden"
+      >
+        <span aria-hidden="true">Swipe</span>
+        <span className="h-px w-6 bg-white/40" />
+        <span>{BEATS.length} beats</span>
+      </p>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2, Mail, CheckCircle, AlertCircle } from "lucide-react";
 import { newsletterSchema, type NewsletterFormData } from "@/types/forms";
+import { useStatusPanel } from "@/hooks/use-status-panel";
 import { api } from "@/lib/api";
 
 type Variant = "compact" | "card";
@@ -41,7 +42,14 @@ export function NewsletterForm({
     formState: { errors },
   } = useForm<NewsletterFormData>({
     resolver: zodResolver(newsletterSchema),
+    shouldFocusError: true,
   });
+
+  /* Ids have to be unique: the compact variant renders in the footer of every
+     page, and `/newsletter` puts the card variant on the same document. Two
+     inputs sharing `newsletter-email` would give the card's label a 50/50
+     chance of pointing at the footer's field. */
+  const uid = `newsletter-${variant}-${source}`;
 
   // When the form first mounted — used to reject suspiciously fast (bot) submits.
   const loadedAt = useRef(Date.now());
@@ -74,9 +82,14 @@ export function NewsletterForm({
     />
   );
 
+  const successRef = useStatusPanel<HTMLDivElement>(mutation.isSuccess);
+
   if (mutation.isSuccess) {
     return (
       <div
+        ref={successRef}
+        role="status"
+        tabIndex={-1}
         className={
           variant === "card"
             ? "flex min-h-[200px] items-center justify-center rounded-none bg-white p-10 shadow-sm"
@@ -113,29 +126,44 @@ export function NewsletterForm({
         <div className="flex flex-col gap-2 sm:flex-row">
           <div className="relative flex-1">
             <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            {/* min-h-12. The field measured 42px and the button 40px — both
+                under the 44px minimum, in the footer of every page on the
+                site, for the one conversion this section exists to get. */}
             <input
+              id={uid}
               type="email"
+              required
               autoComplete="email"
+              inputMode="email"
+              enterKeyHint="send"
               placeholder="you@company.com"
               {...register("email")}
-              className="w-full rounded-none border border-white/15 bg-white/[0.04] py-2.5 pl-10 pr-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-brand-green focus:bg-white/[0.06]"
+              className="min-h-12 w-full rounded-none border border-white/15 bg-white/[0.04] py-2.5 pl-10 pr-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-brand-green focus:bg-white/[0.06]"
               aria-label="Email address"
+              aria-required="true"
+              aria-invalid={errors.email ? "true" : undefined}
+              aria-describedby={errors.email ? `${uid}-error` : undefined}
             />
           </div>
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="inline-flex items-center justify-center gap-2 rounded-none bg-brand-green-deep px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-none bg-brand-green-deep px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
           >
             {mutation.isPending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                Sending…
+              </>
             ) : (
               "Subscribe"
             )}
           </button>
         </div>
         {errors.email && (
-          <p className="text-xs text-red-300">{errors.email.message}</p>
+          <p id={`${uid}-error`} role="alert" className="text-sm text-red-300">
+            {errors.email.message}
+          </p>
         )}
         {mutation.isError && (
           <div className="flex items-start gap-2 text-xs text-red-300">
@@ -172,38 +200,47 @@ export function NewsletterForm({
       <div className="space-y-3">
         <div>
           <label
-            htmlFor="newsletter-name"
+            htmlFor={`${uid}-name`}
             className="block text-xs font-semibold uppercase tracking-wider text-gray-500"
           >
             Name (optional)
           </label>
           <input
-            id="newsletter-name"
+            id={`${uid}-name`}
             type="text"
             autoComplete="name"
+            enterKeyHint="next"
             placeholder="Pat Martinez"
             {...register("name")}
-            className="mt-1 w-full rounded-none border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-brand-green"
+            className="mt-1 min-h-12 w-full rounded-none border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-brand-green"
           />
         </div>
 
         <div>
           <label
-            htmlFor="newsletter-email"
+            htmlFor={uid}
             className="block text-xs font-semibold uppercase tracking-wider text-gray-500"
           >
             Email
           </label>
           <input
-            id="newsletter-email"
+            id={uid}
             type="email"
+            required
             autoComplete="email"
+            inputMode="email"
+            enterKeyHint="send"
             placeholder="you@company.com"
             {...register("email")}
-            className="mt-1 w-full rounded-none border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-brand-green"
+            aria-required="true"
+            aria-invalid={errors.email ? "true" : undefined}
+            aria-describedby={errors.email ? `${uid}-error` : undefined}
+            className="mt-1 min-h-12 w-full rounded-none border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-brand-green"
           />
           {errors.email && (
-            <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>
+            <p id={`${uid}-error`} role="alert" className="mt-1 text-sm text-red-600">
+              {errors.email.message}
+            </p>
           )}
         </div>
       </div>
@@ -211,11 +248,11 @@ export function NewsletterForm({
       <button
         type="submit"
         disabled={mutation.isPending}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-6 py-3 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-6 py-3 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
       >
         {mutation.isPending ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" /> Subscribing...
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Subscribing…
           </>
         ) : (
           "Subscribe to the Field Brief"
@@ -233,7 +270,9 @@ export function NewsletterForm({
         </div>
       )}
 
-      <p className="text-xs text-gray-500">
+      {/* 14px, not 12: this is a sentence, and the type floor for a real
+          sentence on mobile is 14px. */}
+      <p className="text-sm text-gray-500">
         One short email a month. Unsubscribe anytime — every issue has a one-click
         link.
       </p>

@@ -181,6 +181,37 @@ html, body {
   scroll-behavior: smooth;
 }
 
+/* Smooth scroll is a desktop affordance here. On a page that runs to several
+   thousand pixels, an anchor jump or a back-to-top animates the entire distance
+   under the finger and reads as the page having lost control of itself — the
+   gesture finishes, the page keeps moving. Desktop pages are shorter in screens
+   and the pointer isn't touching the surface, so the tween still helps there. */
+@media (max-width: 1023px) {
+  html, body {
+    scroll-behavior: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE ACTION BAR GEOMETRY — one source of truth
+   The fixed bar (shared/floating-buttons.tsx) and the document-end space that
+   reserves room for it both read these. Declaring the height in one place is
+   the whole point: the bar and its reserve used to be a `py-3` in one file and
+   a hand-tuned `4rem` in another, and there was nothing stopping them drifting.
+
+   `-reserve` is what a page owes at its very bottom so the bar can never
+   permanently cover the last row of content. It is consumed by the footer's
+   closing bar, because the footer — not <main> — is what sits under the fixed
+   bar when the document is scrolled to the end.
+   ═══════════════════════════════════════════════ */
+:root {
+  --mobile-cta-h: 3rem;        /* the bar's own box height (48px = AA target) */
+  --mobile-cta-inset: 0.75rem; /* its gap from the bottom edge */
+  --mobile-cta-reserve: calc(
+    var(--mobile-cta-h) + var(--mobile-cta-inset) * 2 + env(safe-area-inset-bottom)
+  );
+}
+
 body {
   font-family: var(--font-sans);
   color: #1f2937;
@@ -507,6 +538,37 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE FORM CONTROL FLOOR
+   iOS Safari force-zooms the viewport when a control smaller than 16px takes
+   focus, and it does NOT zoom back out — the visitor is left panning a
+   horizontally-scrolled layout with a keyboard over it. Every field on the site
+   was 14px (`text-sm`, or an inline `var(--font-caption)`).
+
+   Fixed here rather than per-form: there are five form components and the rule
+   is about the platform, not about any one of them. `!important` because the
+   14px arrives as a Tailwind utility and as an inline style, and both outrank a
+   plain declaration in @layer.
+
+   The alternative fix — `maximum-scale=1` / `user-scalable=no` — is not
+   available: it disables pinch-zoom for everyone, which fails WCAG 1.4.4.
+   ═══════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* When validation moves focus to the first invalid field, the browser scrolls
+   it to the very top of the viewport — which on mobile is underneath the
+   sticky header. The field ends up focused, keyboard open, and hidden. */
+input, select, textarea {
+  scroll-margin-top: 6rem;
+  scroll-margin-bottom: 6rem;
 }
 
 /* Hide scrollbar for horizontal scroll containers */
