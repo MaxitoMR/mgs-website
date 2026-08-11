@@ -1,28 +1,35 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
-import { Shield, Microscope, Clock, Award, ShieldCheck, UserCheck, Trophy } from "lucide-react";
+import { Shield, Award, ShieldCheck, UserCheck } from "lucide-react";
 import { gsap } from "@/lib/gsap";
-import { AWARD } from "@/lib/constants";
+import { COMPANY } from "@/lib/constants";
 
 /**
- * The page's single trust section.
+ * The page's clearances section.
  *
- * It used to be three. The hero stat bar, a "Why facilities standardize on us"
- * card grid, and this badge list all made the same four claims — compliant,
- * verified, experienced, available around the clock — in three formats within
- * one scroll. This section absorbed the card grid; the hero stat bar stays as
- * the numeric version and is not repeated here.
+ * REFRAMED FROM "WHY MGS". It used to be headed "Why facilities standardize on
+ * us", which is a portfolio/procurement argument, while the cards underneath
+ * were baseline credentials — insurance, background checks, ISSA, EPA/OSHA.
+ * The header promised a reason to choose MGS and the payload delivered the
+ * things any vendor must hold to be considered at all. Now the header says
+ * what the cards actually are, and the "why us" argument is left to the
+ * sections that genuinely make it.
  *
- * What was dropped in the merge, and why:
- *   · "A Measured Track Record" — restated the hero's "100+ Facilities" stat.
- *   · "OSHA Compliant" and "EPA-Registered Products" — both are the substance
- *     of "Compliant by Design", which names them explicitly.
- *   · "24/7 Emergency Response" — duplicated "Response, Around the Clock".
+ * Four cards, not six. Two were removed rather than reworded:
+ *   · "Verified, Not Assumed" (ATP testing) — a method claim, and THE STANDARD
+ *     and THE RECORD beats below demonstrate verification with real app
+ *     screens rather than asserting it.
+ *   · "Response, Around the Clock" — a service capability, not a clearance,
+ *     and 24/7 is already a hero stat. Its strongest line survives as the
+ *     one-line coda under the grid.
  *
- * Six badges, two clean rows of three. The first three are what we do; the
- * last three are what we hold. Adding a seventh orphans a row.
+ * The Katy award moved out to `award-band.tsx` above the closing CTA: it is a
+ * reputation claim, not a compliance one, and as the only third-party-verifiable
+ * item here it was also the loudest thing in the section.
+ *
+ * Four badges, two rows of two at `sm`, one row of four at `lg`. Adding a
+ * fifth orphans a row.
  */
 const certifications = [
   {
@@ -30,24 +37,6 @@ const certifications = [
     label: "Compliant by Design",
     description:
       "Every product is EPA-registered and every crew works to OSHA standards. In surgical suites, laboratories and food-adjacent spaces, compliance is documented rather than assumed.",
-  },
-  {
-    icon: Microscope,
-    label: "Verified, Not Assumed",
-    description:
-      "ATP bioluminescence testing confirms a surface is clean at the microbial level, not just to the eye. A failed reading means re-cleaning before sign-off.",
-  },
-  {
-    icon: Clock,
-    label: "Response, Around the Clock",
-    description:
-      "A line staffed around the clock for spill, flood and biohazard events. Facility risk keeps no business hours.",
-  },
-  {
-    icon: Award,
-    label: "ISSA Member",
-    description:
-      "Member of the ISSA, the association that sets professional standards for the industry.",
   },
   {
     icon: ShieldCheck,
@@ -60,6 +49,12 @@ const certifications = [
     label: "Background-Checked Staff",
     description:
       "Every employee clears a criminal background check before their first shift. No exceptions.",
+  },
+  {
+    icon: Award,
+    label: "ISSA Member",
+    description:
+      "Member of the ISSA, the association that sets professional standards for the industry.",
   },
 ];
 
@@ -119,20 +114,23 @@ export function TrustBadges() {
       }}
     >
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
-        {/* Header — the positioning copy from the absorbed card grid, which
-            said why any of this matters ("we assign a dedicated crew…"). The
-            old heading here, "The standard every crew is held to", named the
-            same idea with none of the reasoning, so the stronger one stayed. */}
+        {/* Header. Same two-column arrangement as before — head left, deck
+            right, aligned to the baseline of the heading's last line.
+
+            The deck no longer opens on "Most contractors staff by
+            availability. We assign one crew per site…", which was the crew
+            argument the OUR CREWS section directly above already makes in
+            full. Two adjacent sections were making one point. */}
         <div className="mb-8 grid grid-cols-1 gap-5 lg:mb-14 lg:grid-cols-2 lg:gap-16">
           <div>
             <p className="tb-header eyebrow mb-4 text-xs uppercase tracking-[var(--ls-eyebrow)] text-brand-green-text opacity-0">
-              Why MGS
+              Clearances
             </p>
             <h2
               className="tb-header t-h2 font-gothic text-gray-900 opacity-0"
             >
-              Why facilities{" "}
-              <span className="text-brand-green-text">standardize on us.</span>
+              Everything that has to be true{" "}
+              <span className="text-brand-green-text">before we&rsquo;re in your building.</span>
             </h2>
           </div>
           <div className="flex items-end">
@@ -140,85 +138,55 @@ export function TrustBadges() {
               className="tb-header text-base text-gray-600 opacity-0"
               style={{ fontWeight: 300, lineHeight: 1.7 }}
             >
-              Most contractors staff by availability. We assign one crew per site
-              and hold it to the same documented protocol every visit.
+              Insurance, licensing, background checks and documented chemical and
+              safety compliance. The part nobody asks about until something goes
+              wrong.
             </p>
           </div>
         </div>
 
-        {/* Third-party recognition — deliberately OUTSIDE the grid below.
-            Those six cards are all claims we make about ourselves; this is
-            the one item a reader can verify independently, so it gets its
-            own strip rather than becoming a seventh look-alike card (which
-            would also orphan a row in the 3-across grid). Kept small: the
-            audience here buys on compliance and references, not badges. */}
-        {/* tb-header, not tb-card: this sits ABOVE the grid, and the card
-            animation is triggered by .tb-grid entering the viewport — it
-            would already be on screen by then. Both classes are covered by
-            the reduced-motion and mobile opacity fallbacks in globals.css. */}
-        {/* The accent bar is an inline style, NOT `border-l-4`: .mgs-card sets
-            a `border` shorthand in unlayered CSS, which beats Tailwind's
-            @layer utilities and silently flattens the left border away. */}
-        <div
-          className="tb-header mgs-card mb-5 flex flex-col gap-3 rounded-sm p-4 opacity-0 sm:mb-8 sm:flex-row sm:items-center sm:gap-6 sm:p-6"
-          style={{ borderLeft: "4px solid var(--color-brand-green-deep)" }}
-        >
-          <div
-            className="flex h-12 w-12 shrink-0 items-center justify-center"
-            style={{ background: "rgba(105, 175, 35, 0.1)", borderRadius: "0.5rem" }}
-          >
-            <Trophy className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold text-gray-900">
-              {AWARD.headline}
-            </h3>
-            {/* This sits in a `flex-1` cell of the award strip, so it took the
-                full width of the card — 910px, which at 14px is 130 characters
-                a line. That is nearly twice the comfortable maximum, and it is
-                the longest measure on the site: past roughly 75 the eye starts
-                losing its place on the return sweep. Nothing else about the
-                strip changes; the paragraph just stops running its whole
-                width. */}
-            <p
-              className="t-measure mt-1.5 text-sm text-gray-600"
-              style={{ fontWeight: 300, lineHeight: 1.65 }}
-            >
-              {AWARD.claim} · {AWARD.attribution}
-            </p>
-          </div>
-          {/* Block-level padded target on touch — it was a 20px-tall text run
-              at the end of a paragraph, which is the hardest kind of link to
-              hit accurately. Inline again at `lg:`. */}
-          <Link
-            href="/about"
-            className="-mx-2 inline-flex min-h-11 shrink-0 items-center px-2 text-sm font-medium text-brand-green-text underline underline-offset-4 hover:text-brand-green-deep lg:mx-0 lg:min-h-0 lg:px-0"
-          >
-            See the award
-          </Link>
-        </div>
+        {/* The Katy award strip used to sit here, between the header and the
+            grid. It is a reputation claim in a compliance section, and being
+            the only independently verifiable item among six self-made claims
+            it was also the loudest thing on screen. It now runs as its own
+            band above the closing CTA — see `award-band.tsx`. */}
 
         {/* ── Grid on desktop, one swipeable track below sm ────────────────
-            Six cards stacked measured 1,561px — nearly two screens for six
+            Cards stacked measured 1,561px at six — nearly two screens for
             claims that are peers, not a sequence. Narrowing them into two
             columns was the obvious fix and the wrong one: at 187px a column
             these descriptions run about twenty characters to the line, which
             is below the point where prose stops being readable.
 
             Side by side at 82vw the measure is right, the whole set costs one
-            card's height, and the shape says what the content is — six
-            equivalent things, none of which ranks above the others. Nothing is
-            removed; the peek and the count say how many there are.
+            card's height, and the shape says what the content is — equivalent
+            things, none of which ranks above the others. Nothing is removed;
+            the peek and the count say how many there are.
+
+            THE `lg:` OVERRIDE IS GONE, so `sm:grid-cols-2` now carries all the
+            way up and the set reads 2×2. This is forced by the cut from six
+            cards to four, and both alternatives were measured rather than
+            guessed:
+
+              · `lg:grid-cols-3` (what was here) leaves one card alone on a
+                second row — six divided by three evenly, four does not.
+              · `lg:grid-cols-4` gives 230px columns, and the body copy then
+                runs SIXTEEN characters to the line. That is past the failure
+                this very comment was written about.
+
+            At two columns the columns are ~560px and the body runs a proper
+            measure. Same breakpoints, same gap scale, same card markup — the
+            only thing removed is one column-count override that four cards
+            cannot satisfy.
 
             Same CSS scroll-snap as the app beats. The `.tb-card` GSAP stagger
             still fires off `.tb-grid` entering the viewport, and globals.css
             already forces these to `opacity: 1` under 1024px, so the track
-            cannot end up holding six invisible cards. */}
+            cannot end up holding invisible cards. */}
         <div
           className={[
             "tb-grid -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-1 scrollbar-hide",
             "sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0",
-            "lg:grid-cols-3",
           ].join(" ")}
         >
           {certifications.map((item) => {
@@ -264,6 +232,27 @@ export function TrustBadges() {
           <span>Swipe</span>
           <span className="h-px w-6 bg-gray-300" />
           <span>{certifications.length} reasons</span>
+        </p>
+
+        {/* "Response, Around the Clock" was a card here. It is a service
+            capability rather than a clearance, and 24/7 is already one of the
+            four hero stats — so as a card it was both off-topic and the third
+            time the page said the same thing.
+
+            What survives is its strongest sentence, as one full-width line
+            under the grid: no card shell, no comma'd heading, and the phone
+            number live so the line is actionable rather than merely a claim.
+            The rule above it is the same hairline the cards use. */}
+        <p className="mt-8 border-t border-rgray-4 pt-5 text-base text-gray-600 sm:mt-10 sm:pt-6">
+          <span className="font-semibold text-gray-900">
+            Facility risk keeps no business hours.
+          </span>{" "}
+          <a
+            href={`tel:${COMPANY.phone.primary}`}
+            className="-mx-2 -my-3 inline-flex min-h-11 items-center px-2 py-3 font-medium text-brand-green-text underline underline-offset-4 hover:text-brand-green-deep lg:mx-0 lg:my-0 lg:min-h-0 lg:px-0 lg:py-0"
+          >
+            {COMPANY.phone.display}
+          </a>
         </p>
       </div>
     </section>

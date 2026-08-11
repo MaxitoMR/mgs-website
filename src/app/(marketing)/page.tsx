@@ -17,6 +17,7 @@ import { TrustBadges } from "@/components/sections/trust-badges";
 import { Testimonials } from "@/components/sections/testimonials";
 import { ClientPortalCta } from "@/components/sections/client-portal-cta";
 import { AppShowcase } from "@/components/sections/app-showcase";
+import { AwardBand } from "@/components/sections/award-band";
 import { ClosingCta } from "@/components/sections/closing-cta";
 import { ContactSection } from "@/components/sections/contact-section";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -28,7 +29,8 @@ export default function HomePage() {
       <HeroSection />
       <ServicesGrid />
       <CrewBand />
-      {/* One trust section, not three. TrustBadges absorbed the "Why facilities
+      {/* Clearances — the baseline credentials, framed as what has to be true
+          before MGS is in the building. It absorbed the old "Why facilities
           standardize on us" card grid; the hero stat bar is the numeric
           version of the same claims and is not repeated. */}
       <TrustBadges />
@@ -37,6 +39,10 @@ export default function HomePage() {
       {/* One continuous dark field between two light sections — the app
           chapter is meant to read as a single scroll, not stacked pitches. */}
       <AppShowcase />
+      {/* Third-party recognition immediately before the ask: it is a closing
+          argument, not an opening one. Moved out of the clearances section,
+          where a reputation claim sat among compliance claims. */}
+      <AwardBand />
       <ClosingCta />
       <ContactSection />
     </>
