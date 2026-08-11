@@ -226,27 +226,20 @@ export function AppShowcase() {
             </p>
             <h2
               data-reveal
-              className="font-gothic text-white"
-              style={{
-                fontSize: "clamp(1.75rem, 4.4vw, 3.75rem)",
-                fontWeight: 300,
-                lineHeight: 1.06,
-                letterSpacing: "-0.025em",
-              }}
+              /* The h2 rung, not the h1 rung. This is the app chapter's
+                 opener, and it was set at 52px/200 while every other section
+                 heading on the homepage is 44px/300 — one section speaking in
+                 a different voice and a size nothing else uses. The homepage
+                 gets one hero; everything below it is an h2. */
+              className="t-h2 font-gothic text-white"
             >
               Field operations,
               <br />
               <span className="text-brand-green-deep">instrumented.</span>
             </h2>
-            <p
-              data-reveal
-              className="mt-6 text-gray-300"
-              style={{
-                fontSize: "clamp(1rem, 1.3vw, 1.125rem)",
-                fontWeight: 300,
-                lineHeight: 1.7,
-              }}
-            >
+            {/* This had no width cap at all, so it ran the full grid column —
+                82 characters at 18px. */}
+            <p data-reveal className="t-body t-measure mt-6 text-gray-300">
               We built the software that runs our field operations: GPS-verified
               clock-ins, QA checklists, shift documentation and supply
               requisitions. Clients log in and see their own site in real time.
@@ -279,13 +272,7 @@ export function AppShowcase() {
         >
           <p
             data-reveal
-            className="font-gothic text-white"
-            style={{
-              fontSize: "clamp(1.75rem, 3.4vw, 2.875rem)",
-              fontWeight: 300,
-              lineHeight: 1.2,
-              letterSpacing: "-0.02em",
-            }}
+            className="t-h2 font-gothic text-white"
           >
             Any contractor can show you a screenshot.{" "}
             <span className="text-brand-green-deep">
@@ -326,7 +313,12 @@ export function AppShowcase() {
               data-parallax="9"
             />
           </div>
-          <p className="mt-5 max-w-2xl text-sm text-gray-300" style={{ lineHeight: 1.65 }}>
+          {/* `t-measure` replaces `max-w-2xl`. A rem cap is a cap on WIDTH, so
+              the measure it produces depends on the type inside it: 42rem
+              holds ~75 characters at 18px and ~96 at this 14px. A ch cap
+              tracks the font instead, so the line stays readable whatever
+              size the copy is set at. Measured here at 96 before the change. */}
+          <p className="t-measure mt-5 text-sm text-gray-300" style={{ lineHeight: 1.65 }}>
             <span className="text-white">The walk.</span>{" "}
             The supervisor scores each area against the site&apos;s checklist
             while standing in it, with the crew member who services the
@@ -367,13 +359,7 @@ export function AppShowcase() {
             </p>
             <h3
               data-reveal
-              className="font-gothic text-white"
-              style={{
-                fontSize: "clamp(1.75rem, 2.9vw, 2.5rem)",
-                fontWeight: 300,
-                lineHeight: 1.12,
-                letterSpacing: "-0.02em",
-              }}
+              className="t-h2 font-gothic text-white"
             >
               The inspection closes{" "}
               <span className="text-brand-green-deep">with the crew,</span> not
@@ -516,7 +502,7 @@ export function AppShowcase() {
                 The sites, names and scores in every capture are seeded demo
                 data; saying so once is cheaper than being asked.
                 12px floor: it was 11. */}
-            <p className="max-w-md text-xs font-light leading-relaxed text-white/50 sm:text-right">
+            <p className="t-measure text-xs font-light leading-relaxed text-white/50 sm:text-right">
               Screens captured from the MGS Management App. Sites, names and
               scores are demonstration data.
             </p>

@@ -103,8 +103,7 @@ export function WhyChooseUs() {
               Why MGS
             </p>
             <h2
-              className="wcu-header font-gothic text-white opacity-0"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
+              className="wcu-header t-h2 font-gothic text-white opacity-0"
             >
               Why facilities{' '}
               <span className="text-[#69AF23]">standardize on us.</span>

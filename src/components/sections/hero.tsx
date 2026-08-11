@@ -2,12 +2,29 @@
 
 import Image from "next/image";
 
-// Stats moved up from the old standalone bar into the hero.
+/**
+ * Stats moved up from the old standalone bar into the hero.
+ *
+ * NUMBER AND LABEL ONLY. Each of these carried a third line — "across
+ * commercial, medical & industrial portfolios", "measured across recurring
+ * site audits", "serving greater Houston since 2006", "spill, flood &
+ * biohazard events" — and dropping them is what un-cluttered this hero.
+ *
+ * They were a seventh tier of type in a single viewport, set at the smallest
+ * size on the page, over a photograph, wrapping to two lines each: eight
+ * rendered lines in the worst position on the site for reading small text. And
+ * they were restatement — the lede names the sectors and the city, so the
+ * first and third captions repeated it almost word for word.
+ *
+ * A statistic that needs a footnote is not doing its job; the number and what
+ * it counts is the whole point. Add a fifth stat before you add a third line
+ * to these.
+ */
 const heroStats = [
-  { value: "100+", label: "Facilities Maintained", sub: "across commercial, medical & industrial portfolios" },
-  { value: "99.8%", label: "QA Inspection Score", sub: "measured across recurring site audits" },
-  { value: "20", label: "Years In Operation", sub: "serving greater Houston since 2006" },
-  { value: "24/7", label: "Emergency Response", sub: "spill, flood & biohazard events" },
+  { value: "100+", label: "Facilities Maintained" },
+  { value: "99.8%", label: "QA Inspection Score" },
+  { value: "20", label: "Years In Operation" },
+  { value: "24/7", label: "Emergency Response" },
 ];
 
 export function HeroSection() {
@@ -92,15 +109,9 @@ export function HeroSection() {
             Est. 2006
           </p>
 
-          <h1
-            className="font-gothic text-[#FBFBFE] hero-text-shadow"
-            style={{
-              fontSize: 'clamp(2.125rem, 4.1vw, 3.625rem)',
-              fontWeight: 300,
-              lineHeight: 1.05,
-              letterSpacing: '-0.03em',
-            }}
-          >
+          {/* `t-display` is the top rung and this is its only use on the site:
+              the hero is the one thing allowed to be the largest text. */}
+          <h1 className="t-display font-gothic text-[#FBFBFE] hero-text-shadow">
             <span className="hero-line inline-block">Janitorial services,</span>
             <br />
             <span className="hero-line inline-block text-brand-green-deep">engineered to</span>
@@ -108,41 +119,46 @@ export function HeroSection() {
             <span className="hero-line inline-block">a measurable standard.</span>
           </h1>
 
-          <p
-            className="text-gray-200 mt-4 mb-6 max-w-xl sm:mt-5 sm:mb-8"
-            style={{
-              fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
-              fontWeight: 300,
-              lineHeight: 1.7,
-            }}
-          >
+          {/* One sentence, the qualifying one: who this is for, where, and how
+              long. A visitor's first question is whether MGS serves their kind
+              of building in their city.
+
+              The sentence that used to follow — "Every visit is scored against a
+              documented QA protocol, and the crew that did the work signs it" —
+              is the stronger line, and that is why it is not spent here. It is
+              the whole argument of the app chapter further down, which shows the
+              scoring and the signature rather than asserting them. Making the
+              claim up here means the reader meets it twice and gets the proof
+              second. The headline already promises "a measurable standard". */}
+          <p className="t-lead text-gray-200 mt-4 mb-6 max-w-xl sm:mt-5 sm:mb-8">
             Commercial, medical and industrial facilities across greater Houston,
-            since 2006. Every visit is scored against a documented QA protocol,
-            and the crew that did the work signs it.
+            since 2006.
           </p>
 
           {/* Stats — pulled up from the old standalone bar. Floating CTAs cover
-              the call-to-action, so the hero closes on proof instead. */}
+              the call-to-action, so the hero closes on proof instead.
+
+              A 4-column grid from `sm`, not `flex-wrap`. Wrapping sized each
+              stat to its own label, so the row broke wherever the widest one
+              happened to land — at ~1050px that put three across and dropped
+              "24/7" onto a second row by itself, which reads as an afterthought
+              rather than the fourth of four. Four equal columns can only ever
+              be 2×2 or 1×4. */}
           <div
-            className="grid grid-cols-2 gap-x-8 gap-y-4 border-t border-white/15 pt-5 sm:flex sm:flex-wrap sm:gap-y-5 sm:gap-x-12 sm:pt-6 lg:gap-x-16"
+            className="grid grid-cols-2 gap-x-8 gap-y-4 border-t border-white/15 pt-5 sm:grid-cols-4 sm:gap-y-5 sm:gap-x-8 sm:pt-6 lg:gap-x-12"
           >
             {heroStats.map((s) => (
               <div key={s.label} className="hero-stat">
-                <div
-                  className="font-gothic text-brand-lime"
-                  style={{ fontSize: "clamp(1.75rem, 2.6vw, 2.25rem)", fontWeight: 300, lineHeight: 1 }}
-                >
+                <div className="t-stat font-gothic text-brand-lime">
                   {s.value}
                 </div>
+                {/* The sub-caption that used to sit here was already
+                    `hidden … sm:block` — hidden on phones, in its author's
+                    words, "to keep the hero uncluttered". The judgement was
+                    right; it just never got applied to the screen size where
+                    the caption was longest and there were four of them side by
+                    side. Now it holds everywhere. */}
                 <div className="mt-2 text-sm font-semibold text-white">{s.label}</div>
-                {/* Sub-caption hidden on phones to keep the hero uncluttered
-                    (matches the old stats bar's mobile behavior). */}
-                <div
-                  className="mt-0.5 hidden max-w-[12rem] text-xs text-gray-200 sm:block"
-                  style={{ fontWeight: 300, lineHeight: 1.4 }}
-                >
-                  {s.sub}
-                </div>
               </div>
             ))}
           </div>

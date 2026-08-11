@@ -72,12 +72,7 @@ export function StatsOverlap() {
             <div key={stat.label} className="stat-card opacity-0">
               <div
                 ref={(el) => { numberRefs.current[i] = el; }}
-                className="font-gothic text-[#69AF23]"
-                style={{
-                  fontSize: 'clamp(2.125rem, 3.5vw, 3.5rem)',
-                  fontWeight: 300,
-                  lineHeight: 1,
-                }}
+                className="t-stat-lg font-gothic text-[#69AF23]"
               >
                 0{stat.suffix}
               </div>

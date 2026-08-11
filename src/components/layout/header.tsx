@@ -268,7 +268,7 @@ function DesktopNav() {
                     ? "bg-black/[0.16]"
                     : "hover:bg-black/[0.09]"
                 )}
-                style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
+                style={{ fontSize: 'var(--font-nav)' }}
               >
                 {category.label}
                 <ChevronDown
@@ -284,7 +284,7 @@ function DesktopNav() {
           <Link
             href="/diffusers"
             className="flex items-center px-3 text-brand-on-green hover:bg-black/[0.09] h-full font-normal transition-all duration-200"
-            style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
+            style={{ fontSize: 'var(--font-nav)' }}
           >
             Diffusers
           </Link>
@@ -297,7 +297,7 @@ function DesktopNav() {
               key={item.href}
               href={item.href}
               className="flex items-center px-3 h-full text-brand-on-green hover:bg-black/[0.09] font-normal transition-all duration-200"
-              style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
+              style={{ fontSize: 'var(--font-nav)' }}
             >
               {item.label}
             </Link>
@@ -314,7 +314,7 @@ function DesktopNav() {
               aria-haspopup="true"
               onClick={() => setPortalsOpen((open) => !open)}
               className="flex items-center gap-1 px-3 py-1 bg-black/10 text-brand-on-green hover:bg-black/[0.17] font-normal transition-all duration-200"
-              style={{ fontSize: 'clamp(0.875rem, 1.1vw, 1.25rem)' }}
+              style={{ fontSize: 'var(--font-nav)' }}
             >
               Portals
               <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />

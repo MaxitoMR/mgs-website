@@ -159,12 +159,11 @@ export default function KatyPage() {
       <SectionWrapper className="bg-paper-alt">
         <MotionWrapper>
           <div className="mx-auto max-w-3xl text-center">
-            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+            <span className="t-eyebrow text-brand-green-text">
               What Katy clients say
             </span>
             <p
-              className="mt-4 font-gothic text-gray-900"
-              style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 300, lineHeight: 1.1 }}
+              className="t-h2 mt-4 font-gothic text-gray-900"
             >
               {AWARD.headline}
             </p>
@@ -188,12 +187,11 @@ export default function KatyPage() {
       {/* Why a local contractor */}
       <SectionWrapper>
         <div className="max-w-3xl">
-          <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+          <span className="t-eyebrow text-brand-green-text">
             Based in Katy
           </span>
           <h2
-            className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            className="t-h2 mt-3 font-gothic text-gray-900"
           >
             Crews stage here, not an hour away.
           </h2>
@@ -228,7 +226,7 @@ export default function KatyPage() {
                 <item.icon className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">{item.title}</h3>
+                <h3 className="text-base font-semibold text-gray-900">{item.title}</h3>
                 <p className="mt-1.5 text-sm text-gray-600" style={{ fontWeight: 300, lineHeight: 1.65 }}>
                   {item.body}
                 </p>
@@ -241,12 +239,11 @@ export default function KatyPage() {
       {/* What we clean in Katy */}
       <SectionWrapper className="bg-paper">
         <div className="max-w-3xl">
-          <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+          <span className="t-eyebrow text-brand-green-text">
             What we clean in Katy
           </span>
           <h2
-            className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            className="t-h2 mt-3 font-gothic text-gray-900"
           >
             Four sectors, each scoped to its own standard.
           </h2>
@@ -266,7 +263,7 @@ export default function KatyPage() {
                 <s.icon className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="flex items-center gap-1.5 text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">
+                <h3 className="flex items-center gap-1.5 text-base font-semibold text-gray-900">
                   {s.title}
                   <ArrowRight
                     className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -285,12 +282,11 @@ export default function KatyPage() {
       {/* Areas served */}
       <SectionWrapper>
         <div className="max-w-3xl">
-          <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+          <span className="t-eyebrow text-brand-green-text">
             Areas we serve
           </span>
           <h2
-            className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            className="t-h2 mt-3 font-gothic text-gray-900"
           >
             Across Katy and the western corridor.
           </h2>
@@ -321,12 +317,11 @@ export default function KatyPage() {
       {/* Local FAQ */}
       <SectionWrapper className="bg-paper-alt">
         <div className="max-w-3xl">
-          <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+          <span className="t-eyebrow text-brand-green-text">
             Questions
           </span>
           <h2
-            className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            className="t-h2 mt-3 font-gothic text-gray-900"
           >
             Katy specifics.
           </h2>
@@ -334,7 +329,7 @@ export default function KatyPage() {
         <dl className="mt-10 grid gap-5 lg:grid-cols-2">
           {FAQS.map((f) => (
             <div key={f.q} className="mgs-card rounded-sm p-6">
-              <dt className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">{f.q}</dt>
+              <dt className="text-base font-semibold text-gray-900">{f.q}</dt>
               <dd className="mt-2 text-sm text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
                 {f.a}
               </dd>

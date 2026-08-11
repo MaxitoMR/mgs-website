@@ -27,17 +27,18 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={cn("max-w-3xl", className)}>
-      <p className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+      <p className="t-eyebrow text-brand-green-text">
         {eyebrow}
       </p>
-      <h2 className="mt-3 font-display text-[1.75rem] font-bold leading-[1.15] text-gray-900 sm:text-4xl">
+      {/* Was `font-bold` at `text-[1.75rem] sm:text-4xl`. Every other section
+          heading on the site is the light cut — this component is used on one
+          page, so it was the outlier setting a second heading voice rather
+          than the rule. `t-h2` puts it in the same voice as the rest. */}
+      <h2 className="t-h2 mt-3 font-display text-gray-900">
         {title}
       </h2>
       {lede && (
-        <p
-          className="mt-5 max-w-2xl text-gray-600"
-          style={{ fontWeight: 300, lineHeight: 1.75 }}
-        >
+        <p className="t-lead t-measure mt-5 max-w-2xl text-gray-600">
           {lede}
         </p>
       )}

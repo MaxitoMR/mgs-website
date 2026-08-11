@@ -89,7 +89,7 @@ export function FloatingActionButtons() {
   const btn =
     "group flex min-h-[var(--mobile-cta-h)] flex-1 items-center justify-center gap-2 px-4 py-3 transition-all duration-200 sm:flex-none sm:px-5 sm:hover:scale-105";
   const label =
-    "font-clinical whitespace-nowrap text-xs font-light uppercase tracking-wide md:text-sm lg:text-base";
+    "font-clinical whitespace-nowrap text-xs font-light uppercase tracking-[var(--ls-caps)] md:text-sm lg:text-base";
 
   return (
     <motion.div

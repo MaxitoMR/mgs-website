@@ -148,7 +148,7 @@ export function NewsletterForm({
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-none bg-brand-green-deep px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-none bg-brand-green-deep px-5 py-2.5 t-eyebrow text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
           >
             {mutation.isPending ? (
               <>
@@ -201,7 +201,7 @@ export function NewsletterForm({
         <div>
           <label
             htmlFor={`${uid}-name`}
-            className="block text-xs font-semibold uppercase tracking-wider text-gray-500"
+            className="block t-eyebrow text-gray-500"
           >
             Name (optional)
           </label>
@@ -219,7 +219,7 @@ export function NewsletterForm({
         <div>
           <label
             htmlFor={uid}
-            className="block text-xs font-semibold uppercase tracking-wider text-gray-500"
+            className="block t-eyebrow text-gray-500"
           >
             Email
           </label>
@@ -248,7 +248,7 @@ export function NewsletterForm({
       <button
         type="submit"
         disabled={mutation.isPending}
-        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-6 py-3 text-sm font-semibold uppercase tracking-wider text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-6 py-3 t-eyebrow text-brand-on-green transition hover:bg-brand-green-deep-hover disabled:opacity-60"
       >
         {mutation.isPending ? (
           <>

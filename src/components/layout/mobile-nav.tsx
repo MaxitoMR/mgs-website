@@ -147,8 +147,8 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               {/* Header row: title + close */}
               <div className="mb-5 flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-bold tracking-[2px] text-gray-900">MGS</p>
-                  <p className="text-xs font-medium tracking-wider text-gray-500">MENU</p>
+                  <p className="t-eyebrow text-gray-900">MGS</p>
+                  <p className="t-eyebrow text-gray-500">MENU</p>
                 </div>
                 <button
                   ref={closeBtnRef}
@@ -166,7 +166,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               </div>
 
               {/* Services (accordion) */}
-              <p className="mb-2 text-xs font-bold uppercase tracking-[1.5px] text-gray-500">
+              <p className="mb-2 t-eyebrow text-gray-500">
                 Services
               </p>
               {serviceNav.map((category) => (
@@ -201,7 +201,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                             key={item.href}
                             href={item.href}
                             onClick={onClose}
-                            className="flex min-h-11 items-center border-l-2 border-gray-100 pl-4 text-sm text-gray-600 transition-colors hover:border-[#69AF23] hover:text-brand-green-text lg:text-[13px] lg:leading-[1.6]"
+                            className="flex min-h-11 items-center border-l-2 border-gray-100 pl-4 text-sm text-gray-600 transition-colors hover:border-[#69AF23] hover:text-brand-green-text"
                           >
                             {item.label}
                           </Link>
@@ -214,7 +214,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                         <Link
                           href={`/services#cat-${categoryAnchors[category.label] ?? ""}`}
                           onClick={onClose}
-                          className="flex min-h-11 items-center gap-1.5 border-l-2 border-gray-100 pl-4 text-sm font-semibold text-brand-green-text transition-colors hover:border-[#69AF23] lg:text-[13px] lg:leading-[1.6]"
+                          className="flex min-h-11 items-center gap-1.5 border-l-2 border-gray-100 pl-4 text-sm font-semibold text-brand-green-text transition-colors hover:border-[#69AF23]"
                         >
                           View all {category.label}
                           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -227,7 +227,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               ))}
 
               {/* Company links */}
-              <p className="mb-2 mt-5 text-xs font-bold uppercase tracking-[1.5px] text-gray-500">
+              <p className="mb-2 mt-5 t-eyebrow text-gray-500">
                 Company
               </p>
               {companyLinks.map((item) => (
@@ -242,7 +242,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               ))}
 
               {/* Portals */}
-              <p className="mb-2 mt-5 text-xs font-bold uppercase tracking-[1.5px] text-gray-500">
+              <p className="mb-2 mt-5 t-eyebrow text-gray-500">
                 Portals
               </p>
               {portalLinks.map((item) => (
@@ -269,7 +269,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 <Link
                   href="/walkthrough"
                   onClick={onClose}
-                  className="flex min-h-11 w-full items-center justify-center border-2 border-brand-green-deep py-3 text-sm font-semibold text-brand-green-text lg:text-[13px] lg:leading-[1.6]"
+                  className="flex min-h-11 w-full items-center justify-center border-2 border-brand-green-deep py-3 text-sm font-semibold text-brand-green-text"
                 >
                   Schedule Walkthrough
                 </Link>
@@ -279,7 +279,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               <div className="mt-5 space-y-1">
                 <a
                   href={`mailto:${COMPANY.email}`}
-                  className="flex min-h-11 items-center gap-2.5 break-all text-sm text-gray-600 hover:text-brand-green-text lg:text-[13px] lg:leading-[1.6]"
+                  className="flex min-h-11 items-center gap-2.5 break-all text-sm text-gray-600 hover:text-brand-green-text"
                 >
                   <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                   {COMPANY.email}
@@ -288,7 +288,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   href={COMPANY.address.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-11 items-center gap-2.5 text-sm text-gray-600 hover:text-brand-green-text lg:text-[13px] lg:leading-[1.6]"
+                  className="flex min-h-11 items-center gap-2.5 text-sm text-gray-600 hover:text-brand-green-text"
                 >
                   <MapPin className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
                   {COMPANY.address.full}
@@ -315,7 +315,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 <a
                   href={`tel:${COMPANY.phone.primary}`}
                   aria-label={`Call MGS at ${COMPANY.phone.display}`}
-                  className="flex min-h-12 flex-1 items-center justify-center gap-2 border-2 border-brand-green-deep text-sm font-semibold text-brand-green-text transition-colors hover:bg-brand-green-deep hover:text-brand-on-green lg:text-[13px] lg:leading-[1.6]"
+                  className="flex min-h-12 flex-1 items-center justify-center gap-2 border-2 border-brand-green-deep text-sm font-semibold text-brand-green-text transition-colors hover:bg-brand-green-deep hover:text-brand-on-green"
                 >
                   <Phone className="h-4 w-4" aria-hidden="true" />
                   Call
@@ -323,7 +323,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 <Link
                   href="/quote"
                   onClick={onClose}
-                  className="flex min-h-12 flex-[1.4] items-center justify-center bg-brand-green-deep text-sm font-semibold text-brand-on-green transition-all hover:bg-brand-green-deep-hover lg:text-[13px] lg:leading-[1.6]"
+                  className="flex min-h-12 flex-[1.4] items-center justify-center bg-brand-green-deep text-sm font-semibold text-brand-on-green transition-all hover:bg-brand-green-deep-hover"
                 >
                   Get Free Quote
                 </Link>

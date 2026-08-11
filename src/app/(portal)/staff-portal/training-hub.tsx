@@ -157,7 +157,7 @@ export function TrainingHub() {
 
       <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
         <div className="mb-8">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#9FD01B]">
+          <p className="t-eyebrow text-[#9FD01B]">
             Field Training
           </p>
           <h1 className="mt-2 font-gothic text-xl font-light sm:text-3xl">
@@ -183,7 +183,7 @@ export function TrainingHub() {
               />
             </div>
             <div className="mt-5">
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/40">
+              <p className="t-eyebrow text-white/40">
                 Module {String(activeIndex + 1).padStart(2, "0")}
               </p>
               <h2 className="mt-1.5 font-gothic text-xl font-light sm:text-2xl">
@@ -197,7 +197,7 @@ export function TrainingHub() {
 
           {/* Module list */}
           <aside>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-white/40">
+            <p className="mb-3 t-eyebrow text-white/40">
               {modules.length} Modules
             </p>
             <ul className="space-y-2">
@@ -224,7 +224,7 @@ export function TrainingHub() {
                         {isActive ? <Play className="h-3.5 w-3.5" /> : <CheckCircle2 className="h-4 w-4" />}
                       </span>
                       <span>
-                        <span className="block text-xs font-semibold uppercase tracking-widest text-white/40 lg:text-[11px] lg:leading-[1.6]">
+                        <span className="block t-eyebrow text-white/40">
                           Module {String(i + 1).padStart(2, "0")}
                         </span>
                         <span className={cn("mt-0.5 block text-sm font-medium", isActive ? "text-white" : "text-white/80")}>

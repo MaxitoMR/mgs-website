@@ -77,8 +77,7 @@ Testimonials
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="font-gothic text-gray-900"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)', fontWeight: 300, lineHeight: 1.1 }}
+              className="t-h2 font-gothic text-gray-900"
             >
               What our clients{' '}
               <span className="text-brand-green-text">say.</span>

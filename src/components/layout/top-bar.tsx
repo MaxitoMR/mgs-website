@@ -13,13 +13,13 @@ export function TopBar() {
   return (
     <div className="hidden bg-white lg:block" style={{ height: 'clamp(2rem, 2.5vw, 2.5rem)' }}>
       <div className="mx-auto flex h-full max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8" style={{ gap: 'clamp(1rem, 2vw, 2rem)' }}>
-        <span className="text-gray-600" style={{ fontSize: 'clamp(0.75rem, 0.75vw, 0.8125rem)' }}>
+        <span className="text-gray-600" style={{ fontSize: 'var(--font-eyebrow)' }}>
           Call Us: {COMPANY.phone.display}
         </span>
-        <span className="text-gray-600" style={{ fontSize: 'clamp(0.75rem, 0.75vw, 0.8125rem)' }}>
+        <span className="text-gray-600" style={{ fontSize: 'var(--font-eyebrow)' }}>
           Email: {COMPANY.email}
         </span>
-        <span className="text-gray-600" style={{ fontSize: 'clamp(0.75rem, 0.75vw, 0.8125rem)' }}>
+        <span className="text-gray-600" style={{ fontSize: 'var(--font-eyebrow)' }}>
           Hours: Mon-Fri 9AM-5PM
         </span>
       </div>

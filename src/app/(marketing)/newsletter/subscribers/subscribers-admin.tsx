@@ -81,7 +81,7 @@ export function SubscribersAdmin() {
         className="flex flex-col gap-3 sm:flex-row sm:items-end"
       >
         <div className="flex-1">
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <label className="mb-1.5 block t-eyebrow text-gray-400">
             Access key
           </label>
           <div className="relative">
@@ -152,7 +152,7 @@ export function SubscribersAdmin() {
           ) : (
             <div className="mt-6 overflow-hidden border border-gray-100">
               <table className="w-full text-left text-sm">
-                <thead className="bg-paper text-xs uppercase tracking-wider text-gray-400">
+                <thead className="bg-paper t-eyebrow text-gray-400">
                   <tr>
                     <th className="px-4 py-3 font-semibold">Email</th>
                     <th className="hidden px-4 py-3 font-semibold sm:table-cell">

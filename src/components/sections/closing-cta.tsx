@@ -31,12 +31,11 @@ export function ClosingCta() {
             {/* /90 is the floor for 4.5:1 on this green — see globals.css. */}
             <p className="eyebrow text-brand-on-green/90">The team that shows up</p>
             <h2
-              className="mt-3 font-gothic text-brand-on-green"
-              style={{ fontSize: "clamp(1.75rem, 3vw, 2.75rem)", fontWeight: 300, lineHeight: 1.1 }}
+              className="mt-3 t-h2 font-gothic text-brand-on-green"
             >
               Request a site assessment.
             </h2>
-            <p className="mt-4 max-w-md text-brand-on-green/90" style={{ fontWeight: 300, lineHeight: 1.7 }}>
+            <p className="t-body mt-4 max-w-md text-brand-on-green/90">
               We walk your facility, scope the work against your requirements and
               return a detailed proposal. No obligation.
             </p>

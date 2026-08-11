@@ -263,7 +263,7 @@ export function AppBeats() {
                     strokeWidth={2}
                   />
                   {/* 12px is the floor for a micro-label; 10.5 was below it. */}
-                  <span className="whitespace-nowrap text-xs font-semibold leading-none sm:text-[13px]">
+                  <span className="whitespace-nowrap text-xs font-semibold leading-none">
                     {beat.callout.text}
                   </span>
                 </div>
@@ -295,26 +295,11 @@ export function AppBeats() {
                 ].join(" ")}
               >
                 <p className="eyebrow mb-3 text-[#54760F] lg:mb-5">{beat.eyebrow}</p>
-                <h3
-                  className="font-gothic"
-                  style={{
-                    fontSize: "clamp(1.25rem, 3vw, 2.75rem)",
-                    fontWeight: 300,
-                    lineHeight: 1.1,
-                    letterSpacing: "-0.025em",
-                  }}
-                >
+                <h3 className="t-h2 font-gothic">
                   {beat.title}{" "}
                   <span className="text-[#54760F]">{beat.accent}</span>
                 </h3>
-                <p
-                  className="mt-4 max-w-xl text-[#3F3F3A] lg:mt-6"
-                  style={{
-                    fontSize: "clamp(1rem, 1.15vw, 1.0625rem)",
-                    fontWeight: 300,
-                    lineHeight: 1.65,
-                  }}
-                >
+                <p className="t-body mt-4 max-w-xl text-[#3F3F3A] lg:mt-6">
                   {beat.body}
                 </p>
               </div>
@@ -331,7 +316,7 @@ export function AppBeats() {
           there is, which the peek alone does not. */}
       <p
         aria-hidden="true"
-        className="mt-4 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-white/60 lg:hidden"
+        className="mt-4 flex items-center gap-2 t-eyebrow text-white/60 lg:hidden"
       >
         <span aria-hidden="true">Swipe</span>
         <span className="h-px w-6 bg-white/40" />

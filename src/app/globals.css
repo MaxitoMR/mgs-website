@@ -220,8 +220,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-size: 18px;
+  /* rem, not the 18px this was. `px` here is the one place the unit genuinely
+     matters: body is the root every unsized element inherits from, so pinning
+     it in px meant a visitor who had set their browser's default text size to
+     Large or Larger — the standard low-vision accommodation, and the one most
+     people who need it actually use — got no change anywhere on the site. In
+     rem the whole page scales with that preference. 1.125rem is still 18px at
+     the default 16px root, so nothing moves for anyone who has not set one. */
+  font-size: 1.125rem;
   line-height: 1.6;
+
+  /* Kerning is on by default for most engines at text sizes but is dropped at
+     small sizes by some; asking for it explicitly keeps pairs like "Ja", "Ta"
+     and "Wo" fitted in the hero and the section headings, where Manrope's
+     kern table has real work to do. `liga` and `kern` are the safe, always-on
+     pair — no discretionary ligatures, which would be wrong for a UI face. */
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 /* 16px body on phones, 18 from lg up.
@@ -238,42 +253,51 @@ body {
    branch has already made once. */
 @media (max-width: 1023px) {
   body {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
 /* Global font override & transitions — must be in @layer base
-   to avoid overriding Tailwind utility classes */
+   to avoid overriding Tailwind utility classes.
+
+   The family is `var(--font-sans)` ALONE. It used to read
+   `'Manrope', var(--font-sans)`, and the literal in front was worse than
+   redundant: next/font self-hosts the file under a generated family name
+   (`__Manrope_xxxxxx`, reached through --font-manrope), so the bare string
+   "Manrope" never matches it. It matches only a copy the VISITOR happens to
+   have installed locally — which is to say, on the machines of the people who
+   design this site and almost nobody else. Everyone else fell through to the
+   second entry and got the right file anyway, so the bug was invisible
+   precisely to the people able to see it.
+
+   It also cost the metric-matched fallback. next/font emits an adjusted
+   local() face (size-adjust/ascent-override) as part of --font-manrope so the
+   pre-swap frame occupies the same space as the real thing; a bare "Manrope"
+   in front short-circuits that and reinstates the layout shift `display:swap`
+   is supposed to hide. */
 @layer base {
   * {
-    font-family: 'Manrope', var(--font-sans);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
     transition: color 0.2s ease, background-color 0.2s ease;
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-}
-
-/* Font semantic aliases */
-.font-gothic {
-  font-family: 'Manrope', var(--font-sans);
-}
-.font-clinical {
-  font-family: 'Manrope', var(--font-sans);
-}
+/* Font semantic aliases — kept because ~40 call sites name them. */
+.font-gothic,
+.font-clinical,
 .font-manrope {
-  font-family: 'Manrope', var(--font-sans);
+  font-family: var(--font-sans);
 }
 
-/* Font weight classes */
-.font-ultra-light { font-weight: 100; }
-.font-thin { font-weight: 100; }
+/* Font weight classes.
+   These were 100. Manrope's lightest cut is 200 and only 200–800 are loaded,
+   so 100 resolved to "nearest available" and rendered 200 anyway — the number
+   was fiction, and the one thing it reliably did was invite synthetic
+   thinning on engines that attempt it. Named for what actually renders. */
+.font-ultra-light { font-weight: 200; }
+.font-thin { font-weight: 200; }
 .font-extra-light { font-weight: 200; }
 
 /* ═══════════════════════════════════════════════
@@ -308,23 +332,285 @@ h1, h2, h3, h4, h5, h6 {
    shrank the footer heading from 44px to 30px on desktop.
 
    Adding a section: take its minimum from the six rungs. Do not invent one.
+
+   ── DESKTOP, 2026-08-11 ──────────────────────────────────────────────────
+   The pass above snapped the MINIMUM of every clamp() and said so: "the
+   desktop maximum is untouched." It was, and that is where the same disorder
+   had been living all along. Measured on the rendered homepage at 1105px,
+   before this change: 23 distinct font sizes and 55 distinct
+   size+weight+leading+tracking combinations.
+
+   Eight of those sizes — 48.6, 45.3, 44.2, 44, 39.8, 38.7, 38.7, 37.6 — were
+   all the SAME role, a section heading. Two sat at the same 38.7px in
+   different weights. The section h2 at 48.6px outranked the hero h1 at
+   45.3px, so the largest text on the homepage was a mid-page heading rather
+   than the promise at the top. Body copy ran at 18, 16.6, 16, 15.2 and 15px:
+   five sizes across a 3px span, which is not a hierarchy, just noise.
+
+   The cause was not that the maxima were badly chosen. It was that each
+   section wrote its own clamp() with its own vw COEFFICIENT — 3, 3.5, 3.6,
+   4, 4.1 — so no two headings held a fixed relationship. Sections tuned to
+   agree at 1440px silently crossed over at 1105px. Fixing the endpoints
+   without fixing the slope would have left the same failure at a different
+   width.
+
+   So the rungs below are now the only place a size is decided, one
+   coefficient per rung, and the sections reference them by role. The scale
+   holds at EVERY width, not just at the two someone happened to check.
+
+   Desktop maxima: 58 / 52 / 44 / 28 / 20 / 18 / 14 / 12.
+   Mobile minima:       34 / 34 / 28 / 20 / 18 / 16 / 14 / 12 — the six rungs
+   the pass above established, unchanged.
    ═══════════════════════════════════════════════ */
 :root {
-  --font-hero-heading: clamp(2.125rem, 5vw, 4.5rem);
-  --font-h1: clamp(2.125rem, 4vw, 3.5rem);
-  --font-h2: clamp(1.75rem, 3.5vw, 3rem);
-  --font-h3: clamp(1.25rem, 2vw, 1.5rem);
-  --font-body-large: 1.25rem;
-  --font-body-base: 1rem;
-  --font-caption: 0.875rem;
-  --font-eyebrow: 0.75rem;
+  /* Sizes. One vw coefficient per rung — see the note above. */
+  --font-display: clamp(2.125rem, 4.1vw, 3.625rem);  /* 34 → 58, hero only  */
+  --font-h1: clamp(2.125rem, 3.6vw, 3.25rem);        /* 34 → 52, page header*/
+  --font-h2: clamp(1.75rem, 3vw, 2.75rem);           /* 28 → 44, section    */
+  --font-h3: clamp(1.25rem, 2vw, 1.75rem);           /* 20 → 28, sub-head   */
+  --font-h4: clamp(1.125rem, 1.4vw, 1.25rem);        /* 18 → 20, card title */
+  --font-body-large: clamp(1.125rem, 1.4vw, 1.25rem);/* 18 → 20, lede       */
+  --font-body-base: 1rem;                            /* 16 → 18 below       */
+  --font-caption: 0.875rem;                          /* 14                  */
+  --font-eyebrow: 0.75rem;                           /* 12                  */
+  --font-stat: clamp(1.75rem, 2.6vw, 2.25rem);       /* 28 → 36, numerals   */
+  --font-nav: clamp(0.875rem, 1.1vw, 1.125rem);      /* 14 → 18, nav bar    */
+
+  /* `--font-hero-heading` is the old name for the display rung. Kept as an
+     alias so nothing that still reads it breaks; prefer --font-display. */
+  --font-hero-heading: var(--font-display);
+
+  /* Leading, keyed to rung rather than to element. Display type needs to be
+     set tight or the lines drift apart; a 20px sub-head set at the same
+     ratio has its descenders in the next line's caps. */
+  --lh-display: 1.05;
+  --lh-h2: 1.1;
+  --lh-h3: 1.2;
+  --lh-h4: 1.3;
+  --lh-body: 1.7;
+  --lh-caption: 1.55;
+
+  /* Tracking. Negative at display sizes (large type sets loose optically and
+     wants pulling in), neutral through the middle, and open at the eyebrow —
+     uppercase at 12px is unreadable at default fit. ONE eyebrow value, where
+     the call sites previously held eight: 0.05em, 0.1em, 0.15em, 0.18em,
+     0.2em, 0.25em, 0.3em, and two in px that did not scale with the type. */
+  --ls-display: -0.03em;
+  --ls-h1: -0.025em;
+  --ls-h2: -0.02em;
+  --ls-h3: -0.01em;
+  --ls-h4: -0.005em;
+  --ls-eyebrow: 0.18em;
+
+  /* The second — and last — uppercase tracking value. Uppercase needs opening,
+     but how much depends on size, so one value cannot serve both a 12px
+     eyebrow and a 16px button label: 0.18em on a button reads as a gap, and
+     0.08em on a 12px eyebrow is not enough to separate the capitals. Two
+     optical values for two sizes. Anything else is a third opinion. */
+  --ls-caps: 0.08em;
 }
 
-/* Desktop keeps the two rungs that were tuned for it. */
+/* Desktop keeps the body rung that was tuned for it. The eyebrow no longer
+   grows to 13px: it is the micro rung on both, which is what makes it read as
+   one recurring device rather than as two similar labels. */
 @media (min-width: 1024px) {
   :root {
     --font-body-base: 1.125rem;
-    --font-eyebrow: 0.8125rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   TYPE ROLES — the classes sections actually use.
+
+   Each one sets size, weight, leading and tracking together, because those
+   four are what make a role legible AS a role and splitting them across four
+   call sites is how they drifted apart the first time. Declared in
+   @layer components so a Tailwind utility at a call site still wins when a
+   section genuinely needs to deviate.
+   ═══════════════════════════════════════════════ */
+@layer components {
+  .t-display {
+    font-size: var(--font-display);
+    font-weight: 300;
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+  }
+  .t-h1 {
+    font-size: var(--font-h1);
+    font-weight: 200;
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-h1);
+  }
+  .t-h2 {
+    font-size: var(--font-h2);
+    font-weight: 300;
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+  }
+  .t-h3 {
+    font-size: var(--font-h3);
+    font-weight: 400;
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+  }
+  .t-h4 {
+    font-size: var(--font-h4);
+    font-weight: 600;
+    line-height: var(--lh-h4);
+    letter-spacing: var(--ls-h4);
+  }
+  .t-lead {
+    font-size: var(--font-body-large);
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: normal;
+  }
+  .t-body {
+    font-size: var(--font-body-base);
+    font-weight: 300;
+    line-height: var(--lh-body);
+    letter-spacing: normal;
+  }
+  .t-caption {
+    font-size: var(--font-caption);
+    font-weight: 400;
+    line-height: var(--lh-caption);
+    letter-spacing: normal;
+  }
+  /* Numerals shown as evidence — the hero's proof row and the stats band.
+     A real role rather than a heading borrowed for the job, because the
+     figures need treatment the headings do not: `tabular-nums` so a column of
+     stats holds a common width instead of shuffling as counters animate, and
+     `lining-nums` so digits sit on the cap line beside their labels.
+     `--font-stat-lg` deliberately references the h1 rung: the stats band is
+     the loudest thing below the fold and it should still rank under the
+     hero rather than compete with it. */
+  .t-stat,
+  .t-stat-lg {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .t-stat { font-size: var(--font-stat); }     /* 28 → 36 */
+  .t-stat-lg { font-size: var(--font-h1); }    /* 34 → 52 */
+
+  /* The uppercase micro label, in one place. */
+  .t-eyebrow {
+    font-size: var(--font-eyebrow);
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+  }
+
+  /* ── Line breaking ────────────────────────────────────────────────────
+     Two different jobs, so two different values.
+
+     `balance` on headings: the browser evens the lines rather than filling
+     each one before moving on, which stops a three-word headline breaking as
+     two long lines and a single word. Capped at a few lines by spec, which is
+     exactly the case it is for.
+
+     `pretty` on running copy: same engine, tuned for paragraphs — its job is
+     the last line. The hero lede was breaking with "it." alone on line four,
+     an orphan sitting under three full lines, and the page had several more.
+     `pretty` costs nothing where the break was already fine.
+
+     Unsupported engines ignore both and get today's breaking, so there is no
+     fallback to write. */
+  .t-display, .t-h1, .t-h2, .t-h3, .t-h4 {
+    text-wrap: balance;
+  }
+  .t-lead, .t-body, .t-caption {
+    text-wrap: pretty;
+  }
+
+  /* ── Light-on-dark ────────────────────────────────────────────────────
+     Light type on a dark ground optically blooms: the glyphs spread into the
+     background, so lines that are correctly spaced on paper read as tighter
+     and heavier than the same setting on white. The standard correction is a
+     little more leading, and this site needs it more than most — the services
+     grid, the whole app chapter and the footer are full-bleed near-black, and
+     they carry a good share of the running copy.
+
+     Done by re-declaring the token rather than by restyling anything: every
+     role reads its leading from `--lh-body`, so overriding it on a dark
+     ancestor lets the cascade carry the correction into whatever sits inside,
+     including sections added later. Nothing needs to opt in.
+
+     The selectors are the same set the focus-ring rule below already uses to
+     recognise a dark surface, so there is one definition of "dark" here. */
+  .bg-brand-dark,
+  .bg-brand-dark-deeper,
+  [class*="bg-[#111"],
+  [class*="bg-[#19"] {
+    --lh-body: 1.75;      /* from 1.7 */
+    --lh-caption: 1.6;    /* from 1.55 */
+  }
+
+  /* Measure. Body copy set across a full desktop column runs past 100
+     characters, roughly a third longer than the eye tracks comfortably; the
+     return sweep starts missing lines. Applied where a paragraph is not
+     already inside a narrow column. */
+  /* CALIBRATED, NOT COPIED. The usual advice is `max-width: 65ch` for a
+     65-character line, which quietly assumes `1ch` is about one character
+     wide. It is not: `ch` is the advance width of "0", and Manrope's lining
+     figures are wide — measured at 18px, "0" is 10.69px against an 8.03px
+     average for English prose. A ch therefore buys 1.33 characters here, and
+     the textbook 65ch would set a 87-character line, comfortably past the
+     point the return sweep starts missing rows.
+
+     Worked back from the target instead: 54ch ≈ 72 characters, 45ch ≈ 60.
+     Re-measure these two numbers if the typeface ever changes — they are
+     properties of Manrope, not of the layout. */
+  .t-measure { max-width: 54ch; }        /* ≈ 72 characters */
+  .t-measure-tight { max-width: 45ch; }  /* ≈ 60 characters */
+}
+
+/* ═══════════════════════════════════════════════
+   HEADING DEFAULTS — optical, and overridable.
+
+   This replaces one unlayered rule that gave EVERY heading, h1 through h6,
+   `line-height: 1.08` and `letter-spacing: -0.02em`. Two things were wrong
+   with it.
+
+   It was not optical. Those values are correct for 58px display type and
+   actively harmful further down: the site sets h3s at 15px and h4s at 16px,
+   and 1.08 leading on a 15px heading that wraps puts consecutive lines in
+   contact. Tracking is worse, because -0.02em is a RATIO — the tighter the
+   type gets the more it needs opening up, and this did the reverse.
+
+   And being unlayered, it beat Tailwind. Unlayered CSS outranks everything in
+   @layer utilities regardless of specificity or source order, so every
+   `leading-*` and `tracking-*` class ever written on a heading was silently
+   discarded. Measured on the homepage before this change: an h3 carrying
+   `lg:leading-[1.6]` rendered at 1.08, and — the one that matters — an
+   uppercase 12px h3 carrying `tracking-wider` rendered at -0.24px. The author
+   asked for open uppercase tracking and the stylesheet delivered NEGATIVE
+   tracking on 12px capitals, which is close to the worst thing you can do to
+   a small uppercase label. Eight elements on the homepage were in that state.
+
+   Now keyed per tag (tags correlate with size well enough to be optical) and
+   inside @layer base, so a utility at the call site wins as written.
+   ═══════════════════════════════════════════════ */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+  h1 { line-height: var(--lh-display); letter-spacing: var(--ls-h1); }
+  h2 { line-height: var(--lh-h2);      letter-spacing: var(--ls-h2); }
+  h3 { line-height: var(--lh-h3);      letter-spacing: var(--ls-h3); }
+  h4 { line-height: var(--lh-h4);      letter-spacing: var(--ls-h4); }
+  h5, h6 { line-height: 1.4;           letter-spacing: normal; }
+
+  /* An uppercase heading is a label, not a heading, whatever tag it is on:
+     it needs opening, never tightening. This is the guard that makes the
+     tracking-wider case above impossible to reintroduce. */
+  h1.uppercase, h2.uppercase, h3.uppercase,
+  h4.uppercase, h5.uppercase, h6.uppercase {
+    letter-spacing: var(--ls-eyebrow);
+    line-height: 1.4;
   }
 }
 
@@ -465,22 +751,18 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-brand-on-green);
 }
 
-/* Subtitle / Eyebrow — Pfizer-style */
-.eyebrow {
+/* Subtitle / Eyebrow — one device, so one definition.
+   These were two classes for the same job that disagreed on both axes:
+   0.2em vs 0.15em tracking, and a token-driven size vs a hardcoded 12px that
+   grew to 13px on desktop while the other did not. Both now resolve to
+   .t-eyebrow. Kept as aliases because call sites name them. */
+.eyebrow,
+.subtitle {
   font-size: var(--font-eyebrow);
   font-weight: 600;
+  line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-.subtitle {
-  font-size: 12px;   /* the micro rung; 13px from lg up */
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-@media (min-width: 1024px) {
-  .subtitle { font-size: 13px; }
+  letter-spacing: var(--ls-eyebrow);
 }
 
 /* Text gradient */
@@ -613,6 +895,15 @@ h1, h2, h3, h4, h5, h6 {
 
    The alternative fix — `maximum-scale=1` / `user-scalable=no` — is not
    available: it disables pinch-zoom for everyone, which fails WCAG 1.4.4.
+
+   `px` HERE IS DELIBERATE — do not "fix" it to rem. Everything else in this
+   file was moved to rem so the page follows the reader's own text-size
+   setting, which makes this line look like an oversight. It is not: iOS's
+   trigger is an ABSOLUTE 16 CSS px, unrelated to the root font size, so `1rem`
+   would satisfy the rule only for a reader who has not changed their default —
+   and would silently stop working for anyone who set a smaller one, which is
+   the same bug in a more confusing form. This value is a platform constant, so
+   it is written as one.
    ═══════════════════════════════════════════════ */
 @media (max-width: 1023px) {
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
@@ -671,7 +962,7 @@ input, select, textarea {
   padding: 0.75rem 1.5rem;
   background: var(--color-brand-green-deep);
   color: var(--color-brand-on-green);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;

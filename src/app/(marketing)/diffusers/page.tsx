@@ -63,7 +63,7 @@ export default function DiffusersPage() {
       <SectionWrapper>
         <div className="grid gap-12 lg:grid-cols-2">
           <MotionWrapper>
-            <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
+            <span className="t-eyebrow text-brand-green-text">
               Premium Scenting
             </span>
             <h2 className="mt-3 font-display text-[1.75rem] font-bold text-gray-900 sm:text-4xl">

@@ -125,16 +125,11 @@ export function TrustBadges() {
             same idea with none of the reasoning, so the stronger one stayed. */}
         <div className="mb-8 grid grid-cols-1 gap-5 lg:mb-14 lg:grid-cols-2 lg:gap-16">
           <div>
-            <p className="tb-header eyebrow mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-green-text opacity-0">
+            <p className="tb-header eyebrow mb-4 text-xs uppercase tracking-[var(--ls-eyebrow)] text-brand-green-text opacity-0">
               Why MGS
             </p>
             <h2
-              className="tb-header font-gothic text-gray-900 opacity-0"
-              style={{
-                fontSize: "clamp(1.75rem, 3.5vw, 3rem)",
-                fontWeight: 400,
-                lineHeight: 1.1,
-              }}
+              className="tb-header t-h2 font-gothic text-gray-900 opacity-0"
             >
               Why facilities{" "}
               <span className="text-brand-green-text">standardize on us.</span>
@@ -175,11 +170,18 @@ export function TrustBadges() {
             <Trophy className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">
+            <h3 className="text-base font-semibold text-gray-900">
               {AWARD.headline}
             </h3>
+            {/* This sits in a `flex-1` cell of the award strip, so it took the
+                full width of the card — 910px, which at 14px is 130 characters
+                a line. That is nearly twice the comfortable maximum, and it is
+                the longest measure on the site: past roughly 75 the eye starts
+                losing its place on the return sweep. Nothing else about the
+                strip changes; the paragraph just stops running its whole
+                width. */}
             <p
-              className="mt-1.5 text-sm text-gray-600"
+              className="t-measure mt-1.5 text-sm text-gray-600"
               style={{ fontWeight: 300, lineHeight: 1.65 }}
             >
               {AWARD.claim} · {AWARD.attribution}
@@ -239,7 +241,7 @@ export function TrustBadges() {
 
                 {/* Text */}
                 <div>
-                  <h3 className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">
+                  <h3 className="text-base font-semibold text-gray-900">
                     {item.label}
                   </h3>
                   <p
@@ -257,7 +259,7 @@ export function TrustBadges() {
         {/* Behind the peek, the same hint the app beats carry. */}
         <p
           aria-hidden="true"
-          className="mt-4 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-gray-600 sm:hidden"
+          className="mt-4 flex items-center gap-2 t-eyebrow text-gray-600 sm:hidden"
         >
           <span>Swipe</span>
           <span className="h-px w-6 bg-gray-300" />

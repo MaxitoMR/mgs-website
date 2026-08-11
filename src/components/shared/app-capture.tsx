@@ -30,7 +30,7 @@ import { cn } from "@/lib/utils";
 type Role = "Supervisor" | "Employee" | "Admin" | "Client";
 
 const ROLE_TAG =
-  "inline-block rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs font-medium uppercase tracking-wider text-white/60 lg:text-[10px] lg:leading-[1.6]";
+  "inline-block rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 t-eyebrow text-white/60";
 
 function Caption({
   role,

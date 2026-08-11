@@ -115,7 +115,7 @@ export function SearchBar({ className, onNavigate }: SearchBarProps) {
           style={{ borderBottomLeftRadius: '1rem' }}
         >
           <div className="px-4 py-2 border-b border-gray-50">
-            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider lg:text-[10px] lg:leading-[1.6]">{results.length} result{results.length !== 1 ? 's' : ''}</span>
+            <span className="text-gray-400 t-eyebrow">{results.length} result{results.length !== 1 ? 's' : ''}</span>
           </div>
           {results.map((item) => (
             <Link
@@ -128,7 +128,7 @@ export function SearchBar({ className, onNavigate }: SearchBarProps) {
                 <ChevronRight className="h-3 w-3 text-gray-300" />
                 <span className="font-light">{item.title}</span>
               </div>
-              <span className={cn("px-2 py-0.5 text-xs font-semibold lg:text-[10px] lg:leading-[1.6]", categoryColors[item.category] || "bg-gray-100 text-gray-800")}>
+              <span className={cn("px-2 py-0.5 text-xs font-semibold", categoryColors[item.category] || "bg-gray-100 text-gray-800")}>
                 {item.category}
               </span>
             </Link>

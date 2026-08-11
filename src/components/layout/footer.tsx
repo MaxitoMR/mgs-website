@@ -126,13 +126,13 @@ function FooterGroup({
 
   return (
     <div>
-      <h3 className="text-xs font-bold uppercase tracking-wider text-white lg:mb-5">
+      <h3 className="t-eyebrow text-white lg:mb-5">
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={id}
-          className="flex min-h-11 w-full items-center justify-between gap-2 text-left uppercase tracking-wider lg:pointer-events-none lg:min-h-0 lg:justify-start"
+          className="flex min-h-11 w-full items-center justify-between gap-2 text-left t-eyebrow lg:pointer-events-none lg:min-h-0 lg:justify-start"
         >
           {title}
           <ChevronDown
@@ -162,14 +162,14 @@ export function Footer() {
         <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-20 lg:px-8">
           {/* Top metadata rule — decorative masthead detail, hidden on phones */}
           <div className="hidden sm:flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#69AF23]">
+            <span className="t-eyebrow text-[#69AF23]">
               MGS Field Brief
             </span>
             <span className="h-1 w-1 rounded-full bg-[#69AF23]/40" />
-            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-gray-400">
+            <span className="t-eyebrow text-gray-400">
               Monthly Edition
             </span>
-            <span className="ml-auto text-[10px] font-medium uppercase tracking-[0.25em] text-gray-400">
+            <span className="ml-auto t-eyebrow text-gray-400">
               {MONTH_LABEL}
             </span>
           </div>
@@ -197,13 +197,19 @@ export function Footer() {
                 className="h-16 w-auto sm:h-28"
               />
 
-              <h3 className="mt-5 max-w-lg font-display text-[1.75rem] font-bold leading-[1.1] text-white sm:mt-8 sm:text-4xl lg:text-[44px]">
+              {/* `t-h2` is size-for-size identical to what this was — 28px on a
+                  phone, 44px from lg — so the regression this heading suffered
+                  once before (44px silently becoming 30px) cannot recur here.
+                  What changes is the weight: 700 to the 300 every other
+                  heading at this size uses. Two voices at one size was the
+                  problem, not the size. */}
+              <h3 className="t-h2 mt-5 max-w-lg font-display text-white sm:mt-8">
                 One short issue a month.{" "}
                 <span className="text-[#69AF23]">
                   Field-driven. No fluff.
                 </span>
               </h3>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-gray-300 sm:mt-5 lg:text-[15px]">
+              <p className="mt-4 max-w-md text-base leading-relaxed text-gray-300 sm:mt-5">
                 Notes from our drivers and techs, real supply pricing, and honest
                 industry call-outs. Written for people who run buildings.
               </p>
@@ -214,7 +220,7 @@ export function Footer() {
                   (tag) => (
                     <span
                       key={tag}
-                      className="border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-gray-300 lg:text-[10px] lg:leading-[1.6]"
+                      className="border border-white/10 bg-white/[0.03] px-3 py-1 t-eyebrow text-gray-300"
                     >
                       {tag}
                     </span>
@@ -233,12 +239,16 @@ export function Footer() {
               <div className="border border-white/10 bg-white/[0.03] p-5 sm:p-9">
                 <div className="flex items-center gap-2">
                   <span className="h-px flex-1 bg-[#69AF23]/30" />
-                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#69AF23] lg:text-[10px] lg:leading-[1.6]">
+                  <span className="t-eyebrow text-[#69AF23]">
                     Subscribe Free
                   </span>
                   <span className="h-px flex-1 bg-[#69AF23]/30" />
                 </div>
-                <p className="mt-4 font-display text-xl font-bold text-white sm:mt-5">
+                {/* The supporting line under the newsletter heading, so the lede
+                  rung — not `text-xl font-bold`, which set body copy at 700 and
+                  made it read as a second heading competing with the one
+                  directly above it. */}
+              <p className="t-lead mt-4 font-display text-white sm:mt-5">
                   Get the next issue in your inbox.
                 </p>
                 {/* 14px: a sentence, not a label. white/50 on #111 is also
@@ -256,10 +266,10 @@ export function Footer() {
 
           {/* Bottom metadata rule — decorative masthead detail, hidden on phones */}
           <div className="hidden sm:flex items-center gap-3 border-y border-[#69AF23]/30 py-2.5">
-            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-gray-400">
+            <span className="t-eyebrow text-gray-400">
               Total Janitorial Management
             </span>
-            <span className="ml-auto text-[10px] font-medium uppercase tracking-[0.25em] text-gray-400">
+            <span className="ml-auto t-eyebrow text-gray-400">
               mgssupplyandservices.com
             </span>
           </div>
@@ -352,7 +362,7 @@ export function Footer() {
               highest-intent element in the whole footer and the reason a
               visitor scrolls this far. */}
           <div className="col-span-2 lg:col-span-1">
-            <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-white lg:mb-5">
+            <h3 className="mb-3 t-eyebrow text-white lg:mb-5">
               Contact
             </h3>
             {/* Same 44px treatment as the link columns — these three are the

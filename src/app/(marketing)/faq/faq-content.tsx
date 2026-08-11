@@ -16,7 +16,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between py-5 text-left"
       >
-        <span className="text-base font-medium text-gray-900 pr-4 lg:text-[15px] lg:leading-[1.6]">{q}</span>
+        <span className="text-base font-medium text-gray-900 pr-4">{q}</span>
         <ChevronDown
           className={cn("h-4 w-4 text-gray-400 flex-shrink-0 transition-transform duration-200", open && "rotate-180")}
         />
@@ -49,13 +49,10 @@ export default function FAQContent() {
             <ChevronRight className="h-3 w-3" />
             <span className="text-white/90">FAQ</span>
           </nav>
-          <h1
-            className="font-gothic text-white"
-            style={{ fontSize: 'clamp(1.75rem, 4vw, 3.5rem)', fontWeight: 300, lineHeight: 1.1 }}
-          >
+          <h1 className="t-h1 font-gothic text-white">
             Frequently Asked <span className="text-brand-green-text">Questions</span>
           </h1>
-          <p className="text-gray-400 mt-4 max-w-xl" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}>
+          <p className="t-lead text-gray-400 mt-4 max-w-xl">
 Coverage, compliance, scheduling, and pricing — the details procurement and facility teams ask before engaging MGS Supply &amp; Services.
           </p>
         </div>
@@ -67,7 +64,7 @@ Coverage, compliance, scheduling, and pricing — the details procurement and fa
           <div key={cat.name} className="mb-12">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-[3px] h-5 bg-[#69AF23]" />
-              <h2 className="text-xs font-bold text-gray-900 uppercase tracking-wider">{cat.name}</h2>
+              <h2 className="text-gray-900 t-eyebrow">{cat.name}</h2>
             </div>
             <div className="bg-white border border-rgray-4 shadow-premium">
               {cat.faqs.map((faq) => (
@@ -81,7 +78,7 @@ Coverage, compliance, scheduling, and pricing — the details procurement and fa
       {/* Bottom CTA */}
       <section className="bg-[#f0f5e8]" style={{ paddingTop: 'clamp(3rem, 5vw, 4rem)', paddingBottom: 'clamp(3rem, 5vw, 4rem)' }}>
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-gothic text-gray-900 mb-3" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', fontWeight: 400 }}>
+          <h2 className="font-gothic text-gray-900 mb-3" style={{ fontSize: 'var(--font-h3)', fontWeight: 400 }}>
             Still have questions?
           </h2>
           <p className="text-sm text-gray-600 mb-6" style={{ fontWeight: 300 }}>

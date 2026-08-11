@@ -51,12 +51,7 @@ export function CrewBand() {
             >
               <p className="eyebrow mb-4 text-[#9FD01B]">Our Crews</p>
               <h2
-                className="font-gothic text-white"
-                style={{
-                  fontSize: "clamp(1.75rem, 3.5vw, 3rem)",
-                  fontWeight: 300,
-                  lineHeight: 1.1,
-                }}
+                className="t-h2 font-gothic text-white"
               >
                 The people are{" "}
                 <span className="text-[#69AF23]">the guarantee.</span>

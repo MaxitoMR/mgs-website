@@ -104,11 +104,18 @@ export function PageHeader({
             any hydration hiccup left the h1 permanently invisible. Above-the-
             fold content has nothing to gain from being animated in: it is
             already the first thing seen. Below-the-fold reveals stay. */}
-        <h1 className="font-gothic font-ultra-light text-[2.125rem] leading-tight text-brand-on-green md:text-6xl lg:text-7xl">
+        {/* `t-h1`, replacing `text-[2.125rem] md:text-6xl lg:text-7xl`. That
+            ran to 72px on desktop — larger than the homepage hero's 58px — so
+            an interior page announced itself more loudly than the front door.
+            The h1 rung tops out at 52px, deliberately just under the hero. */}
+        <h1 className="t-h1 font-gothic text-brand-on-green">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-5 max-w-2xl font-clinical font-thin text-xl leading-relaxed text-brand-on-green/90 lg:text-lg">
+          /* Was `text-xl … lg:text-lg`: 20px on a phone and 18px on a desktop.
+             The lede got smaller as the screen got bigger, on all 14 pages
+             this header serves. `t-lead` runs the other way, 18 → 20. */
+          <p className="t-lead mt-5 max-w-2xl font-clinical text-brand-on-green/90">
             {subtitle}
           </p>
         )}
