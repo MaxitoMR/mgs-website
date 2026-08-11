@@ -202,3 +202,32 @@ First local landing page (`src/app/(marketing)/katy/page.tsx`). Targets the home
 
 ## Untracked local assets
 ~194 MB of loose images/exports under `public/images/` etc. are intentionally **left untracked** (unused by the build) to keep the repo lean.
+
+## Rollback — copy pass (2026-08-11)
+
+Live before the copy pass: **`mgs-website-hk9beeygj`** (commit `e6a2830`, the
+type-scale build). Two independent ways back, fastest first.
+
+**1. Promote the previous deployment — seconds, no rebuild.** Restores exactly
+the bytes that were serving before, without touching git:
+
+```bash
+npx vercel rollback https://mgs-website-hk9beeygj-maxiawsom-5752s-projects.vercel.app \
+  --scope maxiawsom-5752s-projects
+npx vercel rollback status --scope maxiawsom-5752s-projects   # confirm it landed
+```
+
+**2. Revert the commit — slower, keeps git and production in agreement.**
+
+```bash
+git revert --no-edit 0facf71      # the copy pass
+git push origin master            # the Git integration redeploys on push
+```
+
+Use 1 to stop the bleeding, then 2 so `master` does not keep shipping copy that
+was rolled back. Reverting alone leaves the bad deployment in the history as
+the newest; promoting alone leaves `master` ahead of production.
+
+Note the Git integration deploys on every push to `master`, so `git push`
+followed by `npx vercel --prod` produces two production deployments of the same
+commit. Harmless, but it is why the deployment list has pairs.
