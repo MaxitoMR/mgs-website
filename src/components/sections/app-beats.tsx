@@ -258,8 +258,27 @@ function BeatsMobile() {
       >
         {/* The device. Same `--phone-w` ladder as the stacked layout, minus the
             `lg:` rung this tree never reaches. */}
-        <div className="relative [--phone-w:40%] sm:[--phone-w:44%]">
-          <div className="relative">
+        {/* `z-20` against the panel's `z-10`. Nothing moved — the device sits
+            exactly where it sat and the panel keeps its `-mt-6` overlap; the
+            only change is which of the two paints on top of the other. The
+            panel used to cover the bottom of the phone, which put the light
+            card over the thing it is captioning. */}
+        <div className="relative z-20 [--phone-w:40%] sm:[--phone-w:44%]">
+          {/* `drop-shadow`, not `box-shadow`: a filter traces the alpha of what
+              it renders, so the shadow follows the device's rounded silhouette.
+              A box-shadow here would draw the shadow of this wrapper — a
+              full-width transparent rectangle — and read as a band across the
+              panel.
+
+              It sits on this inner div rather than the one above so it applies
+              to the device alone and not to the lime chip, which is a flat tag
+              and should stay flat.
+
+              PhoneFrame carries its own `0 4cqw 9cqw` shadow already, tuned for
+              the device against a near-black field. Now that the phone laps a
+              near-white panel that shadow all but vanishes, so this is the one
+              that does the lifting on mobile. */}
+          <div className="relative [filter:drop-shadow(0_18px_28px_rgba(0,0,0,0.45))]">
             <PhoneFrame size="beat">
               {BEATS.map((beat, i) => (
                 <div
