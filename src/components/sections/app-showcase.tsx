@@ -228,7 +228,7 @@ export function AppShowcase() {
               data-reveal
               className="font-gothic text-white"
               style={{
-                fontSize: "clamp(2rem, 4.4vw, 3.75rem)",
+                fontSize: "clamp(1.75rem, 4.4vw, 3.75rem)",
                 fontWeight: 300,
                 lineHeight: 1.06,
                 letterSpacing: "-0.025em",
@@ -282,7 +282,7 @@ export function AppShowcase() {
             data-reveal
             className="font-gothic text-white"
             style={{
-              fontSize: "clamp(1.625rem, 3.4vw, 2.875rem)",
+              fontSize: "clamp(1.75rem, 3.4vw, 2.875rem)",
               fontWeight: 300,
               lineHeight: 1.2,
               letterSpacing: "-0.02em",
@@ -370,7 +370,7 @@ export function AppShowcase() {
               data-reveal
               className="font-gothic text-white"
               style={{
-                fontSize: "clamp(1.625rem, 2.9vw, 2.5rem)",
+                fontSize: "clamp(1.75rem, 2.9vw, 2.5rem)",
                 fontWeight: 300,
                 lineHeight: 1.12,
                 letterSpacing: "-0.02em",

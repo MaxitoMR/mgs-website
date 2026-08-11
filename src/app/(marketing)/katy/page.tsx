@@ -193,7 +193,7 @@ export default function KatyPage() {
           </span>
           <h2
             className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
           >
             Crews stage here, not an hour away.
           </h2>
@@ -233,7 +233,7 @@ export default function KatyPage() {
                 <item.icon className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-[0.95rem] font-semibold text-gray-900">{item.title}</h3>
+                <h3 className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">{item.title}</h3>
                 <p className="mt-1.5 text-sm text-gray-600" style={{ fontWeight: 300, lineHeight: 1.65 }}>
                   {item.body}
                 </p>
@@ -251,7 +251,7 @@ export default function KatyPage() {
           </span>
           <h2
             className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
           >
             Four sectors, each scoped to its own standard.
           </h2>
@@ -271,7 +271,7 @@ export default function KatyPage() {
                 <s.icon className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="flex items-center gap-1.5 text-[0.95rem] font-semibold text-gray-900">
+                <h3 className="flex items-center gap-1.5 text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">
                   {s.title}
                   <ArrowRight
                     className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -295,7 +295,7 @@ export default function KatyPage() {
           </span>
           <h2
             className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
           >
             Across Katy and the western corridor.
           </h2>
@@ -331,7 +331,7 @@ export default function KatyPage() {
           </span>
           <h2
             className="mt-3 font-gothic text-gray-900"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
+            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 400, lineHeight: 1.15 }}
           >
             Katy specifics.
           </h2>
@@ -339,7 +339,7 @@ export default function KatyPage() {
         <dl className="mt-10 grid gap-5 lg:grid-cols-2">
           {FAQS.map((f) => (
             <div key={f.q} className="mgs-card rounded-sm p-6">
-              <dt className="text-[0.95rem] font-semibold text-gray-900">{f.q}</dt>
+              <dt className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">{f.q}</dt>
               <dd className="mt-2 text-sm text-gray-600" style={{ fontWeight: 300, lineHeight: 1.7 }}>
                 {f.a}
               </dd>

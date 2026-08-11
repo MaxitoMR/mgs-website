@@ -101,13 +101,13 @@ export default function ServicesContent() {
               Above-the-fold content does not get animated in. */}
           <h1
             className="font-gothic text-white"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, lineHeight: 1.1 }}
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 3.5rem)', fontWeight: 300, lineHeight: 1.1 }}
           >
             Our <span className="text-brand-green-text">Services</span>
           </h1>
           <p
             className="text-gray-300 mt-4 max-w-xl"
-            style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}
+            style={{ fontSize: 'clamp(1rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}
           >
             {services.length} defined cleaning programs across the commercial, medical, industrial, and specialized sectors — each scoped to the standards of its environment.
           </p>
@@ -252,7 +252,7 @@ export default function ServicesContent() {
                   <p className="eyebrow mb-1" style={{ color: textColor }}>{category.name.toUpperCase()}</p>
                   <h2
                     className="font-gothic text-gray-900"
-                    style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', fontWeight: 300 }}
+                    style={{ fontSize: 'clamp(1.75rem, 2.5vw, 2rem)', fontWeight: 300 }}
                   >
                     {category.description}
                   </h2>
@@ -297,7 +297,7 @@ export default function ServicesContent() {
                       </div>
 
                       <div className="min-w-0 flex-1 sm:p-5">
-                        <h3 className="text-[15px] font-semibold text-gray-900 group-hover:text-brand-green-text transition-colors">
+                        <h3 className="text-base font-semibold text-gray-900 group-hover:text-brand-green-text transition-colors lg:text-[15px] lg:leading-[1.6]">
                           {service.shortTitle}
                         </h3>
                         {/* 14px, up from 12. This is the only sentence a
@@ -327,7 +327,7 @@ export default function ServicesContent() {
       {/* Bottom CTA */}
       <section className="bg-[#111111]" style={{ paddingTop: 'clamp(1.75rem, 5vw, 5rem)', paddingBottom: 'clamp(1.75rem, 5vw, 5rem)' }}>
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-gothic text-white mb-4" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>
+          <h2 className="font-gothic text-white mb-4" style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', fontWeight: 300 }}>
             Don&apos;t see what you need?
           </h2>
           <p className="text-gray-400 mb-8 text-sm" style={{ fontWeight: 300, lineHeight: 1.7 }}>

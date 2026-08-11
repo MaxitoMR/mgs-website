@@ -104,11 +104,11 @@ export function PageHeader({
             any hydration hiccup left the h1 permanently invisible. Above-the-
             fold content has nothing to gain from being animated in: it is
             already the first thing seen. Below-the-fold reveals stay. */}
-        <h1 className="font-gothic font-ultra-light text-5xl leading-tight text-brand-on-green md:text-6xl lg:text-7xl">
+        <h1 className="font-gothic font-ultra-light text-[2.125rem] leading-tight text-brand-on-green md:text-6xl lg:text-7xl">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-5 max-w-2xl font-clinical font-thin text-lg leading-relaxed text-brand-on-green/90">
+          <p className="mt-5 max-w-2xl font-clinical font-thin text-xl leading-relaxed text-brand-on-green/90 lg:text-lg">
             {subtitle}
           </p>
         )}

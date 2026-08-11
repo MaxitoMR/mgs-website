@@ -16,7 +16,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between py-5 text-left"
       >
-        <span className="text-[15px] font-medium text-gray-900 pr-4">{q}</span>
+        <span className="text-base font-medium text-gray-900 pr-4 lg:text-[15px] lg:leading-[1.6]">{q}</span>
         <ChevronDown
           className={cn("h-4 w-4 text-gray-400 flex-shrink-0 transition-transform duration-200", open && "rotate-180")}
         />
@@ -51,11 +51,11 @@ export default function FAQContent() {
           </nav>
           <h1
             className="font-gothic text-white"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 300, lineHeight: 1.1 }}
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 3.5rem)', fontWeight: 300, lineHeight: 1.1 }}
           >
             Frequently Asked <span className="text-brand-green-text">Questions</span>
           </h1>
-          <p className="text-gray-400 mt-4 max-w-xl" style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}>
+          <p className="text-gray-400 mt-4 max-w-xl" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.1rem)', fontWeight: 300, lineHeight: 1.7 }}>
 Coverage, compliance, scheduling, and pricing — the details procurement and facility teams ask before engaging MGS Supply &amp; Services.
           </p>
         </div>

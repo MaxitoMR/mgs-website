@@ -177,7 +177,7 @@ export function TrustBadges() {
             <Trophy className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-[0.95rem] font-semibold text-gray-900">
+            <h3 className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">
               {AWARD.headline}
             </h3>
             <p
@@ -241,7 +241,7 @@ export function TrustBadges() {
 
                 {/* Text */}
                 <div>
-                  <h3 className="text-[0.95rem] font-semibold text-gray-900">
+                  <h3 className="text-base font-semibold text-gray-900 lg:text-[0.95rem] lg:leading-[1.6]">
                     {item.label}
                   </h3>
                   <p

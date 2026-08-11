@@ -141,7 +141,7 @@ export function WhyChooseUs() {
                   <Icon className="h-6 w-6" style={{ color: feature.iconColor }} />
                 </div>
 
-                <h3 className="text-white mb-3 text-lg font-medium">{feature.title}</h3>
+                <h3 className="text-white mb-3 text-xl font-medium lg:text-lg">{feature.title}</h3>
                 <p className="text-gray-400 text-sm" style={{ fontWeight: 300, lineHeight: 1.7 }}>
                   {feature.description}
                 </p>

@@ -62,7 +62,7 @@ export function WalkthroughForm() {
           <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center bg-brand-green/10">
             <CalendarCheck className="h-10 w-10 text-brand-green-text" />
           </div>
-          <h2 className="font-display text-2xl font-bold text-gray-900">
+          <h2 className="font-display text-xl font-bold text-gray-900 lg:text-2xl">
             Walkthrough Scheduled!
           </h2>
           <p className="mt-3 text-gray-600">
@@ -90,7 +90,7 @@ export function WalkthroughForm() {
 
       {/* Contact Info */}
       <div className="bg-white p-6 shadow-sm">
-        <h2 className="mb-4 font-display text-lg font-bold text-gray-900">
+        <h2 className="mb-4 font-display text-xl font-bold text-gray-900 lg:text-lg">
           Contact Information
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -168,7 +168,7 @@ export function WalkthroughForm() {
 
       {/* Facility Details */}
       <div className="bg-white p-6 shadow-sm">
-        <h2 className="mb-4 font-display text-lg font-bold text-gray-900">
+        <h2 className="mb-4 font-display text-xl font-bold text-gray-900 lg:text-lg">
           Facility Details
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -216,7 +216,7 @@ export function WalkthroughForm() {
 
       {/* Scheduling */}
       <div className="bg-white p-6 shadow-sm">
-        <h2 className="mb-4 font-display text-lg font-bold text-gray-900">
+        <h2 className="mb-4 font-display text-xl font-bold text-gray-900 lg:text-lg">
           Preferred Schedule
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -272,7 +272,7 @@ export function WalkthroughForm() {
       <button
         type="submit"
         disabled={mutation.isPending}
-        className="flex w-full items-center justify-center gap-2 bg-brand-green-deep px-8 py-4 text-lg font-semibold text-brand-on-green shadow-lg transition-all hover:bg-brand-green-deep-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 bg-brand-green-deep px-8 py-4 text-xl font-semibold text-brand-on-green shadow-lg transition-all hover:bg-brand-green-deep-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
       >
         {mutation.isPending ? (
           <>

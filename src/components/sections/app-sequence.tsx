@@ -484,7 +484,7 @@ export function AppSequence() {
                   <h3
                     className="font-gothic text-white"
                     style={{
-                      fontSize: "clamp(1.5rem, 2.9vw, 2.5rem)",
+                      fontSize: "clamp(1.75rem, 2.9vw, 2.5rem)",
                       fontWeight: 300,
                       lineHeight: 1.12,
                       letterSpacing: "-0.02em",

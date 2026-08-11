@@ -130,7 +130,7 @@ export function HeroSection() {
               <div key={s.label} className="hero-stat">
                 <div
                   className="font-gothic text-brand-lime"
-                  style={{ fontSize: "clamp(1.625rem, 2.6vw, 2.25rem)", fontWeight: 300, lineHeight: 1 }}
+                  style={{ fontSize: "clamp(1.75rem, 2.6vw, 2.25rem)", fontWeight: 300, lineHeight: 1 }}
                 >
                   {s.value}
                 </div>

@@ -189,7 +189,7 @@ export function ServicesGrid() {
             <p className="svc-header-el eyebrow mb-3 text-[#69AF23] opacity-0">Our Services</p>
             <h2
               className="svc-header-el font-gothic text-white opacity-0"
-              style={{ fontSize: "clamp(1.9rem, 3.6vw, 3.25rem)", fontWeight: 300, lineHeight: 1.05 }}
+              style={{ fontSize: "clamp(1.75rem, 3.6vw, 3.25rem)", fontWeight: 300, lineHeight: 1.05 }}
             >
               What we <span className="text-[#69AF23]">do.</span>
             </h2>
@@ -271,7 +271,7 @@ export function ServicesGrid() {
         <div key={`${active.id}-head`} className="mb-4 flex flex-col gap-2 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <span className="h-7 w-1.5 rounded-full" style={{ backgroundColor: active.color }} />
-            <h3 className="font-gothic text-white" style={{ fontSize: "clamp(1.35rem, 2.2vw, 2rem)", fontWeight: 400 }}>
+            <h3 className="font-gothic text-white" style={{ fontSize: "clamp(1.25rem, 2.2vw, 2rem)", fontWeight: 400 }}>
               {active.title}
             </h3>
           </div>
@@ -335,7 +335,7 @@ export function ServicesGrid() {
                 <div className={cn("absolute inset-x-0 bottom-0 flex flex-col", isBig ? "p-6 lg:p-8" : "p-4")}>
                   {isBig && (
                     <span
-                      className="mb-2 inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.15em] text-brand-on-green"
+                      className="mb-2 inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-[0.15em] text-brand-on-green lg:text-[10px] lg:leading-[1.6]"
                       style={{ backgroundColor: active.deepColor }}
                     >
                       Featured
@@ -344,7 +344,7 @@ export function ServicesGrid() {
                   <div className="flex items-end justify-between gap-3">
                     <div>
                       <h4
-                        className={cn("font-gothic font-medium text-white", isBig ? "text-2xl lg:text-3xl" : "text-sm sm:text-base")}
+                        className={cn("font-gothic font-medium text-white", isBig ? "text-xl lg:text-3xl" : "text-sm sm:text-base")}
                         style={{ letterSpacing: "-0.01em", textShadow: "0 1px 8px rgba(0,0,0,0.4)" }}
                       >
                         {service.name}

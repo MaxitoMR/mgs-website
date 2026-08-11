@@ -77,7 +77,7 @@ export function TrainingHub() {
               height={53}
               className="mx-auto mb-6 h-10 w-auto brightness-0 invert"
             />
-            <h1 className="font-gothic text-2xl font-light">Employee Training</h1>
+            <h1 className="font-gothic text-xl font-light lg:text-2xl">Employee Training</h1>
             <p className="mt-2 text-sm text-white/50">
               Enter the access code to continue.
             </p>
@@ -160,7 +160,7 @@ export function TrainingHub() {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#9FD01B]">
             Field Training
           </p>
-          <h1 className="mt-2 font-gothic text-2xl font-light sm:text-3xl">
+          <h1 className="mt-2 font-gothic text-xl font-light sm:text-3xl">
             Standards, safety, and protocol — on demand.
           </h1>
         </div>
@@ -224,7 +224,7 @@ export function TrainingHub() {
                         {isActive ? <Play className="h-3.5 w-3.5" /> : <CheckCircle2 className="h-4 w-4" />}
                       </span>
                       <span>
-                        <span className="block text-[11px] font-semibold uppercase tracking-widest text-white/40">
+                        <span className="block text-xs font-semibold uppercase tracking-widest text-white/40 lg:text-[11px] lg:leading-[1.6]">
                           Module {String(i + 1).padStart(2, "0")}
                         </span>
                         <span className={cn("mt-0.5 block text-sm font-medium", isActive ? "text-white" : "text-white/80")}>

@@ -118,15 +118,15 @@ export default async function ServicePage({
 
           {/* Content */}
           <div>
-            <h2 className="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+            <h2 className="font-display text-xl font-bold text-gray-900 sm:text-3xl">
               About This Service
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-gray-600">
+            <p className="mt-4 text-xl leading-relaxed text-gray-600 lg:text-lg">
               {service.longDescription}
             </p>
 
             <div className="mt-8">
-              <h3 className="font-display text-lg font-bold text-gray-900">
+              <h3 className="font-display text-xl font-bold text-gray-900 lg:text-lg">
                 What&apos;s Included
               </h3>
               <ul className="mt-4 space-y-3">
@@ -208,11 +208,11 @@ export default async function ServicePage({
                     {i === 0 && (
                       <p className="eyebrow mb-3 text-brand-green-text">A closer look</p>
                     )}
-                    <h3 className="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+                    <h3 className="font-display text-xl font-bold text-gray-900 sm:text-3xl">
                       {g.title ?? service.shortTitle}
                     </h3>
                     {g.caption && (
-                      <p className="mt-5 text-lg leading-relaxed text-gray-600">
+                      <p className="mt-5 text-xl leading-relaxed text-gray-600 lg:text-lg">
                         {g.caption}
                       </p>
                     )}
@@ -226,7 +226,7 @@ export default async function ServicePage({
 
         {/* Benefits */}
         <div className="mt-16 rounded-none bg-brand-green/5 p-8 lg:p-12">
-          <h3 className="font-display text-2xl font-bold text-gray-900">
+          <h3 className="font-display text-xl font-bold text-gray-900 lg:text-2xl">
             Key Benefits
           </h3>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -250,7 +250,7 @@ export default async function ServicePage({
       {/* Related Services */}
       {related.length > 0 && (
         <SectionWrapper className="bg-paper">
-          <h2 className="mb-8 font-display text-2xl font-bold text-gray-900">
+          <h2 className="mb-8 font-display text-xl font-bold text-gray-900 lg:text-2xl">
             Related Services
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -43,7 +43,7 @@ export default function QuotePage() {
               </p>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="mt-4 flex min-h-11 items-center gap-2 text-lg font-bold"
+                className="mt-4 flex min-h-11 items-center gap-2 text-xl font-bold lg:text-lg"
               >
                 <Phone className="h-5 w-5" />
                 {COMPANY.phone.display}
@@ -51,7 +51,7 @@ export default function QuotePage() {
             </div>
 
             <div className="rounded-none border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="font-display text-lg font-bold text-gray-900">
+              <h3 className="font-display text-xl font-bold text-gray-900 lg:text-lg">
                 What to Expect
               </h3>
               <ul className="mt-4 space-y-4">

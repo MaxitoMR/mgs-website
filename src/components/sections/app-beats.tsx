@@ -310,7 +310,7 @@ export function AppBeats() {
                 <p
                   className="mt-4 max-w-xl text-[#3F3F3A] lg:mt-6"
                   style={{
-                    fontSize: "clamp(0.9375rem, 1.15vw, 1.0625rem)",
+                    fontSize: "clamp(1rem, 1.15vw, 1.0625rem)",
                     fontWeight: 300,
                     lineHeight: 1.65,
                   }}

@@ -74,7 +74,7 @@ export function StatsOverlap() {
                 ref={(el) => { numberRefs.current[i] = el; }}
                 className="font-gothic text-[#69AF23]"
                 style={{
-                  fontSize: 'clamp(2.25rem, 3.5vw, 3.5rem)',
+                  fontSize: 'clamp(2.125rem, 3.5vw, 3.5rem)',
                   fontWeight: 300,
                   lineHeight: 1,
                 }}

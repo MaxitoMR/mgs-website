@@ -116,7 +116,7 @@ export function QuoteForm() {
           <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-none bg-brand-green/10">
             <CheckCircle className="h-10 w-10 text-brand-green-text" aria-hidden="true" />
           </div>
-          <h2 className="font-display text-2xl font-bold text-gray-900">
+          <h2 className="font-display text-xl font-bold text-gray-900 lg:text-2xl">
             Quote Request Submitted!
           </h2>
           <p className="mt-3 text-gray-600">
@@ -143,7 +143,7 @@ export function QuoteForm() {
       )}
       {/* Contact Info */}
       <div className="rounded-none bg-white p-6 shadow-sm">
-        <h2 className="mb-4 font-display text-lg font-bold text-gray-900">
+        <h2 className="mb-4 font-display text-xl font-bold text-gray-900 lg:text-lg">
           Contact Information
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -229,7 +229,7 @@ export function QuoteForm() {
 
       {/* Facility Info */}
       <div className="rounded-none bg-white p-6 shadow-sm">
-        <h2 className="mb-4 font-display text-lg font-bold text-gray-900">
+        <h2 className="mb-4 font-display text-xl font-bold text-gray-900 lg:text-lg">
           Facility Details
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -310,7 +310,7 @@ export function QuoteForm() {
       {/* Services Selection — a checkbox group, so it needs fieldset/legend
           rather than a bare heading for the grouping to reach screen readers. */}
       <fieldset className="rounded-none bg-white p-6 shadow-sm">
-        <legend className="font-display text-lg font-bold text-gray-900">
+        <legend className="font-display text-xl font-bold text-gray-900 lg:text-lg">
           Services Needed <span aria-hidden="true">*</span>
         </legend>
 
@@ -409,7 +409,7 @@ export function QuoteForm() {
       <button
         type="submit"
         disabled={mutation.isPending}
-        className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-4 text-lg font-semibold text-brand-on-green shadow-lg transition-all hover:bg-brand-green-deep-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 rounded-none bg-brand-green-deep px-8 py-4 text-xl font-semibold text-brand-on-green shadow-lg transition-all hover:bg-brand-green-deep-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 lg:text-lg"
       >
         {mutation.isPending ? (
           <>

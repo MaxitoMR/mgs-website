@@ -41,7 +41,7 @@ export default function WalkthroughPage() {
               </p>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
-                className="mt-4 flex min-h-11 items-center gap-2 text-lg font-bold"
+                className="mt-4 flex min-h-11 items-center gap-2 text-xl font-bold lg:text-lg"
               >
                 <Phone className="h-5 w-5" />
                 {COMPANY.phone.display}
@@ -50,7 +50,7 @@ export default function WalkthroughPage() {
 
             {/* How it works */}
             <div className="border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="font-display text-lg font-bold text-gray-900">
+              <h3 className="font-display text-xl font-bold text-gray-900 lg:text-lg">
                 How It Works
               </h3>
               <ul className="mt-4 space-y-5">
@@ -89,7 +89,7 @@ export default function WalkthroughPage() {
 
             {/* Trust signals */}
             <div className="border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="font-display text-lg font-bold text-gray-900">
+              <h3 className="font-display text-xl font-bold text-gray-900 lg:text-lg">
                 Why a Walkthrough?
               </h3>
               <p className="mt-2 text-sm text-gray-600 leading-relaxed">

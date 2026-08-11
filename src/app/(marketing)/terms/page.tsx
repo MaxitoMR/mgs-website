@@ -66,7 +66,7 @@ export default function TermsPage() {
               <div key={s.title}>
                 {/* h2: the page's only other heading is the h1 in PageHeader,
                     so h3 skipped a level. */}
-                <h2 className="text-lg font-semibold text-gray-900 mb-2">{s.title}</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2 lg:text-lg">{s.title}</h2>
                 <p className="text-sm text-gray-600 leading-relaxed">{s.content}</p>
               </div>
             ))}

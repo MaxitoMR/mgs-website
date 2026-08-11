@@ -197,13 +197,13 @@ export function Footer() {
                 className="h-16 w-auto sm:h-28"
               />
 
-              <h3 className="mt-5 max-w-lg font-display text-3xl font-bold leading-[1.1] text-white sm:mt-8 sm:text-4xl lg:text-[44px]">
+              <h3 className="mt-5 max-w-lg font-display text-[1.75rem] font-bold leading-[1.1] text-white sm:mt-8 sm:text-4xl lg:text-[44px]">
                 One short issue a month.{" "}
                 <span className="text-[#69AF23]">
                   Field-driven. No fluff.
                 </span>
               </h3>
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-gray-300 sm:mt-5">
+              <p className="mt-4 max-w-md text-base leading-relaxed text-gray-300 sm:mt-5 lg:text-[15px]">
                 Notes from our drivers and techs. Real supply pricing. Industry
                 call-outs. Written for facility managers who run buildings, not
                 marketers chasing inboxes.
@@ -215,7 +215,7 @@ export function Footer() {
                   (tag) => (
                     <span
                       key={tag}
-                      className="border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-300"
+                      className="border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-gray-300 lg:text-[10px] lg:leading-[1.6]"
                     >
                       {tag}
                     </span>
@@ -234,7 +234,7 @@ export function Footer() {
               <div className="border border-white/10 bg-white/[0.03] p-5 sm:p-9">
                 <div className="flex items-center gap-2">
                   <span className="h-px flex-1 bg-[#69AF23]/30" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#69AF23]">
+                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#69AF23] lg:text-[10px] lg:leading-[1.6]">
                     Subscribe Free
                   </span>
                   <span className="h-px flex-1 bg-[#69AF23]/30" />

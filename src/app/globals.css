@@ -224,6 +224,24 @@ body {
   line-height: 1.6;
 }
 
+/* 16px body on phones, 18 from lg up.
+   Every paragraph carrying no size class inherits this, which on mobile was
+   most of the heavy ones — the crew band, the handoff, the closing ask, the
+   /katy and /about copy. 18px is a comfortable desktop measure and a large one
+   on a 390px screen: it held those blocks to 36 characters a line, so a
+   200-character paragraph became six near-full-width lines with nothing to
+   break it. At 16px the same paragraph runs ~43 characters a line and five.
+
+   Deliberately NOT applied at lg. The desktop measure is right as it is, and
+   the footer's <li> line-box strut is derived from this value — moving it
+   there would silently shorten every desktop page by ~116px, a regression this
+   branch has already made once. */
+@media (max-width: 1023px) {
+  body {
+    font-size: 16px;
+  }
+}
+
 /* Global font override & transitions — must be in @layer base
    to avoid overriding Tailwind utility classes */
 @layer base {
@@ -259,17 +277,55 @@ h1, h2, h3, h4, h5, h6 {
 .font-extra-light { font-weight: 200; }
 
 /* ═══════════════════════════════════════════════
-   PFIZER-INSPIRED TYPE SCALE (rem-based, 18px base)
+   TYPE SCALE — SIX RENDERED SIZES ON MOBILE: 12 / 14 / 16 / 20 / 28 / 34
+
+   The homepage used to render text at fourteen distinct sizes (12, 13, 14, 15,
+   16, 18, 20, 22, 24, 26, 28, 30, 32, 34). Seven of those were headings: three
+   different section h2s landed at 28, 30 and 32px, because each section
+   declared its own clamp() with its own minimum and nobody compared them.
+   Fourteen steps is not a hierarchy — the eye cannot rank them, so every block
+   reads as equally important and the page feels like one undifferentiated run
+   of text. That, not the size of any single element, is what made it
+   overwhelming. /services ran on six sizes and did not have the problem.
+
+   The rungs, and what each is for:
+     34px  display — page and hero h1
+     28px  h2 — section headings
+     20px  h3 — sub-headings within a section
+     16px  body — paragraphs and leads
+     14px  caption — secondary copy, small UI
+     12px  micro — eyebrows, badges, chips
+
+   HOW IT IS ENFORCED, AND WHY DESKTOP DOES NOT MOVE. Sizes come from two
+   places. Inline clamp(min, vw, max) values are snapped at the MINIMUM only,
+   and below ~800px the minimum is what renders — mobile collapses, the desktop
+   maximum is untouched. Tailwind classes cannot express that, so a snapped
+   class gets an lg: restore of its original value — but ONLY when the element
+   carries no responsive size of its own. Where it already has one (sm:text-4xl,
+   lg:text-[44px]), the base class governs mobile alone and adding a second
+   lg: variant would collide with the first; Tailwind then picks a winner by
+   its own ordering rather than source order, which is how an earlier attempt
+   shrank the footer heading from 44px to 30px on desktop.
+
+   Adding a section: take its minimum from the six rungs. Do not invent one.
    ═══════════════════════════════════════════════ */
 :root {
-  --font-hero-heading: clamp(2.5rem, 5vw, 4.5rem);
-  --font-h1: clamp(2rem, 4vw, 3.5rem);
+  --font-hero-heading: clamp(2.125rem, 5vw, 4.5rem);
+  --font-h1: clamp(2.125rem, 4vw, 3.5rem);
   --font-h2: clamp(1.75rem, 3.5vw, 3rem);
   --font-h3: clamp(1.25rem, 2vw, 1.5rem);
   --font-body-large: 1.25rem;
-  --font-body-base: 1.125rem;
+  --font-body-base: 1rem;
   --font-caption: 0.875rem;
-  --font-eyebrow: 0.8125rem;
+  --font-eyebrow: 0.75rem;
+}
+
+/* Desktop keeps the two rungs that were tuned for it. */
+@media (min-width: 1024px) {
+  :root {
+    --font-body-base: 1.125rem;
+    --font-eyebrow: 0.8125rem;
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -418,10 +474,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .subtitle {
-  font-size: 13px;
+  font-size: 12px;   /* the micro rung; 13px from lg up */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
+}
+@media (min-width: 1024px) {
+  .subtitle { font-size: 13px; }
 }
 
 /* Text gradient */

@@ -302,7 +302,7 @@ export default function AboutPage() {
               >
                 <p.icon className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
               </div>
-              <h3 className="font-display text-lg font-bold text-gray-900">
+              <h3 className="font-display text-xl font-bold text-gray-900 lg:text-lg">
                 {p.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">

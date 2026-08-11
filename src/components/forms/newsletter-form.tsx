@@ -189,7 +189,7 @@ export function NewsletterForm({
       {(heading || blurb) && (
         <div className="space-y-2">
           {heading && (
-            <h2 className="font-display text-2xl font-bold text-gray-900 sm:text-3xl">
+            <h2 className="font-display text-xl font-bold text-gray-900 sm:text-3xl">
               {heading}
             </h2>
           )}

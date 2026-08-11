@@ -42,7 +42,7 @@ export function ClientPortalCta() {
               transition={{ delay: 0.1 }}
               className="font-gothic text-gray-900"
               style={{
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                fontSize: 'clamp(1.75rem, 4vw, 3.5rem)',
                 fontWeight: 300,
                 lineHeight: 1.08,
                 letterSpacing: '-0.02em',
@@ -59,7 +59,7 @@ export function ClientPortalCta() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="text-gray-600 mt-4 mb-5 lg:mt-5 lg:mb-7"
-              style={{ fontSize: 'clamp(0.85rem, 1.1vw, 1rem)', fontWeight: 300, lineHeight: 1.7 }}
+              style={{ fontSize: 'clamp(1rem, 1.1vw, 1rem)', fontWeight: 300, lineHeight: 1.7 }}
             >
               A dedicated client portal: review QA inspection reports, settle invoices,
               and log service requests — a complete record of the work at your site,
@@ -78,7 +78,7 @@ export function ClientPortalCta() {
                 return (
                   <div key={f.label} className="flex items-center gap-2">
                     <Icon className="h-3.5 w-3.5 text-brand-green-text flex-shrink-0" />
-                    <span className="text-[13px] text-gray-700" style={{ fontWeight: 400 }}>{f.label}</span>
+                    <span className="text-sm text-gray-700 lg:text-[13px] lg:leading-[1.6]" style={{ fontWeight: 400 }}>{f.label}</span>
                   </div>
                 );
               })}
@@ -145,7 +145,7 @@ export function ClientPortalCta() {
                     <div className="w-[7px] h-[7px] rounded-full bg-[#28c840]" />
                   </div>
                   <div className="flex-1 flex justify-center">
-                    <div className="hidden sm:block px-8 py-0.5 bg-white border border-gray-200 rounded text-[10px] text-gray-400 font-light">
+                    <div className="hidden sm:block px-8 py-0.5 bg-white border border-gray-200 rounded text-xs text-gray-400 font-light lg:text-[10px] lg:leading-[1.6]">
                       mgsclientportal.app
                     </div>
                   </div>

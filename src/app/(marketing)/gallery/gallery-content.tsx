@@ -89,7 +89,7 @@ export default function GalleryContent() {
       <SectionWrapper className="bg-[#111111]" dark>
         <div className="text-center mb-6 sm:mb-10">
           <p className="eyebrow text-[#9FD01B] mb-3">Before &amp; After</p>
-          <h2 className="font-gothic text-white" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>
+          <h2 className="font-gothic text-white" style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', fontWeight: 300 }}>
             The MGS <span className="text-[#69AF23]">difference.</span>
           </h2>
           <p className="text-gray-300 mt-3 max-w-xl mx-auto text-sm" style={{ fontWeight: 300 }}>
@@ -118,7 +118,7 @@ export default function GalleryContent() {
       <SectionWrapper>
         <div className="text-center mb-6 sm:mb-10">
           <p className="eyebrow text-brand-green-text mb-3">Photo Gallery</p>
-          <h2 className="font-gothic text-gray-900" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 300 }}>
+          <h2 className="font-gothic text-gray-900" style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', fontWeight: 300 }}>
             Our work in <span className="text-brand-green-text">action.</span>
           </h2>
         </div>

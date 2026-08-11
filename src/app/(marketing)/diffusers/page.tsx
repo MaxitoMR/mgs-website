@@ -66,10 +66,10 @@ export default function DiffusersPage() {
             <span className="text-sm font-bold uppercase tracking-widest text-brand-green-text">
               Premium Scenting
             </span>
-            <h2 className="mt-3 font-display text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="mt-3 font-display text-[1.75rem] font-bold text-gray-900 sm:text-4xl">
               Transform Your Space
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-xl text-gray-600 lg:text-lg">
               First impressions matter. Our commercial-grade scent diffusion
               systems create welcoming, memorable environments that leave lasting
               impressions on visitors, clients, and employees.
@@ -100,7 +100,7 @@ export default function DiffusersPage() {
                 lime — the worst text/background pair on the site. The on-green
                 ink is 6.51 and 8.78 on the same two stops. */}
             <div className="rounded-none bg-gradient-to-br from-brand-green to-brand-lime p-8 text-brand-on-green">
-              <h3 className="font-display text-2xl font-bold">Key Benefits</h3>
+              <h3 className="font-display text-xl font-bold lg:text-2xl">Key Benefits</h3>
               <ul className="mt-6 space-y-4">
                 {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3">

@@ -80,7 +80,7 @@ export default function CareersPage() {
       <SectionWrapper>
         <div className="text-center">
           <MotionWrapper>
-            <h2 className="font-display text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="font-display text-[1.75rem] font-bold text-gray-900 sm:text-4xl">
               Why Work With Us?
             </h2>
           </MotionWrapper>
@@ -92,7 +92,7 @@ export default function CareersPage() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-none bg-brand-green/10 text-brand-green-text">
                   <benefit.icon className="h-8 w-8" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-gray-900">
+                <h3 className="font-display text-xl font-bold text-gray-900 lg:text-lg">
                   {benefit.title}
                 </h3>
                 <p className="mt-2 text-sm text-gray-600">
@@ -105,7 +105,7 @@ export default function CareersPage() {
       </SectionWrapper>
 
       <SectionWrapper className="bg-paper">
-        <h2 className="mb-8 font-display text-2xl font-bold text-gray-900">
+        <h2 className="mb-8 font-display text-xl font-bold text-gray-900 lg:text-2xl">
           Open Positions
         </h2>
         <div className="space-y-4">
@@ -113,7 +113,7 @@ export default function CareersPage() {
             <MotionWrapper key={position.title}>
               <div className="mgs-card flex flex-col items-start justify-between gap-4 rounded-none p-6 sm:flex-row sm:items-center">
                 <div>
-                  <h3 className="font-display text-lg font-bold text-gray-900">
+                  <h3 className="font-display text-xl font-bold text-gray-900 lg:text-lg">
                     {position.title}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
