@@ -1,3 +1,6 @@
+"use client";
+
+import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import {
   ClipboardCheck,
@@ -5,6 +8,7 @@ import {
   PenLine,
   type LucideIcon,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { PhoneFrame } from "@/components/shared/phone-frame";
 
 /**
@@ -17,12 +21,28 @@ import { PhoneFrame } from "@/components/shared/phone-frame";
  * moment, with the device shrunk to 272px so the screen it was arguing about
  * could not actually be seen.
  *
- * NO SCRIPT. This file ships no JavaScript of its own. There is no pin, no
- * scrub, no snap, no ticker and no observer, so there is nothing to desync,
- * nothing to fight a finger's momentum, and nothing that goes blank when a
- * timeline fails to advance. Reveals come from the `data-reveal` attribute that
- * app-showcase.tsx already animates with `gsap.from()`, so the resting state is
- * the authored DOM — if the animation never runs, the section still reads.
+ * SCRIPT, NOW — AND WHAT THAT DID AND DID NOT COST. This file used to open
+ * "NO SCRIPT. This file ships no JavaScript of its own", and below `lg` that is
+ * no longer true: the single-device view holds an index, so this is a client
+ * component.
+ *
+ * The bundle claim was already inaccurate when it was written. `app-showcase.tsx`
+ * is `"use client"` and imports this module, so everything here has been inside
+ * a client boundary and in the client bundle from the day it was added — the
+ * `"use client"` directive changes nothing about what ships. What it changes is
+ * that this component may now hold state.
+ *
+ * The property actually worth protecting was never bundle size, it was
+ * RESILIENCE: the section must read correctly if hydration is slow, partial or
+ * broken. That still holds. Index 0 is the initial state, all three beats are
+ * authored into the server HTML, and the active one is selected by class — so
+ * the pre-hydration paint is a complete, correct first beat. A failed hydration
+ * costs the swipe and the dots. It cannot blank the section, and there is still
+ * no pin, no scrub, no scroll ticker and no observer to desync.
+ *
+ * Reveals still come from the `data-reveal` attribute that app-showcase.tsx
+ * animates with `gsap.from()`, so the resting state is the authored DOM — if
+ * the animation never runs, the section still reads.
  *
  * THE COMPOSITION. One capture, one panel, and the panel breaks the capture's
  * edge. That overlap is the whole idea: it is what makes a beat read as a
@@ -53,6 +73,21 @@ type Beat = {
   title: string;
   accent: string;
   body: string;
+  /**
+   * The same claim, cut to the phone.
+   *
+   * A SEPARATE FIELD, not a shorter `body`, and the reason is a hard
+   * constraint rather than a preference: the desktop articles must render
+   * byte-for-byte what they rendered before, so `body` cannot move. This is
+   * the only string the mobile composition reads.
+   *
+   * It exists because the panel is sized by its longest beat and the device is
+   * only 40% of the card — at full length the text block ran taller than the
+   * phone it was captioning, so the evidence was the smaller half of its own
+   * composition. Each of these keeps the load-bearing fact and drops the
+   * elaboration, which the reader can get on /app.
+   */
+  bodyShort: string;
   /**
    * The one fact on the screen that proves the claim, lifted out onto a chip
    * that breaks the device's edge. Every one of these is literally legible in
@@ -85,6 +120,7 @@ const BEATS: Beat[] = [
     title: "It knows what kind of building",
     accent: "it's standing in.",
     body: "Sections are built per facility type. A medical site is walked as Reception, Exam Rooms and Lab / Specimen, so the crew is measured against the standard that space actually carries.",
+    bodyShort: "Sections are built per facility type, so every space is measured against the standard it actually carries.",
   },
   {
     src: "/videos/submit-blocked.mp4",
@@ -95,6 +131,7 @@ const BEATS: Beat[] = [
     title: "A problem has to be specific,",
     accent: "and photographed.",
     body: "Marking an item down opens a required note and a camera, and the site score moves as you do it. If a failed item has no photograph the submit is refused \u2014 not a warning you can dismiss when the shift is running late.",
+    bodyShort: "Marking an item down opens a required note and a camera. With no photograph, the submit is refused.",
   },
   {
     src: "/images/app-screenshots/inspection-summary-signed.webp",
@@ -104,38 +141,283 @@ const BEATS: Beat[] = [
     title: "What's left is a record",
     accent: "nobody has to take on trust.",
     body: "The crew member reads the result and signs, and the acknowledgment is timestamped before the record is filed. Clock-in is checked against the site's coordinates and refused outside them. Together they answer who was on site and what they saw.",
+    bodyShort: "The crew member reads the result and signs, timestamped before filing. Clock-in is checked against the site's coordinates.",
   },
 ];
 
 const isClip = (b: Beat) => Boolean(b.poster);
 
+/** Cross-fade timing. ~300ms ease-out, matching the rest of the site; the
+ *  incoming layer waits out the outgoing one so the two never overlap. */
+const FADE = "duration-300 ease-out motion-reduce:transition-none";
+const IN = "opacity-100 delay-150";
+const OUT = "opacity-0 delay-0";
+
+/**
+ * The composition below `lg`: ONE phone, ONE badge, ONE panel, and an index.
+ *
+ * WHAT THIS REPLACES. The three beats used to sit in a `snap-x` rail, so a
+ * swipe moved the whole composition — device, chip and panel slid off together
+ * and the next one slid in. The device is the same device in all three; sliding
+ * it out and back in says otherwise, and it meant the reader re-parsed a phone
+ * mockup three times to read three captions about one product.
+ *
+ * Now the hardware is a fixed object and only its screen changes, which is what
+ * the content actually is.
+ *
+ * THE FRAME NEVER RE-MOUNTS. `PhoneFrame` is rendered once, outside the map,
+ * so the bezel, the buttons, the `container-type` element and the `--phone-w`
+ * sizing are mounted a single time and never re-measured. All three screens are
+ * mounted from the start, stacked absolutely inside the screen, and only their
+ * opacity changes — so the first swap costs no decode and nothing pops in.
+ *
+ * NO HORIZONTAL MOVEMENT ANYWHERE. Screens get a 1.5% scale settle and nothing
+ * else. A translate on the x-axis would reintroduce exactly the "the card is
+ * moving" reading this change exists to remove.
+ *
+ * TEXT IS STACKED, NOT SWAPPED. Every beat's badge label and panel copy stays
+ * in the DOM in a one-cell grid, so the panel reserves the height of the
+ * tallest beat and the badge the width of the longest label — the section
+ * cannot change height or the chip snap width while cycling. Inactive copy is
+ * `aria-hidden`; the panel is a polite live region, so a screen reader is told
+ * about the beat that just became visible and not about the two that did not.
+ *
+ * STILL READS WITHOUT HYDRATION. Index 0 is the initial state and every layer
+ * is authored into the HTML, so the server-rendered output is a complete,
+ * correct first beat. A failed hydration costs the gesture and the dots, not
+ * the content — the same property the stacked layout had, kept deliberately.
+ */
+function BeatsMobile() {
+  const [active, setActive] = useState(0);
+
+  /** Clamped, not wrapping. The dots show position, and a filled last dot that
+   *  jumps back to the first on one more swipe contradicts them.
+   *
+   *  FUNCTIONAL UPDATE, and it is not stylistic. Written as
+   *  `setActive(clamp(active + delta))` this reads `active` from the render
+   *  closure, so two steps dispatched before the next paint — a fast double
+   *  arrow-press, or a swipe landing in the same frame as a dot tap — both
+   *  compute from the same stale index and collapse into one move. Caught by
+   *  pressing ArrowRight twice: the index went 0 → 1 instead of 0 → 2. */
+  const step = useCallback(
+    (delta: number) =>
+      setActive((a) => Math.min(BEATS.length - 1, Math.max(0, a + delta))),
+    [],
+  );
+
+  /* Axis-locked pointer gesture.
+     `touch-action: pan-y` on the container is what keeps the page scrolling
+     normally: the browser keeps ownership of vertical panning and never sends
+     it here, while horizontal movement is ours and scrolls nothing, because
+     there is no scroll container left to scroll. The axis is decided once per
+     gesture, after 10px of travel, and a gesture that starts vertical can
+     never later steal the page's scroll. */
+  const drag = useRef<{ x: number; y: number; axis: "x" | "y" | null; id: number } | null>(null);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    drag.current = { x: e.clientX, y: e.clientY, axis: null, id: e.pointerId };
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    const d = drag.current;
+    if (!d || d.id !== e.pointerId || d.axis) return;
+    const dx = Math.abs(e.clientX - d.x);
+    const dy = Math.abs(e.clientY - d.y);
+    if (dx < 10 && dy < 10) return;
+    d.axis = dx > dy ? "x" : "y";
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    const d = drag.current;
+    drag.current = null;
+    if (!d || d.id !== e.pointerId || d.axis !== "x") return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) < 40) return; // a tap or a twitch, not a swipe
+    step(dx < 0 ? 1 : -1);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    step(e.key === "ArrowRight" ? 1 : -1);
+  };
+
+  return (
+    <div className="lg:hidden" data-reveal>
+      <div
+        role="group"
+        aria-roledescription="carousel"
+        aria-label="What the app does, in three beats"
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => { drag.current = null; }}
+        className="relative touch-pan-y rounded-sm outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-lime"
+      >
+        {/* The device. Same `--phone-w` ladder as the stacked layout, minus the
+            `lg:` rung this tree never reaches. */}
+        <div className="relative [--phone-w:40%] sm:[--phone-w:44%]">
+          <div className="relative">
+            <PhoneFrame size="beat">
+              {BEATS.map((beat, i) => (
+                <div
+                  key={beat.title}
+                  aria-hidden={i !== active}
+                  className={cn(
+                    "absolute inset-0 transition-[opacity,transform]",
+                    FADE,
+                    i === active ? `${IN} scale-100` : `${OUT} scale-[1.015]`,
+                  )}
+                >
+                  {isClip(beat) ? (
+                    <video
+                      src={beat.src}
+                      poster={beat.poster}
+                      aria-label={beat.alt}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="h-full w-full object-cover object-top"
+                    />
+                  ) : (
+                    <Image
+                      src={beat.src}
+                      alt={beat.alt}
+                      fill
+                      sizes="(max-width: 640px) 76vw, 60vw"
+                      className="object-cover object-top"
+                    />
+                  )}
+                </div>
+              ))}
+            </PhoneFrame>
+          </div>
+
+          {/* The chip keeps its box, its lime and its position. Only the mark
+              and the label inside it change, and both are grid-stacked so the
+              box is the width of the longest label at every beat — it cannot
+              snap between widths because it never changes width. */}
+          <div
+            aria-hidden="true"
+            className="absolute left-2 top-[4%] z-20 flex items-center gap-2.5 bg-brand-lime px-3 py-2 text-[#111111] sm:left-4 sm:px-5 sm:py-3"
+          >
+            <span className="grid h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4">
+              {BEATS.map((beat, i) => {
+                const Icon = beat.callout.icon;
+                return (
+                  <Icon
+                    key={beat.title}
+                    strokeWidth={2}
+                    className={cn(
+                      "col-start-1 row-start-1 h-full w-full transition-opacity",
+                      FADE,
+                      i === active ? IN : OUT,
+                    )}
+                  />
+                );
+              })}
+            </span>
+            <span className="grid">
+              {BEATS.map((beat, i) => (
+                <span
+                  key={beat.title}
+                  className={cn(
+                    "col-start-1 row-start-1 whitespace-nowrap text-xs font-semibold leading-none transition-opacity",
+                    FADE,
+                    i === active ? IN : OUT,
+                  )}
+                >
+                  {beat.callout.text}
+                </span>
+              ))}
+            </span>
+          </div>
+        </div>
+
+        {/* The panel. Same surface, same overlap, same padding as the stacked
+            layout; a one-cell grid so all three copies share the cell and the
+            box is as tall as the tallest of them. */}
+        <div
+          aria-live="polite"
+          className="relative z-10 -mt-6 grid bg-[#F4F4F1] px-5 py-6 text-[#111111] sm:-mt-8 sm:px-8 sm:py-8"
+        >
+          {BEATS.map((beat, i) => (
+            <div
+              key={beat.title}
+              aria-hidden={i !== active}
+              className={cn(
+                "col-start-1 row-start-1 transition-opacity",
+                FADE,
+                i === active ? IN : `${OUT} pointer-events-none`,
+              )}
+            >
+              <p className="eyebrow mb-3 text-[#54760F]">{beat.eyebrow}</p>
+              <h3 className="t-h2 font-gothic">
+                {beat.title}{" "}
+                <span className="text-[#54760F]">{beat.accent}</span>
+              </h3>
+              <p className="t-body mt-3 max-w-xl text-[#3F3F3A]">
+                {beat.bodyShort}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* The "SWIPE — 3 BEATS" line, now that there is state to report. It says
+          the same two things it always did — that there is more, and how much —
+          and adds the one it could not: which of them you are on. Each dot is a
+          44px target with a 6px mark inside it. */}
+      <div className="mt-3 flex items-center">
+        {BEATS.map((beat, i) => (
+          <button
+            key={beat.title}
+            type="button"
+            onClick={() => setActive(i)}
+            aria-label={`Beat ${i + 1} of ${BEATS.length}: ${beat.eyebrow}`}
+            aria-current={i === active ? "true" : undefined}
+            className="-mx-1 flex h-11 w-11 items-center justify-center"
+          >
+            <span
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300 ease-out motion-reduce:transition-none",
+                i === active ? "w-6 bg-brand-lime" : "w-1.5 bg-white/30",
+              )}
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function AppBeats() {
   return (
     <div className="relative">
-      {/* ── One swipeable track below lg, the stacked compositions above ─────
-          Three full-bleed beats stacked vertically measured about five phone
-          screens on their own, inside a chapter that ran to eight and a half.
-          The compositions are right on a wide screen and wrong on a narrow one:
-          a capture with a panel breaking its edge is a shape that needs width
-          to read, and without it the reader gets three tall boxes in a row.
+      <BeatsMobile />
+      {/* ── The stacked compositions, `lg` and up ────────────────────────────
+          UNCHANGED BELOW THIS LINE. Every article, and every class on it, is
+          exactly what it was — including the mobile-only ones
+          (`w-[86vw] shrink-0 snap-center sm:w-[70vw]`) that this tree no longer
+          reaches. They are inert at `lg`, where `lg:w-auto lg:shrink
+          lg:snap-align-none` overrides all three, and they are kept rather than
+          tidied so the desktop subtree is character-for-character what it was.
 
-          Laid side by side they cost one screen instead of five, and the
-          gesture matches what the content is — three parallel claims, not a
-          sequence you have to descend through. The 86vw card leaves 14% of the
-          next one showing, which is the affordance that says so; a hidden
-          scrollbar with nothing peeking is what made the category chips
-          undiscoverable higher up this same page.
+          The wrapper is the one thing that moved. It used to be the swipe rail
+          itself — `flex snap-x overflow-x-auto` below `lg`, turned back into a
+          plain block by `lg:block lg:gap-0 lg:overflow-visible lg:px-0
+          lg:pb-0`. The rail is gone, so the wrapper is now only a gate, and at
+          `lg` a bare `block` computes to what that string computed to: display
+          block, no margin, no padding, no gap. Verified by comparing computed
+          styles, not by reading it.
 
-          Still no JavaScript. CSS scroll-snap does the whole thing, so this
-          works before hydration, survives a failed one, and needs no library —
-          which is the property the note above is protecting. */}
-      <div
-        className={[
-          "-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-1 scrollbar-hide",
-          "sm:-mx-10 sm:px-10",
-          "lg:mx-0 lg:block lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0",
-        ].join(" ")}
-      >
+          What it replaces below `lg` is `BeatsMobile` above: the same three
+          beats, one device. */}
+      <div className="hidden lg:block">
       {BEATS.map((beat, i) => {
         // The capture takes the left half on even beats, the right on odd. Both
         // children sit in row 1 of the same grid, so they occupy the same band
@@ -309,19 +591,6 @@ export function AppBeats() {
       })}
       </div>
 
-      {/* Second affordance, behind the peek. Static rather than a live
-          position indicator: tracking the active card would mean state, state
-          means a client component, and this file's whole value is that it
-          ships none. The count is the useful half anyway — it says how much
-          there is, which the peek alone does not. */}
-      <p
-        aria-hidden="true"
-        className="mt-4 flex items-center gap-2 t-eyebrow text-white/60 lg:hidden"
-      >
-        <span aria-hidden="true">Swipe</span>
-        <span className="h-px w-6 bg-white/40" />
-        <span>{BEATS.length} beats</span>
-      </p>
     </div>
   );
 }
