@@ -8,7 +8,7 @@ import { COMPANY } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Schedule a Walkthrough",
   description:
-    "Schedule a free facility walkthrough with MGS Supply & Services. Our team will assess your space and provide a customized cleaning proposal.",
+    "Book a free on-site assessment. We measure the actual square footage, surfaces and traffic, then price against that.",
 };
 
 export default function WalkthroughPage() {
@@ -16,7 +16,7 @@ export default function WalkthroughPage() {
     <>
       <PageHeader
         title="Schedule a Walkthrough"
-        subtitle="Book a free on-site assessment of your facility. We'll evaluate your space and deliver a customized cleaning plan."
+        subtitle="We measure the actual square footage, surfaces and traffic, then price against that."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Schedule Walkthrough" },
@@ -37,7 +37,7 @@ export default function WalkthroughPage() {
               </h3>
               {/* on-green, not white — white/90 is 2.27:1 on #80B515. */}
               <p className="mt-2 text-brand-on-green/90">
-                Speak directly with our team to schedule your walkthrough over the phone.
+                Prefer to book it over the phone? The line is staffed around the clock.
               </p>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
@@ -58,22 +58,22 @@ export default function WalkthroughPage() {
                   {
                     icon: Clock,
                     title: "1. Schedule your visit",
-                    text: "Pick a date and time that works for you. We'll confirm within 24 hours.",
+                    text: "Pick a date and time. We confirm within 24 hours.",
                   },
                   {
                     icon: MapPin,
                     title: "2. On-site assessment",
-                    text: "Our team visits your facility for a thorough 45-90 minute walkthrough.",
+                    text: "A 45–90 minute walkthrough, depending on the size of the site.",
                   },
                   {
                     icon: Shield,
                     title: "3. Custom proposal",
-                    text: "We deliver a detailed cleaning plan with transparent pricing — no obligations.",
+                    text: "A detailed plan with itemized pricing. No obligation.",
                   },
                   {
                     icon: CheckCircle,
                     title: "4. Start service",
-                    text: "Approve the plan and we begin servicing your facility on your schedule.",
+                    text: "Approve the plan and we start on your schedule.",
                   },
                 ].map(({ icon: Icon, title, text }) => (
                   <li key={title} className="flex gap-3">
@@ -93,9 +93,8 @@ export default function WalkthroughPage() {
                 Why a Walkthrough?
               </h3>
               <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-                Every facility is different. Our on-site assessment lets us understand your
-                specific needs — from traffic patterns to specialized areas like medical suites
-                or industrial floors — so we can deliver a cleaning plan that actually fits.
+                Traffic patterns, medical suites, industrial floors — what sets the price is
+                what you can only see on site. That is what the walkthrough is for.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {["100% Free", "No Obligation", "Same-Week Available", "Bilingual Team"].map((tag) => (

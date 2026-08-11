@@ -61,9 +61,8 @@ export function ClientPortalCta() {
               className="text-gray-600 mt-4 mb-5 lg:mt-5 lg:mb-7"
               style={{ fontSize: 'clamp(1rem, 1.1vw, 1rem)', fontWeight: 300, lineHeight: 1.7 }}
             >
-              A dedicated client portal: review QA inspection reports, settle invoices,
-              and log service requests — a complete record of the work at your site,
-              without a phone call.
+              Review QA inspection reports, settle invoices and log service requests.
+              The full record of work at your site, without a phone call.
             </motion.p>
 
             <motion.div

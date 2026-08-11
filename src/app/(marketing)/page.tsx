@@ -4,10 +4,10 @@ import { HeroSection } from "@/components/sections/hero";
 export const metadata: Metadata = {
   title: "MGS Supply & Services — Professional Janitorial Services",
   description:
-    "Commercial, medical, and industrial janitorial services across greater Houston. Insured, bonded, and operated to a documented QA standard since 2006.",
+    "Commercial, medical and industrial janitorial services across greater Houston. Insured, bonded, and scored against a documented QA protocol since 2006.",
   openGraph: {
     title: "MGS Supply & Services",
-    description: "Commercial, medical, and industrial janitorial services across greater Houston. Insured, bonded, and operated to a documented QA standard since 2006.",
+    description: "Commercial, medical and industrial janitorial services across greater Houston. Insured, bonded, and scored against a documented QA protocol since 2006.",
     type: "website",
   },
 };

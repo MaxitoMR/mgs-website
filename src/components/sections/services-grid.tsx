@@ -20,7 +20,7 @@ const serviceCategories = [
     shortTitle: "Commercial",
     icon: Building2,
     description:
-      "Recurring janitorial programs for offices, retail, restaurants, and the commercial environments your operation depends on.",
+      "Recurring programs for offices, retail, restaurants, gyms and dealerships.",
     color: "#69AF23",
     deepColor: "#69AF23",
     services: [
@@ -37,7 +37,7 @@ const serviceCategories = [
     shortTitle: "Medical",
     icon: Stethoscope,
     description:
-      "Infection-control cleaning for surgical centers, laboratories, and clinics — executed to AORN and Joint Commission expectations.",
+      "Infection-control cleaning for surgical centers, labs and clinics, to AORN and Joint Commission standards.",
     color: "#19A0DB",
     deepColor: "#19A0DB",
     services: [
@@ -54,7 +54,7 @@ const serviceCategories = [
     shortTitle: "Industrial",
     icon: Factory,
     description:
-      "Heavy-duty cleaning for plants, warehouses, and processing facilities, scoped to the hazards of the environment.",
+      "Heavy-duty cleaning for plants, warehouses and processing facilities, scoped to the site's hazards.",
     color: "#FF8F00",
     deepColor: "#FF8F00",
     services: [
@@ -70,7 +70,7 @@ const serviceCategories = [
     shortTitle: "Specialized",
     icon: Wrench,
     description:
-      "Project-based work — post-construction, terminal sanitization, window, and concrete-floor care — delivered to specification.",
+      "Project work: post-construction, terminal sanitization, windows and concrete-floor care.",
     color: "#9FD01B",
     deepColor: "#9FD01B",
     services: [

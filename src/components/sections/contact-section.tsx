@@ -78,8 +78,8 @@ Get In Touch
               className="text-gray-600 mb-7 lg:mb-12"
               style={{ fontSize: 'var(--font-body-base)', fontWeight: 300, lineHeight: 1.7 }}
             >
-              Send the details of your site and requirements. We respond within one
-              business day to schedule a walkthrough and prepare a proposal.
+              Send your site details and requirements. We respond within one business
+              day with a walkthrough date.
             </motion.p>
 
             <div className="space-y-3 lg:space-y-6">

@@ -204,9 +204,8 @@ export function Footer() {
                 </span>
               </h3>
               <p className="mt-4 max-w-md text-base leading-relaxed text-gray-300 sm:mt-5 lg:text-[15px]">
-                Notes from our drivers and techs. Real supply pricing. Industry
-                call-outs. Written for facility managers who run buildings, not
-                marketers chasing inboxes.
+                Notes from our drivers and techs, real supply pricing, and honest
+                industry call-outs. Written for people who run buildings.
               </p>
 
               {/* "What's inside" pills */}

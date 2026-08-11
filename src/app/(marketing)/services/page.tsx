@@ -4,7 +4,7 @@ import ServicesContent from "./services-content";
 export const metadata: Metadata = {
   title: "Our Services",
   description:
-    "Explore 30+ specialized janitorial and facility cleaning services from MGS Supply & Services. Commercial, medical, industrial, and specialty cleaning across Greater Houston.",
+    "Twenty-five defined cleaning programs across the commercial, medical, industrial and specialized sectors, delivered across greater Houston.",
   openGraph: {
     title: "Our Services | MGS Supply & Services",
     description:

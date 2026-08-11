@@ -37,8 +37,8 @@ export function ClosingCta() {
               Request a site assessment.
             </h2>
             <p className="mt-4 max-w-md text-brand-on-green/90" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-              We will walk your facility, scope the work against your
-              requirements, and return a detailed proposal. No obligation.
+              We walk your facility, scope the work against your requirements and
+              return a detailed proposal. No obligation.
             </p>
             {/* DEMOTED, not deleted. This used to lead with a "Schedule Free
                 Assessment" button pointing at /quote — the same destination the

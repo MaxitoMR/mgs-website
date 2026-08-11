@@ -331,7 +331,7 @@ export default function ServicesContent() {
             Don&apos;t see what you need?
           </h2>
           <p className="text-gray-400 mb-8 text-sm" style={{ fontWeight: 300, lineHeight: 1.7 }}>
-            We offer custom cleaning solutions for unique facility requirements. Tell us about your space and we&apos;ll build a plan that fits.
+            Tell us about the space and we scope a program against it.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link

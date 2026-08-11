@@ -85,19 +85,19 @@ const facts = [
     icon: PenLine,
     title: "Signed by the person who did the work",
     body:
-      "The supervisor hands the phone over at the end of the walk. The crew member reads the result, adds notes if they have any, and signs — by typing their name or with a finger.",
+      "The supervisor hands the phone over at the end of the walk. The crew member reads the result, adds notes, and signs by typing their name or with a finger.",
   },
   {
     icon: Clock3,
     title: "Timestamped, then submitted",
     body:
-      "The acknowledgment is captured with a timestamp before the inspection is filed, so the record shows not just the score but that the crew saw it.",
+      "The acknowledgment is timestamped before the inspection is filed. The record shows the score, and that the crew saw it.",
   },
   {
     icon: Languages,
     title: "English and Spanish",
     body:
-      "The app runs fully in either language, chosen per user. Nobody signs off on a result they had to have translated for them.",
+      "The app runs fully in either language, chosen per user. Nobody signs off on a result someone had to translate for them.",
   },
 ];
 
@@ -248,9 +248,8 @@ export function AppShowcase() {
               }}
             >
               We built the software that runs our field operations: GPS-verified
-              clock-ins, digital QA checklists, shift documentation, and supply
-              requisitions. Clients log in to see activity at their site in real
-              time.
+              clock-ins, QA checklists, shift documentation and supply
+              requisitions. Clients log in and see their own site in real time.
             </p>
 
           </div>
@@ -330,8 +329,8 @@ export function AppShowcase() {
           <p className="mt-5 max-w-2xl text-sm text-gray-300" style={{ lineHeight: 1.65 }}>
             <span className="text-white">The walk.</span>{" "}
             The supervisor scores each area against the site&apos;s checklist
-            while standing in it — with the crew member who services the
-            building right there.
+            while standing in it, with the crew member who services the
+            building.
           </p>
         </div>
 
@@ -385,9 +384,9 @@ export function AppShowcase() {
               className="mt-5 text-gray-300"
               style={{ fontWeight: 300, lineHeight: 1.7 }}
             >
-              A QA score written up after the supervisor leaves is an opinion.
-              Here it isn&apos;t filed until the person who did the work has read
-              it and signed — in the language they actually speak.
+              A QA score written up after the supervisor leaves is an opinion. Here
+              it is not filed until the person who did the work has read and
+              signed it, in their own language.
             </p>
           </div>
         </div>

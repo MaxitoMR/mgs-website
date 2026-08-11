@@ -4,7 +4,7 @@ import ApplicationContent from "./application-content";
 export const metadata: Metadata = {
   title: "Employee Application",
   description:
-    "Apply to join the MGS Supply & Services team. We hire janitorial team members, medical facility specialists, floor care technicians, and team leads across Greater Houston.",
+    "Openings for floor techs, supervisors, day maids and janitors across greater Houston. Apply in a few minutes.",
   openGraph: {
     title: "Employee Application | MGS Supply & Services",
     description:

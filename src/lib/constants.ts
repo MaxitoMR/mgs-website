@@ -3,7 +3,7 @@ export const COMPANY = {
   legalName: "MGS Supply & Services LLC",
   tagline: "Professional Janitorial Services",
   description:
-    "Commercial, medical, and industrial janitorial services across greater Houston. Insured, bonded, and operated to a documented QA standard since 2006.",
+    "Commercial, medical and industrial janitorial services across greater Houston. Insured, bonded, and scored against a documented QA protocol since 2006.",
   phone: {
     primary: "+12818295357",
     display: "(281)-829-5357",

@@ -329,11 +329,10 @@ export function AppTour() {
               lineHeight: 1.7,
             }}
           >
-            The software our supervisors, crews and administrators use on site:
-            inspections scored in the room, clock-ins verified against the
-            building&apos;s coordinates, and a record that leaves with the
-            client. Below is the whole of it, screen by screen, in the order
-            the work happens.
+            The software our supervisors and crews use on site: inspections scored
+            in the room, clock-ins verified against the building&apos;s
+            coordinates, and a record that leaves with the client. Below is all
+            of it, screen by screen, in the order the work happens.
           </p>
 
           <div data-reveal className="mt-9">
@@ -414,13 +413,13 @@ export function AppTour() {
           media={
             <CaptureStill
               src={`${IMG}/inspection-medical-sections.webp`}
-              alt="An inspection in progress at Greenfield Medical Center, with section tabs reading Reception / Waiting, Exam Rooms and Lab / Specimen, and checklist items for sanitising the check-in counter and disinfecting waiting-room seating"
+              alt="An inspection in progress at Greenfield Medical Center, with section tabs reading Reception / Waiting, Exam Rooms and Lab / Specimen, and checklist items for sanitizing the check-in counter and disinfecting waiting-room seating"
               role="Supervisor"
               size="lg"
             />
           }
           title="It speaks the building's language."
-          body="Section tabs are built per facility type. A medical site is walked as Reception / Waiting, Exam Rooms and Lab / Specimen — not as a generic list of areas — so the checklist matches the risk profile of the space being scored, and the crew is measured against the right standard."
+          body="Section tabs are built per facility type. A medical site is walked as Reception / Waiting, Exam Rooms and Lab / Specimen, so the checklist matches the risk profile of the space and the crew is measured against the right standard."
         />
 
         <TourRow
@@ -434,7 +433,7 @@ export function AppTour() {
             />
           }
           title="A failure has to be specific."
-          body="Marking an item down opens a required note and a camera. A low score with no reason attached and nothing photographed is not something the app will carry forward — so the deficiency arrives at the crew as an instruction, not an opinion."
+          body="Marking an item down opens a required note and a camera. The app will not carry forward a low score with no reason and no photograph, so the deficiency reaches the crew as an instruction rather than an opinion."
         />
 
         {/* The centerpiece. Gets the middle of the page and its own width. */}
@@ -488,7 +487,7 @@ export function AppTour() {
             />
           }
           title="And it won't file without the evidence."
-          body="The submit is refused outright, and the app names how many items are still missing a photograph. Not a warning that can be dismissed under time pressure — a standard that bends when the shift runs late isn't a standard."
+          body="The submit is refused outright, and the app names how many items are still missing a photograph. Not a warning you can dismiss when the shift is running late."
         />
 
         <TourRow
@@ -502,7 +501,7 @@ export function AppTour() {
             />
           }
           title="What comes out the other end."
-          body="The score, the ranked list of what needs fixing, the minute it started and the minute it was submitted, the supervisor's comments — and the signature of the person who did the work, captured before the record was filed."
+          body="The score, the ranked list of what needs fixing, the start and submit times, and the supervisor's comments. Underneath, the signature of the person who did the work, captured before the record was filed."
         />
 
         {/* ── The shift ───────────────────────────────────────────────── */}
@@ -524,7 +523,7 @@ export function AppTour() {
             />
           }
           title="The crew's own view."
-          body="Shift in progress with the clock running, thirty-day completion and on-time rates, the week ahead, and every previous clock-in and clock-out. The same record the office sees, from the other side of it — and in either theme."
+          body="Shift in progress with the clock running, thirty-day completion and on-time rates, the week ahead, and every previous clock-in and clock-out. The same record the office sees, from the crew side."
         />
 
         <TourPair
@@ -553,13 +552,13 @@ export function AppTour() {
           media={
             <CaptureStill
               src={`${IMG}/shift-timeline-geofence.webp`}
-              alt="An administrator's shift timeline showing the location, scheduled hours, a running work timer, a map of the clock-in position with coordinates, checklist progress, and an event log reading &ldquo;Clocked in inside geofence (18 m from site centre)&rdquo;"
+              alt="An administrator's shift timeline showing the location, scheduled hours, a running work timer, a map of the clock-in position with coordinates, checklist progress, and an event log reading &ldquo;Clocked in inside geofence (18 m from site center)&rdquo;"
               role="Admin"
               size="lg"
             />
           }
-          title="Where and when, to the metre."
-          body="The clock-in coordinates, plotted. Underneath, a live event log: clocked in inside geofence, eighteen metres from site centre, then every task completion timestamped after it. This is the document behind an attendance dispute."
+          title="Where and when, to the meter."
+          body="The clock-in coordinates, plotted. Underneath, a live event log: inside geofence, eighteen meters from site center, then every task completion timestamped after it. This is the document behind an attendance dispute."
         />
 
         <TourRow

@@ -29,37 +29,37 @@ const certifications = [
     icon: Shield,
     label: "Compliant by Design",
     description:
-      "Every product carries EPA registration; every crew operates to OSHA standards. In regulated environments — surgical suites, laboratories, food-adjacent spaces — compliance is documented, not assumed.",
+      "Every product is EPA-registered and every crew works to OSHA standards. In surgical suites, laboratories and food-adjacent spaces, compliance is documented rather than assumed.",
   },
   {
     icon: Microscope,
     label: "Verified, Not Assumed",
     description:
-      "ATP bioluminescence testing confirms a surface is clean at the microbial level, not merely to the eye. A failed reading triggers re-cleaning before sign-off.",
+      "ATP bioluminescence testing confirms a surface is clean at the microbial level, not just to the eye. A failed reading means re-cleaning before sign-off.",
   },
   {
     icon: Clock,
     label: "Response, Around the Clock",
     description:
-      "A line staffed 24/7 for spill, flood, and biohazard events. Facility risk does not observe business hours, and neither does our response.",
+      "A line staffed around the clock for spill, flood and biohazard events. Facility risk keeps no business hours.",
   },
   {
     icon: Award,
     label: "ISSA Member",
     description:
-      "Member of the ISSA, the worldwide cleaning-industry association that defines professional standards.",
+      "Member of the ISSA, the association that sets professional standards for the industry.",
   },
   {
     icon: ShieldCheck,
     label: "Fully Insured & Bonded",
     description:
-      "General liability coverage and bonding on every engagement. If an incident occurs on site, you are covered.",
+      "General liability coverage and bonding on every engagement. Certificates are available on request.",
   },
   {
     icon: UserCheck,
     label: "Background-Checked Staff",
     description:
-      "Every employee clears a criminal background check before their first shift. Without exception.",
+      "Every employee clears a criminal background check before their first shift. No exceptions.",
   },
 ];
 
@@ -145,10 +145,8 @@ export function TrustBadges() {
               className="tb-header text-base text-gray-600 opacity-0"
               style={{ fontWeight: 300, lineHeight: 1.7 }}
             >
-              Most contractors staff by availability. We assign a dedicated crew
-              to each site, accountable to the same documented protocol on every
-              visit — so performance stays consistent, and consistency stays
-              verifiable.
+              Most contractors staff by availability. We assign one crew per site
+              and hold it to the same documented protocol every visit.
             </p>
           </div>
         </div>

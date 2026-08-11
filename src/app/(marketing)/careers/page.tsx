@@ -14,31 +14,31 @@ import {
 export const metadata: Metadata = {
   title: "Careers",
   description:
-    "Join the MGS Supply & Services team. We offer competitive wages, advancement opportunities, and a supportive work environment.",
+    "Openings for floor techs, supervisors, day maids and janitors across greater Houston. Competitive pay, training on the job, and a route to team lead.",
 };
 
 const benefits = [
   {
     icon: Briefcase,
     title: "Competitive Wages",
-    description: "Industry-leading pay with regular performance-based increases.",
+    description: "Competitive pay, reviewed on performance.",
   },
   {
     icon: GraduationCap,
     title: "Training & Certification",
     description:
-      "Access training resources and materials. Earn industry certifications on the job.",
+      "Training on the job, and industry certifications earned on shift.",
   },
   {
     icon: TrendingUp,
     title: "Advancement Opportunities",
-    description: "Clear career paths from team member to team lead to management.",
+    description: "A route from team member to team lead to management.",
   },
   {
     icon: Heart,
     title: "Supportive Culture",
     description:
-      "A family-oriented workplace where every team member is valued and respected.",
+      "One crew per site, so you work the same building with the same people.",
   },
 ];
 
@@ -70,7 +70,7 @@ export default function CareersPage() {
     <>
       <PageHeader
         title="Careers at MGS"
-        subtitle="Apply to join the MGS professional cleaning team. Build a career with purpose."
+        subtitle="Full-time work across greater Houston, with training and a route to supervisor."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Careers" },

@@ -4,7 +4,7 @@ import GalleryContent from "./gallery-content";
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "Browse before-and-after photos and project galleries from MGS Supply & Services. See the results of our commercial, medical, and industrial cleaning work.",
+    "Before-and-after comparisons and site photographs from commercial, medical and industrial work across greater Houston.",
   openGraph: {
     title: "Gallery | MGS Supply & Services",
     description:

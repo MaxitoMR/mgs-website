@@ -65,10 +65,9 @@ export function CrewBand() {
                 className="mt-5 ml-auto max-w-md text-gray-300"
                 style={{ fontWeight: 300, lineHeight: 1.7 }}
               >
-                The same uniformed team services your site on every visit — no
-                rotating subcontractors, no handoffs. They know the building&apos;s
-                layout, its schedule, and its pressure points, and they are
-                accountable for the result.
+                The same uniformed team works your site every visit. No rotating
+                subcontractors and no handoffs — they know the building, and
+                they own the result.
               </p>
             </motion.div>
           </div>

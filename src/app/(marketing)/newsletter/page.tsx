@@ -8,11 +8,11 @@ import { Newspaper, Clock, Mail } from "lucide-react";
 export const metadata: Metadata = {
   title: "MGS Field Brief — Monthly Newsletter",
   description:
-    "Practical updates from MGS Supply & Services. One short email a month with field notes, supply pricing, and industry calls-outs for facility managers.",
+    "One short email a month for facility managers: field notes, real supply pricing, and what is moving in the industry.",
   openGraph: {
     title: "MGS Field Brief — Monthly Newsletter",
     description:
-      "One useful email a month from MGS Supply & Services. Field notes, supply pricing, and industry calls-outs for facility managers.",
+      "One short email a month. Field notes, supply pricing, and industry call-outs for facility managers.",
     type: "website",
   },
 };
@@ -21,17 +21,17 @@ const features = [
   {
     icon: Newspaper,
     title: "Field notes",
-    body: "What our drivers and techs are actually seeing — facility-side trends before they show up in trade press.",
+    body: "What our drivers and techs see on route, before it reaches the trade press.",
   },
   {
     icon: Clock,
     title: "Once a month",
-    body: "Short, focused, no fluff. Land in your inbox, take 3 minutes, get back to running your building.",
+    body: "Three minutes to read, then back to running your building.",
   },
   {
     icon: Mail,
     title: "One-click unsubscribe",
-    body: "Every issue has a link. We respect inbox time — if it's not useful, you should be able to leave instantly.",
+    body: "One-click unsubscribe in every issue. If it stops being useful, leave.",
   },
 ];
 
@@ -40,7 +40,7 @@ export default function NewsletterPage() {
     <>
       <PageHeader
         title="The MGS Field Brief"
-        subtitle="Monthly. Useful. Written for facility managers, by the people in the field."
+        subtitle="Monthly, written by the people in the field."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Newsletter" },
@@ -54,7 +54,7 @@ export default function NewsletterPage() {
               source="website_newsletter_page"
               variant="card"
               heading="Subscribe."
-              blurb="Drop your email. We send one short issue a month with what's actually moving in facility ops."
+              blurb="One short issue a month on what is actually moving in facility ops."
             />
           </div>
 

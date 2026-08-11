@@ -84,7 +84,7 @@ const BEATS: Beat[] = [
     callout: { icon: ClipboardCheck, text: "Section 1 of 6 \u00b7 Score 80" },
     title: "It knows what kind of building",
     accent: "it's standing in.",
-    body: "Sections are built per facility type. A medical site is walked as Reception, Exam Rooms and Lab / Specimen \u2014 not a generic list of areas \u2014 so the crew is measured against the standard that space actually carries.",
+    body: "Sections are built per facility type. A medical site is walked as Reception, Exam Rooms and Lab / Specimen, so the crew is measured against the standard that space actually carries.",
   },
   {
     src: "/videos/submit-blocked.mp4",
@@ -94,7 +94,7 @@ const BEATS: Beat[] = [
     callout: { icon: ShieldAlert, text: "Submit refused \u00b7 1 photo missing" },
     title: "A problem has to be specific,",
     accent: "and photographed.",
-    body: "Marking an item down opens a required note and a camera, and the site score moves as you do it. If a failed item has no photograph the submit is refused outright \u2014 not a warning that can be dismissed when the shift is running late. A standard that bends under time pressure isn't one.",
+    body: "Marking an item down opens a required note and a camera, and the site score moves as you do it. If a failed item has no photograph the submit is refused \u2014 not a warning you can dismiss when the shift is running late.",
   },
   {
     src: "/images/app-screenshots/inspection-summary-signed.webp",
@@ -103,7 +103,7 @@ const BEATS: Beat[] = [
     callout: { icon: PenLine, text: "Submitted 5:29 PM" },
     title: "What's left is a record",
     accent: "nobody has to take on trust.",
-    body: "The supervisor hands the phone over at the end of the walk. The crew member reads the result and signs, and the acknowledgment is timestamped before the record is filed. Attendance is held to the same standard \u2014 clock-in is checked against the site's coordinates and refused outside them. Between the two, the file answers who was on site and what they saw.",
+    body: "The crew member reads the result and signs, and the acknowledgment is timestamped before the record is filed. Clock-in is checked against the site's coordinates and refused outside them. Together they answer who was on site and what they saw.",
   },
 ];
 

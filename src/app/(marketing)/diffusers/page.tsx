@@ -15,7 +15,7 @@ import {
 export const metadata: Metadata = {
   title: "Scent Diffusers",
   description:
-    "Advanced scent diffusion technology for commercial spaces. Create welcoming environments with our professional diffuser systems.",
+    "Cold-air nebulizing scent diffusion for commercial spaces. IFRA-compliant oils, no heat or residue, up to 5,000 sq ft per unit.",
 };
 
 const features = [
@@ -35,17 +35,17 @@ const features = [
     icon: Clock,
     title: "Programmable Schedules",
     description:
-      "Set custom schedules to match your facility's operating hours for maximum efficiency.",
+      "Runs on your operating hours, so you are not scenting an empty building.",
   },
 ];
 
 const benefits = [
-  "Enhanced customer and visitor experience",
-  "Improved employee well-being and productivity",
-  "Elimination of unwanted facility odors",
-  "Customizable scent profiles for your brand",
-  "Low maintenance with automatic refills",
-  "Coverage for spaces up to 5,000 sq ft per unit",
+  "Up to 5,000 sq ft of coverage per unit",
+  "No heat, residue or aerosol propellant",
+  "IFRA-compliant, hypoallergenic oils",
+  "Scent profile matched to your brand",
+  "Automatic refills, no staff involvement",
+  "Masks facility odors at the source",
 ];
 
 export default function DiffusersPage() {
@@ -53,7 +53,7 @@ export default function DiffusersPage() {
     <>
       <PageHeader
         title="Scent Diffusers"
-        subtitle="Elevate your facility experience with advanced scent diffusion technology."
+        subtitle="Cold-air nebulizing diffusion for commercial spaces."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Diffusers" },
@@ -67,12 +67,10 @@ export default function DiffusersPage() {
               Premium Scenting
             </span>
             <h2 className="mt-3 font-display text-[1.75rem] font-bold text-gray-900 sm:text-4xl">
-              Transform Your Space
+              How It Works
             </h2>
             <p className="mt-4 text-xl text-gray-600 lg:text-lg">
-              First impressions matter. Our commercial-grade scent diffusion
-              systems create welcoming, memorable environments that leave lasting
-              impressions on visitors, clients, and employees.
+              Cold-air nebulization disperses IFRA-compliant oil as a dry mist — no heat, no residue, no propellant. One unit covers up to 5,000 sq ft on a schedule you set.
             </p>
 
             <div className="mt-8 space-y-6">

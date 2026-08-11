@@ -15,14 +15,14 @@ const features = [
     color: "#69AF23",
     iconColor: "#54760F",
     title: "Compliant by Design",
-    description: "Every product carries EPA registration; every crew operates to OSHA standards. In regulated environments — surgical suites, laboratories, food-adjacent spaces — compliance is documented, not assumed.",
+    description: "Every product is EPA-registered and every crew works to OSHA standards. In surgical suites, laboratories and food-adjacent spaces, compliance is documented rather than assumed.",
   },
   {
     icon: Microscope,
     color: "#19A0DB",
     iconColor: "#116D96",
     title: "Verified, Not Assumed",
-    description: "ATP bioluminescence testing confirms a surface is clean at the microbial level, not merely to the eye. A failed reading triggers re-cleaning before sign-off. UV-C and electrostatic disinfection are deployed where the risk profile warrants.",
+    description: "ATP bioluminescence testing confirms a surface is clean at the microbial level, not just to the eye. A failed reading means re-cleaning before sign-off, and UV-C or electrostatic disinfection is deployed where the risk warrants.",
   },
   {
     icon: Award,
@@ -36,7 +36,7 @@ const features = [
     color: "#FF8F00",
     iconColor: "#9A5600",
     title: "Response, Around the Clock",
-    description: "A line staffed 24/7 for spill, flood, and biohazard events. Facility risk does not observe business hours, and neither does our response.",
+    description: "A line staffed around the clock for spill, flood and biohazard events. Facility risk keeps no business hours.",
   },
 ];
 

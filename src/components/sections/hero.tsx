@@ -116,9 +116,9 @@ export function HeroSection() {
               lineHeight: 1.7,
             }}
           >
-            Since 2006, MGS Supply &amp; Services has maintained commercial, medical,
-            and industrial facilities across greater Houston — every visit verified
-            against a documented QA protocol, every crew accountable to it.
+            Commercial, medical and industrial facilities across greater Houston,
+            since 2006. Every visit is scored against a documented QA protocol,
+            and the crew that did the work signs it.
           </p>
 
           {/* Stats — pulled up from the old standalone bar. Floating CTAs cover

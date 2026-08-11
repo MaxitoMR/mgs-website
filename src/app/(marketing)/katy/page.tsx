@@ -20,12 +20,12 @@ import { AWARD, COMPANY } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Janitorial Services in Katy, TX",
   description:
-    "Commercial, medical, and industrial janitorial services in Katy, Texas. Headquartered on 10th Street since 2006 — insured, bonded, and a top-3 rated janitorial service in Katy on BusinessRate.",
+    "Commercial, medical and industrial janitorial services in Katy, Texas. Headquartered on 10th Street since 2006, insured, bonded, and top-3 rated in Katy on BusinessRate.",
   alternates: { canonical: `${COMPANY.url}/katy` },
   openGraph: {
     title: `Janitorial Services in Katy, TX | ${COMPANY.name}`,
     description:
-      "A Katy-based janitorial contractor serving commercial, medical, and industrial facilities across Katy and west Houston since 2006.",
+      "Katy-based since 2006, serving commercial, medical and industrial facilities across Katy and west Houston.",
     url: `${COMPANY.url}/katy`,
   },
 };
@@ -52,25 +52,25 @@ const SECTORS = [
   {
     icon: Building2,
     title: "Offices & retail",
-    body: "Multi-tenant buildings, dealerships, restaurants, and storefronts along the Grand Parkway and I-10 corridor.",
+    body: "Multi-tenant buildings, dealerships, restaurants and storefronts along the Grand Parkway and I-10.",
     href: "/services/multi-tenant-offices",
   },
   {
     icon: Stethoscope,
     title: "Medical facilities",
-    body: "Surgery centers, clinics, imaging, and labs — cleaned to AORN and Joint Commission expectations.",
+    body: "Surgery centers, clinics, imaging and labs, to AORN and Joint Commission standards.",
     href: "/services/surgery-centers",
   },
   {
     icon: Factory,
     title: "Industrial sites",
-    body: "Warehouses, plants, and distribution space scoped to the hazards of the environment.",
+    body: "Warehouses, plants and distribution space, scoped to the site's hazards.",
     href: "/services/warehouses",
   },
   {
     icon: Wrench,
     title: "Project work",
-    body: "Post-construction cleanup, concrete floor care, window work, and terminal sanitization.",
+    body: "Post-construction cleanup, concrete floor care, windows and terminal sanitization.",
     href: "/services/post-construction",
   },
 ];
@@ -82,19 +82,19 @@ const FAQS = [
   },
   {
     q: "How fast can you respond to an emergency in Katy?",
-    a: "Because crews stage locally, most Katy addresses are a short drive from our warehouse. We staff a 24/7 line for spill, flood, and urgent decontamination events — not a next-business-day voicemail.",
+    a: "Crews stage locally, so most Katy addresses are a short drive from our warehouse. The 24/7 line is staffed for spill, flood and urgent decontamination — not a next-business-day voicemail.",
   },
   {
     q: "Do you service areas outside Katy?",
-    a: "Yes. Katy is our home base, and we serve the greater Houston area including the Energy Corridor, Fulshear, Cypress, Sugar Land, and west Houston. Katy sites simply get the shortest response times.",
+    a: "Yes. Katy is the home base, and we cover the Energy Corridor, Fulshear, Cypress, Sugar Land and west Houston from it. Katy sites get the shortest response times.",
   },
   {
     q: "Are you insured and bonded?",
-    a: "Every engagement carries general liability coverage and bonding, and every employee clears a criminal background check before their first shift. Certificates are available on request.",
+    a: "Every engagement carries general liability coverage and bonding, and every employee clears a background check before their first shift. Certificates on request.",
   },
   {
     q: "How do I get a price for my Katy facility?",
-    a: "Request a walkthrough. We visit the site, scope the actual square footage, surfaces, and traffic, and price against that — not a phone estimate.",
+    a: "Request a walkthrough. We measure the actual square footage, surfaces and traffic, then price against that rather than over the phone.",
   },
 ];
 
@@ -148,7 +148,7 @@ export default function KatyPage() {
 
       <PageHeader
         title="Janitorial Services in Katy, Texas"
-        subtitle="We are not a Houston company that drives out to Katy. Our office, warehouse, and crews have been here since 2006."
+        subtitle="Not a Houston company that drives out to Katy. The office, warehouse and crews have been here since 2006."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Katy, TX" }]}
       />
 
@@ -198,12 +198,7 @@ export default function KatyPage() {
             Crews stage here, not an hour away.
           </h2>
           <p className="mt-5 text-gray-600" style={{ fontWeight: 300, lineHeight: 1.75 }}>
-            Most janitorial vendors bidding Katy work dispatch from inside the
-            Loop. That shows up in the things facility managers actually feel:
-            how long a callback takes, whether a supervisor can walk the site
-            the same afternoon, and what happens when a pipe bursts at 2 a.m.
-            Our office and supply warehouse sit on 10th Street, so a Katy
-            address is a short drive rather than a cross-town dispatch.
+            Most vendors bidding Katy work dispatch from inside the Loop, and you feel it in the callback time and in what happens when a pipe bursts at 2 a.m. Our office and supply warehouse are on 10th Street, so a Katy address is a short drive rather than a cross-town dispatch.
           </p>
         </div>
 
@@ -222,7 +217,7 @@ export default function KatyPage() {
             {
               icon: Building2,
               title: "Operating here since 2006",
-              body: "Two decades of Katy facilities, and the references to go with them.",
+              body: "Two decades of Katy facilities, with the references to match.",
             },
           ].map((item) => (
             <div key={item.title} className="mgs-card flex items-start gap-4 rounded-sm p-5 sm:p-6">

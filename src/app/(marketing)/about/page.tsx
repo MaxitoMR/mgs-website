@@ -18,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "MGS Supply & Services is a Katy, Texas janitorial contractor serving commercial, medical, and industrial facilities across greater Houston since 2006. Meet the team and the standard they hold.",
+    "A Katy, Texas janitorial contractor serving commercial, medical and industrial facilities across greater Houston since 2006.",
   alternates: { canonical: `${COMPANY.url}/about` },
 };
 
@@ -38,17 +38,17 @@ const principles = [
   {
     icon: ClipboardCheck,
     title: "Verifiable, not assumed",
-    body: "Cleaning is only as good as it can be measured. Every site is scored against a documented QA protocol and reported back to the client.",
+    body: "Every site is scored against a documented QA protocol, and the score is reported back to you.",
   },
   {
     icon: ShieldCheck,
     title: "Accountable by design",
-    body: "A dedicated crew is assigned to each facility and answerable for the result — no rotating subcontractors, no handoffs.",
+    body: "One crew per facility, answerable for the result. No rotating subcontractors, no handoffs.",
   },
   {
     icon: Users,
     title: "People first",
-    body: "The standard lives with the crews who execute it. They are vetted, trained to protocol, and supported to hold the line.",
+    body: "Crews are vetted, trained to protocol, and backed well enough to hold the line.",
   },
 ];
 
@@ -121,17 +121,10 @@ export default function AboutPage() {
             />
             <div className="mt-6 space-y-4 text-gray-600">
               <p>
-                MGS Supply &amp; Services maintains commercial, medical, and
-                industrial facilities across greater Houston from our base in Katy,
-                Texas. A dedicated crew is assigned to each site and held to the
-                same documented protocol on every visit.
+                MGS Supply &amp; Services maintains commercial, medical and industrial facilities across greater Houston from a base in Katy, Texas. One crew is assigned per site and held to the same documented protocol every visit.
               </p>
               <p>
-                The work is built on EPA-registered chemistry and objective
-                verification — ATP bioluminescence testing confirms a surface is
-                clean at the microbial level, not to the eye. QA results are
-                recorded and reported, so a lapse is identified before it reaches
-                your desk.
+                The work runs on EPA-registered chemistry and ATP bioluminescence testing, which confirms a surface is clean at the microbial level rather than to the eye. Results are recorded and reported, so a lapse reaches us before it reaches you.
               </p>
             </div>
           </MotionWrapper>
@@ -238,7 +231,7 @@ export default function AboutPage() {
             className="mb-7 lg:mb-12"
             eyebrow="The Team"
             title="The people who hold the standard."
-            lede="The office in Katy that scopes the work, schedules the crews, and answers the phone when something needs fixing."
+            lede="The Katy office that scopes the work, schedules the crews and answers the phone."
           />
 
           {/* Three across from `sm` up: six people in a five-column row left an

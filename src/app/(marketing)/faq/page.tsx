@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Find answers to common questions about MGS Supply & Services — pricing, service areas, cleaning schedules, medical-grade sanitization, billing, and how to get started.",
+    "Pricing, service areas, schedules, medical-grade sanitization, billing, and how to start service with MGS Supply & Services.",
   openGraph: {
     title: "Frequently Asked Questions | MGS Supply & Services",
     description:

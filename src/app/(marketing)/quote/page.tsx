@@ -8,7 +8,7 @@ import { COMPANY } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Get a Quote",
   description:
-    "Request a free custom quote for professional janitorial services. Complete our form with your facility requirements and we'll respond within 24 hours.",
+    "Tell us your facility requirements and we respond within 24 hours with a detailed proposal.",
 };
 
 export default function QuotePage() {
@@ -16,7 +16,7 @@ export default function QuotePage() {
     <>
       <PageHeader
         title="Get a Free Quote"
-        subtitle="Complete our detailed quote form with your facility requirements."
+        subtitle="Tell us about the site. We respond within 24 hours."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Get a Quote" },
@@ -38,8 +38,7 @@ export default function QuotePage() {
                   --color-brand-on-green note in globals.css — this token is
                   what the surrounding card already uses. */}
               <p className="mt-2 text-brand-on-green/90">
-                Call us directly for urgent requests or to speak with a
-                representative.
+                For urgent work, call. The line is staffed around the clock.
               </p>
               <a
                 href={`tel:${COMPANY.phone.primary}`}
@@ -59,17 +58,17 @@ export default function QuotePage() {
                   {
                     icon: Clock,
                     title: "Response within 24 hours",
-                    text: "Our team reviews every request promptly.",
+                    text: "Reviewed by the people who will scope the work.",
                   },
                   {
                     icon: Shield,
                     title: "Free facility walkthrough",
-                    text: "45-90 minutes depending on facility size.",
+                    text: "45–90 minutes, depending on the size of the site.",
                   },
                   {
                     icon: Phone,
                     title: "Custom service plan",
-                    text: "Detailed project timeline and service implementation plan.",
+                    text: "A scope, a schedule and a price, in writing.",
                   },
                 ].map(({ icon: Icon, title, text }) => (
                   <li key={title} className="flex gap-3">

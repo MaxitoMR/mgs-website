@@ -4,7 +4,7 @@ import { AppTour } from "@/components/sections/app-tour";
 export const metadata: Metadata = {
   title: "The MGS Management App",
   description:
-    "Every screen of the MGS Management App: QA inspections scored on site with required photos and notes, GPS-verified clock-ins refused outside the geofence, corrective-action queues, PDF and deficiency-report exports, and full English/Spanish operation.",
+    "Every screen of the MGS Management App: inspections scored on site with required photos, clock-ins refused outside the geofence, corrective-action queues and PDF exports, in English or Spanish.",
   alternates: { canonical: "/app" },
   openGraph: {
     title: "The MGS Management App — MGS Supply & Services",

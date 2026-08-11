@@ -38,7 +38,7 @@ export default function ApplicationContent() {
     <>
       <PageHeader
         title="Employee Application"
-        subtitle="Apply to join the MGS professional cleaning team."
+        subtitle="Floor techs, supervisors, day maids and janitors. A few minutes to apply."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Careers", href: "/careers" },
