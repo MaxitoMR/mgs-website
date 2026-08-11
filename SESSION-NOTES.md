@@ -3,7 +3,17 @@
 _Living record of the significant work, decisions, and gotchas. All changes below are committed and pushed to `origin/master`._
 
 **Prod:** https://mgs-website-nu.vercel.app (domain: mgssupplyandservices.com)
-**Deploy loop every change:** edit → `npx tsc --noEmit` → commit → `npx vercel --prod --yes` → `git push`.
+**Deploy loop every change:** edit → `npm run build` → commit → `git push origin master` → `npx vercel --prod --yes --scope maxiawsom-5752s-projects`.
+
+> `--scope` is **required**. The bare `npx vercel --prod --yes` documented here
+> previously now fails with `{"status":"error","reason":"deploy_failed","message":"Not authorized"}`.
+> The CLI authenticates fine (`vercel whoami` → `maximiliqno`) but does not resolve the `orgId` in
+> `.vercel/project.json` (`team_UI1gXdQAHEvgsQVIIy0iST3b`) to a team it can see.
+>
+> `npx tsc --noEmit` was the old gate; `npm run build` is the real one (it catches Next-specific
+> failures tsc does not). **`npm run lint` is broken** independently of any change — under Next 16
+> `next lint` parses its own name as a directory: `Invalid project directory provided, no such
+> directory: .../mgs-website/lint`. Worth repointing the script at `eslint .`.
 **Image convention:** new photos are compressed with `sharp` (≈2000px wide, JPEG q82–84, mozjpeg) into `public/images/` before committing — masters are large, so never commit raw camera files. `ffmpeg` (installed via winget, `Gyan.FFmpeg`) is used for video transcodes.
 
 ---
