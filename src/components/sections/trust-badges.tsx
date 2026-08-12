@@ -24,9 +24,9 @@ import { COMPANY } from "@/lib/constants";
  *     and 24/7 is already a hero stat. Its strongest line survives as the
  *     one-line coda under the grid.
  *
- * The Katy award moved out to `award-band.tsx` above the closing CTA: it is a
- * reputation claim, not a compliance one, and as the only third-party-verifiable
- * item here it was also the loudest thing in the section.
+ * The Katy award moved out of this section: it is a reputation claim, not a
+ * compliance one, and as the only third-party-verifiable item here it was also
+ * the loudest thing in it. It now sits in the footer's bottom bar.
  *
  * Four badges, two rows of two at `sm`, one row of four at `lg`. Adding a
  * fifth orphans a row.
@@ -148,8 +148,8 @@ export function TrustBadges() {
         {/* The Katy award strip used to sit here, between the header and the
             grid. It is a reputation claim in a compliance section, and being
             the only independently verifiable item among six self-made claims
-            it was also the loudest thing on screen. It now runs as its own
-            band above the closing CTA — see `award-band.tsx`. */}
+            it was also the loudest thing on screen. It now sits as one line in
+            the footer's bottom bar — see `layout/footer.tsx`. */}
 
         {/* ── Grid on desktop, one swipeable track below sm ────────────────
             Cards stacked measured 1,561px at six — nearly two screens for

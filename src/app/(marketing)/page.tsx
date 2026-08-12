@@ -17,7 +17,6 @@ import { TrustBadges } from "@/components/sections/trust-badges";
 import { Testimonials } from "@/components/sections/testimonials";
 import { ClientPortalCta } from "@/components/sections/client-portal-cta";
 import { AppShowcase } from "@/components/sections/app-showcase";
-import { AwardBand } from "@/components/sections/award-band";
 import { ClosingCta } from "@/components/sections/closing-cta";
 import { ContactSection } from "@/components/sections/contact-section";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -39,10 +38,11 @@ export default function HomePage() {
       {/* One continuous dark field between two light sections — the app
           chapter is meant to read as a single scroll, not stacked pitches. */}
       <AppShowcase />
-      {/* Third-party recognition immediately before the ask: it is a closing
-          argument, not an opening one. Moved out of the clearances section,
-          where a reputation claim sat among compliance claims. */}
-      <AwardBand />
+      {/* The Katy award used to sit here as its own band, and before that
+          inside the clearances section. It is one third-party line and neither
+          slot was worth a full screen for it — it now lives in the footer's
+          bottom bar, beside the copyright, where a standing credential belongs.
+          The app chapter therefore runs straight into the closing ask. */}
       <ClosingCta />
       <ContactSection />
     </>

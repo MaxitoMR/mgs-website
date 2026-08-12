@@ -9,6 +9,7 @@ import {
   MapPin,
   Clock,
   ChevronDown,
+  Trophy,
   Facebook,
   Twitter,
   Linkedin,
@@ -16,8 +17,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { COMPANY } from "@/lib/constants";
-import { serviceNav, portalItems } from "@/lib/navigation";
+import { AWARD, COMPANY } from "@/lib/constants";
+import { serviceNav } from "@/lib/navigation";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 
 const MONTH_LABEL = new Date()
@@ -25,12 +26,16 @@ const MONTH_LABEL = new Date()
   .toUpperCase();
 
 /**
- * The footer's groups mirror the hamburger menu exactly — Services, Company,
- * Portals — because a visitor who opens the menu and then scrolls to the footer
- * was previously shown two different taxonomies of the same site. The footer
- * used to run "Services" (four categories mixed with three individual service
- * pages) and "Resources" (company pages, two CTAs, one portal, and a legal
- * link in one undifferentiated list).
+ * The footer's groups take their names and their contents from the hamburger
+ * menu — Services and Company — because a visitor who opens the menu and then
+ * scrolls to the footer was previously shown two different taxonomies of the
+ * same site. The footer used to run "Services" (four categories mixed with
+ * three individual service pages) and "Resources" (company pages, two CTAs, one
+ * portal, and a legal link in one undifferentiated list).
+ *
+ * The menu's third group, Portals, is deliberately NOT mirrored here: the
+ * footer was running long and the header carries Portals permanently, so those
+ * three links cost height without being the only way to reach anything.
  *
  * `serviceNav` is the shared source the menu and the mega-menu already use, so
  * the category labels here cannot drift from theirs.
@@ -64,9 +69,6 @@ const company = [
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms of Service", href: "/terms" },
 ];
-
-/** Same three, same order, same labels as the hamburger's Portals group. */
-const portals = portalItems;
 
 const socialLinks = [
   { icon: Facebook, href: COMPANY.social.facebook, label: "Facebook" },
@@ -324,9 +326,11 @@ export function Footer() {
             ))}
           </FooterGroup>
 
-          {/* Column 3 - Company + Portals. Two groups share this column so the
-              footer keeps its four-column grid while using the menu's three
-              group names. */}
+          {/* Column 3 - Company. The Portals group used to sit under it in this
+              same column; it was dropped because the footer had grown too tall,
+              and three sign-in links are the cheapest thing in it to lose — the
+              header carries a permanent Portals menu on every page, so nothing
+              here was the only route to them. */}
           <div className="space-y-0 lg:space-y-8">
             <FooterGroup title="Company">
               {company.map((link) => (
@@ -336,25 +340,6 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-            </FooterGroup>
-
-            <FooterGroup title="Portals">
-              {portals.map((link) => {
-                const external = link.href.startsWith("http");
-                return (
-                  <li key={link.href + link.label}>
-                    <Link
-                      href={link.href}
-                      {...(external
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className={FOOTER_LINK}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                );
-              })}
             </FooterGroup>
           </div>
 
@@ -422,6 +407,30 @@ export function Footer() {
           <p className="text-sm text-gray-400">
             &copy; 2026 {COMPANY.legalName}. All rights reserved.
           </p>
+          {/* The Katy award. It used to be its own band above the closing CTA
+              and, before that, a full-width strip inside the clearances
+              section; in both slots it took a whole screen's worth of attention
+              for a single third-party line. Here it sits on the row the
+              copyright already occupied — that row was a lone left-aligned
+              sentence under a `justify-between`, so the credential costs no
+              height at all on desktop and reads as what it is: a standing
+              claim in the fine print, not a pitch.
+
+              Still linked to /about, where the plaque photo is the evidence. */}
+          <Link
+            href="/about"
+            className="flex min-h-11 items-center gap-2 text-sm text-gray-400 transition-colors hover:text-[#69AF23] sm:min-h-0"
+          >
+            <Trophy className="h-4 w-4 shrink-0 text-[#69AF23]" aria-hidden="true" />
+            {/* The line measures ~379px including the mark, so below about
+                400px it wraps. `text-center` because left-aligned it reads as a
+                ragged block under a centred copyright, and `text-balance`
+                because the natural break drops "2026" alone on line two.
+                Neither does anything from `sm:` up, where it never wraps. */}
+            <span className="text-balance text-center">
+              {AWARD.headline} · {AWARD.issuer} {AWARD.year}
+            </span>
+          </Link>
         </div>
       </div>
     </footer>
