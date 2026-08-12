@@ -3,31 +3,41 @@ import { Trophy } from "lucide-react";
 import { AWARD } from "@/lib/constants";
 
 /**
- * The Katy award, as a slim band immediately above the closing CTA.
- *
- * WHY IT MOVED. It used to sit inside the clearances section, between that
- * section's header and its card grid. Two things were wrong with that. It is a
- * reputation claim in a run of compliance claims — a different species of
- * argument from insurance, background checks and EPA/OSHA. And because it was
- * the only item on that screen a reader could verify independently, it had been
- * given a full-width strip with an accent bar, which made it the loudest
- * element in a section it did not belong to.
+ * The Katy award, as a quiet centered credential immediately above the closing
+ * CTA.
  *
  * WHY HERE. Third-party recognition is a closing argument, not an opening one:
  * it works best on someone who has already read what the company does and is
  * deciding whether to make contact. Directly above the closing CTA is where
- * that decision happens.
+ * that decision happens. (It used to sit inside the clearances section, where a
+ * reputation claim sat among compliance claims — insurance, background checks,
+ * EPA/OSHA — and, as the only independently verifiable item on that screen, was
+ * also the loudest thing in a section it did not belong to.)
  *
- * NOT RESTYLED. Same `.mgs-card` surface, same accent bar, same Trophy mark,
- * same type rungs, same `t-measure` cap on the claim line, and the same
- * touch-target treatment on the link. The only changes are the ones the new
- * slot requires: it is its own `<section>` with the page's standard container
- * and horizontal padding, and it carries its own vertical rhythm now that it is
- * not inheriting the clearances section's spacing.
+ * WHY IT IS NO LONGER A CARD. It was a full-width `.mgs-card` strip: a
+ * `max-w-7xl` row with the trophy and copy in a `flex-1` cell on the left and
+ * "See the award" pinned to the right edge. Because the copy carried
+ * `t-measure` — correctly, or it would have set a 130-character line — the text
+ * stopped around half the card and the link sat roughly 600px away across an
+ * empty white field, with the attribution breaking mid-date ("June / 2026") to
+ * make it. A container whose contents cannot fill it reads as a layout error
+ * however good the type inside is, and the fix is not a wider measure but a
+ * container the size of its contents.
  *
- * The ground is `--color-paper`, the page default, so the band reads as a pause
- * between the dark app chapter above and the closing CTA below rather than as
- * another panel competing with either.
+ * Centering solves it structurally rather than cosmetically: with the copy set
+ * centered inside a `max-w-2xl` column, the measure IS the container, so there
+ * is no edge left over to look empty, and the link sits under the claim it
+ * belongs to instead of across a gap from it. Dropping the card surface and the
+ * accent bar also lets the band do its other job — reading as a pause on the
+ * page's own paper between the dark app chapter above and the closing CTA
+ * below, rather than as a third panel competing with both.
+ *
+ * THREE LINES, THREE JOBS, so they are three elements rather than one run:
+ * the substance (`headline`), the exact position that makes it credible
+ * (`claim`), and the issuer and basis a skeptic checks (`attribution`, set a
+ * rung down). Previously `claim` and `attribution` were concatenated into a
+ * single sentence with a middot, which is what produced the two-line ragged
+ * block.
  *
  * No entry animation, deliberately. It used to carry `.tb-header` and
  * `opacity-0`, revealed by the clearances section's GSAP timeline. That trigger
@@ -37,41 +47,38 @@ import { AWARD } from "@/lib/constants";
  */
 export function AwardBand() {
   return (
-    <section className="w-full bg-paper py-10 sm:py-14">
+    <section
+      className="w-full bg-paper"
+      style={{
+        paddingTop: "clamp(3rem, 7vw, 5.5rem)",
+        paddingBottom: "clamp(3rem, 7vw, 5.5rem)",
+      }}
+    >
       <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
-        {/* The accent bar is an inline style, NOT `border-l-4`: .mgs-card sets
-            a `border` shorthand in unlayered CSS, which beats Tailwind's
-            @layer utilities and silently flattens the left border away. */}
-        <div
-          className="mgs-card flex flex-col gap-3 rounded-sm p-4 sm:flex-row sm:items-center sm:gap-6 sm:p-6"
-          style={{ borderLeft: "4px solid var(--color-brand-green-deep)" }}
-        >
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <div
-            className="flex h-12 w-12 shrink-0 items-center justify-center"
-            style={{ background: "rgba(105, 175, 35, 0.1)", borderRadius: "0.5rem" }}
+            className="flex h-14 w-14 items-center justify-center"
+            style={{ background: "rgba(105, 175, 35, 0.1)", borderRadius: "0.75rem" }}
           >
-            <Trophy className="h-5 w-5 text-brand-green-text" aria-hidden="true" />
+            <Trophy className="h-6 w-6 text-brand-green-text" aria-hidden="true" />
           </div>
-          <div className="min-w-0 flex-1">
-            <h2 className="text-base font-semibold text-gray-900">
-              {AWARD.headline}
-            </h2>
-            {/* `t-measure` because this sits in a `flex-1` cell: without it the
-                line ran the full width of the card — 910px, which at 14px is
-                130 characters, nearly twice the comfortable maximum. */}
-            <p
-              className="t-measure mt-1.5 text-sm text-gray-600"
-              style={{ fontWeight: 300, lineHeight: 1.65 }}
-            >
-              {AWARD.claim} · {AWARD.attribution}
-            </p>
-          </div>
-          {/* Block-level padded target on touch — it was a 20px-tall text run
-              at the end of a paragraph, which is the hardest kind of link to
-              hit accurately. Inline again at `lg:`. */}
+
+          <h2 className="t-h3 mt-6 font-gothic text-gray-900">
+            {AWARD.headline}
+          </h2>
+
+          <p className="t-body mt-3 text-gray-600">{AWARD.claim}</p>
+
+          {/* The issuer, the date and the basis — the checkable part, set at
+              caption weight so it supports the claim without repeating its
+              emphasis. */}
+          <p className="t-caption mt-1.5 text-gray-500">{AWARD.attribution}</p>
+
+          {/* Padded block target: it was a 20px-tall text run at the end of a
+              paragraph, which is the hardest kind of link to hit accurately. */}
           <Link
             href="/about"
-            className="-mx-2 inline-flex min-h-11 shrink-0 items-center px-2 text-sm font-medium text-brand-green-text underline underline-offset-4 hover:text-brand-green-deep lg:mx-0 lg:min-h-0 lg:px-0"
+            className="mt-6 inline-flex min-h-11 items-center px-2 text-sm font-medium text-brand-green-text underline underline-offset-4 transition-colors hover:text-brand-green-deep"
           >
             See the award
           </Link>
