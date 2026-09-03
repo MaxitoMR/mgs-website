@@ -66,6 +66,63 @@ export function HeroSection() {
         style={{ objectPosition: '35% center' }}
       />
 
+      {/* Hero film — one shot from the 2026-08-07 cut: a tech wiping down a
+          surgical light in an OR.
+
+          LAYERED OVER THE STILL, NOT REPLACING IT. The photo underneath stays
+          the LCP element and the fallback for everything a video has no answer
+          to: autoplay refused under iOS Low Power Mode, decode unsupported, or
+          the file still in flight. That is also why there is no `poster` — a
+          poster would be a second image download to cover a frame the still
+          already covers.
+
+          `muted` + `playsInline` are what make mobile autoplay legal at all;
+          drop either and phones sit on a blank element. `preload="metadata"`
+          is deliberate — see the weight note below.
+
+          ONE SHOT, NOT THE FULL CUT. The five-shot version of this shipped on
+          2026-08-08 and came out the same hour: 30s encoded to 25.7 MB, pulled
+          by every visitor before they had decided to stay. The fix is length,
+          not quality — this is the same CRF 19 / 2560x1440 encode, and 5.96s
+          of it is 4.1 MB. The hero renders at most 1722x648 CSS px, so a 2x
+          panel wants 3444 px and the 4K master's extra detail lands below the
+          visible difference; 1440p is already the honest ceiling here.
+
+          objectPosition is 45%, NOT the 35% the still uses. A portrait phone
+          shows about 40% of a 16:9 frame, and the camera dollies right across
+          these six seconds. At 35% the opening frame loses the surgical light
+          off the top-right corner — and the light is the entire reason this
+          reads as an operating room rather than as a person in blue. 45% is
+          the only value that holds both the tech and the light at both ends of
+          the move. The still keeps 35% because it is a different photograph
+          with a different subject position; the two values are unrelated.
+
+          It hard-cuts on repeat. The camera never stops moving in this take,
+          so there is no matching head and tail to dissolve between — a 0.6s
+          crossfade was tried and put two ghosted copies of the tech on screen,
+          which reads as a rendering fault rather than as film. A ping-pong
+          encode loops seamlessly and is the alternative, at 11.84s and 8.1 MB.
+
+          BOTH SCRIMS BELOW ARE INHERITED UNCHANGED, and they are now generous
+          rather than marginal. Measured over the phone crop in the band the
+          body copy occupies, this OR is darker than the photograph it sits on
+          — mean luma 67 against 116, peak 144 against 255, the still's peak
+          being the blown-out lit floor the mobile scrim was built to survive.
+          Under the same 0.72 floor the lead copy reads about 11.7:1 here where
+          the still gave 7:1. Re-measure before swapping in a brighter shot;
+          shot 4 (the glass case) is the bright one and would not inherit. */}
+      <video
+        className="absolute inset-0 z-[10] h-full w-full object-cover motion-reduce:hidden"
+        style={{ objectPosition: '45% center' }}
+        src="/videos/hero-mgs-or.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
+
       {/* Two scrims doing different jobs. The horizontal one buys legibility
           for the headline, which sits left — so it is heavy at the left edge
           and clears by the right, leaving the worker and the corridor visible
