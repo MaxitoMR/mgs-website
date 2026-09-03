@@ -66,62 +66,87 @@ export function HeroSection() {
         style={{ objectPosition: '35% center' }}
       />
 
-      {/* Hero film — one shot from the 2026-08-07 cut: a tech wiping down a
-          surgical light in an OR.
+      {/* Hero film — the full five-shot cut from the 2026-07/08 shoot: table
+          wipe, corridor walk, OR light, glass case, floor scrubber.
 
           LAYERED OVER THE STILL, NOT REPLACING IT. The photo underneath stays
           the LCP element and the fallback for everything a video has no answer
-          to: autoplay refused under iOS Low Power Mode, decode unsupported, or
+          to: autoplay refused under iOS Low Power Mode, no supported codec, or
           the file still in flight. That is also why there is no `poster` — a
           poster would be a second image download to cover a frame the still
           already covers.
 
           `muted` + `playsInline` are what make mobile autoplay legal at all;
-          drop either and phones sit on a blank element. `preload="metadata"`
-          is deliberate — see the weight note below.
+          drop either and phones sit on a blank element.
 
-          ONE SHOT, NOT THE FULL CUT. The five-shot version of this shipped on
-          2026-08-08 and came out the same hour: 30s encoded to 25.7 MB, pulled
-          by every visitor before they had decided to stay. The fix is length,
-          not quality — this is the same CRF 19 / 2560x1440 encode, and 5.96s
-          of it is 4.1 MB. The hero renders at most 1722x648 CSS px, so a 2x
-          panel wants 3444 px and the 4K master's extra detail lands below the
-          visible difference; 1440p is already the honest ceiling here.
+          THE WEIGHT PROBLEM IS SOLVED BY CODEC, NOT BY LENGTH OR QUALITY.
+          This cut shipped once before, on 2026-08-08, and was reverted the
+          same hour: H.264 at CRF 19 / 1440p was 25.7 MB pulled by every
+          visitor before they had decided to stay. Re-encoded from the true
+          220 MB master (not the 4K re-encode that was sitting in public/), the
+          same 1440p frame is 3.7 MB in AV1 and 4.6 MB in HEVC. Measured
+          against a near-lossless reference: H.264 CRF 19 scores VMAF 95.6 at
+          19.5 MB, AV1 CRF 26 scores 94.7 at 3.7 MB. A 0.9 VMAF gap is far
+          below the ~6 points usually taken as just-noticeable, so this is a
+          5x saving at visually identical quality — not a quality compromise.
 
-          objectPosition is 45%, NOT the 35% the still uses. A portrait phone
-          shows about 40% of a 16:9 frame, and the camera dollies right across
-          these six seconds. At 35% the opening frame loses the surgical light
-          off the top-right corner — and the light is the entire reason this
-          reads as an operating room rather than as a person in blue. 45% is
-          the only value that holds both the tech and the light at both ends of
-          the move. The still keeps 35% because it is a different photograph
-          with a different subject position; the two values are unrelated.
+          TWO CONTAINERS, ON PURPOSE. AV1 ships as WebM and HEVC as MP4 so the
+          browser picks on `type` alone and never has to parse an RFC 6381
+          codecs string, which is easy to get subtly wrong and fails closed.
+          Chrome/Firefox/Edge/Android take the WebM; Safari and iOS take the
+          MP4 (tagged `hvc1`, which Safari requires — `hev1` will not play).
+          Anything that can play neither gets the photograph, which is why
+          there is deliberately no 19.5 MB H.264 fallback in the repo: it would
+          only ever be served to browsers that no longer exist, and its mere
+          presence is a 19.5 MB foot-gun.
 
-          It hard-cuts on repeat. The camera never stops moving in this take,
-          so there is no matching head and tail to dissolve between — a 0.6s
-          crossfade was tried and put two ghosted copies of the tech on screen,
-          which reads as a rendering fault rather than as film. A ping-pong
-          encode loops seamlessly and is the alternative, at 11.84s and 8.1 MB.
+          TRIMMED AT 28.0s, NOT 30.04s. The last take rack-focuses out: 28.0 is
+          sharp, 28.5 is already soft, and by 29.4 it is unreadable mush. The
+          old version looped from that mush straight back to a sharp frame,
+          which was one of the two composition faults logged when it was
+          pulled. Cut at 28.0 the piece ends sharp, and the loop back into the
+          table wipe reads as simply one more cut in what is already a montage
+          of cuts.
 
-          BOTH SCRIMS BELOW ARE INHERITED UNCHANGED, and they are now generous
-          rather than marginal. Measured over the phone crop in the band the
-          body copy occupies, this OR is darker than the photograph it sits on
-          — mean luma 67 against 116, peak 144 against 255, the still's peak
-          being the blown-out lit floor the mobile scrim was built to survive.
-          Under the same 0.72 floor the lead copy reads about 11.7:1 here where
-          the still gave 7:1. Re-measure before swapping in a brighter shot;
-          shot 4 (the glass case) is the bright one and would not inherit. */}
+          objectPosition is 45%, NOT the 35% the still uses; they are unrelated
+          values on different images. A portrait phone sees only ~40% of a 16:9
+          frame. Measured across all five shots at 35/45/55%, 45 is the best
+          single compromise: it is the only value holding both the tech and the
+          surgical light in shot 3, and it keeps shot 4's subject off the edge.
+          BUT SEE THE KNOWN FAULT BELOW — one value cannot serve five framings.
+
+          KNOWN FAULT, UNRESOLVED: on a phone, shot 2 (the corridor walk) is a
+          near-black rectangle at every objectPosition — the subject's back
+          fills the crop — and shot 5 ends on blank wall. That is roughly 6 of
+          the 28 seconds reading as nothing much on the narrowest screens. It
+          is not fixable with a single crop value. The real fix is either a
+          phone-specific recut framed 9:16, or holding the still on phones
+          (`hidden lg:block`) where the photograph was actually composed for
+          the crop, and letting the film run on desktop where the 16:9 frame is
+          genuinely visible.
+
+          BOTH SCRIMS BELOW ARE INHERITED UNCHANGED and clear the whole cut.
+          Measured over the phone crop in the band the body copy occupies, the
+          brightest of the five shots peaks at luma 220 and the worst frame
+          means 75 — against the photograph's 255 and 116. Every shot is darker
+          than the still the scrims were built for. Under the same 0.72 floor
+          the lead copy reads about 8:1, against 7:1 on the still. (An earlier
+          revision of this comment claimed 11.7:1; that was computed off the
+          peak of the brightest-mean frame rather than the true peak, and was
+          wrong. 8:1 is the measured figure.) */}
       <video
         className="absolute inset-0 z-[10] h-full w-full object-cover motion-reduce:hidden"
         style={{ objectPosition: '45% center' }}
-        src="/videos/hero-mgs-or.mp4"
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
         aria-hidden="true"
-      />
+      >
+        <source src="/videos/hero-mgs.webm" type="video/webm" />
+        <source src="/videos/hero-mgs.mp4" type="video/mp4" />
+      </video>
 
       {/* Two scrims doing different jobs. The horizontal one buys legibility
           for the headline, which sits left — so it is heavy at the left edge
